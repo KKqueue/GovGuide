@@ -1,0 +1,325 @@
+{
+  "serviceCode": "NREGA_JOB_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "NREGA Job Card (MGNREGA)"
+  },
+  "authority": "Ministry of Rural Development, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "NREGA",
+  "description": {
+    "en": "Job card under the Mahatma Gandhi National Rural Employment Guarantee Act (MGNREGA), 2005. The job card is the primary identity document for a rural household to demand and receive guaranteed employment of 100 days per financial year at the minimum wage rate. Registration is done at the Gram Panchayat level."
+  },
+  "officialLinks": {
+    "application": "https://nrega.nic.in/",
+    "informationPortal": "https://nrega.nic.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NREGA_RURAL_HOUSEHOLD",
+        "field": "applicant.isRuralHousehold",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All NREGA job card applicants",
+        "claim": "The applicant must be a member of a rural household. MGNREGA is applicable to rural areas only.",
+        "sourceRefs": [
+          "SRC-NREGA-PORTAL-2026-10-28",
+          "SRC-MGNREGA-ACT-2005"
+        ]
+      },
+      {
+        "conditionCode": "NREGA_ADULT_MEMBER",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All adult members seeking work under MGNREGA",
+        "claim": "Adult members (18 years or older) of a rural household are eligible to be registered on the job card and demand employment.",
+        "sourceRefs": [
+          "SRC-MGNREGA-ACT-2005"
+        ]
+      },
+      {
+        "conditionCode": "NREGA_WILLING_TO_DO_UNSKILLED_WORK",
+        "field": "applicant.isWillingToDoUnskilledWork",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All MGNREGA work seekers",
+        "claim": "The applicant must be willing to do unskilled manual work at the prescribed wage rate. MGNREGA guarantees unskilled manual employment.",
+        "sourceRefs": [
+          "SRC-MGNREGA-ACT-2005"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Each rural household is entitled to one job card listing all adult members willing to work.",
+      "There is no income or asset criterion — any rural household can apply.",
+      "BPL (Below Poverty Line) status is not a prerequisite; the scheme is demand-driven.",
+      "Migrant workers can apply in the Gram Panchayat where they reside.",
+      "Persons with disabilities are eligible and entitled to appropriate work."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NREGA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NREGA_JOB_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NREGA_REGISTRATION_NEW",
+      "field": "workflow.registrationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NREGA_REGISTRATION_UPDATE",
+      "field": "workflow.registrationType",
+      "operator": "EQUALS",
+      "value": "UPDATE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NREGA_REQ_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NREGA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A written application or oral request to the Gram Panchayat for registration under MGNREGA. The application should contain the name and address of the household and names of adult members seeking work.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005",
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NREGA_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NREGA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number of the applicant and adult household members is required for Aadhaar-Based Payment System (ABPS) linkage. However, lack of Aadhaar should not be a ground for denial of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NREGA_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NREGA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence in the rural area of the Gram Panchayat, such as voter ID, ration card, or any document establishing residence.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NREGA_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NREGA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Photographs of all adult household members to be registered on the job card. The Gram Panchayat may arrange for photographs to be taken.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NREGA_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NREGA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account or post office savings account details are required for wage payment through direct benefit transfer. Accounts can be opened at the time of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NREGA_STEP1_APPLY_GP",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new NREGA job card applicants",
+      "claim": "Submit a written application or make an oral request to the Gram Panchayat (GP) for registration under MGNREGA. The GP is required to accept the application and register the household.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005",
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NREGA_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new NREGA job card applicants",
+      "claim": "The Gram Panchayat verifies the application, documents, and household details. Verification is typically done through a door-to-door survey or Gram Sabha meeting.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005"
+      ]
+    },
+    {
+      "processCode": "NREGA_STEP3_JOB_CARD_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified applicants",
+      "claim": "The Gram Panchayat issues the job card within 15 days of application. The job card contains household details, photographs of all registered adult members, and a unique job card number.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005",
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NREGA_STEP4_DEMAND_WORK",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered job card holders",
+      "claim": "After receiving the job card, adult members can demand work by submitting a written application to the Gram Panchayat. Work must be provided within 15 days of demand, failing which an unemployment allowance is payable.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005"
+      ]
+    },
+    {
+      "processCode": "NREGA_STEP5_WORK_ALLOCATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All job card holders who demand work",
+      "claim": "The Gram Panchayat or Programme Officer allocates work within 5 km of the applicant's residence (or within the Block if beyond 5 km, with additional travel allowance). Each household is guaranteed 100 days of employment per financial year.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NREGA_JOB_CARD_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A MGNREGA Job Card is issued containing the household details, unique job card number, photographs of adult members, and work allocation records. The job card is valid for 5 years and serves as the primary document for demanding and recording employment under the scheme.",
+    "sourceRefs": [
+      "SRC-MGNREGA-ACT-2005",
+      "SRC-NREGA-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NREGA_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "NREGA job card registration and issuance",
+      "status": "VERIFIED",
+      "claim": "Registration under MGNREGA and issuance of job card is completely free of cost. No fee can be charged from the applicant.",
+      "sourceRefs": [
+        "SRC-MGNREGA-ACT-2005",
+        "SRC-NREGA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NREGA_PROCESSING_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "New NREGA job card registration",
+    "status": "VERIFIED",
+    "claim": "The Gram Panchayat is required to issue the job card within 15 days of receiving the application for registration. This is a statutory timeline under the MGNREGA.",
+    "sourceRefs": [
+      "SRC-MGNREGA-ACT-2005"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NREGA-PORTAL-2026-10-28",
+      "url": "https://nrega.nic.in/",
+      "title": "MGNREGA Official Portal",
+      "publisher": "Ministry of Rural Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NREGA portal (nrega.nic.in) is the management information system for MGNREGA providing job card data, work records, muster rolls, and payment details. It includes registration procedures, work demand mechanisms, and wage payment information.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Job card is issued by the Gram Panchayat within 15 days of application.",
+        "Registration is free of cost.",
+        "Aadhaar is required for ABPS payment linkage but cannot be a ground for denial.",
+        "Photographs, address proof, and bank account details are required.",
+        "100 days of guaranteed employment per household per financial year.",
+        "Work must be provided within 15 days of demand."
+      ],
+      "uncertainty": "Actual implementation varies across states and Gram Panchayats. Some states have digitized the registration process while others rely on physical applications."
+    },
+    {
+      "sourceCode": "SRC-MGNREGA-ACT-2005",
+      "url": "https://nrega.nic.in/Circular_Archive/archive/nrega2005.pdf",
+      "title": "Mahatma Gandhi National Rural Employment Guarantee Act, 2005",
+      "publisher": "Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The MGNREGA guarantees 100 days of wage employment per financial year to every rural household whose adult members volunteer to do unskilled manual work. Section 4 mandates the State Government to provide employment. Schedule II prescribes the registration and work allocation procedures.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Every rural household is entitled to register for a job card.",
+        "Adult members (18+) willing to do unskilled manual work are eligible.",
+        "Job card must be issued within 15 days of application.",
+        "100 days of guaranteed employment per household per year.",
+        "Work within 5 km of residence; additional allowance if beyond.",
+        "No fee for registration or job card issuance.",
+        "Unemployment allowance if work not provided within 15 days."
+      ],
+      "uncertainty": "The Act has been amended and supplemented by various operational guidelines. State-level rules and implementation vary."
+    }
+  ],
+  "limitations": [
+    "This record covers new job card registration only. It does not cover the work demand process, muster roll management, or wage payment procedures in detail.",
+    "State-level variations in MGNREGA implementation (additional days, convergence schemes) are not covered.",
+    "The record does not cover the grievance redressal mechanism, social audit process, or ombudsman system under MGNREGA.",
+    "Wage rates under MGNREGA vary by state and are revised annually; current rates are not listed.",
+    "The record does not cover migration-related provisions or portability of job cards across states."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core registration process is reviewed based on MGNREGA Act and official portal, but work demand process, wage rates, and state-level variations remain unmodeled.",
+    "nextReviewTrigger": [
+      "Annual revision of MGNREGA wage rates.",
+      "Amendments to the MGNREGA or operational guidelines.",
+      "Changes to the NREGA MIS portal or registration process.",
+      "Introduction of new provisions for portability or convergence."
+    ]
+  }
+}

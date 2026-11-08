@@ -1,0 +1,349 @@
+{
+  "serviceCode": "COURT_MARRIAGE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Court Marriage under Special Marriage Act 1954"
+  },
+  "authority": "Marriage Officer / Sub-Divisional Magistrate",
+  "jurisdiction": "CENTRAL",
+  "category": "COURT_MARRIAGE",
+  "description": {
+    "en": "Solemnization and registration of marriage under the Special Marriage Act 1954. This Act provides for civil marriage irrespective of religion or caste of the parties. Either party must give notice to the Marriage Officer of the district where at least one party has resided for a minimum of 30 days. After a mandatory 30-day notice period for public objections, the Marriage Officer solemnizes and registers the marriage."
+  },
+  "officialLinks": {
+    "specialMarriageAct": "https://www.indiacode.nic.in/handle/123456789/1387",
+    "informationPortal": "https://www.india.gov.in/topics/law-justice/marriage"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "CM_GROOM_LEGAL_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 21,
+        "classification": "MANDATORY",
+        "appliesTo": "Bridegroom (male party)",
+        "claim": "The male party must have completed the age of 21 years at the time of marriage as per Section 4(c) of the Special Marriage Act 1954.",
+        "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+      },
+      {
+        "conditionCode": "CM_BRIDE_LEGAL_AGE",
+        "field": "applicant.spouseAge",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "Bride (female party)",
+        "claim": "The female party must have completed the age of 18 years at the time of marriage as per Section 4(c) of the Special Marriage Act 1954.",
+        "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+      },
+      {
+        "conditionCode": "CM_PARTIES_UNMARRIED",
+        "field": "applicant.isCurrentlyUnmarried",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Both parties to the marriage",
+        "claim": "Neither party should have a spouse living at the time of marriage. Both must be unmarried, widowed, or divorced as per Section 4(a) of the Special Marriage Act 1954.",
+        "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+      },
+      {
+        "conditionCode": "CM_SOUND_MIND",
+        "field": "applicant.isMentallySoundForConsent",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Both parties to the marriage",
+        "claim": "Both parties must be of sound mind and capable of giving valid consent. Neither party should suffer from a mental disorder making them unfit for marriage or procreation, as per Section 4(b) of the Special Marriage Act 1954.",
+        "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific documentation or procedures for NRI court marriages may differ and are not covered here.",
+      "State-specific variations in the court marriage procedure may apply in certain jurisdictions."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "CM_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "COURT_MARRIAGE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "CM_NOTICE_PERIOD_APPLICABLE",
+      "field": "workflow.noticePeriodRequired",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "PROCESS_GATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "CM_APPLICANT_IS_INDIAN_CITIZEN",
+      "field": "applicant.isIndianCitizen",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "CM_RESIDENCY_MET",
+      "field": "applicant.hasResidedInDistrictThirtyDays",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "CM_REQ_NOTICE_OF_INTENDED_MARRIAGE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "A notice of intended marriage in the prescribed form (Form II under Section 5) must be given to the Marriage Officer of the district in which at least one of the parties has resided for a minimum of 30 days immediately preceding the date of notice.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "requirementCode": "CM_REQ_AGE_PROOF_BOTH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of age for both parties is mandatory. Accepted documents include birth certificate, school-leaving certificate, passport, Aadhaar card, or PAN card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "requirementCode": "CM_REQ_ADDRESS_PROOF_BOTH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of current residential address for both parties is required. Accepted documents include Aadhaar card, voter ID, passport, driving license, utility bill (not older than 3 months), or ration card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "requirementCode": "CM_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "Valid photo identity proof for both parties. Accepted documents include Aadhaar card, passport, voter ID, or PAN card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "requirementCode": "CM_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "Passport-size photographs of both parties (individually and jointly) are required for the marriage notice and registration records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "requirementCode": "CM_REQ_THREE_WITNESSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "Three witnesses must be present at the time of solemnization. Each witness must carry a valid photo ID (Aadhaar, passport, voter ID, or driving license) and a passport-size photograph.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "requirementCode": "CM_REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "A joint affidavit on a non-judicial stamp paper sworn before a notary or magistrate declaring date of birth, marital status (unmarried/divorced/widowed), nationality, and that the parties are not related within the prohibited degrees of relationship.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE", "SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "requirementCode": "CM_REQ_DIVORCE_DEATH_DECREE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["CM_ROUTE_SELECTED"]
+      },
+      "claim": "If either party was previously married, a divorce decree from the competent court or death certificate of the former spouse must be provided.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "CM_PROCESS_NOTICE_FILING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All court marriage applicants under the Special Marriage Act 1954",
+      "claim": "Step 1 - Filing of Notice: Either party gives a written notice of intended marriage to the Marriage Officer of the district in which at least one party has resided for at least 30 days. The notice is entered in the Marriage Notice Book maintained by the Marriage Officer.",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "processCode": "CM_PROCESS_NOTICE_PUBLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All court marriage applicants under the Special Marriage Act 1954",
+      "claim": "Step 2 - Publication of Notice: The Marriage Officer publishes the notice by affixing it in a conspicuous place in the office. If either party resides in a different district, a copy is sent to the Marriage Officer of that district. A 30-day objection period begins from the date of publication.",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "processCode": "CM_PROCESS_OBJECTION_PERIOD",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All court marriage applicants under the Special Marriage Act 1954",
+      "claim": "Step 3 - Objection Period: Any person may object to the marriage within 30 days from the date of publication on grounds specified under Section 4 of the Act. If an objection is raised, the Marriage Officer inquires into the objection and decides within 30 days whether to solemnize the marriage or refuse.",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "processCode": "CM_PROCESS_SOLEMNIZATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All court marriage applicants under the Special Marriage Act 1954",
+      "claim": "Step 4 - Solemnization: After the 30-day notice period (if no valid objection is raised), the marriage is solemnized at the office of the Marriage Officer. Both parties and three witnesses must be present. The parties make a declaration in the prescribed form and sign the marriage certificate book along with the witnesses and the Marriage Officer.",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    },
+    {
+      "processCode": "CM_PROCESS_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All court marriage applicants under the Special Marriage Act 1954",
+      "claim": "Step 5 - Certificate Issuance: The Marriage Officer issues the Certificate of Marriage under Section 13 of the Special Marriage Act. This certificate is conclusive evidence that a marriage has been solemnized under the Act.",
+      "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+    }
+  ],
+  "output": {
+    "outputCode": "COURT_MARRIAGE_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Certificate of Marriage issued under Section 13 of the Special Marriage Act 1954 by the Marriage Officer. This is a legally valid document serving as conclusive proof of marriage for all official purposes including passport applications, visa applications, joint bank accounts, insurance, and property matters.",
+    "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+  },
+  "fees": [
+    {
+      "feeCode": "CM_NOTICE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Filing of notice of intended marriage",
+      "status": "VERIFIED",
+      "claim": "A prescribed fee is charged for filing the notice of intended marriage. The amount varies by state, typically ranging from Rs. 25 to Rs. 150.",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "feeCode": "CM_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Marriage registration and certificate issuance",
+      "status": "VERIFIED",
+      "claim": "The registration fee for court marriage varies by state. It typically ranges from Rs. 50 to Rs. 500, depending on the state and municipal area.",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    },
+    {
+      "feeCode": "CM_STAMP_PAPER_FEE",
+      "category": "OTHER_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Non-judicial stamp paper for affidavit",
+      "status": "NEEDS_REVIEW",
+      "claim": "A non-judicial stamp paper is required for the joint affidavit. The stamp duty varies by state, typically Rs. 10 to Rs. 100.",
+      "sourceRefs": ["SRC-INDIA-GOV-COURT-MARRIAGE"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "CM_PROCESSING_TIME",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Court marriage under Special Marriage Act 1954",
+    "status": "VERIFIED",
+    "claim": "The minimum processing time is 30 days due to the mandatory notice period under Section 5 of the Special Marriage Act. After the notice period, the marriage is solemnized within a few days if no objection is raised. Total timeline is typically 30-60 days from date of notice filing.",
+    "estimatedCompletionDatePolicy": "Minimum 30 days from date of notice. If objections are filed, additional time for inquiry (up to 30 more days).",
+    "fallbackThresholdMentionedBySource": "If no decision on objection within 30 days, the marriage may be solemnized.",
+    "sourceRefs": ["SRC-SPECIAL-MARRIAGE-ACT-1954"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SPECIAL-MARRIAGE-ACT-1954",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1387",
+      "title": "The Special Marriage Act, 1954 (Act No. 43 of 1954)",
+      "publisher": "Government of India, Ministry of Law and Justice, Legislative Department",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Special Marriage Act 1954 provides for a special form of marriage by registration irrespective of religion or faith. Section 4 lists conditions for solemnization, Section 5 requires notice to the Marriage Officer, Section 7 provides for objections, Section 12 covers solemnization, and Section 13 provides for the certificate of marriage.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Age requirements: 21 years for male, 18 years for female.",
+        "30-day notice period mandatory.",
+        "Three witnesses required for solemnization.",
+        "Marriage Officer solemnizes and issues certificate.",
+        "Neither party should have a living spouse.",
+        "Parties must be of sound mind.",
+        "30-day residency requirement in the district.",
+        "Objection procedure within 30 days of notice."
+      ],
+      "uncertainty": "Specific procedural details and forms may vary by state Marriage Officer's practice."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-COURT-MARRIAGE",
+      "url": "https://www.india.gov.in/topics/law-justice/marriage",
+      "title": "Court Marriage / Special Marriage - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides consolidated information on court marriage procedures under the Special Marriage Act, including general document requirements, fee structures, and the process overview.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for court marriage.",
+        "Identity and address proof requirements.",
+        "Photograph requirements.",
+        "Fee information (varies by state).",
+        "Affidavit requirements.",
+        "Divorce decree or death certificate for previously married applicants."
+      ],
+      "uncertainty": "State-specific portal URLs, fee amounts, and procedural nuances may differ from the general information provided."
+    }
+  ],
+  "limitations": [
+    "This record covers court marriage under the Special Marriage Act 1954 applicable across India. State-specific fees, forms, and portal links are not provided as they vary significantly.",
+    "NRI court marriages or marriages where one or both parties reside abroad have additional requirements (apostille, embassy attestation) not covered here.",
+    "Conversion of religion-based marriage to a registered court marriage under Section 15-17 of the Special Marriage Act is not covered.",
+    "Defense personnel may have additional approval requirements from their commanding officer.",
+    "Online filing of court marriage notice is available in some states but not uniformly; state-specific online portals are not detailed.",
+    "Court marriage for foreign nationals in India involves additional documentation (embassy NOC, visa requirements) not covered in this record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core requirements, eligibility conditions, and the step-by-step process for court marriage under the Special Marriage Act 1954 verified against the Act text and national portal information. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Special Marriage Act 1954.",
+      "Changes to the mandatory 30-day notice period (e.g., proposed reforms to reduce it).",
+      "New central guidelines on court marriage documentation.",
+      "Supreme Court judgments affecting the court marriage process."
+    ]
+  }
+}

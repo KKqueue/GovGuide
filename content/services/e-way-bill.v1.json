@@ -1,0 +1,282 @@
+{
+  "serviceCode": "E_WAY_BILL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "e-Way Bill Generation"
+  },
+  "authority": "GST Network (GSTN) / Central Board of Indirect Taxes and Customs (CBIC), Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "E_WAY_BILL",
+  "description": {
+    "en": "The e-Way Bill is a mandatory electronic document required for the movement of goods worth more than Rs. 50,000 (in a single consignment) within or across state borders. It is generated on the e-Way Bill portal by registered GST taxpayers, transporters, or unregistered persons. The e-Way Bill contains details of the goods, consignor, consignee, and transporter, and is verified by officers during transit. It can be generated via the web portal, SMS, API integration, Android app, or through GST Suvidha Providers (GSPs)."
+  },
+  "officialLinks": {
+    "application": "https://ewaybillgst.gov.in/",
+    "informationPortal": "https://docs.ewaybillgst.gov.in/",
+    "apiDocumentation": "https://ewaybillgst.gov.in/Others/EWBApi"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EWB_GST_REGISTERED",
+        "field": "applicant.isGSTRegistered",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Registered GST taxpayers generating e-Way Bills",
+        "claim": "Every registered person under GST who causes movement of goods of consignment value exceeding Rs. 50,000 must generate an e-Way Bill before the commencement of movement of goods.",
+        "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+      },
+      {
+        "conditionCode": "EWB_CONSIGNMENT_VALUE",
+        "field": "transaction.consignmentValue",
+        "operator": "GREATER_THAN",
+        "value": 50000,
+        "classification": "MANDATORY",
+        "appliesTo": "All goods movement requiring e-Way Bill",
+        "claim": "The e-Way Bill is mandatory when the consignment value of goods being transported exceeds Rs. 50,000. Some states have reduced this threshold for intra-state movement.",
+        "sourceRefs": ["SRC-CBIC-EWB-RULES-2026-10-28"]
+      },
+      {
+        "conditionCode": "EWB_TRANSPORTER_ENROLLED",
+        "field": "applicant.isTransporterEnrolled",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "CONDITIONAL",
+        "appliesTo": "Transporters generating e-Way Bills on behalf of consignors",
+        "claim": "Transporters who are not registered under GST must enroll on the e-Way Bill portal to generate or update e-Way Bills. A unique Transporter ID (TRANSIN) is assigned upon enrollment.",
+        "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Unregistered persons are also required to generate e-Way Bills when they cause movement of goods exceeding Rs. 50,000.",
+      "Certain goods are exempt from e-Way Bill requirements (e.g., goods specified in Annexure to Rule 138, goods transported by non-motorized conveyance, goods transported within specified distances).",
+      "Some states have lowered the intra-state e-Way Bill threshold below Rs. 50,000.",
+      "Movement of goods by railways, air, or vessel does not require an e-Way Bill to be carried, but the railway/airline/ship operator must have the e-Way Bill number."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EWB_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "E_WAY_BILL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWB_INTERSTATE_MOVEMENT",
+      "field": "workflow.movementType",
+      "operator": "EQUALS",
+      "value": "INTER_STATE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWB_INTRASTATE_MOVEMENT",
+      "field": "workflow.movementType",
+      "operator": "EQUALS",
+      "value": "INTRA_STATE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWB_NEW_GENERATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWB_CONSOLIDATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "CONSOLIDATED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EWB_REQ_GSTIN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EWB_ROUTE_SELECTED"]
+      },
+      "claim": "GSTIN (GST Identification Number) of the consignor and consignee. For unregistered persons, the URP (Unregistered Person) option is used with the relevant state code.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+    },
+    {
+      "requirementCode": "EWB_REQ_INVOICE_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EWB_ROUTE_SELECTED"]
+      },
+      "claim": "Invoice or bill of supply or delivery challan number and date. The document must contain details of goods, quantity, value, tax amounts (CGST, SGST, IGST), HSN code, and the place of delivery.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CBIC-EWB-RULES-2026-10-28"]
+    },
+    {
+      "requirementCode": "EWB_REQ_GOODS_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EWB_ROUTE_SELECTED"]
+      },
+      "claim": "Description of goods, HSN code, quantity, unit, value of goods, and CGST/SGST/IGST amounts. The product name and description must match the invoice.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EWB_REQ_TRANSPORT_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EWB_ROUTE_SELECTED"]
+      },
+      "claim": "Transporter details: Transporter ID (TRANSIN) or vehicle number. Either Part A (goods and party details) or both Part A and Part B (transport details) can be filled. Part B (vehicle number or transporter ID) must be furnished before movement commences.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EWB_STEP1_LOGIN",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All e-Way Bill generators",
+      "claim": "Log in to the e-Way Bill portal (ewaybillgst.gov.in) using GSTIN and password, or use the e-Way Bill mobile app, SMS facility, or API integration through GST Suvidha Providers.",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "EWB_STEP2_FILL_PART_A",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All e-Way Bill generators",
+      "claim": "Fill Part A of Form GST EWB-01: enter GSTIN of supplier and recipient, place of dispatch and delivery, document (invoice/challan) number and date, value of goods, HSN code, reason for transport (supply, export, job work, etc.), and goods description.",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+    },
+    {
+      "processCode": "EWB_STEP3_FILL_PART_B",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All e-Way Bill generators",
+      "claim": "Fill Part B of Form GST EWB-01: enter vehicle number or Transporter ID (TRANSIN). For movement by rail, air, or ship, enter the relevant transport document number (RR number, airway bill, bill of lading). Part B can be updated by the transporter as well.",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "EWB_STEP4_GENERATE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All e-Way Bill generators",
+      "claim": "Upon submission, a unique 12-digit e-Way Bill Number (EBN) is generated. The e-Way Bill is available to the supplier, recipient, and transporter. A QR code is generated for verification by officers. The EBN must accompany the goods during transit.",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+    },
+    {
+      "processCode": "EWB_STEP5_VALIDITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All generated e-Way Bills",
+      "claim": "The e-Way Bill is valid for a period based on the distance of transportation: 1 day for up to 200 km (for other than over-dimensional cargo), and 1 additional day for every additional 200 km or part thereof. For over-dimensional cargo, 1 day per 20 km. Validity can be extended before or within 8 hours of expiry.",
+      "sourceRefs": ["SRC-CBIC-EWB-RULES-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "EWB_GENERATED_BILL",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A unique 12-digit e-Way Bill Number (EBN) with a QR code, valid for the specified transit period. The e-Way Bill can be printed, shared electronically, or verified via the QR code by tax officers during transit. Consolidated e-Way Bills (Form GST EWB-02) can be generated by transporters carrying multiple consignments in a single vehicle.",
+    "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28", "SRC-CBIC-EWB-RULES-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "EWB_NO_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "No government fee for generating an e-Way Bill",
+      "status": "VERIFIED",
+      "claim": "There is no government fee for generating an e-Way Bill on the portal. The service is provided free of charge by GSTN. Third-party GSP integrations may charge service fees separately.",
+      "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EWB_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 1,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "e-Way Bill generation on the portal",
+    "status": "VERIFIED",
+    "claim": "The e-Way Bill is generated instantly upon successful submission of all required details on the portal. The 12-digit EBN is available immediately for printing or sharing.",
+    "sourceRefs": ["SRC-EWB-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EWB-PORTAL-2026-10-28",
+      "url": "https://ewaybillgst.gov.in/",
+      "title": "e-Way Bill System — Official Portal",
+      "publisher": "GST Network (GSTN), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The e-Way Bill portal provides generation, cancellation, rejection, and updating of e-Way Bills. It offers multiple modes: web, SMS, Android app, API, and GSP-based integration. The portal includes user manuals, FAQs, and e-Way Bill statistics for all states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "e-Way Bill generation via web, SMS, API, and mobile app.",
+        "12-digit unique EBN with QR code generated instantly.",
+        "Transporter enrollment for non-GST registered transporters.",
+        "No fee for e-Way Bill generation.",
+        "Part A (goods details) and Part B (transport details) required."
+      ],
+      "uncertainty": "Portal availability during peak filing periods may be affected. State-specific threshold variations are not uniformly reflected on the central portal."
+    },
+    {
+      "sourceCode": "SRC-CBIC-EWB-RULES-2026-10-28",
+      "url": "https://cbic-gst.gov.in/e-way-bill.html",
+      "title": "e-Way Bill Rules — CBIC GST Portal",
+      "publisher": "Central Board of Indirect Taxes and Customs (CBIC), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Rule 138 of CGST Rules, 2017 mandates e-Way Bill for movement of goods exceeding Rs. 50,000. The rule specifies the form (GST EWB-01 for individual, GST EWB-02 for consolidated), validity periods based on distance, exceptions, and the penalties for non-compliance under Section 129 of CGST Act.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory for goods movement exceeding Rs. 50,000 consignment value.",
+        "Validity: 1 day per 200 km (regular), 1 day per 20 km (over-dimensional).",
+        "Form GST EWB-01 for individual, GST EWB-02 for consolidated e-Way Bills.",
+        "GSTIN of consignor and consignee required.",
+        "Invoice/challan details, HSN code, and transport details mandatory."
+      ],
+      "uncertainty": "State-specific notifications may modify intra-state thresholds. Exemptions list may be updated via central or state notifications."
+    }
+  ],
+  "limitations": [
+    "The e-Way Bill does not replace the tax invoice or delivery challan; both must accompany the goods during transit.",
+    "The e-Way Bill can be cancelled within 24 hours of generation if goods are not transported, but it cannot be cancelled if it has been verified by an officer during transit.",
+    "State-specific thresholds for intra-state movement may differ from the central Rs. 50,000 limit, requiring generators to check state notifications.",
+    "The recipient must accept or reject the e-Way Bill within 72 hours of generation, or it is deemed accepted. This may lead to discrepancies if not monitored.",
+    "Multiple modes of generation (web, SMS, API, app) have varying feature availability; SMS-based generation has limited functionality.",
+    "Goods exempted from e-Way Bill requirements are specified in Annexure to Rule 138 and state-specific notifications, which may change periodically.",
+    "Penalty for movement without a valid e-Way Bill includes seizure of goods and vehicle, with tax and penalty equal to 200% of the tax payable (Section 129, CGST Act)."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core e-Way Bill rules and portal functionality verified from GSTN and CBIC. State-specific threshold variations and exemption list updates need periodic checking.",
+    "nextReviewTrigger": [
+      "Changes to the Rs. 50,000 consignment value threshold by CBIC.",
+      "Updates to e-Way Bill validity periods or distance rules.",
+      "New exemptions added or removed from the e-Way Bill requirement.",
+      "Portal feature changes or new generation modes introduced.",
+      "State-specific notification changes affecting intra-state movement."
+    ]
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "serviceCode": "BIRTH_CERTIFICATE_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Birth Certificate Registration"
+  },
+  "authority": "Registrar General & Census Commissioner of India (via State/Municipal Registrars)",
+  "jurisdiction": "STATE",
+  "category": "BIRTH_CERTIFICATE",
+  "description": {
+    "en": "Registration of birth and issuance of a birth certificate under the Registration of Births and Deaths Act, 1969. Birth registration is mandatory and must be done within 21 days of the event. The certificate is issued by the local municipal body or panchayat registrar."
+  },
+  "officialLinks": {
+    "application": "https://crsorgi.gov.in/",
+    "informationPortal": "https://censusindia.gov.in/",
+    "actText": "https://www.indiacode.nic.in/handle/123456789/1444"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "BIRTH_OCCURRED_IN_INDIA",
+        "field": "event.location",
+        "operator": "EQUALS",
+        "value": "INDIA",
+        "classification": "MANDATORY",
+        "appliesTo": "All birth registration applicants",
+        "claim": "The birth must have occurred in India. Births occurring in hospitals, nursing homes, or other institutions are reported by the head of the institution. Home births are reported by the head of the household.",
+        "sourceRefs": ["SRC-RBD-ACT-1969"]
+      },
+      {
+        "conditionCode": "BIRTH_REGISTRATION_TIMELINE",
+        "field": "event.daysSinceBirth",
+        "operator": "LESS_THAN_OR_EQUALS",
+        "value": 21,
+        "classification": "RECOMMENDED",
+        "appliesTo": "Timely registration without late fee",
+        "claim": "Birth must be registered within 21 days of occurrence for free registration. Registration between 22 days and 30 days may be done with a late fee. Registration after 30 days up to 1 year requires a written permission from the prescribed authority, and after 1 year requires a Magistrate's order.",
+        "sourceRefs": ["SRC-RBD-ACT-1969", "SRC-CRS-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Births to Indian citizens abroad are registered under different provisions (consular registration) and are not covered here.",
+      "Abandoned or orphaned children may have different documentation requirements handled by the Child Welfare Committee."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "BIRTH_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "BIRTH_CERTIFICATE_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "BIRTH_REQ_FORM_1",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BIRTH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Form No. 1 (Report of Birth) under the RBD Act must be filled. For institutional births (hospital/nursing home), the hospital fills this form. For home births, the head of the household or any family member must report the birth to the local registrar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-RBD-ACT-1969", "SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "BIRTH_REQ_HOSPITAL_DISCHARGE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BIRTH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Hospital discharge summary or certificate mentioning date and time of birth, sex of child, name of mother, and name of the hospital/institution. For home births, an affidavit or declaration by the person present at the time of birth may be required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL", "SRC-INDIA-GOV-BIRTH"]
+    },
+    {
+      "requirementCode": "BIRTH_REQ_PARENTS_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BIRTH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of both parents is required. Aadhaar card is the most commonly accepted document. Other accepted documents include voter ID, passport, driving license, or any government-issued photo ID.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "BIRTH_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BIRTH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of address of the parents (where the birth is to be registered) is required. Accepted documents include Aadhaar card, voter ID, utility bill, ration card, or any government-issued address proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "BIRTH_REQ_MARRIAGE_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["BIRTH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Marriage certificate of parents may be required by some municipal registrars, especially for including the father's name in the birth certificate. Not universally mandated at the central level but commonly requested.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL", "SRC-INDIA-GOV-BIRTH"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "BIRTH_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All birth registration applicants",
+      "claim": "Registration process: (1) For institutional births, the hospital reports the birth electronically or manually through Form 1 to the local registrar, (2) For home births, the family reports to the local registrar or gram panchayat office within 21 days, (3) The registrar verifies the details and enters the birth in the register, (4) A birth certificate is issued — either immediately or within 7 days depending on the state/municipal body, (5) The certificate can be downloaded from the CRS portal (crsorgi.gov.in) in states where online registration is available.",
+      "doesNotEstablish": [
+        "Hospital-initiated electronic registration may vary by state and hospital.",
+        "Some states have fully digitised the process while others still require physical visits."
+      ],
+      "sourceRefs": ["SRC-CRS-PORTAL", "SRC-RBD-ACT-1969"]
+    },
+    {
+      "processCode": "BIRTH_LATE_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registrations after 21 days",
+      "claim": "Late registration process: (a) Between 22-30 days: registration with a prescribed late fee. (b) Between 30 days and 1 year: written permission from the Registrar or Area Magistrate, along with a late fee and an affidavit. (c) After 1 year: order from a First Class Magistrate or Executive Magistrate after verifying the facts, along with prescribed fees.",
+      "doesNotEstablish": [
+        "Late fee amounts vary by state.",
+        "Magistrate procedures may differ by jurisdiction."
+      ],
+      "sourceRefs": ["SRC-RBD-ACT-1969"]
+    }
+  ],
+  "output": {
+    "outputCode": "BIRTH_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A birth certificate issued by the local registrar under the Registration of Births and Deaths Act, 1969. This is an official document accepted as proof of date of birth and parentage for all purposes including school admission, passport application, and government services.",
+    "sourceRefs": ["SRC-RBD-ACT-1969"]
+  },
+  "fees": [
+    {
+      "feeCode": "BIRTH_REGISTRATION_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Registration within 21 days of birth",
+      "status": "VERIFIED",
+      "claim": "Birth registration within 21 days of the event is free of charge across all states as mandated by the RBD Act.",
+      "sourceRefs": ["SRC-RBD-ACT-1969"]
+    },
+    {
+      "feeCode": "BIRTH_LATE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Late registration (after 21 days)",
+      "status": "UNVERIFIED",
+      "claim": "Late registration fees vary by state. Typical late fees range from Rs. 2 to Rs. 50 for registration between 22-30 days. For registration after 30 days, additional prescribed fees and affidavit costs apply. Fees after 1 year may include court/magistrate fees."
+    },
+    {
+      "feeCode": "BIRTH_CERTIFICATE_COPY_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Additional copies of birth certificate",
+      "status": "UNVERIFIED",
+      "claim": "Fee for obtaining additional/duplicate copies of the birth certificate varies by state and municipal body. Typical range is Rs. 10 to Rs. 50 per copy."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "BIRTH_CERT_PROCESSING",
+    "minimumDuration": 0,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Timely registration within 21 days",
+    "status": "VERIFIED",
+    "claim": "For births reported within 21 days, the birth certificate is typically issued on the same day or within 7 working days depending on the state and municipal body. Many hospitals with electronic registration systems provide the certificate within 24 hours.",
+    "estimatedCompletionDatePolicy": "For hospital births with electronic reporting, certificate may be available within 1-3 days. For manual registration, allow up to 7 working days.",
+    "fallbackThresholdMentionedBySource": "No specific fallback; if delayed, contact the local registrar office",
+    "sourceRefs": ["SRC-CRS-PORTAL", "SRC-INDIA-GOV-BIRTH"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-RBD-ACT-1969",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1444",
+      "title": "The Registration of Births and Deaths Act, 1969",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The RBD Act mandates compulsory registration of every birth and death in India. Sections 8-13 define the timeline, informant responsibilities, and late registration procedures.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory birth registration within 21 days.",
+        "Free registration within 21 days.",
+        "Late registration procedures and penalties.",
+        "Informant responsibilities for institutional and home births.",
+        "Legal validity of birth certificate."
+      ],
+      "uncertainty": "States may have amended procedures under their state rules."
+    },
+    {
+      "sourceCode": "SRC-CRS-PORTAL",
+      "url": "https://crsorgi.gov.in/",
+      "title": "Civil Registration System (CRS) Portal",
+      "publisher": "Office of the Registrar General & Census Commissioner, India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The CRS portal is the official online system for registration and downloading of birth and death certificates in participating states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online birth registration and certificate download.",
+        "Document requirements for registration.",
+        "Registration process flow.",
+        "Processing timelines."
+      ],
+      "uncertainty": "Not all states have fully integrated with the CRS portal; some still use state-specific systems."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-BIRTH",
+      "url": "https://www.india.gov.in/topics/health/birth-certificate",
+      "title": "Birth Certificate - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides a consolidated overview of birth certificate services, document requirements, and links to state portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements.",
+        "Hospital discharge summary requirement.",
+        "Marriage certificate as supporting document.",
+        "Overview of registration process."
+      ],
+      "uncertainty": "Information is aggregated and may not reflect the latest state-specific changes."
+    },
+    {
+      "sourceCode": "SRC-CENSUS-INDIA",
+      "url": "https://censusindia.gov.in/",
+      "title": "Office of the Registrar General & Census Commissioner, India",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The office oversees the implementation of the RBD Act and publishes annual reports on civil registration statistics.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Oversight of birth registration.",
+        "National civil registration statistics.",
+        "Role of Registrar General."
+      ],
+      "uncertainty": "Portal primarily covers census data; CRS-specific information is on crsorgi.gov.in."
+    }
+  ],
+  "limitations": [
+    "This record covers birth registration for births occurring in India only. Consular registration for births abroad is a separate process.",
+    "Late fee amounts are state-specific and are not fully listed.",
+    "The process for naming/renaming a child on the birth certificate after initial registration varies by state.",
+    "Adoption-related birth certificate issuance follows a separate legal process under the Juvenile Justice Act or HAMA.",
+    "Stillbirth registration (Form 3) is a separate process not covered here.",
+    "Some states have their own online portals that may differ from the CRS national portal."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core registration requirements, timeline, and process verified against the RBD Act 1969 and CRS portal. State-specific fee variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Registration of Births and Deaths Act.",
+      "Changes to the CRS portal registration process.",
+      "Updates to mandatory document requirements.",
+      "Changes to the 21-day free registration timeline."
+    ]
+  }
+}

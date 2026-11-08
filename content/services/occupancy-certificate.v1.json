@@ -1,0 +1,447 @@
+{
+  "serviceCode": "OCCUPANCY_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Occupancy Certificate / Completion Certificate"
+  },
+  "authority": "Municipal Corporation / Development Authority / Urban Local Body",
+  "jurisdiction": "STATE",
+  "category": "OCCUPANCY_CERTIFICATE",
+  "description": {
+    "en": "An Occupancy Certificate (OC) or Completion Certificate (CC) is issued by the local municipal authority or development authority certifying that a building has been constructed in compliance with the approved building plan and applicable building bye-laws. It is a mandatory document required before occupying or using a newly constructed or modified building. The certificate confirms compliance with structural safety, fire safety, and environmental norms."
+  },
+  "officialLinks": {
+    "modelBuildingByelaws": "https://mohua.gov.in/cms/model-building-bye-laws.php",
+    "reraInformation": "https://rera.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "OC_CONSTRUCTION_COMPLETED",
+        "field": "property.constructionCompleted",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Building owner or authorized developer",
+        "claim": "The building construction must be completed in accordance with the sanctioned building plan before applying for an Occupancy Certificate. Partial occupancy certificates may be issued for phased projects.",
+        "sourceRefs": [
+          "SRC-MODEL-BUILDING-BYELAWS"
+        ]
+      },
+      {
+        "conditionCode": "OC_APPROVED_PLAN_EXISTS",
+        "field": "property.hasSanctionedBuildingPlan",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Building owner or authorized developer",
+        "claim": "A sanctioned building plan approval from the competent authority must exist for the property. The OC application is evaluated against this approved plan.",
+        "sourceRefs": [
+          "SRC-MODEL-BUILDING-BYELAWS"
+        ]
+      },
+      {
+        "conditionCode": "OC_NO_DEVIATION",
+        "field": "property.hasNoUnauthorizedDeviation",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Building owner or authorized developer",
+        "claim": "The constructed building must not have any unauthorized deviations from the sanctioned building plan. Minor deviations within permissible limits may be regularized as per local regulations.",
+        "sourceRefs": [
+          "SRC-MODEL-BUILDING-BYELAWS"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "State-specific building bye-laws may impose additional conditions for eligibility such as environmental clearance requirements.",
+      "Heritage zone or restricted area buildings may have additional conditions for OC issuance.",
+      "Industrial buildings may require additional clearances from pollution control boards."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "OC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "OCCUPANCY_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "OC_IS_NEW_CONSTRUCTION",
+      "field": "property.isNewConstruction",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "CATEGORY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "OC_IS_RERA_REGISTERED",
+      "field": "property.isReraRegistered",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "CATEGORY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "OC_FIRE_NOC_REQUIRED",
+      "field": "property.requiresFireNoc",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "PROCESS_GATE",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "OC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A prescribed application form for the Occupancy Certificate must be submitted to the local municipal corporation or development authority. Many states and ULBs offer online submission through their building permission portals.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_SANCTIONED_PLAN_COPY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A copy of the sanctioned building plan approval along with all approved drawings must be submitted. This serves as the benchmark against which the completed construction is verified.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_COMPLETION_CERTIFICATE_ARCHITECT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A completion certificate from the licensed architect or structural engineer who supervised the construction, certifying that the building has been constructed as per the sanctioned plan and structural design.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_STRUCTURAL_STABILITY_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A structural stability certificate from a licensed structural engineer confirming that the building is structurally safe for occupancy.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_FIRE_NOC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED",
+          "OC_FIRE_NOC_REQUIRED"
+        ]
+      },
+      "claim": "A No Objection Certificate (NOC) from the Fire Department is required for buildings above a specified height (typically 15 meters or more) or for commercial, industrial, and public assembly buildings.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS",
+        "SRC-NBC-INDIA"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_WATER_SEWAGE_CONNECTION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of water supply and sewage connection from the local municipal water supply authority. Alternatively, provision for an approved sewage treatment plant and water harvesting system may be required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_ELECTRICAL_INSTALLATION_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An electrical installation certificate from a licensed electrical contractor or the state electricity board certifying that electrical installations meet safety standards.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NBC-INDIA"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent photographs of the completed building from multiple angles (front, rear, sides) showing the full construction as built.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOHUA-BUILDING-PERMISSION"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_PROPERTY_TAX_RECEIPT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Up-to-date property tax payment receipts for the land and building must be provided to confirm no outstanding dues with the municipal authority.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOHUA-BUILDING-PERMISSION"
+      ]
+    },
+    {
+      "requirementCode": "OC_REQ_LIFT_SAFETY_CERT",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "OC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "For buildings with elevators or lifts, a lift safety certificate from the Chief Inspector of Lifts or an authorized agency is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NBC-INDIA"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "OC_PROCESS_APPLICATION_SUBMISSION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Building owners or authorized developers applying for OC",
+      "claim": "Step 1 - Application Submission: The building owner or developer submits the OC application with all required documents to the local municipal corporation or development authority. Many jurisdictions accept online applications through their building permission portals.",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "processCode": "OC_PROCESS_DOCUMENT_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Building owners or authorized developers applying for OC",
+      "claim": "Step 2 - Document Verification: The authority verifies all submitted documents against records of the original building plan approval, commencement certificate, and other approvals on file.",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "processCode": "OC_PROCESS_SITE_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Building owners or authorized developers applying for OC",
+      "claim": "Step 3 - Site Inspection: An authorized officer or engineer from the municipal authority conducts a physical inspection of the building to verify compliance with the sanctioned plan, structural safety standards, fire safety provisions, and other applicable norms.",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    },
+    {
+      "processCode": "OC_PROCESS_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Building owners or authorized developers applying for OC",
+      "claim": "Step 4 - Certificate Issuance: If the building is found to comply with all requirements, the Occupancy Certificate is issued. If deviations are found, a notice is issued specifying the deviations and the applicant is given time to rectify them or apply for regularization if permissible.",
+      "sourceRefs": [
+        "SRC-MODEL-BUILDING-BYELAWS"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "OCCUPANCY_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An Occupancy Certificate (OC) or Completion Certificate (CC) issued by the Municipal Corporation or Development Authority certifying that the building is fit for habitation and has been constructed per the sanctioned plan. This document is mandatory for obtaining utility connections (permanent electricity, water), for property registration and transfer, for RERA compliance, and for insurance purposes.",
+    "sourceRefs": [
+      "SRC-MODEL-BUILDING-BYELAWS"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "OC_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Application for Occupancy Certificate",
+      "status": "NEEDS_REVIEW",
+      "claim": "Application fee for the Occupancy Certificate varies by municipal authority and the built-up area of the building. Fees are typically based on a per-square-meter or per-square-foot rate.",
+      "sourceRefs": [
+        "SRC-MOHUA-BUILDING-PERMISSION"
+      ]
+    },
+    {
+      "feeCode": "OC_INSPECTION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Site inspection charges by the municipal authority",
+      "status": "NEEDS_REVIEW",
+      "claim": "An inspection fee may be charged by the municipal authority for the physical site inspection of the completed building. The amount varies by jurisdiction.",
+      "sourceRefs": [
+        "SRC-MOHUA-BUILDING-PERMISSION"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "OC_PROCESSING_TIME",
+    "minimumDuration": 15,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Occupancy Certificate application processing",
+    "status": "VERIFIED",
+    "claim": "Processing time varies by jurisdiction. Under various state building bye-laws and the RERA Act, the authority is expected to grant or refuse the OC within 30 days of receiving a complete application. In practice, timelines range from 15 to 60 days depending on the complexity of the building, inspection schedules, and document completeness.",
+    "estimatedCompletionDatePolicy": "Typically 30 days from date of complete application submission. RERA-registered projects may have mandated timelines.",
+    "fallbackThresholdMentionedBySource": "Deemed OC: Some states provide that if the authority fails to issue or refuse the OC within the prescribed period, the OC is deemed to have been granted.",
+    "sourceRefs": [
+      "SRC-MODEL-BUILDING-BYELAWS",
+      "SRC-RERA-ACT"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-MODEL-BUILDING-BYELAWS",
+      "url": "https://mohua.gov.in/cms/model-building-bye-laws.php",
+      "title": "Model Building Bye-Laws 2016",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Model Building Bye-Laws 2016 published by MoHUA provide a framework for states and ULBs to adopt. Chapter 6 covers the Completion/Occupancy Certificate process, requiring inspection of the completed building against the sanctioned plan, structural stability certificate, and fire safety compliance.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Occupancy Certificate is mandatory before occupying a newly constructed building.",
+        "Application must include sanctioned plan copy and structural engineer certificate.",
+        "Physical site inspection is required.",
+        "Fire NOC is required for buildings above specified height.",
+        "Water supply and sewage connection must be verified.",
+        "Deemed OC provisions in some jurisdictions."
+      ],
+      "uncertainty": "Individual state and municipal bye-laws may differ from the model bye-laws. Not all states have adopted the 2016 model bye-laws in full."
+    },
+    {
+      "sourceCode": "SRC-NBC-INDIA",
+      "url": "https://bis.gov.in/index.php/standards/technical-department/national-building-code/",
+      "title": "National Building Code of India 2016 (NBC)",
+      "publisher": "Bureau of Indian Standards (BIS), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Building Code of India 2016 provides guidelines for fire safety, electrical installations, structural safety, and other building standards that must be met before an Occupancy Certificate can be issued.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Fire NOC requirements for high-rise and commercial buildings.",
+        "Electrical installation safety certification requirements.",
+        "Lift safety certification for buildings with elevators.",
+        "Structural safety standards."
+      ],
+      "uncertainty": "The NBC is a recommended code; enforcement depends on state adoption and local building bye-laws."
+    },
+    {
+      "sourceCode": "SRC-RERA-ACT",
+      "url": "https://rera.gov.in/",
+      "title": "Real Estate (Regulation and Development) Act, 2016",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "RERA 2016 mandates that developers of registered projects must obtain the Occupancy Certificate before handing over possession to homebuyers. Section 11(4)(b) requires the promoter to obtain the completion certificate or OC from the competent authority.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "RERA-registered developers must obtain OC before handover.",
+        "Processing timelines for OC under RERA framework.",
+        "OC is mandatory for lawful possession of a RERA-registered unit."
+      ],
+      "uncertainty": "State RERA rules may have additional provisions regarding OC timelines and penalties."
+    },
+    {
+      "sourceCode": "SRC-MOHUA-BUILDING-PERMISSION",
+      "url": "https://mohua.gov.in/",
+      "title": "Building Permission and Approval Process - MoHUA",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MoHUA provides guidance on the building permission and approval process including the Occupancy Certificate stage. The ministry has promoted the Online Building Permission System (OBPS) for streamlined processing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for OC through OBPS portals.",
+        "Photograph requirements for OC application.",
+        "Property tax clearance requirement.",
+        "Application and inspection fee structure (varies by ULB)."
+      ],
+      "uncertainty": "OBPS adoption varies by state and ULB. Not all municipalities have fully digitized the OC process."
+    }
+  ],
+  "limitations": [
+    "This record covers the general framework for Occupancy Certificates applicable across India. State-specific building bye-laws, fee structures, and online portal URLs vary significantly.",
+    "Partial Occupancy Certificates for phased projects and large complexes are not detailed in this record.",
+    "Industrial and special-purpose buildings may have additional environmental and pollution control clearance requirements not covered here.",
+    "Heritage zone buildings or buildings in regulated zones may have additional restrictions and clearance requirements.",
+    "Regularization of unauthorized constructions or deviations from sanctioned plans is a separate process not covered here.",
+    "The deemed OC provision is available only in some states and has specific conditions that are not detailed here."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core requirements, process, and eligibility for Occupancy Certificate verified against the Model Building Bye-Laws 2016, National Building Code, and RERA Act. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Updates to the Model Building Bye-Laws by MoHUA.",
+      "Amendments to the RERA Act affecting OC requirements.",
+      "New National Building Code revisions.",
+      "Supreme Court or High Court judgments affecting OC issuance procedures."
+    ]
+  }
+}

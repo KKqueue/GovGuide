@@ -1,0 +1,298 @@
+{
+  "serviceCode": "AADHAAR_NEW_ENROLLMENT",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Aadhaar New Enrollment"
+  },
+  "authority": "Unique Identification Authority of India (UIDAI), Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "AADHAAR",
+  "description": {
+    "en": "New Aadhaar enrollment for Indian residents who have not been assigned an Aadhaar number. Aadhaar is a 12-digit unique identification number issued by UIDAI based on biometric and demographic data."
+  },
+  "officialLinks": {
+    "application": "https://appointments.uidai.gov.in/",
+    "informationPortal": "https://uidai.gov.in/en/my-aadhaar/get-aadhaar.html",
+    "enrollmentCentreLocator": "https://appointments.uidai.gov.in/easearch.aspx",
+    "statusCheck": "https://myaadhaar.uidai.gov.in/CheckAadhaarStatus"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "AADHAAR_IS_INDIAN_RESIDENT",
+        "field": "applicant.residency",
+        "operator": "EQUALS",
+        "value": "INDIAN_RESIDENT",
+        "classification": "MANDATORY",
+        "appliesTo": "All Aadhaar enrollment applicants",
+        "claim": "Any resident of India, irrespective of age and gender, can voluntarily enroll for Aadhaar. A resident is defined as a person who has resided in India for 182 days or more in the 12 months preceding the date of application.",
+        "sourceRefs": ["SRC-UIDAI-AADHAAR-ACT"]
+      },
+      {
+        "conditionCode": "AADHAAR_NO_EXISTING_NUMBER",
+        "field": "applicant.hasExistingAadhaar",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "New enrollment applicants",
+        "claim": "Only one Aadhaar number is generated for a person. Duplicate Aadhaar is not issued.",
+        "sourceRefs": ["SRC-UIDAI-FAQ"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "NRIs can apply after residing in India for 182 days; specific documentation for NRI applicants is not fully detailed here.",
+      "Newborns can be enrolled based on the Aadhaar of parents; the child enrollment process has additional requirements."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "AADHAAR_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "AADHAAR_NEW_ENROLLMENT",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "AADHAAR_REQ_POI",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["AADHAAR_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of Identity (POI) is required. Any one of the following is accepted: passport, PAN card, ration card, voter ID, driving license, government photo ID card, NREGS job card, photo ID issued by a recognized educational institution, or bank passbook with photo.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UIDAI-VALID-DOCS"]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_POA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["AADHAAR_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of Address (POA) is required. Accepted documents include passport, bank statement/passbook, post office account statement, ration card, voter ID, driving license, government photo ID card, electricity bill (not older than 3 months), water bill (not older than 3 months), telephone landline bill (not older than 3 months), property tax receipt (not older than 1 year), or credit card statement (not older than 3 months).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UIDAI-VALID-DOCS"]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_DOB_PROOF",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["AADHAAR_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of Date of Birth is required for verified DOB on Aadhaar. Accepted: birth certificate, SSLC book/certificate, passport, government-issued photo ID with DOB, or PAN card. If DOB proof is not provided, age can be declared and marked as 'Declared' or 'Approximate' on Aadhaar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UIDAI-VALID-DOCS"]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_BIOMETRIC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["AADHAAR_ROUTE_SELECTED"]
+      },
+      "claim": "Biometric data capture (fingerprints of all 10 fingers, iris scan of both eyes, and facial photograph) is mandatory at the enrollment centre.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UIDAI-ENROLLMENT-PROCESS"]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_ENROLLMENT_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["AADHAAR_ROUTE_SELECTED"]
+      },
+      "claim": "The Aadhaar enrollment form must be filled with demographic information (name, DOB, gender, address, mobile number, email). The form can be pre-filled online or completed at the enrollment centre.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UIDAI-ENROLLMENT-PROCESS"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "AADHAAR_ENROLLMENT_STEPS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new enrollment applicants",
+      "claim": "The enrollment process: (1) Book an appointment online at appointments.uidai.gov.in or visit an Aadhaar enrollment centre, (2) Carry original documents for POI, POA, and DOB proof, (3) Fill enrollment form, (4) Biometric capture (fingerprints, iris, photo), (5) Receive an acknowledgement slip with 14-digit Enrollment ID (EID), (6) Aadhaar number generated and dispatched via India Post.",
+      "doesNotEstablish": [
+        "This record does not guarantee availability of appointments at specific centres.",
+        "Walking in without an appointment may not be possible at all centres."
+      ],
+      "sourceRefs": ["SRC-UIDAI-ENROLLMENT-PROCESS"]
+    },
+    {
+      "processCode": "AADHAAR_TRACKING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants who have completed enrollment",
+      "claim": "Enrollment status can be checked online using the 14-digit EID on the myAadhaar portal. e-Aadhaar can be downloaded from the UIDAI website once the Aadhaar number is generated.",
+      "sourceRefs": ["SRC-UIDAI-MYAADHAAR"]
+    }
+  ],
+  "output": {
+    "outputCode": "AADHAAR_LETTER",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An Aadhaar letter containing the 12-digit Aadhaar number is dispatched via India Post. e-Aadhaar (digital copy) can be downloaded from the UIDAI website.",
+    "sourceRefs": ["SRC-UIDAI-ENROLLMENT-PROCESS"]
+  },
+  "fees": [
+    {
+      "feeCode": "AADHAAR_ENROLLMENT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "New Aadhaar enrollment",
+      "status": "VERIFIED",
+      "claim": "Aadhaar enrollment is free of charge. No fee is to be charged for new enrollment.",
+      "sourceRefs": ["SRC-UIDAI-FAQ"]
+    },
+    {
+      "feeCode": "AADHAAR_UPDATE_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": 50,
+      "currency": "INR",
+      "applicability": "Aadhaar data update (biometric or demographic) at enrollment centre",
+      "status": "VERIFIED",
+      "claim": "For updates to Aadhaar data at an enrollment centre, a fee of Rs. 50 (including GST) is applicable.",
+      "sourceRefs": ["SRC-UIDAI-FAQ"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "AADHAAR_PROCESSING",
+    "minimumDuration": null,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_GUIDELINE",
+    "applicability": "New Aadhaar enrollment",
+    "status": "VERIFIED",
+    "claim": "UIDAI states that the Aadhaar number is usually generated within 90 days of enrollment. e-Aadhaar may be available earlier for download.",
+    "estimatedCompletionDatePolicy": "90 days from enrollment date as upper bound. Many enrollments are processed within 2-3 weeks.",
+    "fallbackThresholdMentionedBySource": "If not generated within 90 days, applicant should contact the regional UIDAI office",
+    "sourceRefs": ["SRC-UIDAI-FAQ"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-UIDAI-AADHAAR-ACT",
+      "url": "https://uidai.gov.in/en/legal-framework/aadhaar-act.html",
+      "title": "Aadhaar (Targeted Delivery of Financial and Other Subsidies, Benefits and Services) Act, 2016",
+      "publisher": "Unique Identification Authority of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Aadhaar Act defines residency requirements and the voluntary nature of enrollment.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Residency requirement of 182 days.",
+        "Aadhaar enrollment is voluntary.",
+        "One person, one Aadhaar."
+      ],
+      "uncertainty": "Specific exemptions and amendments may apply."
+    },
+    {
+      "sourceCode": "SRC-UIDAI-FAQ",
+      "url": "https://uidai.gov.in/en/contact-support/have-any-question.html",
+      "title": "UIDAI FAQ",
+      "publisher": "Unique Identification Authority of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "UIDAI FAQ covers enrollment fees, processing time, and duplicate prevention.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "New enrollment is free.",
+        "Update fee is Rs. 50.",
+        "Processing within 90 days.",
+        "No duplicate Aadhaar issuance."
+      ],
+      "uncertainty": "FAQ is periodically updated."
+    },
+    {
+      "sourceCode": "SRC-UIDAI-VALID-DOCS",
+      "url": "https://uidai.gov.in/en/my-aadhaar/get-aadhaar/valid-documents.html",
+      "title": "Valid Documents for Aadhaar Enrollment",
+      "publisher": "Unique Identification Authority of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The official list of accepted POI, POA, and DOB documents for Aadhaar enrollment.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Accepted POI documents.",
+        "Accepted POA documents.",
+        "Accepted DOB proof documents."
+      ],
+      "uncertainty": "Document list may be revised; check current version."
+    },
+    {
+      "sourceCode": "SRC-UIDAI-ENROLLMENT-PROCESS",
+      "url": "https://uidai.gov.in/en/my-aadhaar/get-aadhaar.html",
+      "title": "Get Aadhaar - Enrollment Process",
+      "publisher": "Unique Identification Authority of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Official enrollment process including biometric capture, form filling, and acknowledgement slip generation.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Complete enrollment process steps.",
+        "Biometric data capture requirements.",
+        "Acknowledgement slip with EID."
+      ],
+      "uncertainty": "Process may vary slightly by enrollment centre."
+    },
+    {
+      "sourceCode": "SRC-UIDAI-MYAADHAAR",
+      "url": "https://myaadhaar.uidai.gov.in/",
+      "title": "myAadhaar Portal",
+      "publisher": "Unique Identification Authority of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Portal for checking enrollment status and downloading e-Aadhaar.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Enrollment status check via EID.",
+        "e-Aadhaar download."
+      ],
+      "uncertainty": "Portal requires authentication for some features."
+    }
+  ],
+  "limitations": [
+    "This record covers new enrollment for adults. Child enrollment, NRI enrollment, and update/correction workflows are separate.",
+    "The accepted document list is summarized; always verify against the current UIDAI valid documents page.",
+    "Enrollment centre availability and walk-in policies vary by location.",
+    "This record does not cover Aadhaar-based authentication or KYC services.",
+    "Biometric exceptions (persons with disabilities) have separate processes not covered here."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core enrollment requirements, fees, and process verified against UIDAI official sources.",
+    "nextReviewTrigger": [
+      "Changes to UIDAI enrollment process.",
+      "Updates to the valid documents list.",
+      "Fee changes.",
+      "Changes to processing timelines."
+    ]
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "serviceCode": "STARTUP_INDIA_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Startup India Registration (DPIIT Recognition)"
+  },
+  "authority": "Department for Promotion of Industry and Internal Trade (DPIIT), Ministry of Commerce and Industry",
+  "jurisdiction": "CENTRAL",
+  "category": "STARTUP_INDIA",
+  "description": {
+    "en": "DPIIT recognition under the Startup India initiative for entities incorporated as a Private Limited Company, Partnership Firm, or Limited Liability Partnership. Recognition enables access to tax exemptions, self-certification for labour and environment laws, easier public procurement, and fast-tracked patent examination."
+  },
+  "officialLinks": {
+    "application": "https://www.startupindia.gov.in/",
+    "informationPortal": "https://www.startupindia.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "STARTUP_ENTITY_TYPE",
+        "field": "company.type",
+        "operator": "IN_SET",
+        "value": [
+          "PRIVATE_LIMITED",
+          "PARTNERSHIP",
+          "LLP"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for DPIIT startup recognition",
+        "claim": "The entity must be incorporated as a Private Limited Company under the Companies Act 2013, or a registered Partnership Firm under the Indian Partnership Act 1932, or a Limited Liability Partnership under the LLP Act 2008.",
+        "sourceRefs": [
+          "SRC-STARTUP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "STARTUP_AGE_LIMIT",
+        "field": "company.yearsFromIncorporation",
+        "operator": "LESS_THAN",
+        "value": 10,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for DPIIT startup recognition",
+        "claim": "The entity must not have been incorporated or registered more than 10 years ago from the date of application.",
+        "sourceRefs": [
+          "SRC-STARTUP-PORTAL-2026-10-28",
+          "SRC-STARTUP-NOTIFICATION-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "STARTUP_TURNOVER_LIMIT",
+        "field": "company.annualTurnover",
+        "operator": "LESS_THAN",
+        "value": 1000000000,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for DPIIT startup recognition",
+        "claim": "The turnover of the entity for any of the financial years since incorporation/registration must not have exceeded Rs. 100 crores.",
+        "sourceRefs": [
+          "SRC-STARTUP-PORTAL-2026-10-28",
+          "SRC-STARTUP-NOTIFICATION-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "The entity must be working towards innovation, development, or improvement of products, processes, or services.",
+      "The entity must not have been formed by splitting up or reconstruction of an existing business.",
+      "An entity formed by reconstruction of an already existing business is not eligible.",
+      "The entity must have a scalable business model with high potential for employment generation or wealth creation."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "STARTUP_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "STARTUP_INDIA_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "STARTUP_NEW_RECOGNITION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW_RECOGNITION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "STARTUP_REQ_INCORPORATION_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STARTUP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Certificate of Incorporation (for companies), Certificate of Registration (for partnership firms or LLPs) issued by the Registrar of Companies or Registrar of Firms.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "STARTUP_REQ_SELF_CERTIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STARTUP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A self-certification letter stating that the entity is working towards innovation, development, or improvement of products, processes, or services, and that it is not formed by splitting up or reconstruction of an existing business.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "STARTUP_REQ_DESCRIPTION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STARTUP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A brief description of the innovative nature of the business — what problem is being solved, what is the unique value proposition, and how the product/service/process is different from existing solutions in the market.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "STARTUP_REQ_SUPPORTING_DOCUMENTS",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "STARTUP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Supporting documents such as patent/trademark applications, awards, pitch decks, partnership/incubation letters, or recommendation letters from incubators recognized by the Government of India.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "STARTUP_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STARTUP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN (Permanent Account Number) of the entity is required for registration on the Startup India portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "STARTUP_STEP1_REGISTER_PORTAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All startup recognition applicants",
+      "claim": "Register on the Startup India portal (startupindia.gov.in) by creating an account with email and mobile verification.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "STARTUP_STEP2_FILL_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All startup recognition applicants",
+      "claim": "Fill the online DPIIT recognition application form with entity details, incorporation number, PAN, nature of business, a description of the innovation, and details of directors/partners.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "STARTUP_STEP3_UPLOAD_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All startup recognition applicants",
+      "claim": "Upload the Certificate of Incorporation/Registration, self-certification letter, and any optional supporting documents such as patent applications or incubation letters.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "STARTUP_STEP4_REVIEW",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The application is reviewed by the DPIIT or an inter-ministerial board. Applications may be accepted, queried for additional information, or rejected with reasons.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "STARTUP_STEP5_RECOGNITION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "Upon approval, a DPIIT recognition number is issued and a recognition certificate is generated. The startup is listed on the Startup India portal and can access scheme benefits.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "STARTUP_RECOGNITION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A DPIIT Startup Recognition Certificate is issued bearing the unique startup recognition number. This enables access to benefits including 3-year income tax exemption (under Section 80-IAC), self-certification for 6 labour laws and 3 environmental laws, fast-tracked patent examination, easier public procurement norms, and Fund of Funds support.",
+    "sourceRefs": [
+      "SRC-STARTUP-PORTAL-2026-10-28",
+      "SRC-STARTUP-NOTIFICATION-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "STARTUP_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "DPIIT startup recognition application",
+      "status": "VERIFIED",
+      "claim": "There is no fee for applying for DPIIT startup recognition. The registration and recognition process is completely free.",
+      "sourceRefs": [
+        "SRC-STARTUP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "STARTUP_PROCESSING_TIMELINE",
+    "minimumDuration": 2,
+    "maximumDuration": 3,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "DPIIT recognition application processing",
+    "status": "VERIFIED",
+    "claim": "DPIIT startup recognition is typically processed within 2-3 working days of submission of a complete application. Some applications may take longer if additional information is requested.",
+    "sourceRefs": [
+      "SRC-STARTUP-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-STARTUP-PORTAL-2026-10-28",
+      "url": "https://www.startupindia.gov.in/",
+      "title": "Startup India — Official Portal",
+      "publisher": "Department for Promotion of Industry and Internal Trade (DPIIT), Ministry of Commerce and Industry, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Startup India portal provides the complete recognition application process, eligibility criteria, benefits, and listing of recognized startups. The portal also offers resources for startup ecosystem stakeholders including incubators, investors, and mentors.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Entity must be incorporated as a Pvt Ltd, Partnership, or LLP.",
+        "Age limit of 10 years from incorporation.",
+        "Turnover limit of Rs. 100 crores.",
+        "Recognition is free of cost.",
+        "Processing typically takes 2-3 working days.",
+        "Benefits include tax exemption, self-certification, and fast-tracked patents."
+      ],
+      "uncertainty": "Processing timelines may vary during periods of high application volume."
+    },
+    {
+      "sourceCode": "SRC-STARTUP-NOTIFICATION-2026-10-28",
+      "url": "https://dpiit.gov.in/",
+      "title": "DPIIT Notification on Startup Recognition",
+      "publisher": "Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DPIIT notifications define the criteria for startup recognition including entity type, age limit, turnover threshold, and innovation requirements. The notification also outlines the benefits available to recognized startups.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "10-year age limit for entity from date of incorporation.",
+        "Rs. 100 crore turnover threshold.",
+        "Entity must not be formed by splitting up or reconstruction.",
+        "Section 80-IAC tax exemption for eligible startups."
+      ],
+      "uncertainty": "Tax exemption requires separate application to the Inter-Ministerial Board. Not all recognized startups automatically receive tax benefits."
+    }
+  ],
+  "limitations": [
+    "This record covers DPIIT recognition only. Tax exemption under Section 80-IAC requires a separate application to the Inter-Ministerial Board.",
+    "State-level startup policies and additional benefits vary and are not covered in this record.",
+    "The record does not cover the Fund of Funds application process or specific scheme-level eligibility criteria.",
+    "Patent fast-tracking benefits, CGTMSE credit guarantee details, and public procurement norms are not detailed.",
+    "The record does not cover the de-recognition or compliance requirements for maintaining DPIIT startup status."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core recognition process is reviewed, but tax exemption, Fund of Funds, and state-level scheme integration details need verification.",
+    "nextReviewTrigger": [
+      "Changes to DPIIT startup recognition criteria or process.",
+      "Amendments to Section 80-IAC eligibility or process.",
+      "Changes to the entity age or turnover threshold.",
+      "Updates to the Startup India portal registration process."
+    ]
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "serviceCode": "APPRENTICESHIP_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Apprenticeship Registration (National Apprenticeship Promotion Scheme)"
+  },
+  "authority": "Directorate General of Training (DGT), Ministry of Skill Development and Entrepreneurship, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "APPRENTICESHIP_REGISTRATION",
+  "description": {
+    "en": "The National Apprenticeship Promotion Scheme (NAPS) facilitates apprenticeship training for candidates in designated and optional trades under the Apprentices Act, 1961. Candidates register on the Apprenticeship India portal, apply to establishments, and receive on-the-job training with a stipend. The scheme covers trade apprentices, graduate/technician/technician (vocational) apprentices, and optional trade apprentices."
+  },
+  "officialLinks": {
+    "application": "https://www.apprenticeshipindia.gov.in/",
+    "informationPortal": "https://msde.gov.in/en/schemes-initiatives/apprenticeship-training"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "APPRENTICE_AGE_ELIGIBLE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 13,
+        "classification": "MANDATORY",
+        "appliesTo": "All apprenticeship applicants",
+        "claim": "The minimum age for an apprentice is 14 years (no upper age limit specified in the Act, though most trades require candidates to be at least 14-18 depending on the trade). Hazardous trades require the apprentice to be at least 18 years old.",
+        "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+      },
+      {
+        "conditionCode": "APPRENTICE_EDUCATION",
+        "field": "applicant.hasMinimumEducation",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All apprenticeship applicants",
+        "claim": "Minimum educational qualification varies by trade: Class 5 pass for some trades, Class 8 for others, Class 10 for most designated trades, ITI certificate for trade apprentices, and degree/diploma for graduate/technician apprentices.",
+        "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28", "SRC-APPRENTICES-ACT-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "ITI pass-outs get priority for trade apprenticeships in their respective trades.",
+      "Some establishments may have additional eligibility criteria beyond the statutory minimum.",
+      "Physically handicapped persons are eligible with reservations as per government guidelines.",
+      "A person who has already completed apprenticeship in a trade is generally not eligible for the same trade again."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "APPRENTICE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "APPRENTICESHIP_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "APPRENTICE_TRADE_TYPE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "DESIGNATED_TRADE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "APPRENTICE_OPTIONAL_TRADE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "OPTIONAL_TRADE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "APPRENTICE_REQ_PORTAL_REGISTRATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APPRENTICE_ROUTE_SELECTED"]
+      },
+      "claim": "Register on the Apprenticeship India portal (apprenticeshipindia.gov.in) by creating a candidate profile with personal details, educational qualifications, preferred trade, and location preferences.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "APPRENTICE_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APPRENTICE_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar number for identity verification during portal registration and enrollment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "APPRENTICE_REQ_EDUCATION_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APPRENTICE_ROUTE_SELECTED"]
+      },
+      "claim": "Educational qualification certificates as per the trade requirements — marksheets, passing certificates, ITI certificate (for trade apprentices), or degree/diploma certificates (for graduate/technician apprentices).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "APPRENTICE_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APPRENTICE_ROUTE_SELECTED"]
+      },
+      "claim": "Bank account details for receiving the monthly stipend. The stipend is paid by the employer and the government share (under NAPS) is transferred directly to the apprentice's bank account.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "APPRENTICE_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APPRENTICE_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-size photograph for portal registration and apprenticeship contract.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "APPRENTICE_STEP1_REGISTER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All apprenticeship candidates",
+      "claim": "Create a candidate profile on the Apprenticeship India portal by registering with mobile number, Aadhaar, personal details, and educational qualifications. Select preferred trade(s) and location(s).",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "APPRENTICE_STEP2_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered candidates",
+      "claim": "Browse available apprenticeship opportunities posted by establishments on the portal. Apply to matching opportunities. Establishments may also search and invite candidates based on their profiles.",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "APPRENTICE_STEP3_CONTRACT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Selected candidates",
+      "claim": "Once accepted by an establishment, an apprenticeship contract is generated on the portal. The contract specifies the trade, duration of training (6 months to 3 years depending on trade), stipend amount, and terms. The contract is registered with the regional apprenticeship authority.",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28", "SRC-APPRENTICES-ACT-2026-10-28"]
+    },
+    {
+      "processCode": "APPRENTICE_STEP4_TRAINING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All contracted apprentices",
+      "claim": "Apprentice undergoes on-the-job training at the establishment with a minimum stipend (prescribed by the government). On successful completion, a certificate of proficiency is issued. Designated trade apprentices also appear for the All India Trade Test (AITT) conducted by NCVT.",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28", "SRC-APPRENTICES-ACT-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "APPRENTICE_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "On successful completion: (1) Certificate of Proficiency from the establishment, (2) National Apprenticeship Certificate (NAC) for designated trade apprentices who pass AITT, (3) Provisional certificate from the establishment for optional trade apprentices. The apprenticeship is recognized as work experience for employment purposes.",
+    "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28", "SRC-APPRENTICES-ACT-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "APPRENTICE_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Apprenticeship portal registration and enrollment",
+      "status": "VERIFIED",
+      "claim": "Registration on the Apprenticeship India portal is free for candidates. There is no fee for apprenticeship enrollment. The apprentice receives a monthly stipend during the training period.",
+      "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "APPRENTICE_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From establishment acceptance to contract registration",
+    "status": "VERIFIED",
+    "claim": "After an establishment accepts a candidate, the apprenticeship contract is generated and registered on the portal within 7-15 days. The actual time to find and get accepted by an establishment varies and is not included in this timeline.",
+    "sourceRefs": ["SRC-APPRENTICESHIP-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-APPRENTICESHIP-PORTAL-2026-10-28",
+      "url": "https://www.apprenticeshipindia.gov.in/",
+      "title": "Apprenticeship India — National Portal",
+      "publisher": "Directorate General of Training, Ministry of Skill Development and Entrepreneurship, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Apprenticeship India portal is the central platform for apprenticeship registration, matching candidates with establishments, contract generation, and stipend processing under the National Apprenticeship Promotion Scheme (NAPS).",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online registration for candidates and establishments.",
+        "Contract generation and registration through the portal.",
+        "Stipend processing including government's share under NAPS.",
+        "Free registration for candidates."
+      ],
+      "uncertainty": "Portal features and processes may be updated. Stipend amounts are revised periodically by government notifications."
+    },
+    {
+      "sourceCode": "SRC-APPRENTICES-ACT-2026-10-28",
+      "url": "https://labour.gov.in/sites/default/files/act.pdf",
+      "title": "The Apprentices Act, 1961 (as amended)",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Apprentices Act, 1961 (as amended in 2014) governs the apprenticeship training program in India, specifying eligible trades, duration, stipend framework, and obligations of employers and apprentices.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal framework for apprenticeship training in designated and optional trades.",
+        "Minimum stipend obligations for employers.",
+        "Duration of training periods for different trade categories.",
+        "AITT and National Apprenticeship Certificate for designated trades."
+      ],
+      "uncertainty": "The Act has been amended multiple times; the latest amendment provisions may not be fully reflected in all state implementations."
+    }
+  ],
+  "limitations": [
+    "The actual time to find and get accepted by an establishment is highly variable and depends on trade, location, and demand.",
+    "Stipend amounts are minimum prescribed amounts; actual stipend may be higher depending on the establishment.",
+    "Not all establishments are registered on the portal; some may conduct apprenticeship directly through the regional authority.",
+    "AITT examination schedule and results depend on NCVT; delays are possible.",
+    "The record covers central scheme provisions; state-specific apprenticeship programs may have different terms.",
+    "Government's share of stipend under NAPS is subject to budgetary allocations and may face delays."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme and portal details verified. Stipend amounts, trade list updates, and NAPS benefit structure need periodic verification.",
+    "nextReviewTrigger": [
+      "Revision of minimum stipend amounts by government notification.",
+      "Updates to the list of designated and optional trades.",
+      "Changes to NAPS scheme guidelines or government co-funding terms.",
+      "Portal enhancements or process changes on apprenticeshipindia.gov.in."
+    ]
+  }
+}

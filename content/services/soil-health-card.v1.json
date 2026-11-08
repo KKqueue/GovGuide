@@ -1,0 +1,288 @@
+{
+  "serviceCode": "SOIL_HEALTH_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Soil Health Card"
+  },
+  "authority": "Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare",
+  "jurisdiction": "CENTRAL",
+  "category": "SOIL_HEALTH",
+  "description": {
+    "en": "Soil Health Card scheme provides farm-specific soil nutrient status information and recommendations on appropriate dosage of nutrients for improving soil health and fertility. Cards are issued to farmers every two years covering all 12 parameters of soil testing."
+  },
+  "officialLinks": {
+    "application": "https://soilhealth.dac.gov.in/",
+    "informationPortal": "https://soilhealth.dac.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SHC_IS_FARMER",
+        "field": "applicant.isFarmer",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All farmers with cultivable land",
+        "claim": "All farmers who own or cultivate agricultural land are eligible to receive a Soil Health Card under the scheme.",
+        "sourceRefs": [
+          "SRC-SHC-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SHC_HAS_CULTIVABLE_LAND",
+        "field": "applicant.hasCultivableLand",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All farmers applying for Soil Health Card",
+        "claim": "The applicant must have cultivable agricultural land for which the soil health card will report nutrient status and recommendations.",
+        "sourceRefs": [
+          "SRC-SHC-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Tenant farmers and sharecroppers are also eligible if they can demonstrate active cultivation of land.",
+      "The scheme covers all states and union territories of India.",
+      "Farmers who have previously received a card are eligible for renewal every two years."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SHC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SOIL_HEALTH_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SHC_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SHC_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SHC_REQ_FARMER_REGISTRATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Farmer must be registered in the Soil Health Card portal or through the local agriculture department office with name, contact details, and village information.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHC_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number of the farmer is required for registration and identification in the Soil Health Card system.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHC_REQ_LAND_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of agricultural land including survey number, village, block, district, and area under cultivation are required for soil sample collection.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHC_REQ_SOIL_SAMPLE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Soil samples are collected from the farmer's land by trained personnel following a GPS-based grid sampling methodology. One sample covers a 2.5-hectare area in irrigated land and 10-hectare area in rain-fed land.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28",
+        "SRC-SHC-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SHC_STEP1_REGISTER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All farmers applying for Soil Health Card",
+      "claim": "Register on the Soil Health Card portal (soilhealth.dac.gov.in) or visit the nearest Krishi Vigyan Kendra (KVK), agriculture department office, or Common Service Centre (CSC) with Aadhaar and land details.",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHC_STEP2_SAMPLE_COLLECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered farmers",
+      "claim": "Soil samples are collected from the registered land by trained agriculture department staff or village-level workers using GPS-based grid sampling. Samples are collected at a depth of 15-20 cm.",
+      "sourceRefs": [
+        "SRC-SHC-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHC_STEP3_LAB_TESTING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All collected soil samples",
+      "claim": "Soil samples are tested in government soil testing laboratories for 12 parameters: pH, electrical conductivity, organic carbon, nitrogen, phosphorus, potassium, sulphur, zinc, boron, iron, manganese, and copper.",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHC_STEP4_CARD_GENERATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All tested samples",
+      "claim": "Based on test results, the Soil Health Card is generated containing nutrient status, crop-wise fertilizer recommendations, and soil amendment suggestions. The card is printed and distributed or made available online.",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHC_STEP5_DOWNLOAD",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All farmers with generated cards",
+      "claim": "Farmers can download their Soil Health Card from the portal using their registered details or Aadhaar number. Physical cards are also distributed through agriculture department offices.",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SHC_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Soil Health Card is issued containing farm-specific soil nutrient status for 12 parameters along with crop-wise fertilizer recommendations and soil amendment suggestions. The card is valid for two years and is available both in physical and digital format.",
+    "sourceRefs": [
+      "SRC-SHC-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SHC_GOVERNMENT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "All Soil Health Card applications",
+      "status": "VERIFIED",
+      "claim": "Soil Health Card is issued free of cost to all farmers. The soil testing and card generation costs are borne by the central and state governments under the scheme.",
+      "sourceRefs": [
+        "SRC-SHC-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SHC_PROCESSING_TIMELINE",
+    "minimumDuration": 60,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From registration to card issuance including soil sample collection and laboratory testing",
+    "status": "VERIFIED",
+    "claim": "The complete process from registration to Soil Health Card issuance typically takes 2-3 months, including time for soil sample collection (depends on season), laboratory testing (4-6 weeks), and card generation.",
+    "sourceRefs": [
+      "SRC-SHC-PORTAL-2026-10-28",
+      "SRC-SHC-GUIDELINES-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SHC-PORTAL-2026-10-28",
+      "url": "https://soilhealth.dac.gov.in/",
+      "title": "Soil Health Card Portal",
+      "publisher": "Department of Agriculture & Farmers Welfare, Ministry of Agriculture & Farmers Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Soil Health Card portal provides farmer registration, soil sample tracking, card generation, and download facility. The portal lists 12 soil testing parameters and crop-wise fertilizer recommendations.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "All farmers with cultivable land are eligible for Soil Health Card.",
+        "The card is issued free of cost.",
+        "12 soil parameters are tested including macro and micro nutrients.",
+        "Cards are issued every two years.",
+        "Farmers can register online or through local agriculture offices."
+      ],
+      "uncertainty": "Processing timelines vary by state and depend on soil testing laboratory capacity and sample collection schedules."
+    },
+    {
+      "sourceCode": "SRC-SHC-GUIDELINES-2026-10-28",
+      "url": "https://agricoop.nic.in/",
+      "title": "Soil Health Card Scheme Guidelines",
+      "publisher": "Department of Agriculture & Cooperation, Ministry of Agriculture & Farmers Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The scheme guidelines prescribe GPS-based grid sampling methodology, soil testing protocols, and card generation standards. One sample covers 2.5 hectares in irrigated land and 10 hectares in rain-fed land.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "GPS-based grid sampling is the standard methodology.",
+        "Sample depth of 15-20 cm is prescribed.",
+        "Coverage norms are 2.5 hectares for irrigated and 10 hectares for rain-fed land.",
+        "Central government provides assistance to states for soil testing infrastructure."
+      ],
+      "uncertainty": "Implementation quality varies across states depending on soil testing laboratory infrastructure and trained personnel availability."
+    }
+  ],
+  "limitations": [
+    "This record covers the central Soil Health Card scheme. State-specific extensions or modifications are not fully covered.",
+    "The record does not cover soil testing for non-agricultural purposes.",
+    "Actual processing timelines vary significantly by state based on laboratory capacity and seasonal sample collection schedules.",
+    "The record does not cover the detailed crop-wise recommendation methodology.",
+    "Village-level variations in sample collection quality and timing are not modeled."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme information is reviewed, but state-specific implementation details and current cycle status need verification.",
+    "nextReviewTrigger": [
+      "Changes to the Soil Health Card scheme guidelines or parameters.",
+      "Updates to the soil testing methodology or laboratory network.",
+      "Changes in central government funding or scheme structure.",
+      "Portal redesign or process changes."
+    ]
+  }
+}

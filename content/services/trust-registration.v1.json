@@ -1,0 +1,454 @@
+{
+  "serviceCode": "TRUST_REGISTRATION",
+  "version": 1,
+  "locale": "en-IN",
+  "title": "Registration of Public or Private Trust",
+  "shortDescription": "Register a public or private trust under the Indian Trusts Act, 1882 or applicable state-level trust acts with the Charity Commissioner or Sub-Registrar.",
+  "category": "TRUST_REGISTRATION",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "STATE",
+  "authority": {
+    "name": "Charity Commissioner / Sub-Registrar of Assurances",
+    "department": "Charity Commissioner's Office / Department of Registration (varies by state)",
+    "level": "STATE"
+  },
+  "legalBasis": [
+    {
+      "law": "Indian Trusts Act, 1882",
+      "sections": [
+        "Section 3",
+        "Section 4",
+        "Section 5",
+        "Section 6"
+      ],
+      "description": "Defines the creation and obligations of private trusts. A trust is an obligation annexed to the ownership of property, arising out of a confidence reposed in and accepted by the owner."
+    },
+    {
+      "law": "Indian Registration Act, 1908",
+      "sections": [
+        "Section 17"
+      ],
+      "description": "Mandates the registration of trust deeds involving immovable property with the Sub-Registrar."
+    },
+    {
+      "law": "Bombay Public Trusts Act, 1950",
+      "sections": [
+        "Section 18",
+        "Section 19"
+      ],
+      "description": "Applicable in Maharashtra and Gujarat for public trust registration with the Charity Commissioner. Other states have analogous legislation."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "SERVICE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "TRUST_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TRUST_TYPE_PUBLIC",
+      "field": "workflow.trustType",
+      "operator": "EQUALS",
+      "value": "PUBLIC",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TRUST_TYPE_PRIVATE",
+      "field": "workflow.trustType",
+      "operator": "EQUALS",
+      "value": "PRIVATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MINIMUM_TRUSTEES_MET",
+      "field": "applicant.trusteeCount",
+      "operator": "GREATER_THAN",
+      "value": "2",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "TRUST_PROPERTY_EXISTS",
+      "field": "applicant.hasTrustProperty",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "STATE_SELECTED_FOR_REGISTRATION",
+      "field": "workflow.selectedState",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TRUST_INVOLVES_IMMOVABLE_PROPERTY",
+      "field": "applicant.involvesImmovableProperty",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "STATE_HAS_CHARITY_COMMISSIONER",
+      "field": "workflow.stateHasCharityCommissioner",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "STATE_USES_SUB_REGISTRAR",
+      "field": "workflow.stateUsesSubRegistrar",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_INDIAN_TRUSTS_ACT_1882",
+      "url": "https://legislative.gov.in/sites/default/files/A1882-02.pdf",
+      "title": "The Indian Trusts Act, 1882 (Act II of 1882)",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-05T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-05T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 5: No trust in relation to immovable property is valid unless declared by a non-testamentary instrument in writing signed by the author of the trust or the trustee and registered, or by the will of the author of the trust or of the trustee.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "A trust involving immovable property must be created by a written registered instrument",
+        "A trust is an obligation annexed to the ownership of property",
+        "The author of the trust must declare the trust through a trust deed"
+      ],
+      "uncertainty": "The Indian Trusts Act primarily governs private trusts. Public trusts are governed by state-specific legislation."
+    },
+    {
+      "sourceCode": "SRC_REGISTRATION_ACT_1908",
+      "url": "https://legislative.gov.in/sites/default/files/A1908-16.pdf",
+      "title": "The Indian Registration Act, 1908",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-05T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-05T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 17: Documents of which registration is compulsory include non-testamentary instruments which purport or operate to create, declare, assign, limit or extinguish any right, title or interest in immovable property.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Trust deeds involving immovable property must be registered with the Sub-Registrar",
+        "Registration is compulsory for instruments creating interests in immovable property"
+      ],
+      "uncertainty": "Registration requirements for trusts involving only movable property may differ by state."
+    },
+    {
+      "sourceCode": "SRC_BOMBAY_PUBLIC_TRUSTS_ACT",
+      "url": "https://charity.maharashtra.gov.in/acts-and-rules",
+      "title": "The Bombay Public Trusts Act, 1950",
+      "publisher": "Charity Commissioner's Office, Government of Maharashtra",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-08T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-08T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 18: Every trustee of a public trust shall make an application for the registration of the public trust within 90 days from the date of creation of the trust. The application shall be in Schedule II-A form and shall contain particulars of the trust property, names of trustees, and objects of the trust.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Public trusts must be registered within 90 days of creation in Maharashtra and Gujarat",
+        "Application must contain trust property details, trustee names, and trust objects",
+        "Charity Commissioner handles public trust registration in Maharashtra and Gujarat"
+      ],
+      "uncertainty": "This Act applies only to Maharashtra and Gujarat. Other states have separate legislation or no specific public trust legislation."
+    },
+    {
+      "sourceCode": "SRC_INCOME_TAX_TRUST_12A",
+      "url": "https://incometaxindia.gov.in/Pages/acts/income-tax-act.aspx",
+      "title": "Income Tax Act, 1961 - Section 12A and 12AB",
+      "publisher": "Central Board of Direct Taxes, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-10T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-10T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 12AB: Any trust or institution registered under section 12A shall apply for registration under this section. The Principal Commissioner or Commissioner shall pass an order granting or refusing registration within the specified timeline.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Trusts seeking tax exemption under Section 11 must register under Section 12AB",
+        "Registration under 12AB is required for income tax benefits on charitable trusts"
+      ],
+      "uncertainty": "12AB registration is a separate process from trust deed registration and handled by the Income Tax Department."
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_TRUST_DEED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_TRUSTEES_MET"
+        ]
+      },
+      "claim": "A Trust Deed must be prepared on non-judicial stamp paper of the prescribed value (varies by state). The deed must contain the name of the trust, names and addresses of the author (settlor) and trustees, the objects of the trust, details of trust property, and provisions for governance and dissolution.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882"
+      ]
+    },
+    {
+      "requirementCode": "REQ_TRUST_DEED_REGISTRATION_IMMOVABLE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "TRUST_INVOLVES_IMMOVABLE_PROPERTY"
+        ]
+      },
+      "claim": "If the trust involves immovable property, the trust deed must be compulsorily registered with the Sub-Registrar of Assurances having jurisdiction over the area where the property is situated.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882",
+        "SRC_REGISTRATION_ACT_1908"
+      ]
+    },
+    {
+      "requirementCode": "REQ_MINIMUM_TWO_TRUSTEES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A trust must have at least two trustees. Some state acts and best practices recommend a minimum of three trustees for public trusts.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882"
+      ]
+    },
+    {
+      "requirementCode": "REQ_TRUSTEE_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_TRUSTEES_MET"
+        ]
+      },
+      "claim": "Identity proof (Aadhaar card, PAN card, voter ID, or passport) and address proof of all trustees and the author of the trust must be submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_TRUST_PROPERTY_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "TRUST_PROPERTY_EXISTS"
+        ]
+      },
+      "claim": "Details of the trust property (movable and/or immovable) must be provided, including description, valuation, and proof of ownership or right to transfer by the author of the trust.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882",
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_PUBLIC_TRUST_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "TRUST_TYPE_PUBLIC",
+          "STATE_HAS_CHARITY_COMMISSIONER"
+        ]
+      },
+      "claim": "For public trusts in states with a Charity Commissioner (e.g., Maharashtra, Gujarat), an application in the prescribed form (Schedule II-A under the Bombay Public Trusts Act) must be filed with the Charity Commissioner's office within 90 days of trust creation.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_PHOTOGRAPHS_TRUSTEES",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_TRUSTEES_MET"
+        ]
+      },
+      "claim": "Passport-size photographs of all trustees and the author of the trust are required for the registration application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_12AB_REGISTRATION",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "TRUST_TYPE_PUBLIC"
+        ]
+      },
+      "claim": "For income tax exemption under Section 11 of the Income Tax Act, a registered charitable trust should apply for registration under Section 12AB with the Principal Commissioner of Income Tax. This is a separate process from trust deed registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_INCOME_TAX_TRUST_12A"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_TRUST_CHOOSE_NAME",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Choose a unique name for the trust. The name should reflect the trust's objectives and should not be identical or similar to an existing registered trust or company in the same state.",
+      "sourceRefs": [
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_DRAFT_DEED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Draft the Trust Deed on non-judicial stamp paper of the prescribed denomination (varies by state, typically Rs. 100 to Rs. 500). The deed must include: trust name, author/settlor details, trustee details, objects and purpose, trust property description, governance provisions, and dissolution clause.",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_EXECUTE_DEED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "The Trust Deed must be signed by the author of the trust (settlor) and all trustees in the presence of two witnesses. All signatories must sign on every page of the deed.",
+      "sourceRefs": [
+        "SRC_INDIAN_TRUSTS_ACT_1882"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_REGISTER_SUB_REGISTRAR",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Present the executed Trust Deed along with identity proofs of all parties (author, trustees, and witnesses), photographs, and the registration fee at the office of the Sub-Registrar of Assurances for registration. All parties must appear in person or through a power of attorney holder.",
+      "sourceRefs": [
+        "SRC_REGISTRATION_ACT_1908"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_PUBLIC_CHARITY_COMMISSIONER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "For public trusts in states with a Charity Commissioner: After registering the trust deed with the Sub-Registrar, file an application for registration of the public trust with the Charity Commissioner within 90 days. Submit the registered trust deed, details of trust property, trustee information, and the prescribed fee.",
+      "sourceRefs": [
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_OBTAIN_CERTIFICATE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Upon verification and approval, the Sub-Registrar returns the registered Trust Deed (for all trusts), and the Charity Commissioner issues a Registration Certificate with a unique registration number (for public trusts in applicable states).",
+      "sourceRefs": [
+        "SRC_REGISTRATION_ACT_1908",
+        "SRC_BOMBAY_PUBLIC_TRUSTS_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_PAN_AND_BANK",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "After registration, apply for a PAN card in the name of the trust and open a bank account. The registered trust deed and registration certificate are required for both.",
+      "sourceRefs": [
+        "SRC_INCOME_TAX_TRUST_12A"
+      ]
+    },
+    {
+      "processCode": "PROC_TRUST_12AB_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "For charitable public trusts seeking tax exemption: Apply for registration under Section 12AB of the Income Tax Act through the Income Tax e-filing portal (incometaxindiaefiling.gov.in). This is required to claim exemption on income used for charitable purposes.",
+      "sourceRefs": [
+        "SRC_INCOME_TAX_TRUST_12A"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_STAMP_PAPER_TRUST_DEED",
+      "description": "Non-judicial stamp paper for the Trust Deed (denomination varies by state)",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "note": "Stamp paper value varies by state, typically Rs. 100 to Rs. 500."
+    },
+    {
+      "feeCode": "FEE_SUB_REGISTRAR_REGISTRATION",
+      "description": "Registration fee payable at the Sub-Registrar's office for trust deed registration",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "note": "Registration fee varies by state and property value. Typically ranges from Rs. 500 to Rs. 25000."
+    },
+    {
+      "feeCode": "FEE_CHARITY_COMMISSIONER",
+      "description": "Application fee for public trust registration with the Charity Commissioner (applicable states only)",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "TRUST_TYPE_PUBLIC",
+          "STATE_HAS_CHARITY_COMMISSIONER"
+        ]
+      },
+      "note": "Fee varies by state. In Maharashtra, the fee is approximately Rs. 25."
+    }
+  ],
+  "processingTime": {
+    "standard": "15 to 90 days",
+    "expedited": null,
+    "notes": "Trust deed registration at the Sub-Registrar typically takes 7-15 days. Public trust registration with the Charity Commissioner may take an additional 30-90 days depending on the state.",
+    "timelineCode": "TRUST_REGISTRATION_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2025-05-01T00:00:00Z",
+    "updatedAt": "2025-05-01T00:00:00Z",
+    "reviewedBy": "GovGuide Content Team"
+  }
+}

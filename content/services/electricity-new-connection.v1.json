@@ -1,0 +1,254 @@
+{
+  "serviceCode": "ELECTRICITY_NEW_CONNECTION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "New Electricity Connection"
+  },
+  "authority": "State Electricity Distribution Company (DISCOM)",
+  "jurisdiction": "STATE",
+  "category": "ELECTRICITY",
+  "description": {
+    "en": "Application for a new electricity connection from the state electricity distribution company (DISCOM). Covers domestic, commercial, industrial, and agricultural connection categories. The process, fees, and timelines are regulated by the respective State Electricity Regulatory Commission under the Electricity Act 2003."
+  },
+  "officialLinks": {
+    "application": "https://www.india.gov.in/topics/power-energy",
+    "informationPortal": "https://www.india.gov.in/topics/power-energy"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ELEC_PROPERTY_OWNERSHIP",
+        "field": "applicant.propertyStatus",
+        "operator": "IN",
+        "value": ["OWNER", "TENANT_WITH_NOC"],
+        "classification": "MANDATORY",
+        "appliesTo": "All new electricity connection applicants",
+        "claim": "The applicant must be the owner of the property or a tenant with a No Objection Certificate (NOC) from the property owner to apply for a new electricity connection.",
+        "sourceRefs": ["SRC-INDIA-GOV-POWER", "SRC-ELECTRICITY-ACT-2003"]
+      },
+      {
+        "conditionCode": "ELEC_BUILDING_APPROVED",
+        "field": "applicant.hasBuildingApproval",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All new electricity connection applicants",
+        "claim": "The building or premises must have an approved building plan from the local municipal authority. Unauthorized constructions may not be eligible for a permanent electricity connection.",
+        "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Temporary connections may be available for construction sites with different requirements.",
+      "Agricultural connections may have different eligibility criteria and subsidized rates.",
+      "Load requirements above a certain threshold may require additional approvals from the DISCOM."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ELEC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ELECTRICITY_NEW_CONNECTION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ELEC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "A duly filled application form for new electricity connection must be submitted to the local DISCOM office or through the DISCOM's online portal. The form specifies the type of connection (domestic, commercial, industrial, agricultural) and the sanctioned load required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER", "SRC-ELECTRICITY-ACT-2003"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof such as Aadhaar card, voter ID, passport, or driving license of the applicant is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "Address proof of the premises where connection is sought, such as property tax receipt, registered sale deed, or rent agreement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_OWNERSHIP_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of ownership of the property (registered sale deed, allotment letter, property tax receipt) or rent agreement with NOC from the owner if the applicant is a tenant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "Approved building plan or completion certificate from the local municipal authority is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "Passport-size photographs of the applicant are required along with the application form.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER"]
+    },
+    {
+      "requirementCode": "ELEC_REQ_WIRING_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["ELEC_ROUTE_SELECTED"]
+      },
+      "claim": "An internal wiring completion certificate from a licensed electrical contractor may be required by some DISCOMs before the connection is energized.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ELECTRICITY-ACT-2003"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ELEC_APPLY_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new electricity connection applicants",
+      "claim": "The process involves: (1) Submit application form with documents at the local DISCOM office or online portal, (2) DISCOM conducts site inspection to assess feasibility and load requirements, (3) DISCOM issues demand note for security deposit, connection charges, and meter cost, (4) Applicant pays the fees as per the demand note, (5) DISCOM installs the meter and completes wiring from the pole/transformer to the premises, (6) Connection is energized after final inspection.",
+      "doesNotEstablish": [
+        "This record does not guarantee connection feasibility at all locations.",
+        "This record does not cover internal wiring of the premises.",
+        "Infrastructure augmentation timelines are not covered."
+      ],
+      "sourceRefs": ["SRC-INDIA-GOV-POWER", "SRC-ELECTRICITY-ACT-2003"]
+    }
+  ],
+  "output": {
+    "outputCode": "ELEC_CONNECTION_ACTIVE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An active electricity connection with a metered supply at the sanctioned load. The consumer receives a consumer number for billing and future correspondence with the DISCOM.",
+    "sourceRefs": ["SRC-INDIA-GOV-POWER", "SRC-ELECTRICITY-ACT-2003"]
+  },
+  "fees": [
+    {
+      "feeCode": "ELEC_FEE_SECURITY_DEPOSIT",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Refundable security deposit, varies by load and connection category",
+      "status": "VERIFIED",
+      "claim": "A refundable security deposit is charged based on the sanctioned load and category of connection. The amount is determined by the State Electricity Regulatory Commission tariff order and varies by state and category (domestic, commercial, industrial).",
+      "sourceRefs": ["SRC-ELECTRICITY-ACT-2003"]
+    },
+    {
+      "feeCode": "ELEC_FEE_CONNECTION_CHARGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Connection charges including meter cost, varies by DISCOM and load",
+      "status": "VERIFIED",
+      "claim": "Connection charges include the cost of the meter, service line, and installation. These vary by DISCOM, connection category, and sanctioned load. Domestic connections typically range from Rs. 1,000 to Rs. 5,000 for standard load.",
+      "sourceRefs": ["SRC-INDIA-GOV-POWER", "SRC-ELECTRICITY-ACT-2003"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ELEC_PROCESSING_TIME",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "ELECTRICITY_ACT_2003_STANDARDS",
+    "applicability": "New domestic electricity connection; industrial connections may take longer",
+    "status": "VERIFIED",
+    "claim": "As per the Standards of Performance regulations under the Electricity Act 2003, new domestic connections should be provided within 7 to 30 days of application depending on whether infrastructure augmentation is needed. Industrial and high-tension connections may take longer.",
+    "sourceRefs": ["SRC-ELECTRICITY-ACT-2003", "SRC-INDIA-GOV-POWER"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-POWER",
+      "url": "https://www.india.gov.in/topics/power-energy",
+      "title": "Power & Energy - National Portal of India",
+      "publisher": "National Portal of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal provides information on electricity distribution, consumer rights, and the process for obtaining new electricity connections across states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "New electricity connection application process.",
+        "Documents required for new connection.",
+        "Connection categories (domestic, commercial, industrial, agricultural)."
+      ],
+      "uncertainty": "State-specific DISCOM processes and fees are not detailed on the central portal."
+    },
+    {
+      "sourceCode": "SRC-ELECTRICITY-ACT-2003",
+      "url": "https://powermin.gov.in/en/content/electricity-act-2003",
+      "title": "Electricity Act 2003 - Ministry of Power",
+      "publisher": "Ministry of Power, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Electricity Act 2003 mandates that distribution licensees shall provide electricity connections within the timelines specified in the Standards of Performance regulations. Section 43 establishes the duty to supply electricity on request.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Duty of distribution licensee to supply electricity on request.",
+        "Standards of Performance for connection timelines.",
+        "Security deposit and connection charge framework.",
+        "Consumer rights under the Act."
+      ],
+      "uncertainty": "Implementation varies by state as per respective SERC regulations."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview; specific processes, fees, and timelines vary by state DISCOM.",
+    "Agricultural connections often have different processes and subsidized rates not fully covered here.",
+    "High-tension (HT) and industrial connections have additional requirements and longer timelines.",
+    "Connection feasibility depends on the availability of infrastructure (transformers, feeders) in the area.",
+    "Temporary connections for construction or events have different processes.",
+    "Solar rooftop or net metering connections are covered under separate schemes.",
+    "This record does not cover the internal wiring and electrical safety inspection process."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "General process and requirements verified against the Electricity Act 2003 and national portal. DISCOM-specific details are summarized at a general level.",
+    "nextReviewTrigger": [
+      "Amendments to the Electricity Act or rules.",
+      "Changes in SERC Standards of Performance regulations.",
+      "Major DISCOM fee revisions.",
+      "New central government schemes affecting electricity connections."
+    ]
+  }
+}

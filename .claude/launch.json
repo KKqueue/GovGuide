@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "govguide-backend",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d C:\\Zoho's RDP\\AI Task\\GovGuide\\backend && mvnw.cmd spring-boot:run"],
+      "port": 8080
+    },
+    {
+      "name": "govguide-frontend",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "C:\\Zoho's RDP\\AI Task\\GovGuide\\frontend", "-l", "3000", "--no-clipboard"],
+      "port": 3000
+    }
+  ]
+}

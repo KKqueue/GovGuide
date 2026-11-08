@@ -1,0 +1,277 @@
+{
+  "serviceCode": "LAND_CONVERSION_NA",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Agricultural Land Conversion (NA Permission / Land Use Change)"
+  },
+  "authority": "District Collector / Revenue Department / Town Planning Authority (varies by state)",
+  "jurisdiction": "STATE",
+  "category": "LAND_CONVERSION_NA",
+  "description": {
+    "en": "Agricultural Land Conversion, commonly known as Non-Agricultural (NA) permission or land use change permission, is the process of converting agricultural land to non-agricultural use such as residential, commercial, industrial, or institutional purposes. This permission is mandatory before any construction or non-agricultural activity can be undertaken on agricultural land. The process is governed by respective state land revenue codes and town planning acts."
+  },
+  "officialLinks": {
+    "application": "https://iora.in/",
+    "informationPortal": "https://dolr.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NA_LAND_OWNER",
+        "field": "applicant.isRegisteredLandOwner",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All NA permission applicants",
+        "claim": "The applicant must be the registered owner of the agricultural land or must have obtained written consent from the registered owner. The ownership must be reflected in the revenue records (7/12 extract, khata, patta, or equivalent document as per the state).",
+        "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+      },
+      {
+        "conditionCode": "NA_ZONE_COMPATIBLE",
+        "field": "property.isInPermittedZone",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All NA permission applicants",
+        "claim": "The land must fall within a zone where the proposed non-agricultural use is permitted under the applicable development plan or master plan. Conversion is typically not permitted in designated green belt, forest, or ecological sensitive zones.",
+        "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states restrict NA conversion for lands irrigated by government canal systems or near water bodies.",
+      "Tribal land in Scheduled Areas may have additional restrictions under Fifth and Sixth Schedule of the Constitution.",
+      "Ceiling laws may limit conversion of large agricultural holdings.",
+      "Some states require that the land must not be under any dispute or litigation.",
+      "Agricultural tenants or share-croppers may have separate rights that must be settled before conversion."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "LAND_CONVERSION_NA",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NA_RESIDENTIAL_USE",
+      "field": "property.proposedUse",
+      "operator": "EQUALS",
+      "value": "RESIDENTIAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NA_COMMERCIAL_USE",
+      "field": "property.proposedUse",
+      "operator": "EQUALS",
+      "value": "COMMERCIAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NA_INDUSTRIAL_USE",
+      "field": "property.proposedUse",
+      "operator": "EQUALS",
+      "value": "INDUSTRIAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NA_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Prescribed application form for non-agricultural permission available from the district collectorate, taluka office, or state's online portal. The form requires details of the land, proposed use, owner details, and purpose of conversion.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_LAND_RECORDS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Certified copy of the latest land revenue records — 7/12 extract and 8A extract (Maharashtra), khata certificate and pahani (Karnataka), patta and chitta (Tamil Nadu), or equivalent document as per state showing ownership, survey number, area, and classification of land.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_ZONE_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Zone certificate from the town planning authority or development authority confirming the land falls within a zone where the proposed non-agricultural use is permissible under the development/master plan.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_SITE_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Site plan or layout plan of the land prepared by a licensed surveyor or architect showing boundaries, access roads, surrounding features, and the proposed use of the land.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_NOC_PANCHAYAT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "No Objection Certificate (NOC) from the Gram Panchayat if the land is in a rural area, or from the municipal body if in an urban area. Some states also require NOC from the agriculture department.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_REVENUE_RECEIPT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Latest revenue receipt (land tax receipt/property tax receipt) proving all revenue dues on the land are cleared.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "requirementCode": "NA_REQ_CONVERSION_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["NA_ROUTE_SELECTED"]
+      },
+      "claim": "Payment of conversion premium or NA tax as prescribed by the state government. The amount is typically calculated based on the land area, market value, and the purpose of conversion. Some states levy this as a percentage of the jantri/guideline value.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NA_STEP1_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NA permission applicants",
+      "claim": "Submit the application with all required documents to the district collectorate, taluka/tehsil office, or through the state's online revenue portal. Payment of the prescribed application fee and conversion charges.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "processCode": "NA_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NA permission applicants",
+      "claim": "The revenue department conducts a site inspection to verify the land details, boundaries, current use, and feasibility of conversion. The inspector checks for any encroachments, disputes, or restrictions on the land.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "processCode": "NA_STEP3_REPORT_AND_NOC",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified applications",
+      "claim": "The taluka/tehsil office compiles the inspection report and obtains NOCs from relevant departments (town planning, agriculture, forest, environment, etc.) as applicable. A public notice may be issued for objections in some states.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "processCode": "NA_STEP4_APPROVAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified and cleared applications",
+      "claim": "The District Collector or authorised officer issues the NA permission order after reviewing the inspection report, NOCs, and any objections. The order specifies the permissible non-agricultural use and any conditions attached. The land records are updated to reflect the change in land use classification.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "NA_PERMISSION_ORDER",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Non-Agricultural (NA) Permission Order / Land Use Change Order issued by the District Collector or competent revenue authority. The order specifies the survey number, area, permissible non-agricultural use, and conditions. The mutation entry in the revenue records (7/12 or equivalent) is updated to reflect the new land use classification.",
+    "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "NA_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 100,
+      "maximumAmount": 1000,
+      "currency": "INR",
+      "applicability": "Application processing fee",
+      "status": "REVIEW",
+      "claim": "Application fee for NA permission ranges from Rs. 100 to Rs. 1,000 depending on the state.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    },
+    {
+      "feeCode": "NA_CONVERSION_PREMIUM",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 5000,
+      "maximumAmount": 500000,
+      "currency": "INR",
+      "applicability": "Non-agricultural conversion premium/tax",
+      "status": "REVIEW",
+      "claim": "The conversion premium or NA tax varies dramatically by state, location, land area, and purpose of conversion. In many states it is calculated as a percentage of the market value or jantri value of the land (ranging from 1% to 25%). Some states have flat rates for small residential plots. The premium for industrial or commercial conversion is typically higher than residential.",
+      "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NA_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "NA permission from application to order",
+    "status": "REVIEW",
+    "claim": "Processing time for NA permission varies significantly by state. States with online systems and streamlined processes may grant permission within 30-45 days. In states with manual processes or where multiple NOCs are required, the process may take 60-90 days or more. Some states have implemented time-bound service delivery under their Public Service Guarantee Acts.",
+    "sourceRefs": ["SRC-NA-DOLR-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NA-DOLR-2026-10-28",
+      "url": "https://dolr.gov.in/",
+      "title": "Department of Land Resources — Ministry of Rural Development",
+      "publisher": "Department of Land Resources, Ministry of Rural Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Department of Land Resources coordinates land-related policies across states. Agricultural land conversion (NA permission) is governed by state-specific land revenue codes. The department promotes digitisation of land records and online services through the Digital India Land Records Modernization Programme (DILRMP).",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Agricultural land conversion requires permission from the revenue authority.",
+        "The process involves application, site inspection, NOCs, and approval order.",
+        "Conversion premium/tax varies by state, location, and purpose.",
+        "Land records must be updated after conversion."
+      ],
+      "uncertainty": "The process, fees, and timelines vary dramatically across states. Each state has its own land revenue code and conversion rules. This record provides a general framework."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview. The NA permission process, fees, documents, and timelines differ significantly across Indian states.",
+    "Conversion premium calculations are state-specific and may change with government notifications.",
+    "The record does not cover special cases like conversion of forest land (requires central government clearance under Forest Conservation Act).",
+    "Tribal land conversion restrictions under the Fifth and Sixth Schedule areas are not covered in detail.",
+    "Urban land conversion rules may differ from rural land conversion rules within the same state.",
+    "The record uses one state's portal (Maharashtra) as representative. Applicants must check their specific state's revenue portal."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General framework is described but state-specific details need verification for each major state.",
+    "nextReviewTrigger": [
+      "Changes in state land revenue codes or NA permission rules.",
+      "Revision of conversion premium rates by state governments.",
+      "Introduction of online NA permission platforms by additional states.",
+      "Supreme Court or High Court orders affecting land conversion policies."
+    ]
+  }
+}

@@ -1,0 +1,383 @@
+{
+  "serviceCode": "SHOP_ESTABLISHMENT_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Shop & Establishment Registration"
+  },
+  "authority": "Labour Department / Inspector of Shops and Establishments (State Government)",
+  "jurisdiction": "STATE",
+  "category": "SHOP_ESTABLISHMENT",
+  "description": {
+    "en": "Registration of commercial establishments, shops, restaurants, hotels, theatres, and other places of public amusement or entertainment under the Shops and Establishments Act of the respective state, governing working conditions, hours, holidays, and employment terms."
+  },
+  "officialLinks": {
+    "application": "https://www.india.gov.in/",
+    "informationPortal": "https://labour.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SHOP_EST_COMMERCIAL_ESTABLISHMENT",
+        "field": "establishment.isCommercial",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All commercial establishments including shops, offices, restaurants, hotels, theatres, and other places of business",
+        "claim": "All commercial establishments including shops, commercial establishments, restaurants, eating houses, hotels, theatres, and other places of public amusement or entertainment must register under the Shops and Establishments Act of the respective state.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-SHOP-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SHOP_EST_WITHIN_30_DAYS",
+        "field": "establishment.registrationTimeline",
+        "operator": "LESS_THAN_OR_EQUAL",
+        "value": 30,
+        "classification": "MANDATORY",
+        "appliesTo": "All new establishments",
+        "claim": "Registration must be obtained within 30 days of the date of commencement of work in the establishment. Some states prescribe different timelines.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-SHOP-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SHOP_EST_EMPLOYER_OBLIGATION",
+        "field": "applicant.isEmployer",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "The employer or owner of the establishment",
+        "claim": "The employer or owner of the establishment is responsible for obtaining the registration under the Shops and Establishments Act.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-SHOP-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Certain establishments such as government offices, establishments under the Factories Act, and some state-specific exemptions may not require registration under this Act.",
+      "States have their own versions of the Shops and Establishments Act with varying provisions.",
+      "Some states exempt establishments with fewer than a specified number of employees.",
+      "This record provides a general framework; specific state laws govern eligibility."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SHOP_EST_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SHOP_ESTABLISHMENT_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SHOP_EST_NEW_REGISTRATION",
+      "field": "workflow.registrationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SHOP_EST_RENEWAL",
+      "field": "workflow.registrationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SHOP_EST_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A prescribed application form must be filled with details of the establishment, employer, nature of business, and working hours.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of address of the establishment is required, such as rent agreement, lease deed, property ownership document, or utility bill.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the owner/employer such as Aadhaar card, PAN card, Voter ID, Driving License, or Passport is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_EMPLOYEE_LIST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A list of employees working in the establishment with their details (name, age, designation, salary) is required at the time of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN card of the owner/proprietor or the establishment (if separate) is required in most states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_PHOTOGRAPHS",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photographs of the owner/employer may be required in some states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SHOP_EST_REQ_PARTNERSHIP_DEED",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SHOP_EST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Partnership deed, Certificate of Incorporation, or other constitutional document is required for establishments that are not sole proprietorships.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SHOP_EST_STEP1_CHECK_STATE_PORTAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new applicants",
+      "claim": "Check the respective state's labour department portal for online application facility. Many states including Maharashtra, Karnataka, Tamil Nadu, Delhi, and others have online registration portals.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28",
+        "SRC-LABOUR-GOV-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP2_FILL_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new applicants",
+      "claim": "Fill the application form (online or offline) with details including: name and address of the establishment, name of the employer, category of establishment, nature of business, date of commencement, number of employees, working hours, and weekly holidays.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP3_ATTACH_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new applicants",
+      "claim": "Upload or attach all required documents including identity proof, address proof of establishment, employee list, PAN, and any applicable constitutional documents.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP4_PAY_FEES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new applicants",
+      "claim": "Pay the prescribed registration fee online or through challan. The fee is typically nominal and varies by state, usually ranging from Rs. 50 to Rs. 500.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP5_SUBMIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new applicants",
+      "claim": "Submit the completed application. An acknowledgement or application reference number is provided. The application is forwarded to the Inspector of Shops and Establishments for processing.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP6_INSPECTION_APPROVAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The Inspector of Shops and Establishments may verify the application and conduct an inspection. Upon satisfaction, the registration certificate is issued. In many states with online portals, the certificate is generated automatically upon application submission.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SHOP_EST_STEP7_CERTIFICATE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "The Registration Certificate under the Shops and Establishments Act is issued. It must be displayed prominently at the establishment. The certificate is typically valid for a period specified by state law (1-5 years) and must be renewed before expiry.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SHOP_EST_REGISTRATION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Registration Certificate under the Shops and Establishments Act is issued containing the registration number, establishment name and address, employer name, nature of business, category of establishment, number of employees, and validity period. The certificate must be displayed at the establishment.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-SHOP-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SHOP_EST_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Varies by state; typically ranges from Rs. 50 to Rs. 500",
+      "status": "VERIFIED",
+      "claim": "Registration fees under the Shops and Establishments Act vary by state. Fees are typically nominal, ranging from Rs. 50 to Rs. 500 depending on the state, number of employees, and category of establishment.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SHOP-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SHOP_EST_RENEWAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Applicable for renewal; varies by state",
+      "status": "UNVERIFIED",
+      "claim": "Renewal fees are typically similar to or lower than the initial registration fee. Some states have provisions for multi-year registration with higher fees."
+    },
+    {
+      "feeCode": "SHOP_EST_PENALTY_LATE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Applicable for late registration or late renewal",
+      "status": "UNVERIFIED",
+      "claim": "A penalty may be imposed for failure to register within the prescribed time (typically 30 days of commencement) or for late renewal."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SHOP_EST_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "New Shop and Establishment Registration",
+    "status": "VERIFIED",
+    "claim": "Processing time for Shop and Establishment registration typically ranges from 7-15 days. In states with online portals, registration certificates may be generated instantly or within 2-3 days. States with manual processing may take up to 15 working days.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-SHOP-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-SHOP-2026-10-28",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India — Shops and Establishments Registration",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides general guidance on Shops and Establishments Act registration including applicability, required documents, registration process, and links to state-specific portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "All commercial establishments must register under the Shops and Establishments Act.",
+        "Registration must be obtained within 30 days of commencement.",
+        "Required documents include identity proof, address proof, employee list, and PAN.",
+        "Fees vary by state, typically Rs. 50-500.",
+        "Processing takes 7-15 days.",
+        "Registration certificate must be displayed at the establishment."
+      ],
+      "uncertainty": "Specific provisions, fees, exemptions, and processing times vary significantly by state as each state has its own Shops and Establishments Act."
+    },
+    {
+      "sourceCode": "SRC-LABOUR-GOV-2026-10-28",
+      "url": "https://labour.gov.in/",
+      "title": "Ministry of Labour and Employment — Official Portal",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Labour portal provides information on labour laws including the Shops and Establishments Act framework, state-level implementation, and links to state labour department portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "The Shops and Establishments Act is a state-level legislation.",
+        "The Ministry of Labour provides the overarching framework.",
+        "Many states have digitized the registration process.",
+        "The Act governs working conditions, hours, holidays, and terms of employment."
+      ],
+      "uncertainty": "The Ministry portal provides the national framework; actual implementation and enforcement is at the state level."
+    }
+  ],
+  "limitations": [
+    "This record provides a general framework applicable across states. Each state has its own Shops and Establishments Act with varying provisions.",
+    "Specific fee amounts are not defined as they vary by state, employee count, and establishment category.",
+    "State-specific exemptions and special provisions are not individually modeled.",
+    "The record does not cover the amendment, closure, or transfer of registration.",
+    "Compliance requirements under the Act (maintenance of registers, display of notices, working hour limits) are not detailed.",
+    "The record does not cover the ongoing compliance obligations after registration."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General framework is reviewed, but state-specific acts, fee schedules, exemptions, and online portal availability need individual state-level modeling.",
+    "nextReviewTrigger": [
+      "Enactment of a unified national Shops and Establishments Act.",
+      "Significant amendments to state-level Shops and Establishments Acts.",
+      "Launch or update of state-level online registration portals.",
+      "Changes under the new Labour Codes affecting shop and establishment registration."
+    ]
+  }
+}

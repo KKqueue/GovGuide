@@ -1,0 +1,344 @@
+{
+  "serviceCode": "FACTORY_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Factory License / Registration"
+  },
+  "authority": "Chief Inspector of Factories / State Labour Department (Directorate of Industrial Safety and Health)",
+  "jurisdiction": "STATE",
+  "category": "FACTORY_LICENSE",
+  "description": {
+    "en": "A Factory License (also called Factory Registration) is mandatory for any premises where 10 or more workers are employed with the aid of power, or 20 or more workers without the aid of power, in any manufacturing process. The license is issued under the Factories Act, 1948, and regulates working conditions, safety, health, welfare, and working hours of factory workers. It must be obtained before commencing operations and renewed annually."
+  },
+  "officialLinks": {
+    "application": "https://shramsuvidha.gov.in/",
+    "informationPortal": "https://labour.gov.in/factories-act-1948"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "FL_WORKER_THRESHOLD",
+        "field": "establishment.workerCount",
+        "operator": "GREATER_THAN",
+        "value": 9,
+        "classification": "MANDATORY",
+        "appliesTo": "Premises with power-aided manufacturing",
+        "claim": "Any premises where 10 or more workers are employed or were employed on any day in the preceding 12 months in a manufacturing process carried on with the aid of power is defined as a factory under Section 2(m) of the Factories Act, 1948.",
+        "sourceRefs": [
+          "SRC-FL-ACT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "FL_MANUFACTURING_PROCESS",
+        "field": "establishment.hasManufacturingProcess",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All factory license applicants",
+        "claim": "The premises must be engaged in a manufacturing process as defined under the Factories Act — making, altering, repairing, ornamenting, finishing, packing, oiling, washing, cleaning, breaking up, demolishing, or otherwise treating or adapting any article or substance.",
+        "sourceRefs": [
+          "SRC-FL-ACT-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Premises with 20 or more workers without the aid of power also qualify as a factory.",
+      "Some states have modified the worker threshold under their state amendments.",
+      "Seasonal factories (operating for limited periods) have modified licensing provisions.",
+      "IT/BPO establishments may be covered under Shops and Establishments Act instead."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "FL_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "FACTORY_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FL_NEW_REGISTRATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FL_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "FL_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application in Form 2 (for registration and grant of license) under the Factories Act. Most states now accept online applications through their state labour department portal or Shram Suvidha Portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28",
+        "SRC-FL-SHRAM-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED",
+          "FL_NEW_REGISTRATION"
+        ]
+      },
+      "claim": "Approved building plan/layout plan of the factory premises showing the arrangement of machinery, work areas, ventilation, lighting, and emergency exits. The plan must comply with the safety requirements under the Factories Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_FIRE_NOC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED",
+          "FL_NEW_REGISTRATION"
+        ]
+      },
+      "claim": "Fire safety No Objection Certificate (NOC) from the State Fire Service Department. The factory must have adequate fire-fighting equipment and emergency evacuation plans.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_SPCB_CONSENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Consent to Establish / Consent to Operate from the State Pollution Control Board (SPCB) under the Water (Prevention and Control of Pollution) Act and the Air (Prevention and Control of Pollution) Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_STABILITY_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED",
+          "FL_NEW_REGISTRATION"
+        ]
+      },
+      "claim": "Structural stability certificate from a licensed structural engineer for the factory building.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_MACHINERY_LIST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "List of machinery and equipment installed in the factory with specifications, horsepower, and safety arrangements. Details of hazardous processes if any.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_WORKER_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of workers including total number, categories (male/female/adolescent), working hours, and shift timings.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FL_REQ_OCCUPIER_MANAGER_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of the Occupier (person who has ultimate control over the affairs of the factory) and Factory Manager appointed under Section 7(1)(f) of the Factories Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "FL_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All factory license applicants",
+      "claim": "Submit the application online through the state's labour department portal or the Shram Suvidha Portal along with all required documents and the prescribed fee. The application must be submitted at least 15 days before the date on which the occupier intends to use the premises as a factory.",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28",
+        "SRC-FL-SHRAM-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FL_STEP2_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All factory license applicants",
+      "claim": "A factory inspector conducts a physical inspection of the premises to verify compliance with safety, health, and welfare provisions of the Factories Act. The inspector checks building construction, machinery guarding, ventilation, lighting, fire safety, sanitation, and first-aid arrangements.",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FL_STEP3_COMPLIANCE_REVIEW",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All inspected factories",
+      "claim": "If deficiencies are found during inspection, the applicant is given a compliance notice specifying corrections required. The applicant must rectify the deficiencies and request re-inspection.",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FL_STEP4_LICENSE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Factories passing inspection",
+      "claim": "Upon satisfactory inspection, the license is issued by the Chief Inspector of Factories or the designated authority. The license is valid for one calendar year (January to December) and must be renewed annually. The license must be displayed prominently in the factory premises.",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "FL_LICENSE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Factory License and Registration Certificate is issued containing the factory registration number, occupier and manager details, nature of manufacturing process, maximum number of workers permitted, power consumption limit, and validity period. The license must be renewed annually before December 31st. The registration number is required for all statutory returns under the Factories Act.",
+    "sourceRefs": [
+      "SRC-FL-ACT-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "FL_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 200,
+      "maximumAmount": 10000,
+      "currency": "INR",
+      "applicability": "Factory license application and annual renewal fee",
+      "status": "VERIFIED",
+      "claim": "Fee varies by state based on the number of workers and total horsepower of machinery. Typical fee structure ranges from Rs. 200 (up to 50 workers) to Rs. 10,000 or more (large factories). Annual renewal fee is usually the same as the license fee. Late renewal attracts a penalty.",
+      "sourceRefs": [
+        "SRC-FL-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "FL_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Factory license from application to issuance",
+    "status": "VERIFIED",
+    "claim": "Factory license processing typically takes 30-60 days depending on the state, inspection scheduling, and compliance status. Some states have implemented deemed approval provisions (if no response within the specified time, license is deemed granted). Renewal processing is faster at 7-15 days if there are no compliance issues.",
+    "sourceRefs": [
+      "SRC-FL-ACT-2026-10-28",
+      "SRC-FL-SHRAM-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-FL-ACT-2026-10-28",
+      "url": "https://labour.gov.in/factories-act-1948",
+      "title": "Factories Act, 1948 — Ministry of Labour and Employment",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Factories Act, 1948 is the principal legislation governing factory operations in India. It covers health (Sections 11-20), safety (Sections 21-41), welfare (Sections 42-50), working hours (Sections 51-66), employment of young persons (Sections 67-77), and licensing and registration (Section 6).",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Factory defined as premises with 10+ workers with power or 20+ without power.",
+        "License required before commencing operations.",
+        "Application at least 15 days before intended use.",
+        "Annual renewal required.",
+        "Factory Manager appointment mandatory."
+      ],
+      "uncertainty": "The Occupational Safety, Health and Working Conditions Code 2020 may replace the Factories Act when notified. State-specific rules vary."
+    },
+    {
+      "sourceCode": "SRC-FL-SHRAM-2026-10-28",
+      "url": "https://shramsuvidha.gov.in/",
+      "title": "Shram Suvidha Portal — Unified Portal for Labour Compliances",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Shram Suvidha Portal provides a unified registration system (Labour Identification Number / LIN) and facilitates online filing of returns and compliance. Factory registration can be initiated through this portal for central sphere establishments.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application facility available through unified portal.",
+        "Labour Identification Number (LIN) for unique identification.",
+        "Transparent labour inspection scheme for factory inspections."
+      ],
+      "uncertainty": "Not all states have fully integrated with the Shram Suvidha Portal. Many states maintain their own online systems."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview based on the central Factories Act. State rules, fees, and procedures vary significantly.",
+    "The Occupational Safety, Health and Working Conditions Code 2020 may replace the Factories Act when notified, potentially changing requirements.",
+    "Hazardous process factories have additional requirements under Chapter IVA of the Factories Act not covered in detail here.",
+    "The record does not cover Factory Manager qualifications, appointment procedures, or duties in detail.",
+    "Seasonal factory and small factory exemptions vary by state and are not modeled."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central Act provisions are reviewed, but state-specific implementation and the pending Occupational Safety Code need monitoring.",
+    "nextReviewTrigger": [
+      "Notification and implementation of the Occupational Safety, Health and Working Conditions Code 2020.",
+      "State-level amendments to factory licensing procedures.",
+      "Changes to the Shram Suvidha Portal functionality.",
+      "Modifications to worker threshold definitions."
+    ]
+  }
+}

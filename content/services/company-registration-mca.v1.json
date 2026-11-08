@@ -1,0 +1,381 @@
+{
+  "serviceCode": "COMPANY_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Company Registration (Incorporation)"
+  },
+  "authority": "Ministry of Corporate Affairs (MCA), Registrar of Companies",
+  "jurisdiction": "CENTRAL",
+  "category": "COMPANY_REGISTRATION",
+  "description": {
+    "en": "Incorporation of a company (Private Limited, Public Limited, One Person Company, or Limited Liability Partnership) through the MCA21 portal using the SPICe+ (Simplified Proforma for Incorporating Company Electronically Plus) integrated form."
+  },
+  "officialLinks": {
+    "application": "https://www.mca.gov.in/content/mca/global/en/mca/spice-plus.html",
+    "informationPortal": "https://www.mca.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "COMPANY_PRIVATE_LIMITED",
+        "field": "company.type",
+        "operator": "EQUALS",
+        "value": "PRIVATE_LIMITED",
+        "classification": "MANDATORY",
+        "appliesTo": "Private Limited Company: minimum 2 directors, 2 shareholders, maximum 200 shareholders",
+        "claim": "A Private Limited Company requires a minimum of 2 directors and 2 shareholders (can be same persons), with a maximum of 200 shareholders.",
+        "sourceRefs": ["SRC-COMPANIES-ACT-2013"]
+      },
+      {
+        "conditionCode": "COMPANY_PUBLIC_LIMITED",
+        "field": "company.type",
+        "operator": "EQUALS",
+        "value": "PUBLIC_LIMITED",
+        "classification": "MANDATORY",
+        "appliesTo": "Public Limited Company: minimum 3 directors, 7 shareholders",
+        "claim": "A Public Limited Company requires a minimum of 3 directors and 7 shareholders, with no maximum limit on shareholders.",
+        "sourceRefs": ["SRC-COMPANIES-ACT-2013"]
+      },
+      {
+        "conditionCode": "COMPANY_OPC",
+        "field": "company.type",
+        "operator": "EQUALS",
+        "value": "ONE_PERSON_COMPANY",
+        "classification": "MANDATORY",
+        "appliesTo": "One Person Company: single member who is an Indian citizen and resident",
+        "claim": "A One Person Company can be formed by a single person who is an Indian citizen and resident in India. A nominee must be designated.",
+        "sourceRefs": ["SRC-COMPANIES-ACT-2013"]
+      },
+      {
+        "conditionCode": "COMPANY_LLP",
+        "field": "company.type",
+        "operator": "EQUALS",
+        "value": "LLP",
+        "classification": "MANDATORY",
+        "appliesTo": "Limited Liability Partnership: minimum 2 designated partners",
+        "claim": "A Limited Liability Partnership requires a minimum of 2 designated partners, of whom at least one must be a resident in India.",
+        "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+      },
+      {
+        "conditionCode": "COMPANY_MIN_ONE_RESIDENT_DIRECTOR",
+        "field": "company.hasResidentDirector",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All companies (Private Ltd, Public Ltd, OPC)",
+        "claim": "At least one director must have stayed in India for a total period of not less than 120 days during the previous financial year.",
+        "sourceRefs": ["SRC-COMPANIES-ACT-2013"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Section 8 (not-for-profit) company incorporation has additional eligibility requirements not covered here.",
+      "Foreign nationals can be directors/shareholders but additional compliance applies.",
+      "Minimum capital requirements have been abolished for Private and Public Limited companies."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "COMPANY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "COMPANY_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COMPANY_NAME_APPROVED",
+      "field": "workflow.nameApprovalStatus",
+      "operator": "EQUALS",
+      "value": "APPROVED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COMPANY_DSC_OBTAINED",
+      "field": "workflow.dscStatus",
+      "operator": "EQUALS",
+      "value": "OBTAINED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "COMPANY_REQ_DSC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Digital Signature Certificate (DSC) of all proposed directors and subscribers is mandatory. Class 3 DSC is required for signing electronic forms on the MCA portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_DIN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Director Identification Number (DIN) is mandatory for all proposed directors. DIN can be applied for as part of the SPICe+ form itself (up to 3 DINs in a single application).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_NAME_APPROVAL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Company name approval is required through Part A of SPICe+ form (RUN — Reserve Unique Name). Two proposed names can be submitted, and name availability is checked against existing registered entities.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_SPICE_PLUS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED", "COMPANY_NAME_APPROVED"]
+      },
+      "claim": "SPICe+ (INC-32) integrated form is the mandatory form for company incorporation. Part B of SPICe+ includes company details, registered office address, subscriber/director details, and additional integrated services (PAN/TAN, EPFO/ESIC, bank account, GST registration).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_MOA_AOA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Memorandum of Association (MOA — INC-33) and Articles of Association (AOA — INC-34) must be filed. The SPICe+ form provides linked e-MOA and e-AOA forms for online filing.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_IDENTITY_PROOF_DIRECTORS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof (PAN, Aadhaar, Passport) and address proof (utility bill, bank statement, voter ID) of all directors and subscribers are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_REGISTERED_OFFICE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of registered office address is required: rent agreement or ownership deed, NOC from the property owner, and a utility bill not older than 2 months.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "COMPANY_REQ_DECLARATION_PROFESSIONALS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["COMPANY_ROUTE_SELECTED"]
+      },
+      "claim": "Declaration by a professional (CA/CS/Cost Accountant in whole-time practice) in Form INC-9 and declaration by first subscribers and directors are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "COMPANY_STEP1_OBTAIN_DSC",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All proposed directors and subscribers",
+      "claim": "Obtain Digital Signature Certificate (DSC) from a certified Certifying Authority. This is a prerequisite before filing any form on the MCA portal.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "COMPANY_STEP2_NAME_RESERVATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new company incorporation applicants",
+      "claim": "Apply for name reservation through Part A of SPICe+ (RUN service). Submit up to 2 proposed names. The name is reserved for 20 days upon approval.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "COMPANY_STEP3_FILL_SPICE_PART_B",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new company incorporation applicants",
+      "claim": "Fill Part B of SPICe+ form with company details, director/subscriber information, registered office address, capital structure, and business activities. The integrated form also applies for PAN, TAN, EPFO, ESIC, professional tax registration, and bank account opening.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "COMPANY_STEP4_FILE_MOA_AOA",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new company incorporation applicants",
+      "claim": "File e-MOA (INC-33) and e-AOA (INC-34) linked to the SPICe+ form. These define the company's objects, liability, capital clause, and internal governance rules.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+    },
+    {
+      "processCode": "COMPANY_STEP5_UPLOAD_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new company incorporation applicants",
+      "claim": "Upload all required documents including identity/address proof of directors, registered office proof, NOC, utility bill, professional declaration, and consent of directors.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "COMPANY_STEP6_PAY_FEES_SUBMIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new company incorporation applicants",
+      "claim": "Pay the prescribed stamp duty and filing fees (varies by authorized capital and state of incorporation). Submit the application digitally signed with DSC of directors and professional.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "COMPANY_STEP7_ROC_PROCESSING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted incorporation applications",
+      "claim": "The Registrar of Companies (RoC) examines the application. The RoC may approve, raise a query, or reject the application. If a resubmission is required, the applicant has 15 days to respond.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+    },
+    {
+      "processCode": "COMPANY_STEP8_COI_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved incorporation applications",
+      "claim": "Upon approval, the Certificate of Incorporation (CoI) is issued with the Corporate Identification Number (CIN), PAN and TAN of the company. The CoI is digitally signed by the RoC and available for download from the MCA portal.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+    }
+  ],
+  "output": {
+    "outputCode": "COMPANY_CERTIFICATE_OF_INCORPORATION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Certificate of Incorporation (CoI) is issued containing the company name, CIN (Corporate Identification Number), date of incorporation, PAN, and TAN. The CoI is conclusive evidence of incorporation under Section 7(2) of the Companies Act 2013.",
+    "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28", "SRC-COMPANIES-ACT-2013"]
+  },
+  "fees": [
+    {
+      "feeCode": "COMPANY_MCA_FILING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Filing fee for SPICe+ form varies by authorized capital",
+      "status": "VERIFIED",
+      "claim": "MCA filing fees for company incorporation vary based on the authorized capital of the company. For authorized capital up to Rs. 1 lakh, the fee is approximately Rs. 500. Fees increase with higher authorized capital as per the Companies (Registration Offices and Fees) Rules.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "feeCode": "COMPANY_STAMP_DUTY",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Stamp duty on MOA and AOA varies by state and authorized capital",
+      "status": "VERIFIED",
+      "claim": "Stamp duty is payable on the Memorandum and Articles of Association. The amount varies by state of incorporation and authorized capital. It is paid electronically through the MCA portal.",
+      "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+    },
+    {
+      "feeCode": "COMPANY_DSC_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Digital Signature Certificate from Certifying Authority",
+      "status": "UNVERIFIED",
+      "claim": "DSC costs approximately Rs. 500-2000 per director depending on the Certifying Authority and validity period. This is a third-party charge, not a government fee."
+    },
+    {
+      "feeCode": "COMPANY_PROFESSIONAL_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Professional (CA/CS) charges for incorporation assistance",
+      "status": "UNVERIFIED",
+      "claim": "Professional charges for company incorporation assistance from a CA or CS are not standardized and vary by firm. This is not a government fee."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "COMPANY_PROCESSING_TIMELINE",
+    "minimumDuration": 3,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Company incorporation through SPICe+ form on MCA portal",
+    "status": "VERIFIED",
+    "claim": "Company incorporation typically takes 3-7 working days from the date of filing a complete SPICe+ application. Name reservation through RUN takes 1-2 working days. Total timeline including name reservation and incorporation is approximately 5-7 working days.",
+    "sourceRefs": ["SRC-MCA-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-MCA-PORTAL-2026-10-28",
+      "url": "https://www.mca.gov.in/",
+      "title": "Ministry of Corporate Affairs — MCA21 Portal",
+      "publisher": "Ministry of Corporate Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The MCA portal provides the official SPICe+ incorporation form, RUN name reservation service, filing fee schedules, document requirements, and processing information for company registration.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "SPICe+ is the integrated form for company incorporation.",
+        "DSC and DIN are mandatory prerequisites.",
+        "Name reservation is done through RUN (Part A of SPICe+).",
+        "MOA and AOA filing is integrated with SPICe+.",
+        "PAN, TAN, EPFO, ESIC registrations are integrated.",
+        "Filing fees vary by authorized capital.",
+        "Processing takes 3-7 working days.",
+        "Certificate of Incorporation with CIN is issued upon approval."
+      ],
+      "uncertainty": "Processing times may vary based on RoC workload. Stamp duty varies by state and is not fully modeled."
+    },
+    {
+      "sourceCode": "SRC-COMPANIES-ACT-2013",
+      "url": "https://www.mca.gov.in/Ministry/pdf/CompaniesAct2013.pdf",
+      "title": "Companies Act, 2013",
+      "publisher": "Ministry of Corporate Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Companies Act 2013 governs the incorporation, regulation, and winding up of companies in India. Section 3 defines types of companies, Section 4 governs MOA, Section 5 governs AOA, Section 7 prescribes the incorporation procedure, and Section 149 specifies director requirements.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Private Limited Company requires minimum 2 directors and 2 shareholders.",
+        "Public Limited Company requires minimum 3 directors and 7 shareholders.",
+        "One Person Company can be formed by a single Indian citizen resident.",
+        "At least one director must be a resident of India.",
+        "MOA and AOA are mandatory documents for incorporation.",
+        "Certificate of Incorporation is conclusive evidence of incorporation under Section 7(2).",
+        "Professional declaration is required under Section 7(1)(b)."
+      ],
+      "uncertainty": "The Act has been amended multiple times. Rules and notifications issued thereunder may modify specific procedures."
+    }
+  ],
+  "limitations": [
+    "This record covers incorporation of Private Limited, Public Limited, OPC, and LLP. It does not cover Section 8 (not-for-profit) companies, Producer Companies, or Nidhi Companies.",
+    "LLP incorporation follows a separate form (FiLLiP) and process, which is summarized but not fully detailed.",
+    "Stamp duty amounts vary by state and authorized capital and are not individually modeled.",
+    "Post-incorporation compliance requirements (commencement of business, annual filings) are not covered.",
+    "Foreign national director/shareholder additional compliance is not covered.",
+    "Professional fee charges for CA/CS assistance are not standardized and are not established by official sources."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core incorporation process and requirements are reviewed, but state-specific stamp duty, LLP-specific process, and post-incorporation compliance need additional coverage.",
+    "nextReviewTrigger": [
+      "Changes to the SPICe+ form or MCA portal processes.",
+      "Amendments to the Companies Act 2013 affecting incorporation requirements.",
+      "Changes to MCA filing fee schedule.",
+      "Introduction of new incorporation forms or integrated services.",
+      "Changes to director eligibility or residency requirements."
+    ]
+  }
+}

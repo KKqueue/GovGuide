@@ -1,0 +1,302 @@
+{
+  "serviceCode": "SENIOR_CITIZEN_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Senior Citizen Identity Card"
+  },
+  "authority": "District Administration / Municipal Corporation (State Government)",
+  "jurisdiction": "STATE",
+  "category": "SENIOR_CITIZEN_CARD",
+  "description": {
+    "en": "Issuance of a Senior Citizen Identity Card by the district administration or municipal corporation to residents aged 60 years and above. The card facilitates identification of senior citizens for availing benefits, concessions, and protections under the Maintenance and Welfare of Parents and Senior Citizens Act, 2007, and various central and state government schemes for senior citizens."
+  },
+  "officialLinks": {
+    "informationPortal": "https://www.india.gov.in/",
+    "actText": "https://www.indiacode.nic.in/handle/123456789/2025"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SENIOR_CITIZEN_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 60,
+        "classification": "MANDATORY",
+        "appliesTo": "All senior citizen card applicants",
+        "claim": "The applicant must be 60 years of age or older. Under the Maintenance and Welfare of Parents and Senior Citizens Act, 2007, a 'senior citizen' is defined as any citizen of India who has attained the age of sixty years or above.",
+        "sourceRefs": [
+          "SRC-SENIOR-CITIZEN-ACT-2007",
+          "SRC-INDIA-GOV-SENIOR"
+        ]
+      },
+      {
+        "conditionCode": "SENIOR_CITIZEN_RESIDENT",
+        "field": "applicant.residenceState",
+        "operator": "EQUALS",
+        "value": "APPLICABLE_STATE",
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants",
+        "claim": "The applicant must be a resident of the state or municipal area from which the senior citizen card is being applied for. Proof of residence in the jurisdiction is required.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-SENIOR"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states may issue senior citizen cards to persons aged 58 or above if they are retired government employees.",
+      "NRIs who are Indian citizens and above 60 years may be eligible in some states if they have a valid Indian address."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SENIOR_CITIZEN_CARD_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SENIOR_CITIZEN_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SENIOR_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled application form for senior citizen identity card in the prescribed format of the respective state government or municipal corporation. The form can be obtained from the district office, municipal corporation, or downloaded from the state portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    },
+    {
+      "requirementCode": "SENIOR_REQ_AGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of age of the applicant such as birth certificate, Aadhaar card (with date of birth), passport, voter ID, school leaving certificate, or PAN card. The document must clearly establish that the applicant is 60 years of age or above.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR",
+        "SRC-SENIOR-CITIZEN-ACT-2007"
+      ]
+    },
+    {
+      "requirementCode": "SENIOR_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of address such as Aadhaar card, voter ID, ration card, utility bill, property tax receipt, or any government-issued document establishing the applicant's residence in the jurisdiction.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    },
+    {
+      "requirementCode": "SENIOR_REQ_PASSPORT_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-sized photographs of the applicant (typically 2-4 copies). Some municipal corporations may require coloured photographs on a white background.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    },
+    {
+      "requirementCode": "SENIOR_REQ_IDENTITY_PROOF",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Additional identity proof such as Aadhaar card, voter ID, or passport may be requested for verification, especially if the age proof document does not include a photograph.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    },
+    {
+      "requirementCode": "SENIOR_REQ_MEDICAL_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SENIOR_CITIZEN_CARD_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A medical fitness certificate or blood group report may be requested by some municipal corporations for inclusion on the senior citizen card. This is not universally required but is included in some state formats for emergency medical purposes.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SENIOR_CARD_APPLICATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All senior citizen card applicants",
+      "claim": "Application process: (1) Obtain the application form from the district office, municipal corporation, or ward office, (2) Fill the form and attach all required documents (age proof, address proof, photographs), (3) Submit the application at the designated office — this may be the District Magistrate office, municipal corporation, ward office, or local police station depending on the state, (4) The application is verified by the concerned authority, (5) Upon verification, the senior citizen identity card is issued to the applicant. In some states, the card is issued on the spot or within a few days; in others, it may take 2-4 weeks.",
+      "doesNotEstablish": [
+        "The issuing authority varies significantly by state — it may be the District Magistrate, municipal commissioner, ward officer, or police department.",
+        "Some states have online application facilities while others require only in-person submission.",
+        "The format and features of the card vary by state."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR",
+        "SRC-SENIOR-CITIZEN-ACT-2007"
+      ]
+    },
+    {
+      "processCode": "SENIOR_CARD_BENEFITS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Senior citizen card holders",
+      "claim": "Benefits available with the senior citizen card include: (a) Priority service at government offices and hospitals, (b) Concessions on railway travel (subject to current policy), (c) Priority seating in public transport, (d) Tax benefits (higher basic exemption limit for income tax), (e) Higher interest rates on fixed deposits at banks, (f) Access to old age pension schemes, (g) Protection under the Maintenance and Welfare of Parents and Senior Citizens Act, 2007, (h) Concessions at various government and private establishments.",
+      "doesNotEstablish": [
+        "Railway concessions for senior citizens were suspended during COVID-19 and reinstatement status varies.",
+        "Specific benefits vary by state and municipality.",
+        "Some benefits may require additional documentation beyond the senior citizen card."
+      ],
+      "sourceRefs": [
+        "SRC-SENIOR-CITIZEN-ACT-2007",
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SENIOR_CITIZEN_IDENTITY_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Senior Citizen Identity Card issued by the district administration or municipal corporation, containing the applicant's photograph, name, address, date of birth, blood group (in some states), and emergency contact details. The card serves as proof of senior citizen status and facilitates availing concessions and benefits under various government schemes.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-SENIOR",
+      "SRC-SENIOR-CITIZEN-ACT-2007"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SENIOR_CARD_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Most states and municipal corporations",
+      "status": "VERIFIED",
+      "claim": "The senior citizen identity card is typically issued free of charge by most state governments and municipal corporations as a welfare measure for the elderly.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-SENIOR"
+      ]
+    },
+    {
+      "feeCode": "SENIOR_CARD_NOMINAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Some municipalities that charge a nominal fee",
+      "status": "UNVERIFIED",
+      "claim": "A few municipal corporations may charge a nominal fee of Rs. 10 to Rs. 50 for card issuance, particularly for laminated or smart card formats."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SENIOR_CARD_PROCESSING",
+    "minimumDuration": 1,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Standard application with complete documents",
+    "status": "VERIFIED",
+    "claim": "Processing time varies widely by state and issuing authority. Some municipal corporations issue the card on the same day or within 1-3 days. Others may take 15-30 days for verification and card printing. States with online systems typically process faster.",
+    "estimatedCompletionDatePolicy": "In municipal corporations with dedicated senior citizen desks, the card may be issued on the spot. Otherwise, allow 15-30 working days.",
+    "fallbackThresholdMentionedBySource": "If not received within 30 days, follow up at the issuing office or contact the District Social Welfare Officer",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-SENIOR"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-SENIOR",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India - Senior Citizens",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides information on senior citizen services, benefits, concessions, and welfare schemes including the process for obtaining a senior citizen identity card and rights under the Maintenance and Welfare of Parents and Senior Citizens Act, 2007.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Senior citizen definition (60 years and above).",
+        "Senior citizen card application process overview.",
+        "Benefits and concessions for senior citizens.",
+        "Links to state-specific senior citizen welfare schemes.",
+        "Document requirements."
+      ],
+      "uncertainty": "Information is aggregated and state-specific details including the exact issuing authority and format of the card may vary."
+    },
+    {
+      "sourceCode": "SRC-SENIOR-CITIZEN-ACT-2007",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2025",
+      "title": "The Maintenance and Welfare of Parents and Senior Citizens Act, 2007",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Act provides for the maintenance and welfare of parents and senior citizens, guaranteeing their right to maintenance, protection of life and property, establishment of old age homes, and provision of medical care. Section 2(h) defines a senior citizen as any citizen of India who has attained the age of sixty years or above.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Definition of senior citizen (age 60+).",
+        "Rights to maintenance by children and relatives.",
+        "Establishment of Maintenance Tribunals.",
+        "Protection of life and property of senior citizens.",
+        "State obligation to provide old age homes and medical care.",
+        "Penalties for abandonment of senior citizens."
+      ],
+      "uncertainty": "The Act was amended in 2019 with additional provisions; not all states have fully implemented the amendments."
+    }
+  ],
+  "limitations": [
+    "The senior citizen identity card format, issuing authority, and process vary significantly across states and municipal corporations.",
+    "Not all states have a formalized senior citizen card issuance programme; some may use alternative identification methods.",
+    "Railway concessions for senior citizens have been subject to policy changes and their current status should be verified independently.",
+    "The card itself may not be sufficient for availing all benefits; some schemes may require additional documents such as income certificate or BPL card.",
+    "Online application portals for senior citizen cards are not available in all states.",
+    "The validity period of the card varies; some states issue lifetime cards while others may require periodic renewal."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Eligibility criteria, document requirements, and general process verified against india.gov.in and the Maintenance and Welfare of Parents and Senior Citizens Act, 2007. State-specific variations in issuing authority and process noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Maintenance and Welfare of Parents and Senior Citizens Act.",
+      "Changes to senior citizen benefits such as railway concessions.",
+      "Introduction of a national-level senior citizen card scheme.",
+      "Updates to state-specific senior citizen welfare programmes.",
+      "Changes to the age threshold for senior citizen classification."
+    ]
+  }
+}

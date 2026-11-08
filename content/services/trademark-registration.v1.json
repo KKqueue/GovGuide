@@ -1,0 +1,386 @@
+{
+  "serviceCode": "TRADEMARK_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Trademark Registration"
+  },
+  "authority": "Controller General of Patents, Designs and Trademarks (CGPDTM), Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry",
+  "jurisdiction": "CENTRAL",
+  "category": "TRADEMARK",
+  "description": {
+    "en": "Registration of trademarks including brand names, logos, slogans, and other distinctive marks under the Trade Marks Act, 1999. A registered trademark provides the owner exclusive right to use the mark in connection with the goods or services for which it is registered."
+  },
+  "officialLinks": {
+    "application": "https://ipindia.gov.in/",
+    "informationPortal": "https://ipindia.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "TM_DISTINCTIVE_MARK",
+        "field": "applicant.hasDistinctiveMark",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All trademark registration applicants",
+        "claim": "The trademark must be distinctive and capable of distinguishing the goods or services of one person from those of others. Marks that are generic, descriptive, or deceptive cannot be registered.",
+        "sourceRefs": [
+          "SRC-TM-ACT-1999"
+        ]
+      },
+      {
+        "conditionCode": "TM_NOT_PROHIBITED",
+        "field": "applicant.markContainsProhibitedElement",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All trademark registration applicants",
+        "claim": "The trademark must not contain marks prohibited under Section 9 and Section 11 of the Trade Marks Act, including national emblems, official hallmarks, or marks identical or similar to existing registered trademarks.",
+        "sourceRefs": [
+          "SRC-TM-ACT-1999"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Any person claiming to be the proprietor of a trademark used or proposed to be used can apply for registration.",
+      "Both individuals, partnership firms, companies, LLPs, trusts, and joint applicants can apply.",
+      "Foreign nationals and entities can apply through an agent with an address for service in India.",
+      "Convention applications from Paris Convention countries have priority filing benefits."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "TM_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "TRADEMARK_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TM_FILING_TYPE_EFILING",
+      "field": "workflow.filingType",
+      "operator": "EQUALS",
+      "value": "E_FILING",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TM_FILING_TYPE_PHYSICAL",
+      "field": "workflow.filingType",
+      "operator": "EQUALS",
+      "value": "PHYSICAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "TM_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Trademark application in Form TM-A with complete details of the applicant, trademark representation, and specification of goods/services is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28",
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_TRADEMARK_REPRESENTATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A clear representation of the trademark is required. For word marks, the exact wording; for device marks, a digital image of the logo/design in prescribed format.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_CLASS_SPECIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Specification of goods or services and the class(es) under the Nice Classification (45 classes) for which the trademark is to be registered.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28",
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_APPLICANT_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Complete details of the applicant including name, address, nationality, and type of entity (individual, company, partnership, etc.).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_POWER_OF_ATTORNEY",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Power of attorney (Form TM-48) is required if the application is filed through a trademark agent or attorney.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_PRIORITY_DOCUMENT",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "For convention applications claiming priority from a Paris Convention country, a certified copy of the priority document must be filed within 3 months.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "requirementCode": "TM_REQ_USER_AFFIDAVIT",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TM_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "If claiming prior use of the trademark, an affidavit of use with supporting evidence (invoices, advertisements) may strengthen the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-TM-ACT-1999"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "TM_STEP1_SEARCH",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trademark applicants (recommended)",
+      "claim": "Conduct a trademark search on the IP India portal to check if an identical or similar mark is already registered or pending in the same class.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TM_STEP2_FILE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trademark applicants",
+      "claim": "File Form TM-A online through the IP India e-filing portal or physically at the appropriate Trademark Registry office (Mumbai, Delhi, Kolkata, Chennai, or Ahmedabad) based on the applicant's address.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TM_STEP3_EXAMINATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All filed trademark applications",
+      "claim": "The Trademark Examiner examines the application for compliance with the Trade Marks Act. An examination report is issued, which may accept the mark or raise objections.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28",
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "processCode": "TM_STEP4_RESPOND_OBJECTIONS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applications with examiner objections",
+      "claim": "If objections are raised, the applicant must respond within 30 days (extendable). A hearing may be requested if objections are not resolved through written response.",
+      "sourceRefs": [
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "processCode": "TM_STEP5_PUBLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All accepted trademark applications",
+      "claim": "Upon acceptance, the trademark is published in the Trademark Journal for a period of 4 months, during which any person may oppose the registration by filing a notice of opposition.",
+      "sourceRefs": [
+        "SRC-TM-ACT-1999"
+      ]
+    },
+    {
+      "processCode": "TM_STEP6_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trademark applications with no opposition or resolved opposition",
+      "claim": "If no opposition is filed within the 4-month period, or if opposition is decided in favor of the applicant, the trademark is registered and the registration certificate is issued.",
+      "sourceRefs": [
+        "SRC-TM-ACT-1999",
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "TM_REGISTRATION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Trademark Registration Certificate is issued containing the trademark number, registration date, proprietor details, class(es), and goods/services. Registration is valid for 10 years from the date of filing and can be renewed indefinitely for successive 10-year periods.",
+    "sourceRefs": [
+      "SRC-TM-ACT-1999",
+      "SRC-IPINDIA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "TM_EFILING_INDIVIDUAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 4500,
+      "currency": "INR",
+      "applicability": "E-filing of Form TM-A by individual, startup, or small enterprise (per class)",
+      "status": "VERIFIED",
+      "claim": "The government fee for e-filing a trademark application by an individual, startup, or small enterprise is Rs. 4,500 per class.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "TM_EFILING_OTHER_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 9000,
+      "currency": "INR",
+      "applicability": "E-filing of Form TM-A by other entities (company, LLP, etc.) per class",
+      "status": "VERIFIED",
+      "claim": "The government fee for e-filing a trademark application by entities other than individuals/startups/small enterprises is Rs. 9,000 per class.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "TM_PHYSICAL_INDIVIDUAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 5000,
+      "currency": "INR",
+      "applicability": "Physical filing of Form TM-A by individual, startup, or small enterprise (per class)",
+      "status": "VERIFIED",
+      "claim": "The government fee for physical filing of a trademark application by an individual, startup, or small enterprise is Rs. 5,000 per class.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "TM_PHYSICAL_OTHER_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 10000,
+      "currency": "INR",
+      "applicability": "Physical filing of Form TM-A by other entities per class",
+      "status": "VERIFIED",
+      "claim": "The government fee for physical filing of a trademark application by entities other than individuals/startups/small enterprises is Rs. 10,000 per class.",
+      "sourceRefs": [
+        "SRC-IPINDIA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "TM_PROCESSING_TIMELINE",
+    "minimumDuration": 18,
+    "maximumDuration": 24,
+    "unit": "MONTHS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Complete trademark registration process from filing to registration (assuming no opposition)",
+    "status": "VERIFIED",
+    "claim": "The complete trademark registration process typically takes 18 to 24 months from filing to registration, including examination (1-3 months), publication period (4 months), and final registration. Contested applications may take significantly longer.",
+    "sourceRefs": [
+      "SRC-TM-ACT-1999",
+      "SRC-IPINDIA-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-IPINDIA-2026-10-28",
+      "url": "https://ipindia.gov.in/",
+      "title": "IP India — Trademark Registration Portal",
+      "publisher": "Controller General of Patents, Designs and Trademarks, Department for Promotion of Industry and Internal Trade, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The IP India portal provides the official e-filing facility for trademark applications, fee schedule, trademark search, and status tracking. Form TM-A is the prescribed application form.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Trademark applications are filed using Form TM-A through the e-filing portal or physical submission.",
+        "E-filing fees: Rs. 4,500 for individuals/startups/SMEs and Rs. 9,000 for others per class.",
+        "Physical filing fees: Rs. 5,000 for individuals/startups/SMEs and Rs. 10,000 for others per class.",
+        "Five Trademark Registry offices process applications based on applicant address.",
+        "Trademark search facility is available on the portal."
+      ],
+      "uncertainty": "Fee schedules may be updated by government notification. Processing timelines depend on examiner workload and potential objections."
+    },
+    {
+      "sourceCode": "SRC-TM-ACT-1999",
+      "url": "https://ipindia.gov.in/writereaddata/Portal/ev/TMAct-1999.pdf",
+      "title": "The Trade Marks Act, 1999",
+      "publisher": "Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Trade Marks Act, 1999 governs the registration and protection of trademarks in India. Section 9 lists absolute grounds for refusal. Section 11 lists relative grounds. Section 18 prescribes the application procedure. Section 25 provides for 10-year registration with indefinite renewal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Any person claiming to be proprietor of a trademark can apply for registration.",
+        "Marks must be distinctive and not fall under prohibited categories.",
+        "Publication in Trademark Journal for 4 months allows opposition.",
+        "Registration is valid for 10 years and can be renewed indefinitely.",
+        "Opposition period of 4 months from publication date.",
+        "30-day response period for examiner objections."
+      ],
+      "uncertainty": "The Act has been amended and rules updated; specific procedural timelines may vary."
+    }
+  ],
+  "limitations": [
+    "This record covers new trademark registration only, not renewal, assignment, transmission, or licensing.",
+    "Multi-class applications and their fee implications are simplified; each class requires a separate fee.",
+    "The opposition procedure and contested proceedings are outlined but not fully modeled.",
+    "Geographical indications, collective marks, and certification marks have separate procedures not covered here.",
+    "International trademark registration under the Madrid Protocol is not covered.",
+    "Professional agent fees for trademark filing are not established as they vary widely."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core registration process and fee structure are reviewed, but opposition proceedings, international filings, and special mark types remain unmodeled.",
+    "nextReviewTrigger": [
+      "Updates to the Trade Marks Rules affecting fees or procedures.",
+      "Changes to the IP India e-filing portal or application process.",
+      "Amendments to the Trade Marks Act, 1999.",
+      "New categories of marks or classification changes."
+    ]
+  }
+}

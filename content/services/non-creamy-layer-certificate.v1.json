@@ -1,0 +1,360 @@
+{
+  "serviceCode": "NON_CREAMY_LAYER",
+  "version": 1,
+  "slug": "non-creamy-layer-certificate",
+  "category": "NON_CREAMY_LAYER",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "title": "Non-Creamy Layer Certificate for OBC Candidates",
+  "shortDescription": "Obtain a Non-Creamy Layer Certificate required by Other Backward Classes (OBC) candidates to avail reservation benefits in government jobs, educational institutions, and other government schemes. The certificate certifies that the applicant's family income does not exceed the prescribed annual limit.",
+  "jurisdiction": "STATE",
+  "authority": {
+    "name": "Sub-Divisional Magistrate (SDM) / Tehsildar / District Magistrate",
+    "portalUrl": null,
+    "contactInfo": "Contact the local Tehsil or Sub-Divisional Magistrate office"
+  },
+  "legalBasis": [
+    "Constitution of India — Articles 15(4), 16(4) (Reservation for backward classes)",
+    "National Commission for Backward Classes Act, 1993",
+    "Government of India, Department of Personnel and Training OM No. 36012/22/93-Estt.(SCT) dated 08.09.1993",
+    "Government of India, DOPT OM No. 36033/1/2013-Estt.(Res) — Revision of income criteria for creamy layer"
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_DOPT_NCL_OM",
+      "url": "https://dopt.gov.in/sites/default/files/36012_22_93-Estt.pdf",
+      "title": "DOPT Office Memorandum on Non-Creamy Layer criteria for OBC",
+      "publisher": "Department of Personnel and Training, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The creamy layer amongst OBCs excludes persons whose gross annual income from all sources is above Rs. 8 lakh per annum (revised periodically). Sons and daughters of persons holding constitutional positions, Group A/B officers, and equivalent posts in PSUs are also excluded.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_INCOME_LIMIT",
+        "REQ_OBC_CASTE_CERTIFICATE",
+        "REQ_PARENTS_NOT_GROUP_A"
+      ],
+      "uncertainty": "The income limit is periodically revised by the Government of India; the current limit of Rs. 8 lakh should be verified against the latest notification."
+    },
+    {
+      "sourceCode": "SRC_NCBC_CENTRAL_LIST",
+      "url": "https://ncbc.nic.in/User/statelistview.aspx",
+      "title": "Central List of Other Backward Classes — State-wise",
+      "publisher": "National Commission for Backward Classes",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Central List of OBCs is maintained state-wise by the National Commission for Backward Classes. Each state has its own list of communities included in the OBC category for the purpose of reservation in central government services and educational institutions.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_OBC_CASTE_CERTIFICATE",
+        "COND_BELONGS_TO_OBC_CENTRAL_LIST"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_STATE_REVENUE_DEPT",
+      "url": "https://revenue.india.gov.in/certificates",
+      "title": "Revenue Department Guidelines for Issuance of Non-Creamy Layer Certificate",
+      "publisher": "State Revenue Department",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Non-Creamy Layer certificate is issued by the Sub-Divisional Magistrate or Tehsildar based on verification of income documents, caste certificate, and an affidavit from the applicant. The certificate is typically valid for one year from the date of issue.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_INCOME_PROOF",
+        "REQ_AFFIDAVIT",
+        "REQ_OBC_CASTE_CERTIFICATE",
+        "PROC_SUBMIT_APPLICATION",
+        "PROC_VERIFICATION"
+      ],
+      "uncertainty": "Procedures may vary across states. Applicants should check with their specific state revenue department."
+    },
+    {
+      "sourceCode": "SRC_DOPT_INCOME_REVISION",
+      "url": "https://dopt.gov.in/sites/default/files/36033_1_2013-Estt-Res.pdf",
+      "title": "Revision of Income Criteria for Creamy Layer — DOPT OM",
+      "publisher": "Department of Personnel and Training, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The income limit for determining the creamy layer has been revised to Rs. 8 lakh per annum gross annual income. Agricultural income is excluded from computing the annual income. Salary and income from other sources are included.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_INCOME_LIMIT",
+        "REQ_INCOME_PROOF"
+      ],
+      "uncertainty": "Income ceiling is subject to periodic revision by the Government of India."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_BELONGS_TO_OBC_CENTRAL_LIST",
+      "field": "applicant.belongsToOBCCentralList",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Applicant's caste/community must be in the Central List of Other Backward Classes for their state",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_FAMILY_INCOME_BELOW_LIMIT",
+      "field": "applicant.familyAnnualIncomeInLakhs",
+      "operator": "LESS_THAN",
+      "value": "8",
+      "label": "Applicant's family gross annual income (excluding agricultural income) must not exceed Rs. 8 lakh per annum",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_PARENTS_NOT_CONSTITUTIONAL_POST",
+      "field": "applicant.parentsHoldConstitutionalPost",
+      "operator": "EQUALS",
+      "value": "false",
+      "label": "Neither parent should hold or have held a constitutional post (President, Vice President, Governor, Judge of Supreme Court/High Court, etc.)",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_PARENTS_NOT_GROUP_A_OFFICER",
+      "field": "applicant.parentsAreGroupAOfficer",
+      "operator": "EQUALS",
+      "value": "false",
+      "label": "Neither parent should be a Group A or Group B officer in Central or State government services (or equivalent in PSUs)",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_FOR_CENTRAL_SERVICES",
+      "field": "workflow.selectedPurpose",
+      "operator": "EQUALS",
+      "value": "CENTRAL_SERVICES",
+      "label": "Certificate is being sought for central government services or central educational institutions",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_FOR_STATE_SERVICES",
+      "field": "workflow.selectedPurpose",
+      "operator": "EQUALS",
+      "value": "STATE_SERVICES",
+      "label": "Certificate is being sought for state government services or state educational institutions",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_IS_INDIAN_CITIZEN",
+      "field": "applicant.isIndianCitizen",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Applicant must be an Indian citizen",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_OBC_CASTE_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_BELONGS_TO_OBC_CENTRAL_LIST",
+          "COND_IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "A valid OBC Caste Certificate issued by a competent authority (Tehsildar/SDM/District Magistrate) confirming that the applicant belongs to a community listed in the Central List of Other Backward Classes for the relevant state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_NCBC_CENTRAL_LIST",
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_INCOME_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_FAMILY_INCOME_BELOW_LIMIT"
+        ]
+      },
+      "claim": "Proof of family income is required, such as Income Certificate from the Tehsildar, salary slips of parents (for salaried), or Income Tax Returns for the last 3 financial years. Agricultural income is excluded from the computation.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_DOPT_INCOME_REVISION",
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_INCOME_LIMIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_FAMILY_INCOME_BELOW_LIMIT"
+        ]
+      },
+      "claim": "The gross annual income of the applicant's parents (from salary and all other sources excluding agricultural income) must not exceed Rs. 8 lakh per annum to qualify as Non-Creamy Layer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_DOPT_NCL_OM",
+        "SRC_DOPT_INCOME_REVISION"
+      ]
+    },
+    {
+      "requirementCode": "REQ_PARENTS_NOT_GROUP_A",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_PARENTS_NOT_GROUP_A_OFFICER",
+          "COND_PARENTS_NOT_CONSTITUTIONAL_POST"
+        ]
+      },
+      "claim": "Neither parent of the applicant should hold or have held a post in Group A or Group B services of the Central or State Government, or an equivalent post in PSUs, armed forces (Colonel and above or equivalent), or constitutional positions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_DOPT_NCL_OM"
+      ]
+    },
+    {
+      "requirementCode": "REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_BELONGS_TO_OBC_CENTRAL_LIST",
+          "COND_FAMILY_INCOME_BELOW_LIMIT"
+        ]
+      },
+      "claim": "A self-declaration affidavit on stamp paper (typically Rs. 10-100, varies by state) sworn before a Notary or Executive Magistrate stating the family income details and that the family does not fall under the creamy layer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "Valid identity proof of the applicant such as Aadhaar Card, Voter ID, Passport, or PAN Card.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "Address proof such as Aadhaar Card, Ration Card, Voter ID, or utility bill showing the applicant's current residential address.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_PASSPORT_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the applicant (typically 2-3 copies as required by the issuing office).",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_GATHER_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 1,
+      "claim": "Step 1: Gather all required documents — OBC Caste Certificate, income proof (salary slips, ITR, or income certificate), identity proof, address proof, and passport-size photographs. Prepare an affidavit on stamp paper declaring family income and non-creamy layer status.",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "processCode": "PROC_SUBMIT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 2,
+      "claim": "Step 2: Submit the application form along with all supporting documents at the office of the Sub-Divisional Magistrate (SDM) or Tehsildar. Some states allow online application through their e-District portal or Common Service Centres (CSC).",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "processCode": "PROC_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 3,
+      "claim": "Step 3: The revenue authority verifies the submitted documents and may conduct a field inquiry through the local Patwari/Revenue Inspector to verify the income and other details of the applicant's family.",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT"
+      ]
+    },
+    {
+      "processCode": "PROC_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 4,
+      "claim": "Step 4: Upon successful verification, the Non-Creamy Layer Certificate is issued by the SDM/Tehsildar in the prescribed format. The certificate is typically valid for one year from the date of issue and must be renewed annually. For central services, the certificate must be in the format prescribed by DOPT.",
+      "sourceRefs": [
+        "SRC_STATE_REVENUE_DEPT",
+        "SRC_DOPT_NCL_OM"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_APPLICATION",
+      "description": "Application fee for Non-Creamy Layer Certificate (varies by state)",
+      "amount": null,
+      "currency": "INR",
+      "note": "Many states issue this certificate free of cost; some charge a nominal fee of Rs. 10-50. Check with local revenue office."
+    },
+    {
+      "feeCode": "FEE_AFFIDAVIT_STAMP",
+      "description": "Stamp paper for self-declaration affidavit",
+      "amount": null,
+      "currency": "INR",
+      "note": "Stamp paper value varies by state, typically Rs. 10 to Rs. 100."
+    }
+  ],
+  "processingTime": {
+    "minimum": "7 days",
+    "maximum": "30 days",
+    "note": "Processing time varies by state and district. Online applications through e-District portals may be processed faster. Field verification may add additional time.",
+    "timelineCode": "NON_CREAMY_LAYER_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2026-10-28T00:00:00Z",
+    "updatedAt": "2026-10-28T00:00:00Z",
+    "createdBy": "GovGuide Content Team"
+  }
+}

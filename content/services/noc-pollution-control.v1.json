@@ -1,0 +1,405 @@
+{
+  "serviceCode": "NOC_POLLUTION_CONTROL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pollution Control Board Consent / NOC"
+  },
+  "authority": "State Pollution Control Board (SPCB) / Central Pollution Control Board (CPCB)",
+  "jurisdiction": "STATE",
+  "category": "NOC_POLLUTION_CONTROL",
+  "description": {
+    "en": "Consent to Establish (CTE) and Consent to Operate (CTO) from the State Pollution Control Board under the Water (Prevention and Control of Pollution) Act, 1974 and the Air (Prevention and Control of Pollution) Act, 1981. Required for all industrial units, factories, manufacturing facilities, hospitals, hotels, and other establishments that generate pollutants or effluents. The process involves a two-stage consent: CTE must be obtained before construction or installation of the unit, and CTO must be obtained before commencing operations. The consent is subject to conditions regarding emission standards, effluent treatment, and waste management."
+  },
+  "officialLinks": {
+    "application": "https://cpcb.nic.in/",
+    "informationPortal": "https://cpcb.nic.in/consent-management/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NOC_INDUSTRIAL_ESTABLISHMENT",
+        "field": "establishment.type",
+        "operator": "IN_SET",
+        "value": [
+          "INDUSTRIAL_UNIT",
+          "FACTORY",
+          "MANUFACTURING",
+          "HOSPITAL",
+          "HOTEL",
+          "COMMERCIAL_COMPLEX"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All establishments that discharge effluents or emit pollutants",
+        "claim": "Any industry, operation, or process that discharges sewage or trade effluent into water bodies or onto land, or emits air pollutants, requires consent from the State Pollution Control Board under the Water Act, 1974 and Air Act, 1981.",
+        "sourceRefs": [
+          "SRC-WATER-ACT-1974"
+        ]
+      },
+      {
+        "conditionCode": "NOC_ESTABLISHMENT_CATEGORY",
+        "field": "establishment.pollutionCategory",
+        "operator": "IN_SET",
+        "value": [
+          "RED",
+          "ORANGE",
+          "GREEN",
+          "WHITE"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All establishments seeking consent based on their pollution potential categorization",
+        "claim": "Industries are classified into Red, Orange, Green, and White categories based on their pollution potential as per CPCB categorization. The category determines the level of scrutiny and conditions for consent.",
+        "sourceRefs": [
+          "SRC-CPCB-CATEGORIZATION-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NOC_VALID_LAND_USE",
+        "field": "premises.hasValidLandUse",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All establishments applying for Consent to Establish",
+        "claim": "The proposed site must have valid land use permission for industrial or commercial activity as per local town planning norms. CTE cannot be issued for a site in a residential or restricted zone.",
+        "sourceRefs": [
+          "SRC-CPCB-CATEGORIZATION-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "White category industries (non-polluting) may be exempted from CTE/CTO requirements in some states.",
+      "Micro, small, and medium enterprises may have simplified consent procedures in certain states.",
+      "Industries in designated industrial estates may have a different consent process.",
+      "Environmental clearance from the Ministry of Environment may be additionally required for certain large-scale projects.",
+      "Consent conditions and validity periods vary significantly across state pollution control boards."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NOC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NOC_POLLUTION_CONTROL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NOC_CONSENT_TYPE_CTE",
+      "field": "workflow.consentType",
+      "operator": "EQUALS",
+      "value": "CONSENT_TO_ESTABLISH",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NOC_CONSENT_TYPE_CTO",
+      "field": "workflow.consentType",
+      "operator": "EQUALS",
+      "value": "CONSENT_TO_OPERATE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NOC_INDUSTRY_CATEGORY_CHECK",
+      "field": "establishment.pollutionCategory",
+      "operator": "IN_SET",
+      "value": [
+        "RED",
+        "ORANGE",
+        "GREEN"
+      ],
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NOC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Completed application form (Form I for CTE under Water Act, Form I for CTE under Air Act) with details of the establishment, manufacturing process, raw materials, products, water consumption, effluent generation, and air emissions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974",
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_SITE_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED",
+          "NOC_CONSENT_TYPE_CTE"
+        ]
+      },
+      "claim": "Detailed site plan and layout showing the location of the proposed unit, effluent treatment plant (ETP), sewage treatment plant (STP), air pollution control devices, and proximity to water bodies, residential areas, and sensitive zones.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_PROCESS_FLOW",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Process flow diagram describing the manufacturing process, raw materials used, products and by-products, water balance, and points of effluent discharge and air emission.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_ETP_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of proposed or existing Effluent Treatment Plant (ETP) and Air Pollution Control Equipment (APCE), including design capacity, technology, and expected outlet quality parameters.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974",
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_LAND_DOCUMENTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED",
+          "NOC_CONSENT_TYPE_CTE"
+        ]
+      },
+      "claim": "Land ownership or lease documents, land use permission or no-objection certificate from the local planning authority, and building plan approval.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_CTE_COPY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED",
+          "NOC_CONSENT_TYPE_CTO"
+        ]
+      },
+      "claim": "Copy of the valid Consent to Establish (CTE) previously granted by the SPCB is required when applying for Consent to Operate (CTO).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974"
+      ]
+    },
+    {
+      "requirementCode": "NOC_REQ_COMPANY_REGISTRATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NOC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of company registration or business entity registration (e.g., certificate of incorporation, partnership deed, GST registration, or Udyam registration for MSMEs).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NOC_STEP1_CATEGORIZE_INDUSTRY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants for pollution control consent",
+      "claim": "Determine the industry category (Red, Orange, Green, or White) based on the CPCB categorization of industries. The category is determined by the type of industry, manufacturing process, and pollution potential.",
+      "sourceRefs": [
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NOC_STEP2_APPLY_CTE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new industrial establishments",
+      "claim": "Apply for Consent to Establish (CTE) through the respective State Pollution Control Board portal or office before commencing construction or installation of the industrial unit. Submit the application form with all required documents and the prescribed fee.",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974",
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NOC_STEP3_SITE_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All CTE and CTO applicants",
+      "claim": "SPCB officials conduct a site inspection to verify the information provided in the application, assess the proposed pollution control measures, and check compliance with environmental standards and norms.",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974"
+      ]
+    },
+    {
+      "processCode": "NOC_STEP4_CTE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants whose CTE is approved",
+      "claim": "Upon satisfactory review and site inspection, the SPCB issues the Consent to Establish with conditions regarding pollution control measures, emission standards, and waste management requirements to be complied with during construction and operation.",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974"
+      ]
+    },
+    {
+      "processCode": "NOC_STEP5_APPLY_CTO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Establishments with valid CTE ready to commence operations",
+      "claim": "After construction and installation of pollution control equipment as per CTE conditions, apply for Consent to Operate (CTO) with evidence of installed ETP/APCE, trial run results, and compliance with CTE conditions.",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974",
+        "SRC-CPCB-CATEGORIZATION-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NOC_STEP6_CTO_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants whose CTO is approved",
+      "claim": "Upon verification of compliance with CTE conditions and satisfactory installation of pollution control equipment, the SPCB issues Consent to Operate for a specified validity period, subject to periodic renewal.",
+      "sourceRefs": [
+        "SRC-WATER-ACT-1974"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NOC_CONSENT_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Consent to Establish (CTE) and/or Consent to Operate (CTO) document issued by the State Pollution Control Board. The consent specifies conditions regarding emission and effluent standards, pollution control equipment, waste disposal methods, monitoring requirements, and validity period. CTO is typically valid for 1 to 5 years depending on the industry category and must be renewed before expiry.",
+    "sourceRefs": [
+      "SRC-WATER-ACT-1974",
+      "SRC-CPCB-CATEGORIZATION-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NOC_CTE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Consent to Establish application fee varies by state and industry category",
+      "status": "UNVERIFIED",
+      "claim": "CTE application fees vary significantly across states and depend on the industry category (Red, Orange, Green), capital investment, and type of establishment. Fees are prescribed by respective State Pollution Control Boards."
+    },
+    {
+      "feeCode": "NOC_CTO_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Consent to Operate application fee varies by state and industry category",
+      "status": "UNVERIFIED",
+      "claim": "CTO application fees are prescribed by respective State Pollution Control Boards and vary by state, industry category, and capital investment of the unit."
+    },
+    {
+      "feeCode": "NOC_RENEWAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "CTO renewal fee, payable before expiry of the existing consent period",
+      "status": "UNVERIFIED",
+      "claim": "CTO renewal fees are prescribed by the respective SPCB and must be paid before expiry of the existing consent. Late renewal may attract additional penalties."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NOC_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 120,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From complete application to issuance of CTE/CTO, subject to site inspection and compliance verification",
+    "status": "VERIFIED",
+    "claim": "Processing time for CTE/CTO applications typically ranges from 30 to 120 days depending on the industry category, complexity of the project, and state-specific procedures. Red category industries generally take longer due to more rigorous scrutiny. Several states have introduced single-window clearance systems to expedite the process.",
+    "sourceRefs": [
+      "SRC-CPCB-CATEGORIZATION-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-CPCB-CATEGORIZATION-2026-10-28",
+      "url": "https://cpcb.nic.in/",
+      "title": "Central Pollution Control Board — Official Portal and Industry Categorization",
+      "publisher": "Central Pollution Control Board, Ministry of Environment, Forest and Climate Change, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "CPCB has categorized industries into Red, Orange, Green, and White categories based on their pollution index score. The categorization determines the consent process, conditions, and monitoring requirements.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Industries are categorized into Red, Orange, Green, and White based on pollution potential.",
+        "Application forms and documents are required for CTE and CTO.",
+        "Site plan, process flow diagram, and ETP/APCE details are mandatory submissions.",
+        "Land use permission and company registration are required.",
+        "Processing timelines vary by industry category and state procedures."
+      ],
+      "uncertainty": "State-specific procedures, fee structures, and additional documentation requirements vary significantly and are governed by individual SPCB notifications."
+    },
+    {
+      "sourceCode": "SRC-WATER-ACT-1974",
+      "url": "https://cpcb.nic.in/water-act/",
+      "title": "Water (Prevention and Control of Pollution) Act, 1974 and Air (Prevention and Control of Pollution) Act, 1981",
+      "publisher": "Ministry of Environment, Forest and Climate Change, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 25 of the Water Act, 1974 requires that no person shall establish or operate any industry that is likely to discharge sewage or trade effluent without prior consent of the State Pollution Control Board. Section 21 of the Air Act, 1981 requires consent for establishing and operating industrial plants in air pollution control areas.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Consent to Establish is mandatory before construction of a polluting unit.",
+        "Consent to Operate is mandatory before commencing operations.",
+        "SPCB officials conduct site inspections for compliance verification.",
+        "CTE is required as a prerequisite for CTO application.",
+        "Consent is issued with conditions and for a specified validity period.",
+        "Application form with details of effluent and emission is required."
+      ],
+      "uncertainty": "The Water Act and Air Act have been supplemented by numerous rules, notifications, and SPCB-specific guidelines that vary across states."
+    }
+  ],
+  "limitations": [
+    "This record covers the general CTE/CTO process. State-specific procedures, forms, fee structures, and online portals vary significantly across 29 states and 8 union territories.",
+    "Environmental clearance under the EIA Notification, 2006 may be separately required for large-scale projects and is not covered here.",
+    "Hazardous waste authorization under the Hazardous and Other Wastes (Management and Transboundary Movement) Rules, 2016 is a separate process not modeled here.",
+    "Specific emission and effluent standards applicable to different industry categories are not detailed in this record.",
+    "White category (non-polluting) industries may be exempt from the consent process in many states.",
+    "The record does not cover the process for consent transfer, amendment, or revocation."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core consent process is reviewed based on the Water Act, Air Act, and CPCB categorization, but state-specific procedures, fee structures, and online portal details remain unmodeled.",
+    "nextReviewTrigger": [
+      "Amendments to the Water Act, 1974 or Air Act, 1981.",
+      "Updates to CPCB industry categorization criteria.",
+      "New SPCB notifications regarding consent procedures or fee revisions.",
+      "Changes to the online consent management systems across states.",
+      "Introduction of unified environmental consent frameworks."
+    ]
+  }
+}

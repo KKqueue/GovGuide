@@ -1,0 +1,287 @@
+{
+  "serviceCode": "CASTE_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Caste Certificate (SC/ST/OBC)"
+  },
+  "authority": "District Magistrate / Sub-Divisional Magistrate (State Government)",
+  "jurisdiction": "STATE",
+  "category": "CASTE_CERTIFICATE",
+  "description": {
+    "en": "Issuance of a caste certificate to members of Scheduled Castes (SC), Scheduled Tribes (ST), and Other Backward Classes (OBC) by the state government authority. The certificate is required for availing reservations in education, employment, and government schemes as provided under the Constitution of India and various central/state government orders."
+  },
+  "officialLinks": {
+    "application": "https://serviceonline.gov.in/",
+    "informationPortal": "https://www.india.gov.in/",
+    "ncscPortal": "https://ncsc.nic.in/",
+    "ncstPortal": "https://ncst.nic.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "BELONGS_TO_SC_ST_OBC",
+        "field": "applicant.casteCategory",
+        "operator": "IN",
+        "value": ["SC", "ST", "OBC"],
+        "classification": "MANDATORY",
+        "appliesTo": "All caste certificate applicants",
+        "claim": "The applicant must belong to a community listed in the Scheduled Castes, Scheduled Tribes, or Other Backward Classes list as notified by the Central Government or the respective State Government. The lists are maintained under Article 341, 342, and 342A of the Constitution of India.",
+        "sourceRefs": ["SRC-NCSC-PORTAL", "SRC-NCST-PORTAL", "SRC-INDIA-GOV-CASTE"]
+      },
+      {
+        "conditionCode": "RESIDENT_OF_STATE",
+        "field": "applicant.residenceState",
+        "operator": "EQUALS",
+        "value": "APPLICABLE_STATE",
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants",
+        "claim": "The applicant must be a resident of the state from which the caste certificate is being sought. The caste/tribe must be listed in the state-specific schedule, as the SC/ST/OBC lists may differ from state to state.",
+        "sourceRefs": ["SRC-NCSC-PORTAL", "SRC-INDIA-GOV-CASTE"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Persons who have migrated from one state to another may need to obtain the certificate from their state of origin, as caste listings are state-specific.",
+      "Children born of inter-caste marriages may have specific rules depending on the state regarding which parent's caste certificate is applicable."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "CASTE_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "CASTE_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "CASTE_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "A duly filled application form for caste certificate in the prescribed format of the respective state government. The form can be obtained from the Tehsildar/SDM office or downloaded from the state's e-District or service portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, voter ID, passport, driving license, or any government-issued photo identity document.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of residence/address such as Aadhaar card, voter ID, ration card, utility bill, or any government-issued address proof document establishing the applicant's residence in the state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_RATION_CARD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Ration card of the family showing the caste/community of the family members. This serves as primary evidence of caste as recorded in government records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_SCHOOL_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "School leaving certificate or transfer certificate mentioning the caste/community of the applicant or their parent. This serves as a documentary evidence of caste from educational records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_PARENT_CASTE_CERT",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Caste certificate of the father or any family member already issued by a competent authority. This helps expedite verification, though it is not mandatory if other documentary evidence is available.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "requirementCode": "CASTE_REQ_AFFIDAVIT",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["CASTE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "A self-declaration affidavit on stamp paper may be required in some states, particularly when other documentary evidence is insufficient. The affidavit affirms the applicant's caste/community.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "CASTE_CERT_OFFLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying through Tehsil/SDM office",
+      "claim": "Offline application process: (1) Obtain the prescribed application form from the Tehsildar or Sub-Divisional Magistrate (SDM) office, (2) Fill the form and attach all required documents (identity proof, address proof, ration card, school certificate), (3) Submit the application at the Tehsil/SDM office, (4) The revenue officer (Patwari/Lekhpal) conducts a field verification of the applicant's caste claim, (5) Upon successful verification, the Tehsildar or SDM issues the caste certificate.",
+      "doesNotEstablish": [
+        "The exact designation of the issuing officer may vary by state.",
+        "Some states may have additional verification steps such as a caste verification committee."
+      ],
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "processCode": "CASTE_CERT_ONLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying through state e-District or online portal",
+      "claim": "Online application process: (1) Visit the state e-District portal or the Common Service Centre (CSC), (2) Register or log in with credentials, (3) Fill the online application form and upload scanned copies of required documents, (4) Pay the applicable fee online (if any), (5) The application is forwarded to the concerned Tehsildar/SDM office for verification, (6) After field verification, the certificate is issued digitally and can be downloaded from the portal.",
+      "doesNotEstablish": [
+        "Not all states have fully operational online portals for caste certificate issuance.",
+        "Physical verification may still be required even for online applications."
+      ],
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    }
+  ],
+  "output": {
+    "outputCode": "CASTE_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A caste certificate issued by the District Magistrate, Sub-Divisional Magistrate, or Tehsildar certifying that the applicant belongs to a Scheduled Caste, Scheduled Tribe, or Other Backward Class as listed in the relevant Central/State Government notification. The certificate is accepted for availing reservation benefits in education, employment, and government welfare schemes.",
+    "sourceRefs": ["SRC-NCSC-PORTAL", "SRC-NCST-PORTAL"]
+  },
+  "fees": [
+    {
+      "feeCode": "CASTE_CERT_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Many states issue caste certificates free of charge",
+      "status": "VERIFIED",
+      "claim": "Several states issue caste certificates free of cost as a welfare measure. Where applicable, no government fee is charged for the first issuance.",
+      "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+    },
+    {
+      "feeCode": "CASTE_CERT_NOMINAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "States that charge a nominal fee",
+      "status": "UNVERIFIED",
+      "claim": "Some states charge a nominal fee ranging from Rs. 10 to Rs. 50 for issuance of the caste certificate. The fee varies by state and may also depend on whether the application is online or offline."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "CASTE_CERT_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Standard application with complete documents",
+    "status": "VERIFIED",
+    "claim": "The processing time for a caste certificate typically ranges from 7 to 30 days, depending on the state and the verification process. States with online portals and streamlined processes may issue certificates within 7-15 days. In areas requiring extensive field verification, it may take up to 30 days.",
+    "estimatedCompletionDatePolicy": "Most states aim to issue the certificate within 15 working days. Online applications may be processed faster.",
+    "fallbackThresholdMentionedBySource": "If not received within 30 days, applicant may follow up at the Tehsil/SDM office or file a grievance on the state portal",
+    "sourceRefs": ["SRC-INDIA-GOV-CASTE"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NCSC-PORTAL",
+      "url": "https://ncsc.nic.in/",
+      "title": "National Commission for Scheduled Castes",
+      "publisher": "National Commission for Scheduled Castes, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Commission for Scheduled Castes monitors safeguards provided for SCs under the Constitution and investigates complaints regarding deprivation of rights. It provides guidance on issuance of caste certificates and handles grievances related to denial or delay.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Constitutional basis for SC classification.",
+        "State-specific SC lists under Article 341.",
+        "Grievance redressal for caste certificate issues.",
+        "Role of NCSC in monitoring SC welfare."
+      ],
+      "uncertainty": "Portal focuses on SC-specific issues; OBC matters are handled by the National Commission for Backward Classes."
+    },
+    {
+      "sourceCode": "SRC-NCST-PORTAL",
+      "url": "https://ncst.nic.in/",
+      "title": "National Commission for Scheduled Tribes",
+      "publisher": "National Commission for Scheduled Tribes, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Commission for Scheduled Tribes is established under Article 338A of the Constitution to safeguard the interests of Scheduled Tribes. It oversees issuance of ST certificates and handles complaints regarding denial or fraudulent issuance.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Constitutional basis for ST classification under Article 342.",
+        "State-specific ST lists.",
+        "Grievance redressal for ST certificate issues.",
+        "Verification procedures for ST certificates."
+      ],
+      "uncertainty": "Portal focuses on ST-specific issues; SC and OBC matters are handled by their respective commissions."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-CASTE",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India - Caste Certificate Information",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides consolidated information on the process, documents required, and links to state portals for obtaining caste certificates for SC, ST, and OBC categories.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for caste certificate.",
+        "Application process overview.",
+        "Links to state-specific e-District portals.",
+        "Fee and processing time guidelines."
+      ],
+      "uncertainty": "Information is aggregated and may not reflect the latest state-specific changes or updated document requirements."
+    }
+  ],
+  "limitations": [
+    "Caste certificate requirements and processes are state-specific; this record provides a general overview applicable across most states.",
+    "The SC/ST/OBC lists differ from state to state; a caste listed in one state may not be listed in another.",
+    "OBC certificates may require additional creamy layer/non-creamy layer certification for central government benefits.",
+    "The process for obtaining a caste validity certificate (required for certain positions) is separate and involves a Caste Scrutiny Committee.",
+    "Fee amounts are indicative and vary by state.",
+    "Online portal availability and functionality vary significantly across states."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core eligibility requirements, document requirements, and process verified against NCSC, NCST portals, and india.gov.in. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Changes to the SC/ST/OBC lists by the Central or State Government.",
+      "Amendments to the caste certificate issuance procedure.",
+      "Updates to the e-District portal or online application process.",
+      "Policy changes regarding creamy layer criteria for OBC certificates."
+    ]
+  }
+}

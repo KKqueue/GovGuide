@@ -1,0 +1,315 @@
+{
+  "serviceCode": "AADHAAR_UPDATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Aadhaar Update / Correction"
+  },
+  "authority": "UIDAI (Unique Identification Authority of India)",
+  "jurisdiction": "CENTRAL",
+  "category": "AADHAAR_UPDATE",
+  "description": {
+    "en": "Aadhaar Update or Correction allows Aadhaar holders to update their demographic information (name, address, date of birth, gender, mobile number, email) or biometric data (fingerprints, iris, photograph) in the Aadhaar database maintained by the Unique Identification Authority of India (UIDAI). Updates can be done online through the myAadhaar portal (for limited fields such as address, mobile, and email) or by visiting an Aadhaar Enrolment or Update Centre (for all fields including biometric updates). UIDAI recommends updating Aadhaar details at least once every 10 years to keep records current."
+  },
+  "officialLinks": {
+    "application": "https://myaadhaar.uidai.gov.in/",
+    "informationPortal": "https://uidai.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "AADHAAR_HOLDER",
+        "field": "applicant.hasAadhaarNumber",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All individuals seeking Aadhaar update",
+        "claim": "The applicant must already hold a valid 12-digit Aadhaar number issued by UIDAI. New Aadhaar enrolment is a separate process.",
+        "sourceRefs": [
+          "SRC-UIDAI-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "AADHAAR_VALID_POI_POA",
+        "field": "applicant.hasValidSupportingDocuments",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All Aadhaar update applicants",
+        "claim": "The applicant must have valid supporting documents as proof of identity (POI), proof of address (POA), proof of date of birth (DOB), or proof of relationship (POR) depending on the field being updated. The list of acceptable documents is published by UIDAI.",
+        "sourceRefs": [
+          "SRC-UIDAI-PORTAL-2026-10-28",
+          "SRC-MYAADHAAR-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Online address update via myAadhaar portal may accept a limited set of document types compared to Aadhaar centres.",
+      "Children who enrolled under the age of 5 must mandatorily update biometrics at ages 5 and 15.",
+      "Residents who have not updated biometrics for over 10 years are recommended to update their Aadhaar."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "AADHAAR_UPDATE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "AADHAAR_UPDATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "AADHAAR_UPDATE_MODE",
+      "field": "workflow.updateMode",
+      "operator": "IN_SET",
+      "value": ["ONLINE", "ENROLMENT_CENTRE"],
+      "classification": "PROCESS_VARIANT",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "AADHAAR_UPDATE_FIELD_TYPE",
+      "field": "applicant.updateFieldCategory",
+      "operator": "IN_SET",
+      "value": ["DEMOGRAPHIC", "BIOMETRIC"],
+      "classification": "PROCESS_VARIANT",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "AADHAAR_REQ_AADHAAR_NUMBER",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "AADHAAR_UPDATE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The applicant's 12-digit Aadhaar number or 28-digit Enrolment ID (EID) is required to initiate the update process.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_POI_DOCUMENT",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "AADHAAR_UPDATE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of Identity (POI) document — such as Passport, PAN card, Voter ID, or Driving Licence — is required when updating name or other identity-related fields.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_POA_DOCUMENT",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "AADHAAR_UPDATE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of Address (POA) document — such as Passport, bank statement, utility bill, ration card, or property registration document — is required when updating address in Aadhaar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28",
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_DOB_PROOF",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "AADHAAR_UPDATE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of Date of Birth (DOB) document — such as birth certificate, SSLC certificate, or Passport — is required when updating date of birth. DOB can be updated only once in Aadhaar, and only at an Aadhaar Enrolment Centre.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "AADHAAR_REQ_MOBILE_OTP",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "AADHAAR_UPDATE_ROUTE_SELECTED",
+          "AADHAAR_UPDATE_MODE"
+        ]
+      },
+      "claim": "For online updates through the myAadhaar portal, OTP authentication on the registered mobile number linked with Aadhaar is required. If no mobile number is linked, online update is not possible and the applicant must visit an Aadhaar Enrolment Centre.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "AADHAAR_STEP1_CHOOSE_MODE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Aadhaar update applicants",
+      "claim": "Choose the update mode: (a) Online — visit myaadhaar.uidai.gov.in for updating address, mobile number, or email (requires registered mobile for OTP); (b) At Aadhaar Enrolment/Update Centre — for all fields including name, date of birth, gender, and biometric updates. Locate the nearest centre at appointments.uidai.gov.in.",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28",
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "AADHAAR_STEP2_SUBMIT_REQUEST",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants using either online or centre mode",
+      "claim": "For online updates: Log in to myAadhaar portal with Aadhaar number and OTP, select the field to update, enter new details, upload supporting document, and submit. For centre visits: Carry original Aadhaar, fill the Aadhaar Update/Correction Form, submit supporting documents, and provide biometrics (fingerprint, iris, photograph) at the centre.",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28",
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "AADHAAR_STEP3_COLLECT_URN",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted update requests",
+      "claim": "Upon successful submission, a Service Request Number (SRN) or Update Request Number (URN) is generated. For centre visits, an acknowledgement slip with the URN is provided. The applicant can track the update status online at uidai.gov.in or myaadhaar.uidai.gov.in using the URN.",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "AADHAAR_STEP4_VERIFICATION_COMPLETION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All update requests under processing",
+      "claim": "UIDAI verifies the submitted documents and biometrics. If approved, the Aadhaar record is updated and the applicant is notified via SMS or email. An updated Aadhaar letter can be downloaded from the myAadhaar portal. If rejected, the applicant is informed of the reason and may resubmit with correct documents.",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28",
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "AADHAAR_UPDATED_RECORD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "The Aadhaar record is updated in the UIDAI Central Identities Data Repository (CIDR) with the corrected or new demographic or biometric information. The resident can download the updated e-Aadhaar (electronic version of Aadhaar letter) from the myAadhaar portal, or order a PVC Aadhaar card with the updated details. The updated Aadhaar is valid for all purposes where Aadhaar is accepted.",
+    "sourceRefs": [
+      "SRC-UIDAI-PORTAL-2026-10-28",
+      "SRC-MYAADHAAR-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "AADHAAR_ONLINE_UPDATE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 50,
+      "currency": "INR",
+      "applicability": "Online address update through myAadhaar portal",
+      "status": "VERIFIED",
+      "claim": "Online Aadhaar address update through the myAadhaar portal is charged at Rs. 50 (inclusive of GST). Payment is made online during the update process. Updating mobile number and email online is free of charge.",
+      "sourceRefs": [
+        "SRC-MYAADHAAR-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "AADHAAR_CENTRE_UPDATE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 50,
+      "currency": "INR",
+      "applicability": "Demographic update at Aadhaar Enrolment Centre",
+      "status": "VERIFIED",
+      "claim": "Demographic data update (name, address, date of birth, gender, mobile, email) at an Aadhaar Enrolment Centre is charged at Rs. 50. Biometric update (fingerprints, iris, photograph) at an Aadhaar Enrolment Centre is charged at Rs. 100. For children, mandatory biometric update at ages 5 and 15 is free of charge.",
+      "sourceRefs": [
+        "SRC-UIDAI-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "AADHAAR_UPDATE_TIMELINE",
+    "minimumDuration": 5,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From update request submission to Aadhaar record update",
+    "status": "VERIFIED",
+    "claim": "Online Aadhaar updates are typically processed within 5-10 working days. Updates submitted at Aadhaar Enrolment Centres may take up to 90 days for processing and verification. The applicant can track the status using the URN or SRN provided at the time of submission.",
+    "sourceRefs": [
+      "SRC-UIDAI-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-UIDAI-PORTAL-2026-10-28",
+      "url": "https://uidai.gov.in/",
+      "title": "UIDAI Official Website — Unique Identification Authority of India",
+      "publisher": "Unique Identification Authority of India (UIDAI), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "UIDAI provides official information on Aadhaar enrolment, update, and correction processes. Residents can update demographic and biometric data either online or at Aadhaar Enrolment Centres. The fee for demographic update is Rs. 50 and biometric update is Rs. 100 at centres. UIDAI recommends updating Aadhaar at least once every 10 years.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Aadhaar update is available online and at enrolment centres.",
+        "Demographic update fee is Rs. 50, biometric update fee is Rs. 100.",
+        "Children must mandatorily update biometrics at ages 5 and 15.",
+        "Update processing time varies from 5 to 90 days.",
+        "DOB can be updated only once."
+      ],
+      "uncertainty": "Fee structure and list of acceptable documents may be revised by UIDAI from time to time."
+    },
+    {
+      "sourceCode": "SRC-MYAADHAAR-PORTAL-2026-10-28",
+      "url": "https://myaadhaar.uidai.gov.in/",
+      "title": "myAadhaar Portal — Online Aadhaar Services",
+      "publisher": "Unique Identification Authority of India (UIDAI), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The myAadhaar portal provides online self-service for Aadhaar holders including address update, mobile/email update, e-Aadhaar download, Aadhaar PVC card order, and update status tracking. Online address update requires OTP on registered mobile and costs Rs. 50. The portal also enables downloading updated e-Aadhaar after successful update.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online address update costs Rs. 50.",
+        "OTP on registered mobile is required for online updates.",
+        "e-Aadhaar can be downloaded after update.",
+        "Mobile and email can be updated online for free.",
+        "Update status can be tracked using SRN/URN."
+      ],
+      "uncertainty": "Online update availability for specific fields may change based on UIDAI policy decisions."
+    }
+  ],
+  "limitations": [
+    "Online updates are limited to address, mobile number, and email. Name, date of birth, gender, and biometric updates require a visit to an Aadhaar Enrolment Centre.",
+    "Date of birth in Aadhaar can be updated only once.",
+    "Online update requires a registered mobile number linked to Aadhaar for OTP authentication.",
+    "Biometric update processing at Aadhaar centres may take up to 90 days.",
+    "The fee structure (Rs. 50 for demographic, Rs. 100 for biometric at centres) may be revised by UIDAI.",
+    "This record does not cover new Aadhaar enrolment, only updates to existing Aadhaar records.",
+    "Certain document types accepted at Aadhaar centres may not be accepted for online updates."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core update process is reviewed via UIDAI and myAadhaar portals but fee structure, acceptable document list, and online update scope need monitoring.",
+    "nextReviewTrigger": [
+      "Changes to Aadhaar update fee structure.",
+      "Expansion or restriction of fields available for online update.",
+      "Changes to the list of acceptable supporting documents.",
+      "Updates to mandatory biometric update policy for children.",
+      "Changes to the myAadhaar portal functionality or new Aadhaar regulations."
+    ]
+  }
+}

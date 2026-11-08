@@ -1,0 +1,303 @@
+{
+  "serviceCode": "SVAMITVA_PROPERTY_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Svamitva Scheme (Property Card for Rural Areas)"
+  },
+  "authority": "Ministry of Panchayati Raj, Government of India / Survey of India",
+  "jurisdiction": "CENTRAL",
+  "category": "SVAMITVA_PROPERTY_CARD",
+  "description": {
+    "en": "The SVAMITVA (Survey of Villages Abadi and Mapping with Improvised Technology in Village Areas) scheme provides property cards (Record of Rights) to rural household owners using drone-based survey technology and GIS mapping. The scheme aims to demarcate inhabited land (abadi area) in rural India, provide legal ownership documents to village household owners, enable them to use property as a financial asset for bank loans, reduce property disputes, and facilitate better village-level planning. The property cards are issued free of cost to the beneficiaries."
+  },
+  "officialLinks": {
+    "svamitvaPortal": "https://svamitva.nic.in/",
+    "ministryPage": "https://www.panchayat.gov.in/svamitva",
+    "bharatMaps": "https://bharatmaps.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SVAMITVA_RURAL_HABITATION",
+        "field": "property.locationType",
+        "operator": "EQUALS",
+        "value": "RURAL_ABADI",
+        "classification": "MANDATORY",
+        "appliesTo": "All Svamitva property card applicants",
+        "claim": "The property must be located within the inhabited area (abadi) of a revenue village in a state/UT where the SVAMITVA scheme has been implemented. The scheme covers only the residential/inhabited land within village boundaries, not agricultural land.",
+        "sourceRefs": [
+          "SRC-SVAMITVA-PORTAL",
+          "SRC-PANCHAYATI-RAJ-MINISTRY"
+        ]
+      },
+      {
+        "conditionCode": "SVAMITVA_VILLAGE_SURVEYED",
+        "field": "property.droneSurveyCompleted",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All Svamitva property card applicants",
+        "claim": "The village must have been surveyed under the SVAMITVA scheme using drone technology. The drone survey must be completed by the Survey of India and the property maps prepared and verified at the Gram Sabha level before property cards can be issued.",
+        "sourceRefs": [
+          "SRC-SVAMITVA-PORTAL"
+        ]
+      },
+      {
+        "conditionCode": "SVAMITVA_OWNERSHIP_CLAIM",
+        "field": "beneficiary.ownershipClaimStatus",
+        "operator": "EQUALS",
+        "value": "RECOGNIZED",
+        "classification": "MANDATORY",
+        "appliesTo": "All Svamitva property card applicants",
+        "claim": "The beneficiary must have a recognized ownership claim on the inhabited land as determined during the Gram Sabha verification process. The property boundaries must be undisputed after the public display of the drone survey maps.",
+        "sourceRefs": [
+          "SRC-SVAMITVA-PORTAL",
+          "SRC-PANCHAYATI-RAJ-MINISTRY"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Properties under litigation or dispute that remain unresolved after Gram Sabha verification may not receive property cards until the dispute is settled.",
+      "Encroachments on government or community land are excluded from the scheme.",
+      "Properties in forest areas or scheduled areas may have additional restrictions."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SVAMITVA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SVAMITVA_PROPERTY_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SVAMITVA_REQ_GRAM_SABHA_VERIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVAMITVA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The drone survey maps prepared by the Survey of India must be presented and verified at the Gram Sabha (village assembly). Property owners identify and confirm their property boundaries on the map. Any objections or disputes are resolved at this stage. The verified maps are then used to generate property cards.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "SVAMITVA_REQ_IDENTITY_VERIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVAMITVA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Beneficiaries must verify their identity during the Gram Sabha process. Aadhaar card is the primary identification document used. The identity is linked to the property record in the digitized land records system.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL",
+        "SRC-PANCHAYATI-RAJ-MINISTRY"
+      ]
+    },
+    {
+      "requirementCode": "SVAMITVA_REQ_DRONE_SURVEY_COMPLETION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVAMITVA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The drone survey of the village abadi area must be completed by the Survey of India using Continuously Operating Reference Stations (CORS) network-based drone surveying technology. Ground control points are established, high-resolution imagery is captured, and property boundary maps are generated using GIS technology.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL",
+        "SRC-SURVEY-OF-INDIA"
+      ]
+    },
+    {
+      "requirementCode": "SVAMITVA_REQ_DISPUTE_RESOLUTION",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVAMITVA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "If there are disputes regarding property boundaries after the Gram Sabha display of drone survey maps, the disputes must be resolved through the designated dispute resolution mechanism (typically at the tehsil or block level) before property cards can be issued for the disputed properties.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SVAMITVA_SURVEY_AND_CARD_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Villages covered under the SVAMITVA scheme",
+      "claim": "SVAMITVA scheme process: (1) Village identified for survey under the state's implementation plan, (2) Ground control points established using CORS network by the Survey of India, (3) Drone survey conducted capturing high-resolution aerial imagery of the village abadi area, (4) GIS-based property boundary maps prepared from the drone data, (5) Draft maps displayed at the Gram Panchayat for public inspection (typically 15-30 days), (6) Objections/disputes recorded and resolved, (7) Final property maps approved after Gram Sabha verification, (8) Property cards (Record of Rights) generated and linked to the state's land records system, (9) Property cards distributed to beneficiaries — often during a dedicated distribution event, (10) Digital property cards accessible through state land records portals.",
+      "doesNotEstablish": [
+        "The timeline from survey to card distribution varies significantly by state and the number of disputes.",
+        "Not all villages have been covered yet; the scheme is being implemented in phases.",
+        "State-level implementation varies in the nomenclature and format of the property card."
+      ],
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL",
+        "SRC-PANCHAYATI-RAJ-MINISTRY"
+      ]
+    },
+    {
+      "processCode": "SVAMITVA_USAGE_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Property card holders under SVAMITVA",
+      "claim": "The SVAMITVA property card can be used as: (a) a legal ownership document for the rural residential property, (b) collateral to obtain bank loans from commercial banks, cooperative banks, and other financial institutions, (c) a basis for property tax assessment by the Gram Panchayat, (d) a record for mutation and inheritance purposes, (e) a document for availing government schemes that require proof of residence or property ownership.",
+      "doesNotEstablish": [
+        "Acceptance of the property card as collateral depends on individual bank policies.",
+        "The card does not confer rights over agricultural land attached to the habitation."
+      ],
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL",
+        "SRC-PANCHAYATI-RAJ-MINISTRY"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SVAMITVA_PROPERTY_CARD_OUTPUT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A property card (also called 'Sampatti Card' or 'Record of Rights' depending on the state) issued to the rural household owner. The card contains the owner's name, property boundaries with geo-coordinates, plot area, survey number, and a unique property ID. The card is digitally signed and integrated with the state's digital land records system. A physical card is distributed to the beneficiary, and the digital record is accessible online.",
+    "sourceRefs": [
+      "SRC-SVAMITVA-PORTAL",
+      "SRC-PANCHAYATI-RAJ-MINISTRY"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SVAMITVA_NO_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Property card issuance under SVAMITVA scheme",
+      "status": "VERIFIED",
+      "claim": "The SVAMITVA property card is issued free of cost to all eligible beneficiaries. The entire cost of the drone survey, mapping, and card generation is borne by the Central Government (60%) and the respective State Government (40%). There is no application fee or processing fee for the beneficiary.",
+      "sourceRefs": [
+        "SRC-SVAMITVA-PORTAL",
+        "SRC-PANCHAYATI-RAJ-MINISTRY"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SVAMITVA_TIMELINE",
+    "minimumDuration": 90,
+    "maximumDuration": 365,
+    "unit": "DAYS",
+    "basis": "SURVEY_AND_VERIFICATION_DEPENDENT",
+    "applicability": "From drone survey completion to property card distribution in a village",
+    "status": "VERIFIED",
+    "claim": "The time from drone survey of a village to distribution of property cards typically ranges from 3 to 12 months. This includes time for map preparation, Gram Sabha display and objection period (15-30 days), dispute resolution, final map preparation, and card printing and distribution. Individual beneficiaries do not apply separately — the entire village is processed together.",
+    "estimatedCompletionDatePolicy": "The scheme targets covering all villages in India by 2025-2026. Timeline for individual villages depends on the state's implementation schedule.",
+    "fallbackThresholdMentionedBySource": "The scheme aims to complete survey of all 6.62 lakh villages. Annual targets are set by the Ministry of Panchayati Raj.",
+    "sourceRefs": [
+      "SRC-SVAMITVA-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SVAMITVA-PORTAL",
+      "url": "https://svamitva.nic.in/",
+      "title": "SVAMITVA Scheme Portal",
+      "publisher": "Ministry of Panchayati Raj, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The SVAMITVA portal provides comprehensive information about the scheme including objectives, implementation process, state-wise progress, and FAQs. The scheme was launched on 24 April 2021 (National Panchayati Raj Day) after a pilot phase in 2020.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Scheme objectives and coverage.",
+        "Drone survey methodology.",
+        "Gram Sabha verification process.",
+        "Property card content and format.",
+        "Free of cost for beneficiaries.",
+        "Dispute resolution mechanism."
+      ],
+      "uncertainty": "State-wise implementation progress changes frequently. Some states may have modified their implementation approach."
+    },
+    {
+      "sourceCode": "SRC-PANCHAYATI-RAJ-MINISTRY",
+      "url": "https://www.panchayat.gov.in/svamitva",
+      "title": "SVAMITVA — Ministry of Panchayati Raj",
+      "publisher": "Ministry of Panchayati Raj, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Panchayati Raj page provides policy framework, implementation guidelines, funding pattern (60:40 Central-State share), and progress reports for the SVAMITVA scheme.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Central Government's 60% funding share.",
+        "Property card as legal ownership document.",
+        "Scheme coverage — all revenue villages.",
+        "Beneficiary eligibility criteria.",
+        "Uses of property cards (bank loans, tax assessment)."
+      ],
+      "uncertainty": "Funding patterns and scheme extensions are subject to government decisions. Progress data is updated periodically."
+    },
+    {
+      "sourceCode": "SRC-SURVEY-OF-INDIA",
+      "url": "https://www.surveyofindia.gov.in/",
+      "title": "Survey of India — Department of Science and Technology",
+      "publisher": "Survey of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Survey of India is the technical partner for the SVAMITVA scheme, responsible for establishing the CORS network, conducting drone surveys, and preparing GIS-based property maps for village abadi areas.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Drone survey technology used (CORS-based).",
+        "GIS mapping methodology.",
+        "Ground control point establishment.",
+        "Technical specifications of property maps."
+      ],
+      "uncertainty": "Technical specifications and survey methodology may be updated as technology evolves."
+    }
+  ],
+  "limitations": [
+    "The SVAMITVA scheme covers only the inhabited/residential (abadi) area of revenue villages, not agricultural land, forest land, or urban areas.",
+    "Not all villages in India have been surveyed yet. The scheme is being implemented in phases — check the SVAMITVA portal for village-wise progress.",
+    "Property cards are issued based on existing occupation and possession; they do not adjudicate contested ownership claims.",
+    "Disputes that cannot be resolved at the Gram Sabha level are referred to the revenue department, which may significantly delay card issuance for specific properties.",
+    "The acceptance of SVAMITVA property cards as collateral for bank loans depends on the policies of individual banks and lending institutions.",
+    "State-level implementation varies — some states issue 'Sampatti Card', others use different nomenclature consistent with their revenue administration.",
+    "The scheme does not cover properties in areas governed by special laws (e.g., Fifth Schedule areas, Sixth Schedule areas) unless specifically notified.",
+    "The property card enables property tax collection by the Gram Panchayat, which was previously not applicable in many rural areas."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Scheme objectives, process, and property card details verified against the SVAMITVA portal and Ministry of Panchayati Raj information. Drone survey methodology confirmed through Survey of India. Free-of-cost issuance and funding pattern verified.",
+    "nextReviewTrigger": [
+      "Scheme extension beyond the current target date.",
+      "Changes to the funding pattern or coverage scope.",
+      "New states or UTs joining the scheme.",
+      "Policy changes regarding use of property cards for bank loans.",
+      "Updates to the drone survey technology or mapping standards.",
+      "Completion of nationwide coverage milestones."
+    ]
+  }
+}

@@ -1,0 +1,271 @@
+{
+  "serviceCode": "PMJJBY_INSURANCE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY)"
+  },
+  "authority": "Department of Financial Services, Ministry of Finance, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "PMJJBY_INSURANCE",
+  "description": {
+    "en": "Pradhan Mantri Jeevan Jyoti Bima Yojana (PMJJBY) is a government-backed life insurance scheme providing a renewable one-year term life cover of Rs. 2 lakh at a premium of Rs. 436 per year. The scheme is available to savings bank account holders aged 18-50 years. The premium is auto-debited from the linked bank account annually."
+  },
+  "officialLinks": {
+    "application": "https://jansuraksha.gov.in/Forms-PMJJBY.aspx",
+    "informationPortal": "https://financialservices.gov.in/insurance-divisions/Government-Sponsored-Socially-Oriented-Insurance-Schemes/Pradhan-Mantri-Jeevan-Jyoti-Bima-Yojana(PMJJBY)"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PMJJBY_AGE_ELIGIBLE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All PMJJBY applicants",
+        "claim": "The subscriber must be between 18 and 50 years of age at the time of enrollment. The life cover continues until age 55 (subject to annual renewal and premium payment), even though new enrollment is not allowed after 50.",
+        "sourceRefs": [
+          "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMJJBY_BANK_ACCOUNT",
+        "field": "applicant.hasSavingsBankAccount",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All PMJJBY applicants",
+        "claim": "The subscriber must have a savings bank account with auto-debit consent. The annual premium of Rs. 436 is auto-debited from the linked account.",
+        "sourceRefs": [
+          "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "A person can join PMJJBY through one savings bank account only.",
+      "Aadhaar must be the primary KYC for the linked bank account.",
+      "No medical examination is required at the time of enrollment.",
+      "The scheme covers death due to any cause (not limited to accidents unlike PMSBY).",
+      "Persons who exit the scheme can re-join subject to payment of premium and a self-declaration of good health."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PMJJBY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PMJJBY_INSURANCE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMJJBY_NEW_ENROLLMENT",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMJJBY_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PMJJBY_REQ_CONSENT_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMJJBY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Consent-cum-declaration form available at the bank branch or downloadable from the Jan Suraksha portal. The form includes a self-declaration of good health, auto-debit authorization, and nominee details.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMJJBY_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMJJBY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number linked to the savings bank account for identity verification and claim processing.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMJJBY_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMJJBY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Active savings bank account with sufficient balance (minimum Rs. 436) for premium auto-debit. The account must have auto-debit facility enabled.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMJJBY_REQ_HEALTH_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMJJBY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Self-declaration of good health as part of the consent form. No separate medical examination is required. However, if the subscriber has a pre-existing terminal illness, the claim may be rejected.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PMJJBY_STEP1_ENROLL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All PMJJBY applicants",
+      "claim": "Enroll through the bank branch by submitting the consent-cum-declaration form, or through net banking/mobile banking by selecting the PMJJBY option. Some banks support SMS-based enrollment.",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMJJBY_STEP2_PREMIUM_DEBIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All enrolled subscribers",
+      "claim": "The annual premium of Rs. 436 is auto-debited from the linked bank account between 25th May and 1st June each year. The cover period is 1st June to 31st May. If auto-debit fails, the cover lapses.",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMJJBY_STEP3_CLAIM_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Nominees of deceased subscribers",
+      "claim": "In case of the subscriber's death, the nominee contacts the bank with the death certificate, the subscriber's Aadhaar, bank passbook, and the PMJJBY claim form. The bank forwards the claim to the insurance company for settlement. The claim amount of Rs. 2 lakh is credited to the nominee's bank account.",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28",
+        "SRC-PMJJBY-DFS-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PMJJBY_LIFE_COVER",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A renewable one-year term life insurance cover of Rs. 2 lakh. In the event of the subscriber's death due to any cause during the policy period, the sum of Rs. 2 lakh is payable to the nominee. The cover is valid from 1st June to 31st May each year.",
+    "sourceRefs": [
+      "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PMJJBY_ANNUAL_PREMIUM",
+      "category": "GOVERNMENT_FEE",
+      "amount": 436,
+      "currency": "INR",
+      "applicability": "Annual premium for PMJJBY life insurance",
+      "status": "VERIFIED",
+      "claim": "The annual premium is Rs. 436 (revised from Rs. 330 in June 2022), auto-debited from the subscriber's bank account. This covers life insurance of Rs. 2 lakh for one year. The premium includes insurance premium, bank administrative charges, and GST.",
+      "sourceRefs": [
+        "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PMJJBY_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 1,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "PMJJBY enrollment",
+    "status": "VERIFIED",
+    "claim": "Enrollment is completed on the same day through the bank branch or net banking. Cover begins from 1st June of the enrollment year.",
+    "sourceRefs": [
+      "SRC-PMJJBY-JANSURAKSHA-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PMJJBY-JANSURAKSHA-2026-10-28",
+      "url": "https://jansuraksha.gov.in/Forms-PMJJBY.aspx",
+      "title": "Jan Suraksha — PMJJBY Scheme Details and Forms",
+      "publisher": "Department of Financial Services, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Jan Suraksha portal provides PMJJBY scheme details, enrollment forms, FAQs, claim forms, and procedures. The scheme offers Rs. 2 lakh life cover at Rs. 436 per year for persons aged 18-50.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Annual premium is Rs. 436 (revised from Rs. 330).",
+        "Life cover of Rs. 2 lakh for death due to any cause.",
+        "Eligible age: 18-50 for enrollment; cover continues until 55.",
+        "Auto-debit from savings bank account."
+      ],
+      "uncertainty": "Premium amount was revised in 2022 and may be revised again. Claim settlement timelines vary by insurance company."
+    },
+    {
+      "sourceCode": "SRC-PMJJBY-DFS-2026-10-28",
+      "url": "https://financialservices.gov.in/insurance-divisions/Government-Sponsored-Socially-Oriented-Insurance-Schemes/Pradhan-Mantri-Jeevan-Jyoti-Bima-Yojana(PMJJBY)",
+      "title": "Department of Financial Services — PMJJBY Information",
+      "publisher": "Department of Financial Services, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DFS provides detailed scheme guidelines, operational framework, claim process, and coverage statistics for PMJJBY.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Scheme guidelines and operational framework.",
+        "Claim process: nominee contacts bank with death certificate and claim form.",
+        "Participating life insurance companies and banks."
+      ],
+      "uncertainty": "Operational guidelines and participating insurers may be updated periodically."
+    }
+  ],
+  "limitations": [
+    "The scheme provides only term life insurance (death cover); there is no maturity or survival benefit.",
+    "New enrollment is not permitted after age 50, though existing subscribers can continue until age 55.",
+    "If auto-debit fails and cover lapses, re-enrollment requires a fresh health self-declaration.",
+    "Claims may be rejected if the subscriber had a pre-existing terminal illness that was not disclosed.",
+    "Only one PMJJBY enrollment per person is permitted across all bank accounts.",
+    "The premium was revised from Rs. 330 to Rs. 436 in June 2022; further revisions are possible.",
+    "Claim settlement timelines depend on the insurance company and completeness of documentation."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme details verified from official sources. Claim rejection criteria and insurance company terms need further verification.",
+    "nextReviewTrigger": [
+      "Revision of premium amount or cover amount.",
+      "Changes to age eligibility or enrollment criteria.",
+      "Updates to claim process or documentation requirements.",
+      "Changes to participating insurance companies."
+    ]
+  }
+}

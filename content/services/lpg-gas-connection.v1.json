@@ -1,0 +1,311 @@
+{
+  "serviceCode": "LPG_GAS_CONNECTION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "LPG Gas Connection (New / Ujjwala)"
+  },
+  "authority": "Ministry of Petroleum and Natural Gas (via oil marketing companies — IOC, BPC, HPC)",
+  "jurisdiction": "CENTRAL",
+  "category": "LPG_GAS",
+  "description": {
+    "en": "Application for a new LPG (Liquefied Petroleum Gas) connection through oil marketing companies — Indian Oil Corporation (Indane), Bharat Petroleum (Bharatgas), or Hindustan Petroleum (HP Gas). Also covers the Pradhan Mantri Ujjwala Yojana (PMUY) which provides free LPG connections to eligible BPL (Below Poverty Line) families."
+  },
+  "officialLinks": {
+    "application": "https://mylpg.in/",
+    "informationPortal": "https://www.pmuy.gov.in/",
+    "ujjwalaPortal": "https://www.pmuy.gov.in/",
+    "indaneGas": "https://www.iocl.com/indanegas"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "LPG_ONE_PER_HOUSEHOLD",
+        "field": "applicant.existingLPGConnection",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All new LPG connection applicants",
+        "claim": "Only one LPG connection is allowed per household. The applicant's household must not have an existing LPG connection with any oil marketing company. This is verified through the linked Aadhaar and address details.",
+        "sourceRefs": [
+          "SRC-MYLPG-PORTAL",
+          "SRC-PMUY-PORTAL"
+        ]
+      },
+      {
+        "conditionCode": "LPG_UJJWALA_BPL",
+        "field": "applicant.bplStatus",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "PM Ujjwala Yojana applicants",
+        "claim": "PM Ujjwala Yojana (PMUY) connections are available to women belonging to Below Poverty Line (BPL) families as identified by the SECC (Socio Economic Caste Census) data, or belonging to SC/ST households, beneficiaries of PMAY, AAY, forest dwellers, most backward classes, tea/ex-tea garden tribes, or residents of islands and river islands.",
+        "sourceRefs": [
+          "SRC-PMUY-PORTAL"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Regular (non-Ujjwala) connections are available to any adult citizen with valid KYC documents, subject to one connection per household.",
+      "Existing connection holders can apply for a transfer or name change but not a second connection at the same address."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "LPG_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "LPG_GAS_CONNECTION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "LPG_REQ_KYC_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled KYC (Know Your Customer) form with the applicant's details must be submitted. The form is available at the distributor's office or can be downloaded from the oil marketing company's website.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL",
+        "SRC-IOCL-INDANE"
+      ]
+    },
+    {
+      "requirementCode": "LPG_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof such as Aadhaar card, voter ID, passport, or driving license is required. Aadhaar is mandatory for subsidy transfer through PAHAL (DBTL) scheme.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "LPG_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof such as Aadhaar card, voter ID, electricity bill, or ration card matching the address where the connection is sought.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "LPG_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photograph of the applicant is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "LPG_REQ_RATION_CARD_UJJWALA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "For PM Ujjwala Yojana applicants, SECC ration card or BPL certificate as per eligible categories is required to verify eligibility under the scheme.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMUY-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "LPG_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LPG_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account details (passbook or cancelled cheque) are required for LPG subsidy transfer under the PAHAL (DBTL) scheme. The bank account must be linked with Aadhaar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL",
+        "SRC-PMUY-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "LPG_APPLY_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new LPG connection applicants",
+      "claim": "The process involves: (1) Visit the nearest LPG distributor (Indane/Bharatgas/HP Gas) or apply online through the MyLPG portal or oil marketing company's website, (2) Submit KYC form with required documents, (3) Pay the applicable fees (security deposit for cylinder and regulator, and cost of first refill), (4) For Ujjwala applicants, the connection is provided free of charge — only the cost of the first refill may be borne by the applicant or can be recovered from future subsidy, (5) Distributor verifies documents and schedules delivery, (6) Delivery of cylinder, regulator, and gas stove (for Ujjwala) to the registered address.",
+      "doesNotEstablish": [
+        "This record does not establish cylinder delivery schedules or refill waiting times.",
+        "This record does not cover the PAHAL subsidy calculation or payout timelines."
+      ],
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL",
+        "SRC-PMUY-PORTAL",
+        "SRC-IOCL-INDANE"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "LPG_CONNECTION_ACTIVE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An active LPG connection with a consumer number, including a 14.2 kg LPG cylinder, pressure regulator, and delivery of the first refill. Ujjwala beneficiaries also receive a free gas stove.",
+    "sourceRefs": [
+      "SRC-MYLPG-PORTAL",
+      "SRC-PMUY-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "LPG_FEE_REGULAR_CONNECTION",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Regular new LPG connection (Rs. 1,600-2,200 approximately for security deposit + regulator + first cylinder)",
+      "status": "VERIFIED",
+      "claim": "For a regular (non-Ujjwala) new LPG connection, the cost includes a refundable security deposit for the cylinder (approximately Rs. 1,250-1,450), regulator charge, and the cost of the first gas refill. Total initial cost is approximately Rs. 1,600 to Rs. 2,200 depending on the oil marketing company and current cylinder price.",
+      "sourceRefs": [
+        "SRC-MYLPG-PORTAL",
+        "SRC-IOCL-INDANE"
+      ]
+    },
+    {
+      "feeCode": "LPG_FEE_UJJWALA_CONNECTION",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "PM Ujjwala Yojana — free LPG connection for eligible BPL families",
+      "status": "VERIFIED",
+      "claim": "Under the Pradhan Mantri Ujjwala Yojana (PMUY), the LPG connection is provided completely free of charge. The government bears the cost of the cylinder security deposit, pressure regulator, and a free gas stove. The cost of the first refill may be borne by the beneficiary or recovered from future LPG subsidy.",
+      "sourceRefs": [
+        "SRC-PMUY-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "LPG_PROCESSING_TIME",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OIL_MARKETING_COMPANY_GUIDELINES",
+    "applicability": "New LPG connection from application to delivery",
+    "status": "VERIFIED",
+    "claim": "New LPG connections are typically processed and delivered within 7 to 15 days of application and document verification, subject to distributor availability and logistics.",
+    "sourceRefs": [
+      "SRC-MYLPG-PORTAL",
+      "SRC-IOCL-INDANE"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-MYLPG-PORTAL",
+      "url": "https://mylpg.in/",
+      "title": "MyLPG Portal - Common Portal for LPG Services",
+      "publisher": "Ministry of Petroleum and Natural Gas, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MyLPG is the official common portal for LPG-related services including new connection application, distributor selection, subsidy status, and KYC updates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for new LPG connection.",
+        "One connection per household rule.",
+        "KYC and document requirements.",
+        "Bank account linking for PAHAL subsidy."
+      ],
+      "uncertainty": "Cylinder prices and security deposit amounts change periodically."
+    },
+    {
+      "sourceCode": "SRC-PMUY-PORTAL",
+      "url": "https://www.pmuy.gov.in/",
+      "title": "Pradhan Mantri Ujjwala Yojana (PMUY) Portal",
+      "publisher": "Ministry of Petroleum and Natural Gas, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The PMUY portal provides details on eligibility criteria, beneficiary categories, application process, and scheme benefits for free LPG connections under the Ujjwala Yojana.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Free LPG connection for BPL families.",
+        "Eligible categories including SC/ST, PMAY, AAY beneficiaries.",
+        "Free cylinder, regulator, and gas stove under the scheme.",
+        "SECC-based eligibility verification."
+      ],
+      "uncertainty": "Scheme continuation and additional categories may be announced by the government."
+    },
+    {
+      "sourceCode": "SRC-IOCL-INDANE",
+      "url": "https://www.iocl.com/indanegas",
+      "title": "Indane Gas - Indian Oil Corporation",
+      "publisher": "Indian Oil Corporation Limited",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Indian Oil's Indane Gas portal provides information on new connection process, required documents, distributor locator, and current fee structure for LPG connections.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "New connection application process and documents.",
+        "Security deposit and connection fee structure.",
+        "Processing timeline for new connections."
+      ],
+      "uncertainty": "Fee amounts change with periodic revisions by oil marketing companies."
+    }
+  ],
+  "limitations": [
+    "This record covers new domestic LPG connections; commercial connections have different processes and higher charges.",
+    "Cylinder prices and security deposits are revised periodically by oil marketing companies and may differ from the amounts mentioned.",
+    "Ujjwala scheme eligibility is based on SECC data and government-defined categories which may be updated.",
+    "Distributor availability varies by location; waiting times depend on local demand.",
+    "This record does not cover LPG connection transfer, surrender, or double-bottle scheme.",
+    "Piped Natural Gas (PNG) connections are managed by city gas distribution companies and follow a different process.",
+    "PAHAL (DBTL) subsidy disbursement timelines and amounts are not covered."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Connection process and requirements verified against official portals. Fee amounts are approximate as they change periodically.",
+    "nextReviewTrigger": [
+      "Changes in LPG cylinder security deposit or pricing.",
+      "Modifications to PM Ujjwala Yojana eligibility criteria.",
+      "New phase announcements for PMUY.",
+      "Changes in PAHAL subsidy structure.",
+      "Updates to KYC requirements by oil marketing companies."
+    ]
+  }
+}

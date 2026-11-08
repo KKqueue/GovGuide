@@ -1,0 +1,312 @@
+{
+  "serviceCode": "FIRE_SAFETY_NOC",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Fire Safety NOC (No Objection Certificate)"
+  },
+  "authority": "State Fire Service Department / Directorate of Fire & Emergency Services",
+  "jurisdiction": "STATE",
+  "category": "FIRE_NOC",
+  "description": {
+    "en": "A Fire Safety No Objection Certificate (NOC) issued by the State Fire Service Department certifying that a building or establishment complies with fire safety norms as per the National Building Code and state fire safety rules. It is mandatory for high-rise buildings, commercial establishments, industrial premises, hospitals, hotels, educational institutions, and places of public assembly."
+  },
+  "officialLinks": {
+    "application": "https://firenoc.maharashtra.gov.in/",
+    "informationPortal": "https://dgfsindia.org/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "FIRE_BUILDING_HEIGHT_THRESHOLD",
+        "field": "property.buildingHeightMeters",
+        "operator": "GREATER_THAN",
+        "value": 15,
+        "classification": "MANDATORY",
+        "appliesTo": "Buildings exceeding 15 meters in height",
+        "claim": "Fire Safety NOC is mandatory for all buildings exceeding 15 meters in height as per the National Building Code of India 2016. This covers most buildings of ground plus four floors or higher.",
+        "sourceRefs": [
+          "SRC-NBC-FIRE-2016",
+          "SRC-MAHARASHTRA-FIRE-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "FIRE_COMMERCIAL_ESTABLISHMENT",
+        "field": "property.isCommercialOrPublicAssembly",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Commercial establishments, places of public assembly, hospitals, hotels, educational institutions, and industrial premises",
+        "claim": "Fire Safety NOC is mandatory for commercial buildings, shopping complexes, hotels, hospitals, educational institutions, cinema halls, places of worship, industrial premises, and any place of public assembly irrespective of building height.",
+        "sourceRefs": [
+          "SRC-NBC-FIRE-2016"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Individual residential buildings below 15 meters height may be exempt in some states, but multi-dwelling residential complexes usually require Fire NOC.",
+      "Some states require Fire NOC for all buildings regardless of height or use in certain municipal areas.",
+      "The specific building categories requiring Fire NOC may vary by state fire safety rules.",
+      "Renewal of Fire NOC is typically required annually for commercial and industrial establishments."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "FIRE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "FIRE_SAFETY_NOC",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FIRE_NEW_CONSTRUCTION_NOC",
+      "field": "workflow.nocType",
+      "operator": "EQUALS",
+      "value": "NEW_CONSTRUCTION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FIRE_RENEWAL_NOC",
+      "field": "workflow.nocType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "FIRE_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Prescribed application form for Fire Safety NOC must be submitted with details of the building including address, type of occupancy, number of floors, height, and area.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FIRE_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Approved building plan from the municipal authority or development authority, including floor plans, sections, and elevations showing the proposed or existing construction.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NBC-FIRE-2016",
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FIRE_REQ_FIRE_SAFETY_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A detailed fire safety plan prepared by a licensed fire consultant showing fire escape routes, fire extinguisher locations, fire alarm system layout, sprinkler system design, fire hydrant positions, and emergency exit details.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NBC-FIRE-2016"
+      ]
+    },
+    {
+      "requirementCode": "FIRE_REQ_FIRE_EQUIPMENT_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "List of fire safety equipment installed or proposed, including fire extinguishers (type and quantity), fire alarm system, sprinkler system, fire hydrants, hose reels, smoke detectors, and emergency lighting.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NBC-FIRE-2016",
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FIRE_REQ_OCCUPANCY_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED",
+          "FIRE_RENEWAL_NOC"
+        ]
+      },
+      "claim": "Occupancy Certificate or Completion Certificate from the municipal authority is required for renewal of Fire NOC for existing occupied buildings.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FIRE_REQ_OWNERSHIP_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FIRE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of ownership or occupancy of the building such as sale deed, lease agreement, or authorization letter from the building owner.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "FIRE_STEP1_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Fire NOC applicants",
+      "claim": "Submit the Fire NOC application through the state fire department's online portal or at the district fire office. Attach all required documents including building plan, fire safety plan, and equipment details.",
+      "sourceRefs": [
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FIRE_STEP2_DOCUMENT_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Fire NOC applicants",
+      "claim": "The fire department scrutinizes the submitted documents to verify compliance with fire safety norms as per NBC Part 4 (Fire and Life Safety). Deficiency notices are issued if documents are incomplete.",
+      "sourceRefs": [
+        "SRC-NBC-FIRE-2016"
+      ]
+    },
+    {
+      "processCode": "FIRE_STEP3_SITE_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Fire NOC applicants for existing buildings or renewals",
+      "claim": "A fire safety inspection is conducted by the fire department officer to verify the installation and working condition of fire safety systems including fire extinguishers, alarms, sprinklers, hydrants, escape routes, and emergency exits.",
+      "sourceRefs": [
+        "SRC-NBC-FIRE-2016",
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FIRE_STEP4_NOC_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Fire NOC applicants meeting safety norms",
+      "claim": "Upon satisfactory verification of documents and site inspection, the Chief Fire Officer or authorized officer issues the Fire Safety NOC certifying that the building complies with prescribed fire safety norms.",
+      "sourceRefs": [
+        "SRC-MAHARASHTRA-FIRE-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "FIRE_NOC_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Fire Safety No Objection Certificate is issued certifying compliance with fire safety norms. The NOC typically specifies the building address, type of occupancy, validity period (usually 1 year for commercial buildings), and conditions of compliance. The NOC must be renewed periodically as prescribed by state rules.",
+    "sourceRefs": [
+      "SRC-NBC-FIRE-2016",
+      "SRC-MAHARASHTRA-FIRE-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "FIRE_NOC_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Fire Safety NOC fee varies by state, building category, and area",
+      "status": "UNVERIFIED",
+      "claim": "Fire Safety NOC fees vary significantly across states and depend on the type of building, built-up area, and height. Fees typically range from Rs. 500 for small commercial establishments to Rs. 50,000 or more for large commercial complexes and high-rise buildings. The exact fee schedule is published by each state fire department."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "FIRE_NOC_PROCESSING",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Fire Safety NOC processing time from the State Fire Department",
+    "status": "VERIFIED",
+    "claim": "Fire Safety NOC processing typically takes 15-30 days from the date of complete application submission, including document verification and site inspection. Processing time may be longer for complex buildings or where deficiencies are found during inspection.",
+    "sourceRefs": [
+      "SRC-MAHARASHTRA-FIRE-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NBC-FIRE-2016",
+      "url": "https://bis.gov.in/index.php/standards/technical-department/national-building-code/",
+      "title": "National Building Code of India 2016 — Part 4: Fire and Life Safety",
+      "publisher": "Bureau of Indian Standards (BIS), Ministry of Consumer Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "NBC Part 4 prescribes fire safety norms for buildings including fire protection systems, means of egress, fire resistance of structural components, fire detection and alarm systems, and fire suppression systems based on building type and height.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Fire NOC is mandatory for buildings above 15 meters.",
+        "Commercial and public assembly buildings require fire safety compliance.",
+        "Fire safety plan showing escape routes, equipment, and systems is required.",
+        "Site inspection verifies compliance with NBC Part 4 norms."
+      ],
+      "uncertainty": "NBC provides the national framework; state-specific fire safety rules may impose additional requirements."
+    },
+    {
+      "sourceCode": "SRC-MAHARASHTRA-FIRE-2026-10-28",
+      "url": "https://firenoc.maharashtra.gov.in/",
+      "title": "Maharashtra Fire NOC Portal",
+      "publisher": "Directorate of Maharashtra Fire Services, Government of Maharashtra",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Maharashtra Fire NOC portal provides online application for Fire Safety NOC with document submission, fee payment, and status tracking. The portal lists required documents and fee schedule for different building categories.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for Fire NOC is available.",
+        "Building plan, fire safety plan, equipment details, and ownership proof are required.",
+        "Occupancy certificate required for renewal NOC.",
+        "Processing within 15-30 days.",
+        "NOC issued by Chief Fire Officer upon compliance."
+      ],
+      "uncertainty": "The Maharashtra portal represents one state's implementation; other states may have different online systems, fees, and procedures."
+    }
+  ],
+  "limitations": [
+    "Fire Safety NOC procedures, fees, and specific requirements vary across Indian states; this record uses Maharashtra and NBC as reference.",
+    "Specific fee schedules are not modeled as they vary by state, building type, and area.",
+    "The record does not cover fire safety compliance for industrial hazardous occupancies which have additional requirements under the Factories Act and relevant IS codes.",
+    "Interim Fire NOC procedures for buildings under construction are not covered.",
+    "Fire safety audit and third-party certification requirements in some states are not covered.",
+    "The record does not cover the appeal process if Fire NOC is denied."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core fire safety NOC process is reviewed using NBC and Maharashtra as reference, but state-specific procedures and fee structures are not fully modeled.",
+    "nextReviewTrigger": [
+      "Updates to National Building Code Part 4 (Fire and Life Safety).",
+      "Changes to state fire safety rules or fee schedules.",
+      "Introduction of new central fire safety guidelines.",
+      "Changes to building height or category thresholds for mandatory Fire NOC."
+    ]
+  }
+}

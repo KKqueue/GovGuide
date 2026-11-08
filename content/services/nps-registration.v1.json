@@ -1,0 +1,340 @@
+{
+  "serviceCode": "NPS_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "National Pension System (NPS) Registration"
+  },
+  "authority": "Pension Fund Regulatory and Development Authority (PFRDA)",
+  "jurisdiction": "CENTRAL",
+  "category": "NPS_REGISTRATION",
+  "description": {
+    "en": "The National Pension System (NPS) is a voluntary, defined-contribution retirement savings scheme regulated by PFRDA. It offers two types of accounts: Tier I (mandatory pension account with restrictions on withdrawal) and Tier II (voluntary savings with flexible withdrawal). NPS provides market-linked returns through professionally managed pension funds investing in equity, corporate bonds, government securities, and alternative assets."
+  },
+  "officialLinks": {
+    "application": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+    "informationPortal": "https://www.pfrda.org.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NPS_AGE_LIMIT",
+        "field": "applicant.age",
+        "operator": "LESS_THAN",
+        "value": 71,
+        "classification": "MANDATORY",
+        "appliesTo": "All NPS applicants",
+        "claim": "Any Indian citizen (resident or NRI) between 18 and 70 years of age can open an NPS Tier I account. The age limit was raised from 65 to 70 years in 2021.",
+        "sourceRefs": [
+          "SRC-NPS-PFRDA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NPS_KYC_COMPLIANT",
+        "field": "applicant.kycCompliant",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All NPS applicants",
+        "claim": "The applicant must be KYC compliant with valid identity proof (Aadhaar, PAN) and address proof.",
+        "sourceRefs": [
+          "SRC-NPS-ENPS-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "NRIs can join NPS subject to RBI and FEMA regulations. Contributions must be made through NRE/NRO accounts.",
+      "OCI (Overseas Citizen of India) cardholders are not eligible for NPS.",
+      "Government employees may be covered under NPS mandatorily if they joined service after January 1, 2004."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NPS_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NPS_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NPS_TIER_I",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "TIER_I",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NPS_TIER_II",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "TIER_II",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NPS_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number is required for eNPS online registration and Aadhaar-based e-KYC authentication. For offline registration, Aadhaar is accepted as identity and address proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN card is mandatory for NPS registration. eNPS allows PAN-based online registration as an alternative to Aadhaar-based registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Active savings bank account with IFSC code for initial contribution payment and subsequent transactions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_MOBILE_EMAIL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Active mobile number and email address for OTP verification and communication regarding the NPS account.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_INITIAL_CONTRIBUTION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED",
+          "NPS_TIER_I"
+        ]
+      },
+      "claim": "Initial contribution of minimum Rs. 500 for Tier I account opening. There is no maximum limit on contributions. Minimum annual contribution to keep the account active is Rs. 1,000.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-PFRDA-2026-10-28",
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Scanned photograph (for online registration) or passport-size photographs (for offline registration at Point of Presence).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NPS_REQ_SIGNATURE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Scanned signature (for online registration) or specimen signature on the registration form (for offline registration).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NPS_STEP1_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NPS applicants",
+      "claim": "Register online through eNPS portal (enps.nsdl.com) using Aadhaar-based e-KYC or PAN verification, or visit a Point of Presence (PoP) — banks and designated service centres — to register offline with physical documents.",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NPS_STEP2_PRAN_GENERATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered applicants",
+      "claim": "After successful KYC verification, a Permanent Retirement Account Number (PRAN) is generated. For online (Aadhaar-based) registration, PRAN is generated instantly. For PAN-based or offline registration, PRAN generation may take 2-7 working days.",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28",
+        "SRC-NPS-PFRDA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NPS_STEP3_FUND_CHOICE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NPS account holders",
+      "claim": "Choose a Pension Fund Manager (PFM) and investment choice — Active Choice (allocate among equity E, corporate bonds C, government securities G, and alternative assets A within prescribed limits) or Auto Choice (lifecycle fund that automatically adjusts allocation based on age).",
+      "sourceRefs": [
+        "SRC-NPS-PFRDA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NPS_STEP4_INITIAL_CONTRIBUTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NPS Tier I subscribers",
+      "claim": "Make the initial contribution of minimum Rs. 500 via net banking, UPI, or debit card for online registration. For offline registration, payment can be made at the Point of Presence.",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NPS_PRAN_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Permanent Retirement Account Number (PRAN) is issued — a unique 12-digit number that remains with the subscriber throughout their lifetime. A PRAN card (physical or e-PRAN) is dispatched to the registered address. The account can be accessed through the CRA (Central Recordkeeping Agency) system for contributions, fund switches, and withdrawals.",
+    "sourceRefs": [
+      "SRC-NPS-PFRDA-2026-10-28",
+      "SRC-NPS-ENPS-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NPS_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "NPS account registration",
+      "status": "VERIFIED",
+      "claim": "NPS registration is free. There are no account opening charges. The only requirement is the minimum initial contribution.",
+      "sourceRefs": [
+        "SRC-NPS-ENPS-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "NPS_MINIMUM_CONTRIBUTION",
+      "category": "DEPOSIT_REQUIREMENT",
+      "minimumAmount": 500,
+      "currency": "INR",
+      "applicability": "Minimum initial contribution for Tier I",
+      "status": "VERIFIED",
+      "claim": "Minimum initial contribution of Rs. 500 for Tier I account. Minimum annual contribution is Rs. 1,000 to keep the account active. For Tier II, minimum initial contribution is Rs. 1,000.",
+      "sourceRefs": [
+        "SRC-NPS-PFRDA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NPS_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "NPS PRAN generation from registration",
+    "status": "VERIFIED",
+    "claim": "Aadhaar-based eNPS registration generates PRAN instantly. PAN-based online registration takes 2-7 working days as physical documents need to be couriered to the CRA. Offline registration at Point of Presence takes 3-7 working days for PRAN generation.",
+    "sourceRefs": [
+      "SRC-NPS-ENPS-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NPS-PFRDA-2026-10-28",
+      "url": "https://www.pfrda.org.in/index1.cshtml?lsid=1070",
+      "title": "PFRDA — National Pension System",
+      "publisher": "Pension Fund Regulatory and Development Authority, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "PFRDA regulates NPS and provides comprehensive information on scheme architecture, fund managers, investment choices, exit and withdrawal rules, and subscriber grievance redressal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "NPS is open to Indian citizens aged 18-70.",
+        "Tier I has restrictions on withdrawal; Tier II has flexible withdrawal.",
+        "Tax benefits under Section 80CCD(1), 80CCD(1B), and 80CCD(2).",
+        "PRAN is a lifetime unique number.",
+        "Multiple Pension Fund Managers available."
+      ],
+      "uncertainty": "Fund performance varies. Tax rules and contribution limits may change with Union Budget announcements."
+    },
+    {
+      "sourceCode": "SRC-NPS-ENPS-2026-10-28",
+      "url": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+      "title": "eNPS — Online NPS Registration Portal",
+      "publisher": "NSDL e-Governance Infrastructure Limited (CRA for NPS)",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "AUTHORIZED_SERVICE_PROVIDER",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "eNPS portal allows online registration, contribution, and account management for NPS subscribers. It supports Aadhaar-based and PAN-based registration with online payment options.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online registration via Aadhaar e-KYC or PAN verification.",
+        "Instant PRAN for Aadhaar-based registration.",
+        "Minimum Rs. 500 initial contribution for Tier I.",
+        "Minimum Rs. 1,000 initial contribution for Tier II.",
+        "Payment via net banking, UPI, or debit card."
+      ],
+      "uncertainty": "Online portal availability and supported payment methods may vary."
+    }
+  ],
+  "limitations": [
+    "This record does not cover NPS exit and withdrawal rules, partial withdrawal conditions, or annuity purchase requirements in detail.",
+    "Fund performance and returns are market-linked and not guaranteed.",
+    "Tax treatment details (Section 80CCD) are summarised; consult the Income Tax Act for full provisions.",
+    "Government employee NPS (mandatory) may have different operational rules than private sector or individual NPS.",
+    "NRI-specific rules and FEMA compliance requirements are not covered in detail."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core registration process is verified. Fund choices, tax rules, and exit regulations need periodic update tracking.",
+    "nextReviewTrigger": [
+      "Changes to NPS tax benefits in Union Budget.",
+      "Modification of minimum contribution amounts.",
+      "Changes to exit or withdrawal rules.",
+      "Addition of new Pension Fund Managers.",
+      "Changes to age eligibility criteria."
+    ]
+  }
+}

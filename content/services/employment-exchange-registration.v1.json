@@ -1,0 +1,285 @@
+{
+  "serviceCode": "EMPLOYMENT_EXCHANGE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Registration at Employment Exchange"
+  },
+  "authority": "District Employment Officer / Employment Exchange, Department of Employment and Training",
+  "jurisdiction": "STATE",
+  "category": "EMPLOYMENT_EXCHANGE",
+  "description": {
+    "en": "Employment Exchange registration enables job seekers to register their qualifications and employment preferences with the local Employment Exchange under the Employment Exchanges (Compulsory Notification of Vacancies) Act, 1959. Registered candidates receive a registration number and are considered for suitable vacancies notified by employers (especially government and public sector establishments employing 25 or more workers). The service is free and available across all districts through the state employment exchange network."
+  },
+  "officialLinks": {
+    "application": "https://ncs.gov.in/",
+    "informationPortal": "https://labour.gov.in/employment-exchanges"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EMPEX_AGE_ELIGIBLE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUAL",
+        "value": 14,
+        "classification": "MANDATORY",
+        "appliesTo": "All employment exchange applicants",
+        "claim": "The applicant must be at least 14 years of age to register at an Employment Exchange. Most states set the minimum age between 14 and 18 years depending on the type of employment sought.",
+        "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+      },
+      {
+        "conditionCode": "EMPEX_RESIDENCE",
+        "field": "applicant.isResidentOfState",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All employment exchange applicants",
+        "claim": "The applicant must be a resident of the state or district where the Employment Exchange is located. A residential address proof within the jurisdiction is required.",
+        "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states may have upper age limits for fresh registration (typically up to 40-45 years).",
+      "Persons already employed in government service may not be eligible for fresh registration in some states.",
+      "NRI or foreign nationals are generally not eligible for registration at Employment Exchanges.",
+      "Physically disabled persons are eligible and may receive priority in sponsoring for vacancies."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EMPEX_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "EMPLOYMENT_EXCHANGE_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EMPEX_FRESH_REGISTRATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "FRESH_REGISTRATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EMPEX_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EMPEX_IS_GRADUATE",
+      "field": "applicant.isGraduate",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EMPEX_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Complete the Employment Exchange registration form (available at the exchange or online through the National Career Service portal) with personal details, educational qualifications, skills, and employment preferences.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Valid identity proof such as Aadhaar card, Voter ID, PAN card, or Passport for identity verification during registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of residential address within the district or state jurisdiction, such as Aadhaar card, utility bill, ration card, or residential certificate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_EDUCATION_CERTIFICATES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Original educational certificates and marksheets (10th, 12th, graduation, post-graduation, technical/vocational certificates as applicable) for recording qualifications in the registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-size photographs (typically 2-3) for the registration card and records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_CASTE_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Caste certificate (SC/ST/OBC) if applicable, for availing reservation benefits in employment sponsoring.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "EMPEX_REQ_DISABILITY_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["EMPEX_ROUTE_SELECTED"]
+      },
+      "claim": "Disability certificate from a competent medical authority if applicable, for priority consideration and reservation under PwD category.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EMPEX_STEP1_VISIT_EXCHANGE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants for fresh registration",
+      "claim": "Visit the nearest Employment Exchange office in your district with the required documents, or register online through the National Career Service (NCS) portal at ncs.gov.in. For online registration, create an account with a valid mobile number and email.",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "EMPEX_STEP2_SUBMIT_FORM",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants",
+      "claim": "Fill and submit the registration form with personal details, educational qualifications, work experience (if any), skills, and preferred employment type. Present original documents for verification and submit photocopies.",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "EMPEX_STEP3_RECEIVE_CARD",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered applicants",
+      "claim": "After verification, receive the Employment Exchange Registration Card (also called Employment Card or Job Seeker Card) with a unique registration number. The card records qualifications, preferences, and registration date.",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28", "SRC-EMPEX-ACT-1959-2026-10-28"]
+    },
+    {
+      "processCode": "EMPEX_STEP4_RENEWAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registered job seekers requiring renewal",
+      "claim": "The registration must be renewed periodically (typically every 1-3 years depending on the state). Visit the Employment Exchange or renew online before the expiry date to maintain active registration status and continue being sponsored for vacancies.",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "EMPEX_REGISTRATION_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Employment Exchange Registration Card (Employment Card / Job Seeker Card) with a unique registration number. The card serves as proof of registration and is required for sponsoring to government and public sector vacancies. The registration number is also used as a proof for various government schemes that require employment exchange registration.",
+    "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28", "SRC-EMPEX-ACT-1959-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "EMPEX_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Employment Exchange registration for all job seekers",
+      "status": "VERIFIED",
+      "claim": "Registration at the Employment Exchange is completely free of charge. No fees are collected for fresh registration, renewal, or sponsoring for vacancies.",
+      "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EMPEX_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From application submission to issuance of registration card",
+    "status": "VERIFIED",
+    "claim": "Registration is typically completed on the same day for walk-in applicants at the Employment Exchange office. Online registration through NCS portal is immediate upon successful submission. Physical registration cards may take up to 7 days to be issued in some states.",
+    "sourceRefs": ["SRC-EMPEX-NCS-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EMPEX-NCS-PORTAL-2026-10-28",
+      "url": "https://ncs.gov.in/",
+      "title": "National Career Service Portal",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Career Service (NCS) portal integrates Employment Exchange services, enabling online job seeker registration, job matching, and career counseling across all states and union territories.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Free registration for all job seekers.",
+        "Online and offline registration options available.",
+        "Identity and educational documents required for registration.",
+        "Registration card issued with unique registration number."
+      ],
+      "uncertainty": "State-specific procedures and document requirements may vary. Some states may have additional requirements not reflected on the national portal."
+    },
+    {
+      "sourceCode": "SRC-EMPEX-ACT-1959-2026-10-28",
+      "url": "https://labour.gov.in/sites/default/files/TheEmploymentExchanges.pdf",
+      "title": "Employment Exchanges (Compulsory Notification of Vacancies) Act, 1959",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Employment Exchanges (Compulsory Notification of Vacancies) Act, 1959 requires employers in establishments employing 25 or more workers to notify vacancies to the Employment Exchange. It establishes the framework for employment exchange registration and job sponsoring.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Employers with 25 or more workers must notify vacancies to Employment Exchange.",
+        "Employment Exchanges maintain registers of job seekers.",
+        "Framework for sponsoring registered candidates to notified vacancies.",
+        "Registration and renewal procedures for job seekers."
+      ],
+      "uncertainty": "The Act has been proposed for repeal under labour code consolidation. State-level implementation may vary. Some states have enacted their own employment exchange rules with additional provisions."
+    }
+  ],
+  "limitations": [
+    "Registration at an Employment Exchange does not guarantee employment or placement.",
+    "The frequency and quality of vacancy sponsoring depends on employer notifications in the district.",
+    "Renewal requirements (frequency and procedure) vary significantly across states.",
+    "The Employment Exchanges Act 1959 has been proposed for repeal under the labour code consolidation exercise; future status of employment exchanges may change.",
+    "Online NCS portal registration may not be accepted as equivalent to local employment exchange registration in all states for all purposes.",
+    "Some government schemes and applications specifically require registration at the local district employment exchange, not just NCS portal registration."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core registration process verified through NCS portal. State-specific variations in procedures, document requirements, and renewal periods need individual verification.",
+    "nextReviewTrigger": [
+      "Implementation of new Labour Codes replacing the Employment Exchanges Act 1959.",
+      "Changes to NCS portal features or registration process.",
+      "State-level changes to employment exchange procedures or document requirements.",
+      "Any central government notification regarding modernization of employment exchange services."
+    ]
+  }
+}

@@ -1,0 +1,337 @@
+{
+  "serviceCode": "VOTER_ID_NEW_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Voter ID Card (New Registration)"
+  },
+  "authority": "Election Commission of India (ECI)",
+  "jurisdiction": "CENTRAL",
+  "category": "VOTER_ID",
+  "description": {
+    "en": "New voter registration and EPIC (Electors Photo Identity Card) issuance for Indian citizens who have attained 18 years of age. Applications are processed through the National Voters' Service Portal (NVSP) or the Voter Helpline App."
+  },
+  "officialLinks": {
+    "application": "https://voters.eci.gov.in/",
+    "informationPortal": "https://ecisveep.eci.gov.in/",
+    "voterHelpline": "https://voterportal.eci.gov.in/",
+    "electoralSearch": "https://electoralsearch.eci.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "VOTER_IS_INDIAN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All voter registration applicants",
+        "claim": "Only Indian citizens are eligible to register as voters.",
+        "sourceRefs": [
+          "SRC-ECI-VOTER-GUIDE"
+        ]
+      },
+      {
+        "conditionCode": "VOTER_AGE_18_PLUS",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "All voter registration applicants",
+        "claim": "The applicant must have attained the age of 18 years on the qualifying date (1st January of the year of revision of electoral roll). Citizens aged 17+ can pre-register and will be added when they turn 18.",
+        "sourceRefs": [
+          "SRC-ECI-VOTER-GUIDE"
+        ]
+      },
+      {
+        "conditionCode": "VOTER_IS_ORDINARY_RESIDENT",
+        "field": "applicant.isOrdinaryResident",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All voter registration applicants",
+        "claim": "The applicant must be an ordinary resident of the constituency where they wish to register.",
+        "sourceRefs": [
+          "SRC-ECI-VOTER-GUIDE"
+        ]
+      },
+      {
+        "conditionCode": "VOTER_NOT_DISQUALIFIED",
+        "field": "applicant.isDisqualified",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All voter registration applicants",
+        "claim": "The applicant must not be disqualified under any law relating to corrupt practices and other offences in connection with elections.",
+        "sourceRefs": [
+          "SRC-ECI-VOTER-GUIDE"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific rules for overseas voters (NRI) using Form 6A are not covered in this record.",
+      "Homeless persons have the right to register under their area of habitual stay; documentation requirements may differ."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "VOTER_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "VOTER_ID_NEW_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "VOTER_REQ_FORM_6",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VOTER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 6 (Application for inclusion of name in electoral roll) must be filled. This can be done online via NVSP/Voter Helpline App or offline at the ERO office.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NVSP-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VOTER_REQ_AGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VOTER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of age is required. Accepted documents include birth certificate, school-leaving/transfer certificate with DOB, class 10 marksheet, Aadhaar card, PAN card, driving license, Indian passport, or any other government document with DOB.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ECI-VOTER-GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "VOTER_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VOTER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of ordinary residence is required. Accepted documents include Aadhaar card, bank/post office passbook, ration card, passport, driving license, utility bills (water/electricity/gas/telephone — not older than 3 months), income tax assessment order, latest rent agreement, or post/letter delivered to current address.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ECI-VOTER-GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "VOTER_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VOTER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size colour photograph is required with the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NVSP-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VOTER_REQ_AADHAAR_LINKING",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "VOTER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "As per the Election Laws (Amendment) Act 2023, Aadhaar number linking with voter ID is now being facilitated. While new applicants are asked to provide Aadhaar, it is currently described as voluntary by ECI.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ECI-AADHAAR-LINKING",
+        "SRC-INDIA-CODE-ELECTION-AMENDMENT"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "VOTER_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new voter registration applicants",
+      "claim": "Registration process: (1) Fill Form 6 online via voters.eci.gov.in or Voter Helpline App, or submit offline at ERO/AERO office, (2) Upload photograph and supporting documents, (3) BLO (Booth Level Officer) may visit for physical verification, (4) Application is processed by the Electoral Registration Officer (ERO), (5) Name included in electoral roll and EPIC card issued.",
+      "doesNotEstablish": [
+        "BLO verification may not happen for all applications.",
+        "Processing time depends on the revision schedule of the electoral roll."
+      ],
+      "sourceRefs": [
+        "SRC-NVSP-PORTAL",
+        "SRC-ECI-VOTER-GUIDE"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "VOTER_EPIC_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "EPIC (Electors Photo Identity Card) is issued after successful registration. The e-EPIC (digital version) can be downloaded from the Voter Helpline App or NVSP portal.",
+    "sourceRefs": [
+      "SRC-ECI-VOTER-GUIDE"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "VOTER_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "New voter registration and EPIC issuance",
+      "status": "VERIFIED",
+      "claim": "Voter registration and EPIC card issuance are completely free of charge.",
+      "sourceRefs": [
+        "SRC-ECI-VOTER-GUIDE"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "VOTER_PROCESSING",
+    "minimumDuration": null,
+    "maximumDuration": null,
+    "unit": null,
+    "basis": "REVISION_SCHEDULE_DEPENDENT",
+    "applicability": "New voter registration",
+    "status": "QUALITATIVE_ONLY",
+    "claim": "Processing time depends on the electoral roll revision schedule. During continuous revision periods, applications are typically processed within 21-45 days. During special revision drives or before elections, processing may be faster.",
+    "estimatedCompletionDatePolicy": "Do not calculate a date. Processing depends on the electoral roll revision cycle and ERO workload.",
+    "fallbackThresholdMentionedBySource": "No specific fallback; applicant should check status on NVSP portal",
+    "sourceRefs": [
+      "SRC-ECI-VOTER-GUIDE",
+      "SRC-OPEN-INDIA-GOV"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-ECI-VOTER-GUIDE",
+      "url": "https://ecisveep.eci.gov.in/",
+      "title": "Systematic Voters' Education and Electoral Participation (SVEEP)",
+      "publisher": "Election Commission of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "SVEEP portal provides voter education including eligibility criteria, registration process, and document requirements.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Eligibility requirements for voter registration.",
+        "Accepted documents for age and address proof.",
+        "EPIC issuance is free.",
+        "BLO verification process."
+      ],
+      "uncertainty": "Specific document acceptance may vary by state ERO office."
+    },
+    {
+      "sourceCode": "SRC-NVSP-PORTAL",
+      "url": "https://voters.eci.gov.in/",
+      "title": "National Voters' Service Portal",
+      "publisher": "Election Commission of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "NVSP is the official portal for online voter registration, Form 6 submission, and status tracking.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online Form 6 submission.",
+        "Application status tracking.",
+        "e-EPIC download."
+      ],
+      "uncertainty": "Portal design and flow may be updated."
+    },
+    {
+      "sourceCode": "SRC-ECI-AADHAAR-LINKING",
+      "url": "https://voters.eci.gov.in/",
+      "title": "Aadhaar-EPIC Linking - ECI",
+      "publisher": "Election Commission of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "ECI is facilitating Aadhaar-Voter ID linking as part of electoral roll purification.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Aadhaar-Voter ID linking is being facilitated.",
+        "Currently described as voluntary by ECI."
+      ],
+      "uncertainty": "The mandatory vs. voluntary status may evolve based on policy and court directions."
+    },
+    {
+      "sourceCode": "SRC-INDIA-CODE-ELECTION-AMENDMENT",
+      "url": "https://www.indiacode.nic.in/",
+      "title": "The Election Laws (Amendment) Act, 2023",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The amendment provides for linking electoral roll data with Aadhaar.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal basis for Aadhaar-Voter ID linking."
+      ],
+      "uncertainty": "Implementation details are managed by ECI."
+    },
+    {
+      "sourceCode": "SRC-OPEN-INDIA-GOV",
+      "url": "https://www.india.gov.in/topics/governance-administration/election",
+      "title": "Elections - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides a consolidated view of election-related services and timelines.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General processing timeline information for voter registration."
+      ],
+      "uncertainty": "Timelines are indicative and vary by revision cycle."
+    }
+  ],
+  "limitations": [
+    "This record covers new voter registration for Indian citizens only.",
+    "Overseas voter (NRI) registration via Form 6A is a separate workflow.",
+    "Correction, transposition, and objection workflows (Forms 7, 8, 8A) are separate.",
+    "Processing time is dependent on the electoral roll revision schedule and varies significantly.",
+    "State-specific additional requirements are not covered.",
+    "This record does not cover the separate process for service voters (armed forces, diplomatic staff)."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core registration requirements, eligibility, and process verified against ECI sources. Processing timeline is qualitative due to revision-cycle dependency.",
+    "nextReviewTrigger": [
+      "Changes to Form 6 or its document requirements.",
+      "Updates to Aadhaar-Voter ID linking policy.",
+      "Changes to qualifying date or age requirements.",
+      "Updates to the e-EPIC download process."
+    ]
+  }
+}

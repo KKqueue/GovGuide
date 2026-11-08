@@ -1,0 +1,339 @@
+{
+  "serviceCode": "RERA_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "RERA Project Registration"
+  },
+  "authority": "Real Estate Regulatory Authority (State-level RERA)",
+  "jurisdiction": "STATE",
+  "category": "RERA_REGISTRATION",
+  "description": {
+    "en": "Registration of real estate projects with the State Real Estate Regulatory Authority (RERA) is mandatory under the Real Estate (Regulation and Development) Act, 2016 for projects with land area exceeding 500 sq. metres or more than 8 apartments. Promoters cannot advertise, market, book, sell, or offer for sale any plot, apartment, or building without RERA registration. The Act aims to protect homebuyer interests, ensure transparency, and promote fair practices in the real estate sector."
+  },
+  "officialLinks": {
+    "application": "https://rera.gov.in/",
+    "informationPortal": "https://mohua.gov.in/cms/rera.php"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "RERA_PROJECT_SIZE",
+        "field": "property.landAreaSqMetres",
+        "operator": "GREATER_THAN",
+        "value": 500,
+        "classification": "MANDATORY",
+        "appliesTo": "Promoters of real estate projects",
+        "claim": "Registration is mandatory for projects with land area exceeding 500 square metres, or where the number of apartments to be developed exceeds 8 (inclusive of all phases). Projects below both thresholds are exempt from RERA registration.",
+        "sourceRefs": [
+          "SRC-RERA-ACT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "RERA_PROMOTER_TYPE",
+        "field": "company.type",
+        "operator": "IN_SET",
+        "valueType": "STRING",
+        "setValues": [
+          "INDIVIDUAL",
+          "COMPANY",
+          "PARTNERSHIP",
+          "LLP",
+          "SOCIETY",
+          "TRUST",
+          "HUF",
+          "AUTHORITY"
+        ],
+        "classification": "INFORMATIONAL",
+        "appliesTo": "All real estate promoters",
+        "claim": "Any person or entity acting as a promoter — whether an individual, company, partnership firm, LLP, cooperative society, trust, HUF, or development authority — must register their project with RERA before advertising or selling.",
+        "sourceRefs": [
+          "SRC-RERA-ACT-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Projects where completion certificate or occupancy certificate has been received before the Act came into force are exempt.",
+      "Projects for renovation, repair, or redevelopment that do not involve marketing, advertising, selling, or new allotment may be exempt.",
+      "Some states have modified the threshold limits (land area and apartment count) in their state RERA rules."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "RERA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "RERA_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "RERA_NEW_PROJECT",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "RERA_EXTENSION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "EXTENSION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "RERA_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application in prescribed form (Form A under the RERA Rules) submitted online through the respective state RERA portal. Each state has its own online portal for RERA applications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28",
+        "SRC-RERA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_LAND_TITLE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Authenticated copy of the approvals and commencement certificate received from the competent authority. Details of legal title to the land and authenticated copy of the agreement for development rights (if land is not owned by the promoter).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Sanctioned building plan, layout plan, and specifications approved by the competent authority. The plan must include details of the project including the number of buildings, floors, apartments, garages, and amenities.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_PROMOTER_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of the promoter including PAN, Aadhaar, name and address of the enterprise, type of enterprise (individual/company/partnership etc.), registration details, and details of past projects completed or ongoing.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_FINANCIAL_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proforma of allotment letter, agreement for sale, and conveyance deed. Audited balance sheet of the promoter for the preceding financial year. Estimated cost of the project and proposed sources of funding.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED",
+          "RERA_NEW_PROJECT"
+        ]
+      },
+      "claim": "A separate bank account maintained with a scheduled bank for the project. 70% of the amounts realised from allottees must be deposited in this account and used only for the construction cost and land cost of that project. Withdrawal requires certification by an engineer, an architect, and a chartered accountant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "RERA_REQ_COMPLETION_TIMELINE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RERA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Declaration of the proposed timeline for completion of the project including phase-wise completion dates, and a declaration that the promoter has a legal right to the land and has all approvals for the project.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "RERA_STEP1_REGISTER_PORTAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All promoters",
+      "claim": "Register on the respective state RERA portal and create a promoter account. Upload all required documents and fill in the online application form with project details.",
+      "sourceRefs": [
+        "SRC-RERA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "RERA_STEP2_SUBMIT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All RERA applicants",
+      "claim": "Submit the completed application with the prescribed fee. The RERA authority may ask for additional information or clarifications within 30 days of receiving the application.",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "RERA_STEP3_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applications",
+      "claim": "The RERA authority verifies the application, documents, and compliance with the Act and Rules. The authority may conduct a physical inspection of the project site or verify details from other government departments.",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "RERA_STEP4_REGISTRATION_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Eligible projects",
+      "claim": "The authority grants registration within 30 days of receiving the application (if complete) and provides a unique RERA registration number. If the authority fails to act within 30 days, the project is deemed registered. The registration is valid for the period declared by the promoter for completion of the project.",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "RERA_REGISTRATION_NUMBER",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A unique RERA Registration Number is issued which must be displayed in all advertisements, marketing materials, and sale agreements. The registered project details including layout plan, completion timeline, and promoter information are published on the state RERA portal and accessible to homebuyers. Quarterly updates on project progress must be filed by the promoter.",
+    "sourceRefs": [
+      "SRC-RERA-ACT-2026-10-28",
+      "SRC-RERA-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "RERA_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 1000,
+      "currency": "INR",
+      "applicability": "RERA registration fee per square metre (varies by state)",
+      "status": "VERIFIED",
+      "claim": "Registration fee is typically Rs. 5-10 per square metre of land area proposed to be developed (for projects involving plots) or per square metre of carpet area (for projects involving apartments). The fee structure varies by state RERA rules. Some states also charge a flat fee for smaller projects. Total fee can range from a few thousand to several lakhs depending on project size.",
+      "sourceRefs": [
+        "SRC-RERA-ACT-2026-10-28",
+        "SRC-RERA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "RERA_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "RERA project registration from application to approval",
+    "status": "VERIFIED",
+    "claim": "The RERA authority must grant or reject registration within 30 days of receiving a complete application. If the authority fails to grant or reject within 30 days, the project is deemed registered under Section 5(1) of the RERA Act. In practice, processing may be faster in states with efficient digital systems.",
+    "sourceRefs": [
+      "SRC-RERA-ACT-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-RERA-ACT-2026-10-28",
+      "url": "https://mohua.gov.in/cms/rera.php",
+      "title": "Real Estate (Regulation and Development) Act, 2016",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The RERA Act mandates registration of real estate projects and real estate agents, establishes state regulatory authorities and appellate tribunals, and defines obligations of promoters and rights of allottees. Section 3 mandates project registration, Section 4 specifies the application requirements, and Section 5 provides the 30-day processing timeline.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Projects exceeding 500 sq.m or 8 apartments must register.",
+        "70% of collected amounts must be kept in a separate project account.",
+        "30-day statutory processing timeline.",
+        "Deemed registration if no response in 30 days.",
+        "Quarterly progress update filing mandatory."
+      ],
+      "uncertainty": "State RERA rules may modify specific requirements and fee structures within the Act's framework."
+    },
+    {
+      "sourceCode": "SRC-RERA-PORTAL-2026-10-28",
+      "url": "https://rera.gov.in/",
+      "title": "RERA Portal — Real Estate Regulatory Authority",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The central RERA portal provides links to all state RERA authorities, project search functionality across states, and information on RERA rules and regulations. Individual state RERA portals handle actual registration and complaint filing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "All states and UTs have established RERA authorities.",
+        "Project registration is done through state RERA portals.",
+        "Registered project details are publicly searchable.",
+        "Homebuyers can file complaints through the portal."
+      ],
+      "uncertainty": "State RERA portal functionality and features vary. Not all states have fully functional online registration systems."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview based on the central RERA Act. State RERA rules, fees, and procedures vary significantly.",
+    "The fee structure example is indicative; actual fees depend on state RERA rules and project parameters.",
+    "The record does not cover Real Estate Agent registration requirements under Section 9 of RERA.",
+    "Homebuyer rights, complaint filing, and dispute resolution procedures are not covered in detail.",
+    "State-specific exemptions and modified thresholds are not comprehensively listed.",
+    "The record does not cover RERA compliance for ongoing projects that were started before the Act came into force."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central RERA Act provisions are reviewed, but state-specific rules and portal procedures need verification across major states.",
+    "nextReviewTrigger": [
+      "Amendments to the RERA Act or Rules.",
+      "Changes to state RERA fee structures.",
+      "New guidelines or circulars from state RERA authorities.",
+      "Judicial orders affecting RERA registration procedures.",
+      "Changes to the 70% escrow requirement."
+    ]
+  }
+}

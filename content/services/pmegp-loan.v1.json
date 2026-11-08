@@ -1,0 +1,350 @@
+{
+  "serviceCode": "PMEGP_LOAN",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Prime Minister's Employment Generation Programme (PMEGP)"
+  },
+  "authority": "Ministry of MSME / Khadi and Village Industries Commission (KVIC)",
+  "jurisdiction": "CENTRAL",
+  "category": "PMEGP_LOAN",
+  "description": {
+    "en": "The Prime Minister's Employment Generation Programme (PMEGP) is a credit-linked subsidy scheme administered by the Ministry of Micro, Small and Medium Enterprises (MSME) through the Khadi and Village Industries Commission (KVIC) at the national level. It provides government subsidy (margin money) on bank loans for setting up new micro-enterprises in the non-farm sector. The scheme covers manufacturing enterprises with project costs up to Rs. 50 lakh and service/business enterprises with project costs up to Rs. 20 lakh. The subsidy ranges from 15% to 35% of the project cost depending on the category of the beneficiary and the location (urban or rural) of the enterprise."
+  },
+  "officialLinks": {
+    "application": "https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp",
+    "informationPortal": "https://msme.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PMEGP_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants under PMEGP",
+        "claim": "The applicant must be above 18 years of age at the time of applying for the PMEGP loan.",
+        "sourceRefs": [
+          "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMEGP_EDUCATION_REQUIREMENT",
+        "field": "applicant.hasPassedClass8",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "CONDITIONAL",
+        "appliesTo": "Applicants seeking loans above Rs. 10 lakh in manufacturing or Rs. 5 lakh in the service sector",
+        "claim": "For projects costing above Rs. 10 lakh in the manufacturing sector and above Rs. 5 lakh in the service sector, the beneficiary must have passed at least VIII standard (Class 8).",
+        "sourceRefs": [
+          "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMEGP_NEW_ENTERPRISE",
+        "field": "enterprise.isNew",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants under PMEGP",
+        "claim": "Assistance under the scheme is available only for new admissible projects or enterprises. Existing units or units that have already availed of a government subsidy under any other scheme are not eligible.",
+        "sourceRefs": [
+          "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+          "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Self-Help Groups (including those belonging to BPL families, provided they have not availed benefits under any other scheme) are also eligible.",
+      "Institutions registered under the Societies Registration Act 1860, production cooperative societies, and charitable trusts are eligible.",
+      "Existing PMEGP/MUDRA units that have repaid their first loan can apply for a second loan for upgradation of the unit."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PMEGP_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PMEGP_LOAN",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMEGP_SECTOR_TYPE",
+      "field": "enterprise.sectorCategory",
+      "operator": "IN_SET",
+      "value": ["MANUFACTURING", "SERVICE"],
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "PMEGP_LOCATION_TYPE",
+      "field": "enterprise.locationCategory",
+      "operator": "IN_SET",
+      "value": ["URBAN", "RURAL"],
+      "classification": "SUBSIDY_DETERMINATION",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "PMEGP_EDUCATION_REQUIREMENT",
+      "field": "applicant.hasPassedClass8",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PMEGP_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid identity proof such as Aadhaar card, PAN card, Voter ID, or Passport of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMEGP_REQ_EDUCATION_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED",
+          "PMEGP_EDUCATION_REQUIREMENT"
+        ]
+      },
+      "claim": "Educational qualification certificate (Class 8 pass or above) is required for projects costing above Rs. 10 lakh in manufacturing and above Rs. 5 lakh in the service sector.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMEGP_REQ_PROJECT_REPORT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A detailed project report (DPR) for the proposed enterprise, including project cost, raw material details, working capital requirements, production capacity, expected revenue, and employment generation potential.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMEGP_REQ_CATEGORY_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Caste certificate for SC/ST/OBC applicants, disability certificate for physically handicapped applicants, or discharge certificate for ex-servicemen — required for claiming higher subsidy under the special category.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMEGP_REQ_EDP_TRAINING",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The beneficiary must undergo Entrepreneurship Development Programme (EDP) / Skill Development Programme (SDP) training of at least 10 days (for projects up to Rs. 10 lakh) or 15 days (for projects above Rs. 10 lakh) at nodal agency approved training centres.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMEGP_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMEGP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence/address such as Aadhaar card, utility bill, ration card, or rental agreement for the proposed enterprise premises.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PMEGP_STEP1_APPLY_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants seeking PMEGP subsidy",
+      "claim": "Apply online through the PMEGP e-portal at kviconline.gov.in. Fill in the application form with personal details, project details, proposed enterprise location, and upload required documents. The applicant selects the nodal agency (KVIC, State KVIB, or State DIC).",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMEGP_STEP2_SCREENING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The application is screened by the nodal agency at the district level (District Level Task Force Committee — DLTFC). Shortlisted applications are forwarded to the identified bank branch for loan sanction. The DLTFC interviews applicants and assesses project viability.",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMEGP_STEP3_BANK_SANCTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DLTFC-recommended applications",
+      "claim": "The bank appraises the project, sanctions the loan, and disburses the bank's share (remaining project cost after subsidy and the beneficiary's own contribution of 5-10%). The beneficiary must contribute 5% (for special category: SC/ST/OBC/Women/Minorities/Ex-Servicemen/Physically Handicapped/NER/Hill & Border areas) or 10% (for general category) of the project cost.",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMEGP_STEP4_SUBSIDY_RELEASE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All sanctioned and disbursed loans",
+      "claim": "After the bank disburses the loan and the unit commences production or operations, the subsidy (margin money) is released by KVIC to the bank. The subsidy is kept in a Term Deposit in the beneficiary's name for a lock-in period of 3 years. The subsidy ranges from 15% to 35% of the project cost depending on the category and location.",
+      "sourceRefs": [
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PMEGP_LOAN_SUBSIDY",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A bank loan with government subsidy (margin money) for setting up a new micro-enterprise. The subsidy rates are: General Category — 15% of project cost (urban) and 25% of project cost (rural); Special Category (SC/ST/OBC/Women/Minorities/Ex-Servicemen/Physically Handicapped/NER/Hill & Border areas) — 25% of project cost (urban) and 35% of project cost (rural). Maximum project cost is Rs. 50 lakh for manufacturing and Rs. 20 lakh for service enterprises.",
+    "sourceRefs": [
+      "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+      "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PMEGP_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "PMEGP application and subsidy processing",
+      "status": "VERIFIED",
+      "claim": "There is no application fee for applying under the PMEGP scheme. The subsidy is provided by the Government of India and there is no fee charged to the beneficiary for the subsidy component.",
+      "sourceRefs": [
+        "SRC-KVIC-PMEGP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PMEGP_BANK_PROCESSING_FEE",
+      "category": "BANK_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Bank loan processing charges",
+      "status": "VERIFIED",
+      "claim": "Banks may charge standard loan processing fees as per their norms. The processing fee varies by bank and is separate from the PMEGP subsidy. It is typically a small percentage of the loan amount sanctioned.",
+      "sourceRefs": [
+        "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PMEGP_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From online application to subsidy release",
+    "status": "VERIFIED",
+    "claim": "The end-to-end PMEGP process — from online application to DLTFC screening, bank loan sanction, and subsidy release — typically takes 30 to 90 days. The timeline depends on the district-level screening schedule, bank appraisal time, and commencement of enterprise operations. Subsidy is released after the unit starts production/operations.",
+    "sourceRefs": [
+      "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+      "SRC-MSME-PMEGP-GUIDELINES-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-KVIC-PMEGP-PORTAL-2026-10-28",
+      "url": "https://www.kviconline.gov.in/pmegpeportal/pmegphome/index.jsp",
+      "title": "PMEGP e-Portal — Khadi and Village Industries Commission",
+      "publisher": "Khadi and Village Industries Commission (KVIC), Ministry of MSME, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The PMEGP e-portal is the official online platform for applying under the Prime Minister's Employment Generation Programme. It provides scheme details, online application facility, application tracking, and information on nodal agencies. The scheme provides 15-35% subsidy on project cost for new micro-enterprises.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PMEGP provides subsidy of 15-35% of project cost.",
+        "Manufacturing projects up to Rs. 50 lakh and service projects up to Rs. 20 lakh.",
+        "Online application through KVIC e-portal.",
+        "Beneficiary must be above 18 years.",
+        "Class 8 education required for projects above specified thresholds."
+      ],
+      "uncertainty": "Subsidy rates and project cost limits may be revised in future scheme modifications."
+    },
+    {
+      "sourceCode": "SRC-MSME-PMEGP-GUIDELINES-2026-10-28",
+      "url": "https://msme.gov.in/",
+      "title": "Ministry of MSME — PMEGP Scheme Guidelines",
+      "publisher": "Ministry of Micro, Small and Medium Enterprises, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of MSME issues detailed guidelines for PMEGP implementation including subsidy rates, beneficiary categories, project cost limits, own contribution requirements, EDP training requirements, and the role of nodal agencies (KVIC, State KVIBs, and DICs). The subsidy is locked in for 3 years as a Term Deposit.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Own contribution: 5% for special category, 10% for general category.",
+        "EDP training of 10-15 days is mandatory.",
+        "Subsidy locked in for 3 years as Term Deposit.",
+        "DLTFC screens and recommends applications to banks.",
+        "Second loan available for upgrading existing PMEGP/MUDRA units."
+      ],
+      "uncertainty": "The scheme guidelines are periodically revised; specific modifications in sub-schemes or new categories may apply."
+    }
+  ],
+  "limitations": [
+    "Only new (greenfield) enterprises in the non-farm sector are eligible; existing units and farm-based activities are not covered.",
+    "Manufacturing project cost is capped at Rs. 50 lakh and service project cost at Rs. 20 lakh.",
+    "The subsidy (margin money) is locked in for 3 years and cannot be withdrawn during this period.",
+    "Beneficiary's own contribution of 5-10% of the project cost must be arranged from personal sources.",
+    "Bank loan sanction is subject to the bank's independent appraisal and the applicant's creditworthiness.",
+    "This record does not cover the detailed list of admissible and non-admissible activities under PMEGP.",
+    "EDP/SDP training availability may vary by district and training centre capacity."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme guidelines are reviewed but subsidy rates, project cost limits, and list of admissible activities need periodic monitoring.",
+    "nextReviewTrigger": [
+      "Changes to PMEGP scheme guidelines or subsidy rates.",
+      "Revision of project cost ceilings for manufacturing or service sectors.",
+      "Changes in beneficiary contribution requirements.",
+      "Updates to the list of admissible and non-admissible activities.",
+      "Changes to EDP training requirements or duration."
+    ]
+  }
+}

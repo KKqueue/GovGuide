@@ -1,0 +1,389 @@
+{
+  "serviceCode": "PATENT_FILING",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Patent Filing"
+  },
+  "authority": "Indian Patent Office (Controller General of Patents, Designs & Trademarks), Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry",
+  "jurisdiction": "CENTRAL",
+  "category": "PATENT_FILING",
+  "description": {
+    "en": "Patent filing in India is governed by the Patents Act, 1970 (amended 2005). An applicant files a patent application with the Indian Patent Office to protect a novel invention that involves an inventive step and is capable of industrial application. The process involves filing a provisional or complete specification, examination, publication, and grant."
+  },
+  "officialLinks": {
+    "application": "https://ipindiaonline.gov.in/epatentfiling/goForFiling/goForFiling",
+    "informationPortal": "https://ipindia.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PATENT_INVENTOR_OR_ASSIGNEE",
+        "field": "applicant.isInventorOrAssignee",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All patent applicants",
+        "claim": "A patent application can be filed by the true and first inventor, their assignee, or the legal representative of a deceased inventor. Joint applications by multiple inventors or assignees are permitted.",
+        "sourceRefs": [
+          "SRC-PATENT-ACT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PATENT_NOVEL_INVENTION",
+        "field": "applicant.hasNovelInvention",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All patent applicants",
+        "claim": "The invention must be novel (not previously published or publicly known), involve an inventive step (not obvious to a person skilled in the art), and be capable of industrial application.",
+        "sourceRefs": [
+          "SRC-PATENT-ACT-2026-10-28",
+          "SRC-IPINDIA-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Certain inventions are not patentable in India, including frivolous inventions, inventions contrary to natural laws, mere discoveries, and methods of agriculture or horticulture (Section 3 of the Patents Act).",
+      "Software per se, business methods, mathematical methods, and algorithms are generally not patentable unless they demonstrate a technical effect.",
+      "Traditional knowledge and atomic energy inventions are excluded from patentability.",
+      "Foreign applicants must file through a registered patent agent in India."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PATENT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PATENT_FILING",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PATENT_PROVISIONAL_FILING",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "PROVISIONAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PATENT_COMPLETE_FILING",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "COMPLETE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PATENT_APPLICANT_NATURAL_PERSON",
+      "field": "applicant.type",
+      "operator": "EQUALS",
+      "value": "NATURAL_PERSON",
+      "classification": "APPLICANT_TYPE",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "PATENT_APPLICANT_COMPANY",
+      "field": "applicant.type",
+      "operator": "EQUALS",
+      "value": "COMPANY",
+      "classification": "APPLICANT_TYPE",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PATENT_REQ_FORM1",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application for Grant of Patent (Form 1) containing details of the applicant(s), inventor(s), title of the invention, and the address for service in India.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-IPINDIA-PORTAL-2026-10-28",
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_PROVISIONAL_SPEC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_PROVISIONAL_FILING"
+        ]
+      },
+      "claim": "Provisional Specification (Form 2) describing the nature of the invention. A complete specification must be filed within 12 months of the provisional filing date.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_COMPLETE_SPEC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_COMPLETE_FILING"
+        ]
+      },
+      "claim": "Complete Specification (Form 2) including full description of the invention, claims defining the scope of protection, abstract, and drawings (if applicable). The specification must disclose the best method of performing the invention.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28",
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_FORM3",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Statement and Undertaking under Section 8 (Form 3) — disclosure of corresponding patent applications filed in other countries, if any. Must be filed within 6 months of the Indian filing date.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_FORM5",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Declaration as to Inventorship (Form 5) identifying the true and first inventor(s) of the invention.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_PROOF_OF_RIGHT",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of Right to make the application (assignment deed, employment agreement, etc.) if the applicant is not the inventor.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_PRIORITY_DOCUMENTS",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Priority documents and certified copies of the earlier application if claiming priority under the Paris Convention or PCT. Must be filed within 18 months of the priority date.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PATENT_REQ_EXAMINATION_REQUEST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PATENT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Request for Examination (Form 18) must be filed within 48 months from the date of filing or priority date, whichever is earlier. Without this request, the application will be deemed withdrawn.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28",
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PATENT_STEP1_FILE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All patent applicants",
+      "claim": "File the patent application online through the Indian Patent Office e-filing portal (ipindiaonline.gov.in) or physically at any of the four patent offices (Delhi, Mumbai, Kolkata, Chennai). The application receives a filing date and application number.",
+      "sourceRefs": [
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PATENT_STEP2_PUBLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All patent applications with complete specification",
+      "claim": "The application is published in the Patent Journal after 18 months from the filing/priority date. Early publication can be requested using Form 9 with the prescribed fee.",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PATENT_STEP3_EXAMINATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applications where examination is requested",
+      "claim": "After the request for examination is filed, a patent examiner reviews the application for novelty, inventive step, and industrial applicability. The First Examination Report (FER) is issued, and the applicant has 6 months (extendable by 3 months) to respond to objections.",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28",
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PATENT_STEP4_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applications that clear examination",
+      "claim": "If all objections are satisfactorily addressed and the invention meets patentability criteria, the patent is granted and published in the Patent Journal. The patent is valid for 20 years from the filing date, subject to annual renewal fees.",
+      "sourceRefs": [
+        "SRC-PATENT-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PATENT_GRANT_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Patent Certificate is issued upon grant, containing the patent number, title of invention, name of patentee(s), filing date, and claims. The patent provides exclusive rights to make, use, sell, and import the patented invention in India for 20 years from the filing date.",
+    "sourceRefs": [
+      "SRC-PATENT-ACT-2026-10-28",
+      "SRC-IPINDIA-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PATENT_FILING_FEE_INDIVIDUAL",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 1600,
+      "maximumAmount": 1600,
+      "currency": "INR",
+      "applicability": "Filing fee for natural person/startup (provisional or complete specification)",
+      "status": "VERIFIED",
+      "claim": "The patent application filing fee for a natural person or startup is Rs. 1,600 for e-filing and Rs. 1,750 for physical filing (provisional or complete specification). Small entities pay Rs. 4,000 (e-filing).",
+      "sourceRefs": [
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PATENT_FILING_FEE_COMPANY",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 8000,
+      "maximumAmount": 8000,
+      "currency": "INR",
+      "applicability": "Filing fee for large entities (companies with turnover above threshold)",
+      "status": "VERIFIED",
+      "claim": "The patent application filing fee for entities other than natural persons, startups, and small entities is Rs. 8,000 for e-filing and Rs. 8,800 for physical filing.",
+      "sourceRefs": [
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PATENT_EXAMINATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 4000,
+      "maximumAmount": 20000,
+      "currency": "INR",
+      "applicability": "Request for examination fee (varies by applicant type)",
+      "status": "VERIFIED",
+      "claim": "Request for Examination fee: Rs. 4,000 (natural person/startup), Rs. 10,000 (small entity), Rs. 20,000 (others) for e-filing.",
+      "sourceRefs": [
+        "SRC-IPINDIA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PATENT_PROCESSING_TIMELINE",
+    "minimumDuration": 3,
+    "maximumDuration": 5,
+    "unit": "YEARS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Patent application from filing to grant",
+    "status": "VERIFIED",
+    "claim": "The entire patent process from filing to grant typically takes 3-5 years. Key milestones: publication at 18 months, examination request within 48 months, First Examination Report within 1-3 months of examination request, and 6+3 months to respond to objections. Expedited examination is available for startups and certain categories.",
+    "sourceRefs": [
+      "SRC-PATENT-ACT-2026-10-28",
+      "SRC-IPINDIA-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-IPINDIA-PORTAL-2026-10-28",
+      "url": "https://ipindia.gov.in/",
+      "title": "Intellectual Property India — Official Portal",
+      "publisher": "Office of the Controller General of Patents, Designs and Trademarks, Department for Promotion of Industry and Internal Trade, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The IP India portal provides information on patent filing procedures, forms, fee schedules, and the online e-filing system. It also provides access to the patent search database (InPASS) and published patent journals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Patent applications can be filed online through ipindiaonline.gov.in.",
+        "Filing fees vary based on applicant type: natural person/startup, small entity, and others.",
+        "Request for Examination must be filed within 48 months.",
+        "Patent offices are located in Delhi, Mumbai, Kolkata, and Chennai."
+      ],
+      "uncertainty": "Fee schedules are revised periodically through official gazette notifications. The most current fees should be verified on the portal."
+    },
+    {
+      "sourceCode": "SRC-PATENT-ACT-2026-10-28",
+      "url": "https://ipindia.gov.in/writereaddata/Portal/IPOAct/1_31_1_patent-act-1970-11march2015.pdf",
+      "title": "The Patents Act, 1970 (as amended)",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Patents Act, 1970 (amended by Patents Amendment Act 2005) governs the patent system in India. It defines patentable inventions, application procedures, examination process, grant, and enforcement of patent rights. Section 3 lists non-patentable subject matter, Section 6 covers who may apply, and Sections 7-11 cover specifications.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Patent is valid for 20 years from the filing date.",
+        "Invention must be novel, involve an inventive step, and be capable of industrial application.",
+        "Application can be filed by inventor, assignee, or legal representative.",
+        "Complete specification must be filed within 12 months of provisional specification.",
+        "Publication occurs 18 months after filing/priority date."
+      ],
+      "uncertainty": "The Act is periodically amended. The most recent amendments and rules should be checked for current requirements."
+    }
+  ],
+  "limitations": [
+    "This record covers the Indian national phase patent filing. PCT international applications and convention applications have additional requirements.",
+    "Fee schedules are subject to periodic revision by the government.",
+    "The record does not cover patent prosecution strategy, claim drafting best practices, or prior art search methodology.",
+    "Processing times vary significantly based on technology field, examiner workload, and number of objections raised.",
+    "Post-grant procedures (opposition, renewal, compulsory licensing) are not covered.",
+    "Startup recognition requirements for reduced fees are not detailed."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core patent filing procedure and fees verified from IP India portal. Detailed examination procedures and recent rule changes need further review.",
+    "nextReviewTrigger": [
+      "Changes to patent filing fees through gazette notification.",
+      "Amendments to the Patents Act or Rules.",
+      "Changes to e-filing portal or procedures.",
+      "Updates to expedited examination eligibility criteria."
+    ]
+  }
+}

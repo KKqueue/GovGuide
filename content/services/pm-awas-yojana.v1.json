@@ -1,0 +1,360 @@
+{
+  "serviceCode": "PM_AWAS_YOJANA",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "PM Awas Yojana (Housing for All)"
+  },
+  "authority": "Ministry of Housing and Urban Affairs (Urban) / Ministry of Rural Development (Gramin), Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "PM_AWAS",
+  "description": {
+    "en": "Pradhan Mantri Awas Yojana (PMAY) is a flagship government scheme providing affordable housing to eligible beneficiaries. PMAY-Urban targets urban areas through credit-linked subsidy and in-situ slum redevelopment, while PMAY-Gramin provides financial assistance for house construction or enhancement in rural areas."
+  },
+  "officialLinks": {
+    "application": "https://pmaymis.gov.in/",
+    "informationPortal": "https://pmayg.nic.in/",
+    "urbanPortal": "https://pmaymis.gov.in/",
+    "ruralPortal": "https://pmayg.nic.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PMAY_URBAN_EWS",
+        "field": "applicant.incomeCategory",
+        "operator": "EQUALS",
+        "value": "EWS",
+        "classification": "MANDATORY",
+        "appliesTo": "Urban beneficiaries — Economically Weaker Section",
+        "claim": "Under PMAY-Urban, Economically Weaker Section (EWS) households with annual income up to Rs. 3 lakh are eligible for subsidy under the Credit Linked Subsidy Scheme (CLSS) and other verticals.",
+        "sourceRefs": [
+          "SRC-PMAY-URBAN-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMAY_URBAN_LIG",
+        "field": "applicant.incomeCategory",
+        "operator": "EQUALS",
+        "value": "LIG",
+        "classification": "MANDATORY",
+        "appliesTo": "Urban beneficiaries — Lower Income Group",
+        "claim": "Lower Income Group (LIG) households with annual income between Rs. 3 lakh and Rs. 6 lakh are eligible for credit-linked subsidy under PMAY-Urban.",
+        "sourceRefs": [
+          "SRC-PMAY-URBAN-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMAY_URBAN_MIG",
+        "field": "applicant.incomeCategory",
+        "operator": "IN",
+        "value": [
+          "MIG_I",
+          "MIG_II"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "Urban beneficiaries — Middle Income Group",
+        "claim": "Middle Income Group I (annual income Rs. 6-12 lakh) and MIG II (annual income Rs. 12-18 lakh) are eligible for interest subsidy under CLSS vertical of PMAY-Urban.",
+        "sourceRefs": [
+          "SRC-PMAY-URBAN-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMAY_RURAL_SECC",
+        "field": "applicant.isInSECCBeneficiaryList",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Rural beneficiaries under PMAY-Gramin",
+        "claim": "Under PMAY-Gramin, beneficiaries are identified from the Socio-Economic Caste Census (SECC) 2011 data, verified by gram sabhas. Priority is given to houseless families and families living in kutcha/dilapidated houses.",
+        "sourceRefs": [
+          "SRC-PMAY-RURAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMAY_NO_PUCCA_HOUSE",
+        "field": "applicant.ownsPuccaHouse",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PMAY beneficiaries (Urban and Rural)",
+        "claim": "The beneficiary or any family member must not own a pucca house anywhere in India. The scheme targets those who do not have their own house or live in kutcha/semi-pucca houses.",
+        "sourceRefs": [
+          "SRC-PMAY-URBAN-2026-10-28",
+          "SRC-PMAY-RURAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific state-level additional criteria for beneficiary identification under PMAY-Gramin may vary.",
+      "The MIG CLSS vertical had a deadline and may or may not be accepting new applications; the latest status should be verified.",
+      "Definitions of pucca and kutcha houses may be interpreted differently across states."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PMAY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PM_AWAS_YOJANA",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMAY_URBAN_ROUTE",
+      "field": "workflow.pmayComponent",
+      "operator": "EQUALS",
+      "value": "URBAN",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMAY_RURAL_ROUTE",
+      "field": "workflow.pmayComponent",
+      "operator": "EQUALS",
+      "value": "GRAMIN",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PMAY_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMAY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number is mandatory for both PMAY-Urban and PMAY-Gramin applications. Aadhaar is used for beneficiary identification and to prevent duplicate applications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28",
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMAY_REQ_INCOME_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMAY_ROUTE_SELECTED",
+          "PMAY_URBAN_ROUTE"
+        ]
+      },
+      "claim": "Income certificate or self-certification of annual household income is required for PMAY-Urban to determine the income category (EWS/LIG/MIG) and applicable subsidy.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMAY_REQ_LAND_OWNERSHIP",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMAY_ROUTE_SELECTED",
+          "PMAY_RURAL_ROUTE"
+        ]
+      },
+      "claim": "Proof of land ownership or allotment letter from the gram panchayat is required for PMAY-Gramin applicants to construct the house on their own land.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMAY_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMAY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An active bank account linked to Aadhaar is required for receiving subsidy or financial assistance through Direct Benefit Transfer (DBT).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28",
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMAY_REQ_NO_PUCCA_HOUSE_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMAY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An affidavit or declaration that the beneficiary or family members do not own a pucca house anywhere in India is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PMAY_URBAN_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Urban applicants",
+      "claim": "PMAY-Urban applications can be submitted online through the PMAY-MIS portal (pmaymis.gov.in) or through Common Service Centres (CSCs) or Urban Local Bodies (ULBs/municipal offices). The applicant selects the appropriate vertical (CLSS/AHP/BLC/ISSR), fills the application form, uploads documents, and submits.",
+      "doesNotEstablish": [
+        "This record does not define the specific ULB or CSC procedures which may vary by city.",
+        "Availability of specific PMAY-Urban verticals may change over time."
+      ],
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMAY_RURAL_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Rural applicants",
+      "claim": "PMAY-Gramin beneficiaries are primarily identified from SECC 2011 data, verified by gram sabhas. Eligible beneficiaries are informed and assisted by the Block Development Office or gram panchayat. Applications are processed through the AwaasSoft system (pmayg.nic.in).",
+      "doesNotEstablish": [
+        "This record does not define gram sabha verification procedures.",
+        "Self-application by rural applicants may not be available in all states."
+      ],
+      "sourceRefs": [
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMAY_SUBSIDY_STRUCTURE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved PMAY beneficiaries",
+      "claim": "Under PMAY-Urban CLSS, interest subsidy ranges from Rs. 2.67 lakh (for MIG-I/MIG-II) to Rs. 2.35-2.50 lakh (for EWS/LIG). Under PMAY-Gramin, financial assistance of Rs. 1.20 lakh (plain areas) to Rs. 1.30 lakh (hilly/difficult areas/IAP districts) is provided per beneficiary for house construction, disbursed in installments linked to construction milestones.",
+      "doesNotEstablish": [
+        "Exact subsidy amounts may vary based on the latest government notifications.",
+        "This record does not provide the detailed CLSS calculation methodology."
+      ],
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28",
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PMAY_HOUSING_SUBSIDY",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Approved beneficiaries receive housing subsidy or financial assistance: interest subsidy of Rs. 1.2 lakh to Rs. 2.67 lakh under PMAY-Urban depending on income category, or Rs. 1.20-1.30 lakh under PMAY-Gramin for house construction, disbursed through DBT in installments linked to construction progress.",
+    "sourceRefs": [
+      "SRC-PMAY-URBAN-2026-10-28",
+      "SRC-PMAY-RURAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PMAY_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "PMAY-Urban and PMAY-Gramin application",
+      "status": "VERIFIED",
+      "claim": "Application under PMAY is free of cost. No government fee is charged for submitting the application through the official portal, CSC, or ULB.",
+      "sourceRefs": [
+        "SRC-PMAY-URBAN-2026-10-28",
+        "SRC-PMAY-RURAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PMAY_CSC_CHARGE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "CSC facilitation, if applicable",
+      "status": "UNVERIFIED",
+      "claim": "Common Service Centres may charge a nominal facilitation fee (typically Rs. 25 plus GST) for assisting with the application, but this is not a government fee and may vary."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PMAY_VERIFICATION_PERIOD",
+    "minimumDuration": 30,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SCHEME_GUIDELINES",
+    "applicability": "Application submission to approval/sanction, subject to verification",
+    "status": "ESTIMATED",
+    "claim": "Verification and approval typically take 30 to 90 days from application submission. The actual timeline depends on document verification by ULB/district administration (Urban) or gram sabha/block office (Rural), and the disbursement is further linked to construction milestones under PMAY-Gramin.",
+    "sourceRefs": [
+      "SRC-PMAY-URBAN-2026-10-28",
+      "SRC-PMAY-RURAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PMAY-URBAN-2026-10-28",
+      "url": "https://pmaymis.gov.in/",
+      "title": "PMAY-Urban MIS Portal",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The PMAY-Urban MIS portal provides application forms, beneficiary search, income category definitions (EWS up to Rs. 3L, LIG Rs. 3-6L, MIG-I Rs. 6-12L, MIG-II Rs. 12-18L), CLSS subsidy details, and the four verticals: In-Situ Slum Redevelopment, Credit Linked Subsidy, Affordable Housing in Partnership, and Beneficiary Led Construction.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "EWS/LIG/MIG income category definitions and eligibility.",
+        "CLSS interest subsidy amounts.",
+        "Application through portal, CSC, or ULB.",
+        "Aadhaar and income certificate requirements.",
+        "No pucca house ownership condition.",
+        "Free application process."
+      ],
+      "uncertainty": "MIG CLSS vertical deadline status and state-specific implementation details may not be current."
+    },
+    {
+      "sourceCode": "SRC-PMAY-RURAL-2026-10-28",
+      "url": "https://pmayg.nic.in/",
+      "title": "PMAY-Gramin (AwaasSoft) Portal",
+      "publisher": "Ministry of Rural Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The PMAY-Gramin portal provides beneficiary details, SECC-based identification, financial assistance amounts (Rs. 1.20 lakh for plain areas, Rs. 1.30 lakh for hilly/difficult areas), construction milestone-linked disbursement, and the AwaasSoft system for application processing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "SECC 2011-based beneficiary identification for rural component.",
+        "Financial assistance of Rs. 1.20-1.30 lakh per beneficiary.",
+        "Gram sabha verification of beneficiaries.",
+        "Aadhaar and land ownership requirements.",
+        "Disbursement linked to construction milestones.",
+        "No pucca house ownership condition."
+      ],
+      "uncertainty": "State-level implementation variations and current beneficiary waitlist status are not fully captured."
+    }
+  ],
+  "limitations": [
+    "This record covers PMAY application and eligibility for both Urban and Gramin components; it does not cover detailed construction guidelines, contractor selection, or quality standards.",
+    "PMAY-Urban has multiple verticals (ISSR, CLSS, AHP, BLC) with different detailed procedures; only CLSS is covered in some detail here.",
+    "The MIG CLSS vertical may have had deadline extensions; the current acceptance status should be verified before applying.",
+    "State-level additional subsidies or top-ups beyond central assistance are not covered.",
+    "No Aadhaar number, income details, or personal data is collected or stored by this content record.",
+    "Processing times are estimates and vary significantly by location and administrative capacity."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core eligibility, subsidy structure, and application process verified from official portals. PMAY-Urban vertical availability and MIG CLSS deadline need periodic verification.",
+    "nextReviewTrigger": [
+      "PMAY scheme guidelines are revised by the central government.",
+      "Income category thresholds for EWS/LIG/MIG are updated.",
+      "Subsidy amounts under CLSS or PMAY-Gramin change.",
+      "New application portals or processes are introduced.",
+      "PMAY-Urban vertical deadlines are extended or closed.",
+      "SECC data is replaced with a new beneficiary identification system."
+    ]
+  }
+}

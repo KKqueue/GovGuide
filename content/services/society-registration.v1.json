@@ -1,0 +1,345 @@
+{
+  "serviceCode": "SOCIETY_REGISTRATION",
+  "version": 1,
+  "locale": "en-IN",
+  "title": "Registration of a Society under the Societies Registration Act, 1860",
+  "shortDescription": "Register a society for charitable, literary, scientific, or social welfare purposes under the Societies Registration Act, 1860 with the Registrar of Societies.",
+  "category": "SOCIETY_REGISTRATION",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "STATE",
+  "authority": {
+    "name": "Registrar of Societies",
+    "department": "Department of Stamps and Registration / Revenue Department (varies by state)",
+    "level": "STATE"
+  },
+  "legalBasis": [
+    {
+      "law": "Societies Registration Act, 1860",
+      "sections": [
+        "Section 1",
+        "Section 2",
+        "Section 3",
+        "Section 4",
+        "Section 5"
+      ],
+      "description": "Provides for the registration of literary, scientific, and charitable societies. A society must have a memorandum of association signed by at least seven members."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "SERVICE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SOCIETY_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MINIMUM_MEMBERS_MET",
+      "field": "applicant.memberCount",
+      "operator": "GREATER_THAN",
+      "value": "7",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "SOCIETY_PURPOSE_ELIGIBLE",
+      "field": "applicant.societyPurposeIsEligible",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "STATE_SELECTED_FOR_REGISTRATION",
+      "field": "workflow.selectedState",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FILING_MODE_ONLINE",
+      "field": "workflow.filingMode",
+      "operator": "EQUALS",
+      "value": "ONLINE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FILING_MODE_OFFLINE",
+      "field": "workflow.filingMode",
+      "operator": "EQUALS",
+      "value": "OFFLINE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_SOCIETIES_ACT_1860",
+      "url": "https://legislative.gov.in/sites/default/files/A1860-21.pdf",
+      "title": "The Societies Registration Act, 1860 (Act XXI of 1860)",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-10T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-10T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 1: Any seven or more persons associated for any literary, scientific, or charitable purpose may subscribe their names to a memorandum of association and file the same with the Registrar of Joint-stock Companies, and the Registrar shall certify that the society is registered under this Act.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Minimum 7 members required for society registration",
+        "Memorandum of association must be filed with the Registrar",
+        "Society must be for literary, scientific, or charitable purposes"
+      ],
+      "uncertainty": "Several states have amended the Act with additional or different requirements."
+    },
+    {
+      "sourceCode": "SRC_NITI_SOCIETY_GUIDE",
+      "url": "https://www.niti.gov.in/ngo-darpan",
+      "title": "NGO Darpan - NITI Aayog",
+      "publisher": "NITI Aayog, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-12T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-12T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Voluntary Organizations/Non-Governmental Organizations (NGOs) registered under the Societies Registration Act, 1860 must register on the NGO Darpan portal to receive grants from Central/State Government.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Societies must register on NGO Darpan for government grants",
+        "Registration under the Societies Registration Act qualifies an entity as a voluntary organization"
+      ],
+      "uncertainty": "NGO Darpan registration is separate from society registration under the Act."
+    },
+    {
+      "sourceCode": "SRC_STATE_ROS_GENERAL",
+      "url": "https://estamp.nic.in",
+      "title": "e-Stamp and Registration Services",
+      "publisher": "National Informatics Centre / State Registration Departments",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-08T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-08T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Multiple states offer online society registration through their respective e-District or Registration Department portals. Requirements and fees vary by state.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "State registration departments handle society registration",
+        "Fees and specific requirements vary by state"
+      ],
+      "uncertainty": "Portal availability and specific procedures differ significantly across states."
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_MEMORANDUM_OF_ASSOCIATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "A Memorandum of Association (MoA) must be prepared containing the name of the society, its objects, the names and addresses of the governing body members, and the registered office address. It must be signed by all founding members.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RULES_AND_REGULATIONS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "Rules and Regulations (bye-laws) of the society must be drafted and submitted along with the Memorandum of Association. These must cover governance structure, membership criteria, meeting procedures, and dissolution provisions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "requirementCode": "REQ_MINIMUM_SEVEN_MEMBERS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "At least seven persons must subscribe to the memorandum of association to form a society. Each member must be a competent person and must sign the memorandum.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "requirementCode": "REQ_MEMBER_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "Identity proof (Aadhaar card, PAN card, voter ID, or passport) of all founding members and governing body members must be submitted along with the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_ADDRESS_PROOF_OFFICE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "Proof of the registered office address of the society must be provided. This can be a rent agreement, lease deed, or ownership deed along with a No Objection Certificate (NOC) from the property owner.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_AFFIDAVIT_MEMBERS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "An affidavit on stamp paper sworn by the President/Secretary of the proposed society declaring that the provisions of the Societies Registration Act have been complied with.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_NOC_NAME_APPROVAL",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "MINIMUM_MEMBERS_MET"
+        ]
+      },
+      "claim": "Some states require prior name approval or a No Objection Certificate if the proposed society name resembles that of an existing society or contains restricted words.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_SOCIETY_NAME_AVAILABILITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Check the availability of the proposed society name with the Registrar of Societies. The name must not be identical or similar to an existing registered society.",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    },
+    {
+      "processCode": "PROC_SOCIETY_DRAFT_MOA",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Prepare the Memorandum of Association containing: (1) the name of the society, (2) the objects of the society, (3) the names, addresses, and occupations of the members of the first governing body, (4) the address of the registered office, and (5) signatures of at least seven subscribing members.",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "processCode": "PROC_SOCIETY_DRAFT_RULES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Draft the Rules and Regulations (bye-laws) of the society covering membership, governance, meeting procedures, powers of office bearers, amendment procedures, and dissolution provisions.",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "processCode": "PROC_SOCIETY_SUBMIT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Submit the application form along with the Memorandum of Association, Rules and Regulations, identity proofs of members, address proof of registered office, affidavit, and the prescribed registration fee to the Registrar of Societies (online or in person).",
+      "sourceRefs": [
+        "SRC_STATE_ROS_GENERAL"
+      ]
+    },
+    {
+      "processCode": "PROC_SOCIETY_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "The Registrar of Societies verifies the submitted documents, checks the MoA and rules for compliance with the Act, and may seek clarifications or additional documents.",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    },
+    {
+      "processCode": "PROC_SOCIETY_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Upon satisfactory verification, the Registrar issues a Certificate of Registration. The society is then a legal entity capable of holding property, entering contracts, and suing or being sued in its own name.",
+      "sourceRefs": [
+        "SRC_SOCIETIES_ACT_1860"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_SOCIETY_REGISTRATION",
+      "description": "Registration fee payable to the Registrar of Societies (varies by state)",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "note": "Registration fees vary by state, typically ranging from Rs. 200 to Rs. 5000 depending on the state and number of members."
+    },
+    {
+      "feeCode": "FEE_STAMP_PAPER",
+      "description": "Stamp paper fee for the Memorandum of Association and affidavit (varies by state)",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "note": "Stamp paper denomination varies by state, typically Rs. 10 to Rs. 100."
+    }
+  ],
+  "processingTime": {
+    "standard": "30 to 60 days",
+    "expedited": null,
+    "notes": "Processing time varies by state. Some states with online systems process applications within 15-30 days, while others may take up to 60 days.",
+    "timelineCode": "SOCIETY_REGISTRATION_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2025-05-01T00:00:00Z",
+    "updatedAt": "2025-05-01T00:00:00Z",
+    "reviewedBy": "GovGuide Content Team"
+  }
+}

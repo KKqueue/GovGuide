@@ -1,0 +1,299 @@
+{
+  "serviceCode": "LEGAL_HEIR_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Legal Heir Certificate"
+  },
+  "authority": "Tehsildar / Revenue Department / Municipal Corporation (varies by state)",
+  "jurisdiction": "STATE",
+  "category": "LEGAL_HEIR",
+  "description": {
+    "en": "A Legal Heir Certificate establishes the relationship of the legal heirs to a deceased person. It is required for claiming insurance, provident fund, pension, bank deposits, property transfer, and other assets of the deceased. The certificate is issued by the revenue authority (Tehsildar or equivalent) of the district where the deceased last resided."
+  },
+  "officialLinks": {
+    "application": "https://edistrict.up.gov.in/",
+    "informationPortal": "https://serviceonline.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "LHC_APPLICANT_IS_LEGAL_HEIR",
+        "field": "applicant.isLegalHeir",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for legal heir certificate",
+        "claim": "The applicant must be a legal heir of the deceased person, i.e., a spouse, child, parent, or other person entitled to inherit under the applicable personal law or succession law.",
+        "sourceRefs": [
+          "SRC-EDISTRICT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "LHC_DECEASED_DEATH_REGISTERED",
+        "field": "applicant.hasDeathCertificate",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for legal heir certificate",
+        "claim": "A death certificate of the deceased person must be available. The death must be registered with the local body (municipal corporation or panchayat) under the Registration of Births and Deaths Act, 1969.",
+        "sourceRefs": [
+          "SRC-EDISTRICT-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "The applicable succession law depends on the religion and personal law of the deceased (Hindu Succession Act, Indian Succession Act, Muslim personal law, etc.).",
+      "If a will exists, the succession certificate from a civil court may be required instead of or in addition to the legal heir certificate.",
+      "In some states, the legal heir certificate is issued only when no will exists and the estate value is below a certain threshold.",
+      "For high-value estates or disputed succession, a succession certificate from the District Court under the Indian Succession Act, 1925 may be required."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "LHC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "LEGAL_HEIR_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "LHC_APPLICATION_ONLINE",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "ONLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "LHC_APPLICATION_OFFLINE",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "OFFLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "LHC_REQ_DEATH_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Death certificate of the deceased person issued by the local municipal body or panchayat is mandatory.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "LHC_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card of the applicant and all legal heirs is required for identity verification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "LHC_REQ_FAMILY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of family relationship with the deceased, such as ration card, family register, or birth certificates establishing the relationship.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "LHC_REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A self-declaration affidavit on stamp paper listing all legal heirs of the deceased, sworn before a notary or magistrate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "LHC_REQ_WITNESS_STATEMENTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Statements from two witnesses who can attest to the family members and legal heirs of the deceased person.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "LHC_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LHC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photographs of the applicant are required for the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "LHC_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All legal heir certificate applicants",
+      "claim": "Submit the application online through the state e-district portal or offline at the Tehsildar/Revenue office of the district where the deceased last resided. Attach all required documents.",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "LHC_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All legal heir certificate applicants",
+      "claim": "The Tehsildar or designated officer verifies the application, documents, and witness statements. A field inquiry may be conducted by the revenue inspector or Patwari to verify the family details.",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "LHC_STEP3_PUBLIC_NOTICE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Some states and cases",
+      "claim": "In some states, a public notice period may be observed to allow any person to raise objections regarding the legal heir claim.",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "LHC_STEP4_CERTIFICATE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "Upon successful verification and completion of the inquiry, the legal heir certificate is issued by the Tehsildar or Revenue Officer listing all legal heirs of the deceased.",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "LHC_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Legal Heir Certificate is issued listing the deceased person's details, all legal heirs with their relationship to the deceased, and their respective shares (if applicable). The certificate is signed by the Tehsildar or designated revenue authority.",
+    "sourceRefs": [
+      "SRC-EDISTRICT-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "LHC_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "minimumAmount": 10,
+      "maximumAmount": 50,
+      "currency": "INR",
+      "applicability": "Legal heir certificate application fee varies by state",
+      "status": "VERIFIED",
+      "claim": "The government fee for a legal heir certificate application is nominal, typically ranging from Rs. 10 to Rs. 50 depending on the state.",
+      "sourceRefs": [
+        "SRC-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "LHC_STAMP_PAPER_COST",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Cost of stamp paper for affidavit",
+      "status": "UNVERIFIED",
+      "claim": "Additional cost for stamp paper for the affidavit, which varies by state (typically Rs. 10 to Rs. 100)."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "LHC_PROCESSING_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Legal heir certificate application with complete documentation",
+    "status": "VERIFIED",
+    "claim": "Legal heir certificates are typically processed within 15 to 30 days from the date of application, subject to successful field inquiry and verification. Some states with online processing may issue certificates faster.",
+    "sourceRefs": [
+      "SRC-EDISTRICT-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EDISTRICT-2026-10-28",
+      "url": "https://serviceonline.gov.in/",
+      "title": "Service Online / e-District Portals — Legal Heir Certificate",
+      "publisher": "Various State Revenue Departments, Government of India",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State e-district portals provide online application facilities for legal heir certificates. The process involves document submission, field verification by revenue officials, and certificate issuance by the Tehsildar or equivalent authority.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal heir certificate is issued by Tehsildar or revenue authority.",
+        "Death certificate, Aadhaar, family proof, affidavit, and witness statements are required.",
+        "Field inquiry is conducted by revenue inspector.",
+        "Processing time is typically 15-30 days.",
+        "Application fee is nominal (Rs. 10-50).",
+        "Certificate lists all legal heirs with relationship details."
+      ],
+      "uncertainty": "Procedures, fees, and timelines vary significantly across states. Some states may have additional requirements or different processing workflows."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview applicable across states. Specific state procedures, forms, and fee structures vary significantly.",
+    "The distinction between legal heir certificate (revenue authority) and succession certificate (court order under Indian Succession Act) is noted but the succession certificate process is not covered.",
+    "Religion-specific succession laws (Hindu Succession Act, Indian Succession Act, Muslim personal law) and their impact on heir determination are not modeled.",
+    "For high-value estates or contested succession, court-issued succession certificates may be required instead of this administrative certificate.",
+    "The record does not cover the process for claiming specific assets (bank deposits, insurance, pension) using the legal heir certificate."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General process is reviewed based on common state e-district portals, but state-specific variations and the relationship with succession certificates need further modeling.",
+    "nextReviewTrigger": [
+      "State-level changes to legal heir certificate procedures or fees.",
+      "Digitization of additional state e-district services.",
+      "Changes to the Indian Succession Act or state succession laws.",
+      "Introduction of centralized legal heir certificate system."
+    ]
+  }
+}

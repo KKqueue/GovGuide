@@ -1,0 +1,421 @@
+{
+  "serviceCode": "EPF_WITHDRAWAL",
+  "version": 1,
+  "slug": "epf-withdrawal",
+  "category": "EPF_WITHDRAWAL",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "title": "EPF (Employee Provident Fund) Withdrawal / Settlement",
+  "shortDescription": "Apply for partial withdrawal (advance), full settlement, or transfer of Employee Provident Fund (EPF) accumulations through the EPFO Unified Portal. Covers various withdrawal types including housing, medical, education, marriage, retirement, and unemployment.",
+  "jurisdiction": "CENTRAL",
+  "authority": {
+    "name": "Employees' Provident Fund Organisation (EPFO)",
+    "portalUrl": "https://unifiedportal-mem.epfindia.gov.in",
+    "contactInfo": "EPFO Helpline: 1800-118-005 (toll-free)"
+  },
+  "legalBasis": [
+    "Employees' Provident Funds and Miscellaneous Provisions Act, 1952",
+    "Employees' Provident Funds Scheme, 1952 — Paragraphs 68J, 68K, 68L, 68M, 68N, 68NN, 68NNN",
+    "Employees' Pension Scheme, 1995 — Paragraph 12",
+    "EPFO Circular on Online Claim Settlement (2017 and amendments)"
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_EPF_ACT_1952",
+      "url": "https://www.epfindia.gov.in/site_docs/PDFs/Downloads_PDFs/EPFAct1952.pdf",
+      "title": "Employees' Provident Funds and Miscellaneous Provisions Act, 1952",
+      "publisher": "Employees' Provident Fund Organisation",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Act provides for the institution of provident funds, pension funds and deposit-linked insurance funds for employees in factories and other establishments. Members are entitled to withdraw accumulations upon retirement, resignation, or for specified purposes during employment.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_UAN_ACTIVATED",
+        "REQ_KYC_LINKED",
+        "PROC_LOGIN_UNIFIED_PORTAL"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_EPF_SCHEME_1952",
+      "url": "https://www.epfindia.gov.in/site_docs/PDFs/Downloads_PDFs/EPFScheme.pdf",
+      "title": "Employees' Provident Funds Scheme, 1952 — Advance/Withdrawal Provisions",
+      "publisher": "Employees' Provident Fund Organisation",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Paragraph 68J allows withdrawal for purchase/construction of house (requires 5 years of service); 68K for illness (no minimum service); 68L for marriage/education (requires 7 years of service); 68M for repayment of housing loan (requires 10 years of service); 68N for house alteration (requires 5 years of service after advance for construction); 68NN for withdrawal before retirement within 1 year of superannuation (up to 90% of accumulation).",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_SERVICE_YEARS_HOUSING",
+        "REQ_SERVICE_YEARS_MARRIAGE_EDU",
+        "REQ_SERVICE_YEARS_MEDICAL",
+        "REQ_PURPOSE_DOCUMENTATION",
+        "COND_PARTIAL_HOUSING",
+        "COND_PARTIAL_MEDICAL",
+        "COND_PARTIAL_MARRIAGE_EDUCATION"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_EPFO_UNIFIED_PORTAL",
+      "url": "https://unifiedportal-mem.epfindia.gov.in/memberinterface/",
+      "title": "EPFO Unified Member Portal — Online Claim Guide",
+      "publisher": "Employees' Provident Fund Organisation",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Members can file online claims through the Unified Portal. For online claims, Aadhaar must be linked and verified against UAN, bank account must be seeded and verified, and the member's KYC details must be approved by the employer. Claims can be filed without employer attestation if Aadhaar is linked.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_UAN_ACTIVATED",
+        "REQ_AADHAAR_LINKED",
+        "REQ_BANK_ACCOUNT_SEEDED",
+        "REQ_KYC_LINKED",
+        "PROC_LOGIN_UNIFIED_PORTAL",
+        "PROC_SUBMIT_ONLINE_CLAIM"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_EPFO_FAQ",
+      "url": "https://www.epfindia.gov.in/site_en/FAQ.php",
+      "title": "EPFO FAQs — Withdrawal and Settlement",
+      "publisher": "Employees' Provident Fund Organisation",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Full settlement (Form 19) can be claimed after 2 months of unemployment. Members who are unemployed for more than 1 month but less than 2 months can withdraw up to 75% of the balance. For full withdrawal on retirement at 58 years, the member can claim the entire PF balance along with pension under EPS-95.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_UNEMPLOYMENT_PERIOD",
+        "COND_FULL_SETTLEMENT",
+        "COND_PARTIAL_75_PERCENT",
+        "PROC_SUBMIT_ONLINE_CLAIM"
+      ],
+      "uncertainty": "None"
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_FULL_SETTLEMENT",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "FULL_SETTLEMENT",
+      "label": "Member is applying for full settlement of EPF balance (after retirement or 2+ months of unemployment)",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_PARTIAL_HOUSING",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "PARTIAL_HOUSING",
+      "label": "Member is applying for partial withdrawal for purchase or construction of house",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_PARTIAL_MEDICAL",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "PARTIAL_MEDICAL",
+      "label": "Member is applying for partial withdrawal for medical treatment of self or family",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_PARTIAL_MARRIAGE_EDUCATION",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "PARTIAL_MARRIAGE_EDUCATION",
+      "label": "Member is applying for partial withdrawal for marriage or education of self, children, or siblings",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_PARTIAL_75_PERCENT",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "PARTIAL_75_PERCENT",
+      "label": "Member is applying for 75% partial withdrawal after 1 month of unemployment (before completing 2 months)",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_PRE_RETIREMENT",
+      "field": "workflow.selectedWithdrawalType",
+      "operator": "EQUALS",
+      "value": "PRE_RETIREMENT",
+      "label": "Member is within 1 year of superannuation (58 years) and applying for up to 90% withdrawal",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_IS_EPF_MEMBER",
+      "field": "employee.isEPFMember",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Applicant must be a registered EPF member with an active UAN",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_AADHAAR_LINKED",
+      "field": "employee.isAadhaarLinkedToUAN",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Aadhaar must be linked and verified against UAN for online claims",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_CURRENTLY_UNEMPLOYED",
+      "field": "employee.isCurrentlyUnemployed",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Member is currently not employed (required for full settlement or 75% partial withdrawal)",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_UAN_ACTIVATED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "The member must have an activated Universal Account Number (UAN). UAN can be activated on the EPFO Unified Portal using the UAN number, Aadhaar, or member ID provided by the employer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL",
+        "SRC_EPF_ACT_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_AADHAAR_LINKED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER",
+          "COND_AADHAAR_LINKED"
+        ]
+      },
+      "claim": "Aadhaar number must be linked and verified against the UAN. This enables online claim submission without employer attestation. The Aadhaar details (name, date of birth, gender) must match with the UAN records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_BANK_ACCOUNT_SEEDED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "A bank account with IFSC code must be seeded and verified in the UAN profile. The settlement amount will be directly credited to this bank account via NEFT/RTGS.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_KYC_LINKED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "KYC details (PAN, Aadhaar, Bank Account) must be updated and approved by the employer on the Unified Portal. PAN is mandatory if the withdrawal amount exceeds Rs. 50,000 (to avoid TDS at higher rates).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL",
+        "SRC_EPF_ACT_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_UNEMPLOYMENT_PERIOD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_FULL_SETTLEMENT",
+          "COND_CURRENTLY_UNEMPLOYED"
+        ]
+      },
+      "claim": "For full settlement (Form 19), the member must be unemployed for at least 2 months from the date of leaving service. For 75% partial withdrawal, the member must be unemployed for at least 1 month.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_FAQ"
+      ]
+    },
+    {
+      "requirementCode": "REQ_SERVICE_YEARS_HOUSING",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_PARTIAL_HOUSING",
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "For partial withdrawal for purchase or construction of a house, the member must have completed at least 5 years of EPF membership. The withdrawal is limited to 36 times the monthly wages or the total cost, whichever is less.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPF_SCHEME_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_SERVICE_YEARS_MARRIAGE_EDU",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_PARTIAL_MARRIAGE_EDUCATION",
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "For partial withdrawal for marriage or post-matriculation education of self, children, or siblings, the member must have completed at least 7 years of EPF membership. The withdrawal is limited to 50% of the member's own share of contribution with interest.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPF_SCHEME_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_SERVICE_YEARS_MEDICAL",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "COND_PARTIAL_MEDICAL",
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "For partial withdrawal for medical treatment (hospitalization exceeding 1 month) of self, spouse, children, or parents, there is no minimum service requirement. The withdrawal is limited to 6 times the monthly wages or the member's own share of contribution with interest, whichever is less.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPF_SCHEME_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_PURPOSE_DOCUMENTATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "Supporting documents for the purpose of withdrawal must be provided: for housing — sale agreement or land documents; for medical — doctor's certificate and hospital bills; for marriage — wedding invitation or declaration; for education — admission letter or fee receipt.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_EPF_SCHEME_1952"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COMPOSITE_CLAIM_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_EPF_MEMBER"
+        ]
+      },
+      "claim": "The Composite Claim Form (Aadhaar-based or Non-Aadhaar-based) must be filled for offline claims. For online claims, the claim is filed digitally through the Unified Portal. Form 19 is for final settlement, Form 10C for pension withdrawal, and Form 31 for partial withdrawal/advance.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL",
+        "SRC_EPFO_FAQ"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_LOGIN_UNIFIED_PORTAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 1,
+      "claim": "Step 1: Log in to the EPFO Unified Member Portal (unifiedportal-mem.epfindia.gov.in) using the UAN and password. Ensure that Aadhaar is linked and verified, bank account is seeded, and KYC is approved by the employer.",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL",
+        "SRC_EPF_ACT_1952"
+      ]
+    },
+    {
+      "processCode": "PROC_SELECT_CLAIM_TYPE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 2,
+      "claim": "Step 2: Navigate to 'Online Services' > 'Claim (Form-31, 19, 10C & 10D)'. Verify the member details displayed. Click 'Proceed for Online Claim' and enter the last 4 digits of the bank account for verification.",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL"
+      ]
+    },
+    {
+      "processCode": "PROC_SUBMIT_ONLINE_CLAIM",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 3,
+      "claim": "Step 3: Select the appropriate claim type — Form 19 (PF Final Settlement) for full withdrawal, Form 10C (Pension Withdrawal) for EPS withdrawal, or Form 31 (PF Advance) for partial withdrawal. For Form 31, select the purpose of advance (housing, medical, education, marriage, etc.) and enter the required amount. Upload supporting documents if prompted. Submit the claim with Aadhaar-based OTP verification.",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL",
+        "SRC_EPFO_FAQ"
+      ]
+    },
+    {
+      "processCode": "PROC_EMPLOYER_APPROVAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 4,
+      "claim": "Step 4: For non-Aadhaar-based claims, the employer must attest the claim within the prescribed time. For Aadhaar-based online claims, employer attestation is not required and the claim goes directly to the EPFO field office for processing.",
+      "sourceRefs": [
+        "SRC_EPFO_UNIFIED_PORTAL"
+      ]
+    },
+    {
+      "processCode": "PROC_CLAIM_PROCESSING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 5,
+      "claim": "Step 5: The EPFO field office processes the claim. The claim status can be tracked on the Unified Portal under 'Track Claim Status'. Upon approval, the amount is credited directly to the linked bank account via NEFT/RTGS. For PF Final Settlement, TDS at 10% is deducted if the service is less than 5 years and the amount exceeds Rs. 50,000 (no TDS if Form 15G/15H is submitted or PAN is linked).",
+      "sourceRefs": [
+        "SRC_EPFO_FAQ",
+        "SRC_EPFO_UNIFIED_PORTAL"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_NONE",
+      "description": "No fee is charged for filing EPF withdrawal claims",
+      "amount": 0,
+      "currency": "INR",
+      "note": "EPFO does not charge any fee for claim submission. However, TDS may be applicable on withdrawals under certain conditions."
+    }
+  ],
+  "processingTime": {
+    "minimum": "3 days",
+    "maximum": "20 days",
+    "note": "Online Aadhaar-based claims are typically processed within 3-10 days. Non-Aadhaar claims requiring employer attestation may take 10-20 days. Processing may be delayed if there are discrepancies in KYC details or if additional documents are required.",
+    "timelineCode": "EPF_WITHDRAWAL_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2026-10-28T00:00:00Z",
+    "updatedAt": "2026-10-28T00:00:00Z",
+    "createdBy": "GovGuide Content Team"
+  }
+}

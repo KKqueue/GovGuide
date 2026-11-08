@@ -1,0 +1,290 @@
+{
+  "serviceCode": "WATER_SUPPLY_NEW_CONNECTION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "New Water Supply Connection"
+  },
+  "authority": "Municipal Corporation / Jal Board / Public Health Engineering Department",
+  "jurisdiction": "STATE",
+  "category": "WATER",
+  "description": {
+    "en": "Application for a new water supply connection from the municipal corporation, jal board, or public health engineering department. Covers domestic and commercial water connections in municipal areas. The process and fees vary by city and state, with connections typically managed by the local urban body or state water supply authority."
+  },
+  "officialLinks": {
+    "application": "https://www.india.gov.in/topics/housing",
+    "informationPortal": "https://www.india.gov.in/topics/housing"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "WATER_PROPERTY_OWNER",
+        "field": "applicant.propertyStatus",
+        "operator": "EQUALS",
+        "value": "OWNER",
+        "classification": "MANDATORY",
+        "appliesTo": "All new water connection applicants",
+        "claim": "The applicant must be the owner of the property located within the municipal or jal board service area. Properties outside the service area are not eligible for piped water connections from the municipal body.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-HOUSING",
+          "SRC-MUNICIPAL-WATER-PORTAL"
+        ]
+      },
+      {
+        "conditionCode": "WATER_MUNICIPAL_AREA",
+        "field": "applicant.propertyLocation",
+        "operator": "IN",
+        "value": [
+          "MUNICIPAL_CORPORATION",
+          "MUNICIPALITY",
+          "NAGAR_PANCHAYAT"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All new water connection applicants",
+        "claim": "The property must be located within the jurisdiction of the municipal corporation, municipality, or nagar panchayat that provides the water supply service.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-HOUSING"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Tenants may apply with an NOC from the property owner in some municipalities.",
+      "Properties in panchayat areas may be served by the Jal Jeevan Mission or state PHED.",
+      "Multi-storied buildings may require a bulk connection with internal distribution managed by the housing society."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "WATER_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "WATER_SUPPLY_NEW_CONNECTION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "WATER_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled application form for new water supply connection must be submitted to the municipal office, jal board, or through the online civic services portal where available.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-HOUSING",
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "WATER_REQ_PROPERTY_TAX_RECEIPT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Latest property tax paid receipt is required as proof that the property is within the municipal area and all dues are cleared.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "WATER_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, voter ID, or passport is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-HOUSING"
+      ]
+    },
+    {
+      "requirementCode": "WATER_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof matching the property address where the connection is sought.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-HOUSING"
+      ]
+    },
+    {
+      "requirementCode": "WATER_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Approved building plan or completion certificate from the local planning authority is required to confirm the construction is authorized.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "WATER_REQ_NOC_SOCIETY",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "WATER_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "No Objection Certificate (NOC) from the housing society or apartment association may be required if the property is in a multi-unit building or gated community.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "WATER_APPLY_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new water supply connection applicants",
+      "claim": "The process involves: (1) Submit application form with required documents at the municipal office/jal board or online civic services portal, (2) Municipal engineer conducts site inspection to assess feasibility and determine pipe size, (3) Authority issues demand note with connection charges and security deposit, (4) Applicant pays the fees, (5) Municipal workers lay the pipeline from the main line to the property boundary and install the meter, (6) Connection is activated.",
+      "doesNotEstablish": [
+        "This record does not guarantee water availability or pressure at all locations.",
+        "Internal plumbing from the meter to the premises is the applicant's responsibility.",
+        "Water quality and supply hours are not covered."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-HOUSING",
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "WATER_CONNECTION_ACTIVE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An active metered water supply connection from the municipal main line to the property boundary. The consumer receives a consumer number for billing purposes.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-HOUSING",
+      "SRC-MUNICIPAL-WATER-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "WATER_FEE_CONNECTION_CHARGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Connection charges vary by pipe size and municipality, typically Rs. 2,000-15,000",
+      "status": "VERIFIED",
+      "claim": "Water connection charges vary by municipality, pipe size (typically 15mm to 25mm for domestic), and property type. Charges generally range from Rs. 2,000 to Rs. 15,000 including pipeline cost, meter cost, and installation charges.",
+      "sourceRefs": [
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "WATER_FEE_SECURITY_DEPOSIT",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Refundable security deposit as per municipal bylaws",
+      "status": "VERIFIED",
+      "claim": "A refundable security deposit is charged along with the connection fees. The amount varies by municipality and connection size.",
+      "sourceRefs": [
+        "SRC-MUNICIPAL-WATER-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "WATER_PROCESSING_TIME",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "MUNICIPAL_SERVICE_STANDARDS",
+    "applicability": "New domestic water supply connection within municipal area",
+    "status": "VERIFIED",
+    "claim": "New water supply connections are typically provided within 15 to 30 days of application and fee payment, subject to infrastructure availability. Some municipalities have citizen charter commitments for faster processing.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-HOUSING",
+      "SRC-MUNICIPAL-WATER-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-HOUSING",
+      "url": "https://www.india.gov.in/topics/housing",
+      "title": "Housing & Urban Affairs - National Portal of India",
+      "publisher": "National Portal of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal provides information on urban services including water supply, linking to state and municipal portals for specific services.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Water supply is managed by municipal corporations and jal boards.",
+        "New connection requires property ownership proof and identity documents.",
+        "Eligibility requires property within municipal jurisdiction."
+      ],
+      "uncertainty": "State and municipality-specific processes are not detailed on the central portal."
+    },
+    {
+      "sourceCode": "SRC-MUNICIPAL-WATER-PORTAL",
+      "url": "https://www.india.gov.in/topics/housing",
+      "title": "Municipal Water Supply Services (representative municipal portals)",
+      "publisher": "Various Municipal Corporations and Jal Boards",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Municipal corporations and jal boards across states provide online and offline application facilities for new water connections. Fees, pipe sizes, and processing times are published in their respective citizen charters and fee schedules.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Application process for new water connection.",
+        "Document requirements including property tax receipt and building plan.",
+        "Connection charges and security deposit structure.",
+        "Processing timeline of 15-30 days."
+      ],
+      "uncertainty": "Each municipality has its own fee schedule and process; this source represents general practices across major urban bodies."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview; specific processes, fees, and timelines vary by municipality and state.",
+    "Rural water supply connections under Jal Jeevan Mission or state PHED follow different processes.",
+    "Water availability and supply hours depend on the local infrastructure and are not guaranteed.",
+    "Commercial and industrial connections have different fee structures and may require additional approvals.",
+    "Bore well or tube well connections are separate from municipal piped water supply.",
+    "This record does not cover sewerage connections which are often applied for separately.",
+    "Multi-storied buildings may require a bulk connection with different procedures."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "General process and requirements verified against national portal and representative municipal practices. Municipality-specific details vary.",
+    "nextReviewTrigger": [
+      "Changes in municipal water supply fee schedules.",
+      "New policies under Jal Jeevan Mission affecting urban areas.",
+      "Digitization of water connection services in more municipalities.",
+      "Central guidelines on water supply service standards."
+    ]
+  }
+}

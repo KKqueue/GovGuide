@@ -1,0 +1,422 @@
+{
+  "serviceCode": "NATIONAL_SCHOLARSHIP_PORTAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "National Scholarship Portal (NSP) Application"
+  },
+  "authority": "Ministry of Electronics and Information Technology (portal management), with scholarship schemes sponsored by Ministry of Minority Affairs, Ministry of Social Justice and Empowerment, Ministry of Tribal Affairs, and other ministries, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "SCHOLARSHIP",
+  "description": {
+    "en": "The National Scholarship Portal (NSP) is a one-stop platform for students to apply for various central and state government scholarship schemes. It covers pre-matric, post-matric, and merit-cum-means scholarships for students from SC/ST/OBC/Minority/EBC/Disabled and other eligible categories studying in recognized institutions."
+  },
+  "officialLinks": {
+    "application": "https://scholarships.gov.in/",
+    "informationPortal": "https://scholarships.gov.in/",
+    "schemesList": "https://scholarships.gov.in/public/schemeList",
+    "freshRegistration": "https://scholarships.gov.in/fresh/newstudentregistration"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NSP_RECOGNIZED_INSTITUTION",
+        "field": "applicant.institutionRecognitionStatus",
+        "operator": "EQUALS",
+        "value": "RECOGNIZED",
+        "classification": "MANDATORY",
+        "appliesTo": "All NSP scholarship applicants",
+        "claim": "The student must be enrolled in a recognized educational institution. The institution must be listed on the NSP portal and verified by the respective state/UT nodal officer.",
+        "sourceRefs": [
+          "SRC-NSP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NSP_SC_ST_CATEGORY",
+        "field": "applicant.socialCategory",
+        "operator": "IN",
+        "value": [
+          "SC",
+          "ST"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "SC/ST scholarship scheme applicants",
+        "claim": "Students belonging to Scheduled Caste (SC) or Scheduled Tribe (ST) categories are eligible for pre-matric and post-matric scholarship schemes sponsored by the Ministry of Social Justice and Empowerment (for SC) and Ministry of Tribal Affairs (for ST), subject to income and other criteria.",
+        "sourceRefs": [
+          "SRC-NSP-PORTAL-2026-10-28",
+          "SRC-MOSJE-SCHOLARSHIP-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NSP_OBC_CATEGORY",
+        "field": "applicant.socialCategory",
+        "operator": "EQUALS",
+        "value": "OBC",
+        "classification": "MANDATORY",
+        "appliesTo": "OBC scholarship scheme applicants",
+        "claim": "Students belonging to Other Backward Classes (OBC) are eligible for post-matric and other scholarship schemes, subject to income ceiling and academic criteria as specified by the sponsoring ministry.",
+        "sourceRefs": [
+          "SRC-NSP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NSP_MINORITY_CATEGORY",
+        "field": "applicant.isMinorityCommunity",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Minority community scholarship applicants",
+        "claim": "Students belonging to notified minority communities (Muslim, Christian, Sikh, Buddhist, Jain, and Parsi/Zoroastrian) are eligible for pre-matric, post-matric, and merit-cum-means scholarships sponsored by the Ministry of Minority Affairs, subject to income and academic criteria.",
+        "sourceRefs": [
+          "SRC-NSP-PORTAL-2026-10-28",
+          "SRC-MOMA-SCHOLARSHIP-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NSP_DISABILITY_CATEGORY",
+        "field": "applicant.hasDisability",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Scholarship applicants with disabilities",
+        "claim": "Students with disabilities (as defined under the Rights of Persons with Disabilities Act, 2016) are eligible for specific scholarship schemes for disabled students, including pre-matric and post-matric scholarships from the Department of Empowerment of Persons with Disabilities.",
+        "sourceRefs": [
+          "SRC-NSP-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Each scholarship scheme under NSP has its own specific eligibility criteria including income ceilings, minimum marks, and course requirements which vary and are not all enumerated here.",
+      "State-specific scholarship schemes available on NSP have their own eligibility norms defined by the respective state government.",
+      "EBC (Economically Backward Class) general category students may be eligible for certain schemes; specific criteria vary by scheme."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NSP_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NATIONAL_SCHOLARSHIP_PORTAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NSP_FRESH_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "FRESH",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NSP_RENEWAL_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NSP_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number is mandatory for student registration on the National Scholarship Portal. Aadhaar-based verification is used for identity confirmation and DBT of scholarship amounts.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_INCOME_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Income certificate issued by a competent authority (tehsildar/SDM/district magistrate) is required to verify family income eligibility for the scholarship scheme applied under.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28",
+        "SRC-MOMA-SCHOLARSHIP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_CASTE_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Caste certificate issued by a competent authority is required for SC/ST/OBC category students applying for category-specific scholarship schemes. Not required for minority or general category schemes.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28",
+        "SRC-MOSJE-SCHOLARSHIP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_INSTITUTION_VERIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The educational institution must verify the student's enrollment, attendance, and academic details on the NSP portal. Without institution verification, the application does not proceed to the next stage.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An active bank account in the student's own name (linked to Aadhaar for DBT) is required for scholarship disbursement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_MARKSHEETS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Mark sheets or grade cards of the previous qualifying examination are required to verify academic eligibility and merit for the scholarship scheme.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NSP_REQ_ADMISSION_LETTER",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NSP_ROUTE_SELECTED",
+          "NSP_FRESH_APPLICATION"
+        ]
+      },
+      "claim": "Admission letter or bonafide certificate from the current institution is required for fresh applicants to confirm enrollment in the current academic year.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NSP_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "New students applying for the first time",
+      "claim": "Students must first register on the NSP portal (scholarships.gov.in) by providing Aadhaar number, name, date of birth, mobile number, and email. After registration, the student receives a login ID and can fill the scholarship application form for eligible schemes.",
+      "doesNotEstablish": [
+        "This record does not store registration credentials or personal data.",
+        "Registration does not guarantee scholarship approval."
+      ],
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NSP_APPLICATION_FLOW",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants (fresh and renewal)",
+      "claim": "After registration, the student selects the applicable scholarship scheme, fills in personal, academic, and bank details, uploads required documents (income certificate, caste certificate if applicable, marksheets, admission letter, bank passbook, Aadhaar), and submits the application. The application then goes through institution verification, followed by district/state nodal officer verification, before final approval and disbursement.",
+      "doesNotEstablish": [
+        "This record does not define the internal verification criteria used by institutions or nodal officers.",
+        "Timeline for each verification stage varies by state and scheme."
+      ],
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NSP_VERIFICATION_STAGES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The application passes through multiple verification stages: (1) Institution verification of student enrollment and academic details, (2) District/state nodal officer verification of documents and eligibility, (3) Central ministry/department sanctioning. Each stage must approve before the application moves forward.",
+      "doesNotEstablish": [
+        "Rejection at any stage means the application does not proceed; the record does not define the appeal process.",
+        "Verification timelines are not standardized across states."
+      ],
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NSP_MAJOR_SCHEMES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Students eligible for central government schemes",
+      "claim": "Major central scholarship schemes available on NSP include: Pre-Matric Scholarship for Minorities (Ministry of Minority Affairs), Post-Matric Scholarship for Minorities, Merit-cum-Means Scholarship for Minorities, Post-Matric Scholarship for SC Students (Ministry of Social Justice), Top Class Education for SC Students, Pre-Matric Scholarship for ST Students (Ministry of Tribal Affairs), Post-Matric Scholarship for ST Students, and scholarships for students with disabilities.",
+      "doesNotEstablish": [
+        "This is not an exhaustive list of all schemes on NSP.",
+        "Individual scheme eligibility criteria, scholarship amounts, and quotas are defined separately by each sponsoring ministry."
+      ],
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28",
+        "SRC-MOMA-SCHOLARSHIP-2026-10-28",
+        "SRC-MOSJE-SCHOLARSHIP-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NSP_SCHOLARSHIP_DISBURSEMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful verification and approval, the scholarship amount is disbursed directly to the student's bank account through Direct Benefit Transfer (DBT). The amount varies by scheme and includes maintenance allowance, tuition fee reimbursement, or both, depending on the specific scholarship scheme.",
+    "sourceRefs": [
+      "SRC-NSP-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NSP_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "NSP registration and scholarship application",
+      "status": "VERIFIED",
+      "claim": "Registration and application on the National Scholarship Portal is completely free. No government fee is charged for applying to any scholarship scheme through NSP.",
+      "sourceRefs": [
+        "SRC-NSP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "NSP_SERVICE_CHARGE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Not established",
+      "status": "UNVERIFIED",
+      "claim": "No service charges are established for NSP application. Some CSCs may offer facilitation for a nominal fee, but this is not part of the official process."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NSP_DISBURSEMENT_PERIOD",
+    "minimumDuration": 60,
+    "maximumDuration": 365,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SCHEME_GUIDELINES",
+    "applicability": "Application submission to scholarship disbursement within the academic year",
+    "status": "ESTIMATED",
+    "claim": "Scholarship disbursement typically occurs within the academic year after successful verification at all stages (institution, district/state, and central ministry). The actual timeline varies significantly by scheme and state. Applications are generally accepted in a window announced each academic year, and disbursement follows after multi-stage verification.",
+    "sourceRefs": [
+      "SRC-NSP-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NSP-PORTAL-2026-10-28",
+      "url": "https://scholarships.gov.in/",
+      "title": "National Scholarship Portal (NSP)",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NSP portal provides the unified platform for scholarship application, listing all central and state scholarship schemes with eligibility criteria, required documents, application deadlines, and multi-stage verification flow (student registration, application, institution verification, district/state verification, ministry approval, DBT disbursement).",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "NSP is a one-stop platform for central and state scholarships.",
+        "Aadhaar is mandatory for registration.",
+        "Application is free of cost.",
+        "Multi-stage verification: institution, district/state, central ministry.",
+        "Disbursement through DBT to student bank account.",
+        "Students must be in recognized institutions.",
+        "Income certificate, marksheets, bank account are required.",
+        "Fresh and renewal application types are supported."
+      ],
+      "uncertainty": "Individual scheme-specific eligibility thresholds, scholarship amounts, and annual application windows are defined separately and change each academic year."
+    },
+    {
+      "sourceCode": "SRC-MOMA-SCHOLARSHIP-2026-10-28",
+      "url": "https://minorityaffairs.gov.in/",
+      "title": "Ministry of Minority Affairs — Scholarship Schemes",
+      "publisher": "Ministry of Minority Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Minority Affairs sponsors Pre-Matric, Post-Matric, and Merit-cum-Means scholarship schemes for students belonging to notified minority communities (Muslim, Christian, Sikh, Buddhist, Jain, Parsi/Zoroastrian), with income-based eligibility criteria and application through NSP.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Pre-Matric, Post-Matric, and Merit-cum-Means scholarships for minorities.",
+        "Six notified minority communities are eligible.",
+        "Income-based eligibility criteria apply.",
+        "Application through NSP portal."
+      ],
+      "uncertainty": "Specific income thresholds and scholarship amounts are revised periodically and not captured in this record."
+    },
+    {
+      "sourceCode": "SRC-MOSJE-SCHOLARSHIP-2026-10-28",
+      "url": "https://socialjustice.gov.in/",
+      "title": "Ministry of Social Justice and Empowerment — Scholarship Schemes",
+      "publisher": "Ministry of Social Justice and Empowerment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Social Justice and Empowerment sponsors Post-Matric Scholarship for SC students, Top Class Education for SC students, and other scholarship schemes for OBC and economically backward classes, with application through NSP.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Post-Matric Scholarship for SC students.",
+        "Top Class Education scheme for SC students.",
+        "Caste certificate required for SC/ST/OBC category schemes.",
+        "Application through NSP portal."
+      ],
+      "uncertainty": "Specific income ceilings, scholarship amounts, and institutional quotas are defined in individual scheme guidelines and revised periodically."
+    }
+  ],
+  "limitations": [
+    "This record covers the general NSP application process and major central scholarship schemes; it does not provide exhaustive details of each individual scholarship scheme's eligibility, amounts, or quotas.",
+    "State-specific scholarship schemes available on NSP have their own separate eligibility and documentation requirements not detailed here.",
+    "Scholarship amounts, income ceilings, and application windows change each academic year; this record does not capture current-year-specific values.",
+    "The list of major schemes mentioned is illustrative, not exhaustive.",
+    "No Aadhaar number, academic records, income data, or personal information is collected or stored by this content record.",
+    "The record does not cover the grievance redressal process for rejected applications."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General NSP process, document requirements, and major scheme categories verified from official sources. Individual scheme amounts and eligibility thresholds require academic-year-specific verification.",
+    "nextReviewTrigger": [
+      "NSP portal undergoes a major update or redesign.",
+      "New central scholarship schemes are added to NSP.",
+      "Major schemes are discontinued or significantly modified.",
+      "Document requirements or verification process changes.",
+      "Aadhaar or DBT requirements for scholarship disbursement change.",
+      "Annual application window opens with revised eligibility criteria."
+    ]
+  }
+}

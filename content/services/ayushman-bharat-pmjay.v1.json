@@ -1,0 +1,261 @@
+{
+  "serviceCode": "AYUSHMAN_BHARAT_PMJAY",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Ayushman Bharat Health Card (PM-JAY)"
+  },
+  "authority": "National Health Authority (NHA), Ministry of Health and Family Welfare, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "AYUSHMAN_BHARAT",
+  "description": {
+    "en": "Ayushman Bharat Pradhan Mantri Jan Arogya Yojana (PM-JAY) provides health insurance cover of Rs. 5 lakh per family per year for secondary and tertiary care hospitalization to eligible families. The Ayushman card serves as the beneficiary identification for cashless treatment at empanelled hospitals."
+  },
+  "officialLinks": {
+    "application": "https://beneficiary.nha.gov.in/",
+    "informationPortal": "https://pmjay.gov.in/",
+    "eligibilityCheck": "https://mera.pmjay.gov.in/search/login",
+    "hospitalLocator": "https://pmjay.gov.in/hospital"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PMJAY_SECC_ELIGIBLE_RURAL",
+        "field": "applicant.isInSECCDeprivedRuralHousehold",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Rural beneficiaries under PM-JAY",
+        "claim": "In rural areas, eligibility is based on deprivation criteria from the Socio-Economic Caste Census (SECC) 2011 data. Households identified with at least one deprivation parameter (such as households with no adult member aged 16-59, female-headed households with no adult male member aged 16-59, SC/ST households, landless households deriving major income from manual casual labour, etc.) are eligible.",
+        "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+      },
+      {
+        "conditionCode": "PMJAY_SECC_ELIGIBLE_URBAN",
+        "field": "applicant.isInSECCIdentifiedUrbanCategory",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Urban beneficiaries under PM-JAY",
+        "claim": "In urban areas, eligibility is based on 11 identified occupational categories of urban workers from the SECC 2011 data, including rag pickers, beggars, domestic workers, street vendors, construction workers, plumbers, painters, security guards, coolies, transport workers, and similar occupational categories.",
+        "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+      },
+      {
+        "conditionCode": "PMJAY_SENIOR_CITIZEN_70_PLUS",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 70,
+        "classification": "MANDATORY",
+        "appliesTo": "Senior citizens aged 70 and above under Ayushman Vay Vandana extension",
+        "claim": "Under the Ayushman Bharat PM-JAY expansion announced in September 2024, all senior citizens aged 70 years and above are eligible for health cover of Rs. 5 lakh per year, regardless of income or SECC status. This is an additional top-up cover for those already covered under PM-JAY.",
+        "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states have expanded the scheme to cover additional families beyond SECC data using their own state lists; state-specific expansions are not detailed here.",
+      "Families covered under other government health insurance schemes (such as CGHS or ESIC) may have separate eligibility terms not covered in this record."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PMJAY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "AYUSHMAN_BHARAT_PMJAY",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMJAY_HOSPITAL_ROUTE",
+      "field": "workflow.cardGenerationMode",
+      "operator": "EQUALS",
+      "value": "EMPANELLED_HOSPITAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMJAY_CSC_ROUTE",
+      "field": "workflow.cardGenerationMode",
+      "operator": "EQUALS",
+      "value": "CSC",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PMJAY_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["PMJAY_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar number is required for identity verification and Ayushman card generation. Aadhaar-based eKYC is used for beneficiary identification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "PMJAY_REQ_RATION_CARD",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["PMJAY_ROUTE_SELECTED"]
+      },
+      "claim": "Ration card or any government-issued family identification document may be used as supporting proof of family composition and eligibility.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NHA-GUIDELINES-2026-10-28"]
+    },
+    {
+      "requirementCode": "PMJAY_REQ_ELIGIBLE_FAMILY_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["PMJAY_ROUTE_SELECTED"]
+      },
+      "claim": "The beneficiary family must be identified in the SECC 2011 database or the state-specific eligible family list. Eligibility can be checked on the PM-JAY portal (mera.pmjay.gov.in) or the beneficiary identification system.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PMJAY_ELIGIBILITY_CHECK",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All potential beneficiaries",
+      "claim": "Beneficiaries can check their eligibility on the PM-JAY portal (pmjay.gov.in) or by calling the PM-JAY helpline (14555). The portal allows searching by name, mobile number, or ration card number against the SECC/state beneficiary database.",
+      "doesNotEstablish": [
+        "This record does not store personal identifiers or search results.",
+        "Eligibility on the portal does not guarantee automatic card generation."
+      ],
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "PMJAY_CARD_AT_HOSPITAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Beneficiaries generating Ayushman card at empanelled hospitals",
+      "claim": "Eligible beneficiaries can visit any empanelled hospital and get their Ayushman card generated at the Ayushman Mitra/PMJAY help desk. The process involves Aadhaar-based eKYC verification and card printing.",
+      "doesNotEstablish": [
+        "This record does not define the hospital empanelment process or hospital-specific procedures."
+      ],
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+    },
+    {
+      "processCode": "PMJAY_CARD_AT_CSC",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Beneficiaries generating Ayushman card at Common Service Centres",
+      "claim": "Ayushman cards can also be generated at Common Service Centres (CSCs) through Aadhaar-based eKYC verification.",
+      "doesNotEstablish": [
+        "This record does not verify CSC-specific facilitation procedures or fees beyond the scheme's free card generation."
+      ],
+      "sourceRefs": ["SRC-NHA-GUIDELINES-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "PMJAY_AYUSHMAN_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful verification, the beneficiary receives an Ayushman card (physical or digital) that serves as identification for availing cashless treatment of up to Rs. 5 lakh per family per year at any empanelled hospital across India.",
+    "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "PMJAY_CARD_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Ayushman card generation and PM-JAY health cover",
+      "status": "VERIFIED",
+      "claim": "The Ayushman card generation and the health insurance cover under PM-JAY are completely free. The scheme provides cashless and paperless access to healthcare services of up to Rs. 5 lakh per family per year.",
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28"]
+    },
+    {
+      "feeCode": "PMJAY_TREATMENT_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Treatment at empanelled hospitals under PM-JAY",
+      "status": "VERIFIED",
+      "claim": "Treatment at empanelled hospitals is cashless for the beneficiary. The hospital claims reimbursement directly from the insurance company or state health agency.",
+      "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PMJAY_CARD_GENERATION",
+    "minimumDuration": 1,
+    "maximumDuration": 2,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SCHEME_DESCRIPTION",
+    "applicability": "Ayushman card generation at empanelled hospital or CSC",
+    "status": "VERIFIED",
+    "claim": "Ayushman card generation typically takes 24 to 48 hours at empanelled hospitals through Aadhaar-based eKYC. In many cases, cards are generated on the spot during hospital visits.",
+    "sourceRefs": ["SRC-PMJAY-PORTAL-2026-10-28", "SRC-NHA-GUIDELINES-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PMJAY-PORTAL-2026-10-28",
+      "url": "https://pmjay.gov.in/",
+      "title": "Ayushman Bharat PM-JAY Official Portal",
+      "publisher": "National Health Authority (NHA), Ministry of Health and Family Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The PM-JAY portal provides scheme details, eligibility criteria based on SECC 2011 data, beneficiary search, empanelled hospital locator, and information about cashless health cover of Rs. 5 lakh per family per year.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PM-JAY provides Rs. 5 lakh health cover per family per year.",
+        "Eligibility is based on SECC 2011 data for rural and urban categories.",
+        "Senior citizens 70+ are covered under the expanded scheme.",
+        "Ayushman card generation is free.",
+        "Treatment at empanelled hospitals is cashless.",
+        "Aadhaar is required for card generation.",
+        "Eligibility can be checked on the portal."
+      ],
+      "uncertainty": "State-specific expansions beyond SECC data and hospital empanelment details are not fully covered."
+    },
+    {
+      "sourceCode": "SRC-NHA-GUIDELINES-2026-10-28",
+      "url": "https://nha.gov.in/",
+      "title": "National Health Authority — Ayushman Bharat PM-JAY Guidelines",
+      "publisher": "National Health Authority (NHA), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "NHA publishes the operational guidelines for PM-JAY including SECC-based rural deprivation criteria, urban occupational categories, senior citizen extension, card generation procedures at hospitals and CSCs, and the beneficiary identification system.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Rural eligibility based on SECC deprivation criteria.",
+        "Urban eligibility based on 11 occupational categories.",
+        "Senior citizens 70+ extension (Ayushman Vay Vandana).",
+        "Card generation at empanelled hospitals and CSCs.",
+        "Aadhaar-based eKYC for beneficiary verification.",
+        "Ration card and family ID as supporting documents."
+      ],
+      "uncertainty": "Individual state implementation variations and additional state-level beneficiary lists are not covered in the central guidelines."
+    }
+  ],
+  "limitations": [
+    "This record covers Ayushman Bharat PM-JAY card generation and eligibility only; it does not cover hospital empanelment, claim filing, or grievance redressal processes.",
+    "State-specific expansions of the scheme beyond SECC 2011 data are not detailed here.",
+    "The list of empanelled hospitals varies by location and changes over time; this record does not maintain hospital lists.",
+    "No Aadhaar number, personal health information, or beneficiary data is collected or stored by this content record.",
+    "This record does not cover the separate Ayushman Bharat Health and Wellness Centres (AB-HWC) component of the Ayushman Bharat scheme."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core eligibility criteria, card generation process, and health cover details verified from official sources. Senior citizen 70+ expansion needs periodic verification for implementation updates.",
+    "nextReviewTrigger": [
+      "NHA revises the PM-JAY operational guidelines.",
+      "SECC beneficiary database is updated or replaced.",
+      "Health cover amount or scheme structure changes.",
+      "Senior citizen extension eligibility criteria are modified.",
+      "Card generation process or Aadhaar requirements change."
+    ]
+  }
+}

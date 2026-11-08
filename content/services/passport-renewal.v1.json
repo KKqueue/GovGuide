@@ -1,0 +1,319 @@
+{
+  "serviceCode": "PASSPORT_RENEWAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Passport Renewal / Re-issue"
+  },
+  "authority": "Ministry of External Affairs / Passport Seva",
+  "jurisdiction": "CENTRAL",
+  "category": "PASSPORT_RENEWAL",
+  "description": {
+    "en": "Indian passport renewal or re-issue is required when an existing passport expires, has exhausted its pages, is damaged, or when personal details need to be updated. Applications are processed through the Passport Seva portal and appointments are scheduled at Passport Seva Kendras (PSKs) or Post Office Passport Seva Kendras (POPSKs)."
+  },
+  "officialLinks": {
+    "application": "https://www.passportindia.gov.in/",
+    "informationPortal": "https://www.passportindia.gov.in/AppOnlineProject/online/faqGeneral"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PASSPORT_RENEWAL_EXISTING_PASSPORT",
+        "field": "applicant.hasExistingPassport",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All passport renewal applicants",
+        "claim": "The applicant must hold an existing Indian passport (expired or valid) for renewal or re-issue. First-time applicants must apply for a fresh passport instead.",
+        "sourceRefs": [
+          "SRC-PASSPORT-SEVA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PASSPORT_RENEWAL_INDIAN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All passport renewal applicants",
+        "claim": "Only Indian citizens are eligible for an Indian passport renewal or re-issue.",
+        "sourceRefs": [
+          "SRC-PASSPORT-SEVA-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Applicants with pending criminal cases or court orders restricting travel may face delays or denial.",
+      "Passports with Emigration Check Required (ECR) status may need additional documentation for ECR removal during renewal.",
+      "Minors' passport renewals require consent of both parents or legal guardian."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PASSPORT_RENEWAL_ROUTE",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PASSPORT_RENEWAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PASSPORT_RENEWAL_NORMAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NORMAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PASSPORT_RENEWAL_TATKAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "TATKAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_OLD_PASSPORT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "Original old passport (current or most recently held) must be submitted. If the passport is lost or damaged, an FIR or appropriate police report and a supplementary form (Annexure F) are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_ONLINE_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "Online application form submitted through the Passport Seva portal (passportindia.gov.in). The form must be filled with updated personal details and printed for submission at PSK.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "Recent passport-size colour photographs (2 inches x 2 inches) with white background as per Passport Seva specifications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "Proof of present address — Aadhaar card, voter ID, utility bills, bank statement, or rental agreement with notarization.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_APPOINTMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "Appointment at the Passport Seva Kendra (PSK) or Post Office Passport Seva Kendra (POPSK) booked through the Passport Seva portal after completing the online application and fee payment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_RENEWAL_REQ_CHANGE_DOCS",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_RENEWAL_ROUTE"
+        ]
+      },
+      "claim": "If personal details have changed (name, address, spouse name), supporting documents such as marriage certificate, gazette notification, or court order must be provided.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PASSPORT_RENEWAL_STEP1_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All passport renewal applicants",
+      "claim": "Fill the online application form at passportindia.gov.in, selecting 'Re-issue of Passport' as the application type. Pay the fee online through credit/debit card, net banking, or SBI challan.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PASSPORT_RENEWAL_STEP2_APPOINTMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All passport renewal applicants",
+      "claim": "Schedule an appointment at the nearest PSK or POPSK. For Tatkal applications, separate appointment slots are available with additional fees.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PASSPORT_RENEWAL_STEP3_PSK_VISIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All passport renewal applicants",
+      "claim": "Visit the PSK on the appointment date with the printed application, old passport, original documents, and self-attested photocopies. The process at PSK involves Token Counter → Document Verification → Biometrics (photo and fingerprints) → Final Verification.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PASSPORT_RENEWAL_STEP4_POLICE_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants requiring police verification",
+      "claim": "Police verification may or may not be required based on the type of re-issue. If there is no change in personal details and the previous passport was issued on a clear police report, the renewed passport may be issued without police verification. Otherwise, the local police station conducts verification.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PASSPORT_RENEWAL_STEP5_DISPATCH",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "The renewed passport is printed at the Central Passport Printing Facility and dispatched via Speed Post to the applicant's address. Tracking is available through the Passport Seva portal.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PASSPORT_RENEWAL_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A renewed Indian passport booklet (36 or 60 pages) with updated validity of 10 years for adults and 5 years for minors. The new passport number replaces the old one, and the old passport is cancelled and returned with the new passport.",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PASSPORT_RENEWAL_FEE_36PAGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 1500,
+      "currency": "INR",
+      "applicability": "36-page passport booklet re-issue (Normal)",
+      "status": "VERIFIED",
+      "claim": "Rs. 1,500 for re-issue of a 36-page passport booklet under normal processing.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PASSPORT_RENEWAL_FEE_60PAGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 2000,
+      "currency": "INR",
+      "applicability": "60-page passport booklet re-issue (Normal)",
+      "status": "VERIFIED",
+      "claim": "Rs. 2,000 for re-issue of a 60-page passport booklet under normal processing.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PASSPORT_RENEWAL_FEE_TATKAL",
+      "category": "GOVERNMENT_FEE",
+      "amount": 3500,
+      "currency": "INR",
+      "applicability": "Tatkal (urgent) passport re-issue — 36-page booklet",
+      "status": "VERIFIED",
+      "claim": "Rs. 3,500 for Tatkal re-issue of a 36-page passport booklet (Rs. 1,500 normal fee + Rs. 2,000 Tatkal fee).",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PASSPORT_RENEWAL_PROCESSING",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Passport re-issue under normal processing (excluding Tatkal)",
+    "status": "VERIFIED",
+    "claim": "Normal passport re-issue takes approximately 15 to 30 days from the date of application at the PSK, including police verification time if applicable. Tatkal applications are processed within 1 to 3 working days.",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-2026-10-28",
+      "url": "https://www.passportindia.gov.in/",
+      "title": "Passport Seva — Official Portal for Indian Passport Services",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Passport Seva portal provides online application for new, re-issue, and Tatkal passports. Fee schedule, document requirements, appointment booking, and application tracking are all available on the portal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Passport re-issue fee is Rs. 1,500 for 36-page and Rs. 2,000 for 60-page booklet.",
+        "Tatkal additional fee is Rs. 2,000 over normal fee.",
+        "Normal processing takes 15-30 days.",
+        "Tatkal processing takes 1-3 working days.",
+        "Appointment at PSK/POPSK is mandatory."
+      ],
+      "uncertainty": "Processing times may vary based on police verification requirements and regional workload."
+    }
+  ],
+  "limitations": [
+    "This record covers standard passport re-issue for adults. Minor passport renewal and diplomatic/official passport re-issue have different processes.",
+    "Tatkal processing availability may be limited during peak periods.",
+    "Police verification timelines vary significantly by state and police station workload.",
+    "Fee schedule is subject to periodic revision by the Ministry of External Affairs.",
+    "Applicants abroad must apply through the nearest Indian Embassy or Consulate, which follows a different process."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Fee schedule and processing timelines verified from Passport Seva portal. Police verification rules and Tatkal availability need periodic re-verification.",
+    "nextReviewTrigger": [
+      "Fee revision by the Ministry of External Affairs.",
+      "Changes to the Passport Seva online application process.",
+      "Updates to police verification requirements.",
+      "Launch of new Passport Seva portal version."
+    ]
+  }
+}

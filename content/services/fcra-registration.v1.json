@@ -1,0 +1,385 @@
+{
+  "serviceCode": "FCRA_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "FCRA Registration for Receiving Foreign Contribution"
+  },
+  "authority": "Ministry of Home Affairs, Government of India — FCRA Wing",
+  "jurisdiction": "CENTRAL",
+  "category": "FCRA_REGISTRATION",
+  "description": {
+    "en": "FCRA Registration under the Foreign Contribution (Regulation) Act, 2010 is mandatory for any association, society, or NGO in India that wishes to receive foreign contribution (donations, grants, or aid) from foreign sources. The registration is granted by the Ministry of Home Affairs through the FCRA Online portal (fcraonline.nic.in). Once registered, the organization can receive foreign contributions in a designated FCRA bank account maintained at the State Bank of India, New Delhi Main Branch, and utilize the funds for the purposes for which it was registered."
+  },
+  "officialLinks": {
+    "application": "https://fcraonline.nic.in/",
+    "informationPortal": "https://www.mha.gov.in/en/divisionofmha/foreigners-division/foreign-contribution-regulation-act"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "FCRA_ORG_REGISTERED",
+        "field": "company.isRegisteredEntity",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All FCRA applicants",
+        "claim": "The applicant organization must be registered under the Societies Registration Act 1860, Indian Trusts Act 1882, or Section 8 of the Companies Act 2013. The organization must have been in existence for at least 3 years at the time of application.",
+        "sourceRefs": [
+          "SRC-FCRA-PORTAL-2026-10-28",
+          "SRC-FCRA-ACT-2010-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "FCRA_ACTIVITY_TRACK",
+        "field": "company.hasActivityTrackRecord",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All FCRA applicants",
+        "claim": "The organization must have spent at least Rs 15 lakh on its core activities for the benefit of society during the last three financial years (Rs 10 lakh in some relaxed categories). Audited financial statements must demonstrate this expenditure.",
+        "sourceRefs": [
+          "SRC-FCRA-PORTAL-2026-10-28",
+          "SRC-FCRA-ACT-2010-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Organizations of a political nature or affiliated to political parties are not eligible.",
+      "Members of the legislature, political parties, government servants, judges, and media persons or their organizations are prohibited from receiving foreign contribution.",
+      "Organizations whose registration was previously cancelled may face restrictions on fresh registration.",
+      "Organizations engaged in activities that may affect communal harmony, national interest, or sovereignty are not eligible."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "FCRA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "FCRA_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FCRA_FRESH_REGISTRATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "FRESH_REGISTRATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FCRA_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FCRA_PRIOR_PERMISSION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "PRIOR_PERMISSION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FCRA_ORG_IS_SOCIETY",
+      "field": "company.registrationType",
+      "operator": "EQUALS",
+      "value": "SOCIETY",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "FCRA_ORG_IS_TRUST",
+      "field": "company.registrationType",
+      "operator": "EQUALS",
+      "value": "TRUST",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "FCRA_REQ_ONLINE_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Submit the online application in Form FC-3A (for registration) through the FCRA Online portal (fcraonline.nic.in) with details of the organization, its office bearers, activities, and proposed foreign contribution utilization plan.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_REGISTRATION_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Certified copy of the registration certificate or trust deed of the organization under the Societies Registration Act, Indian Trusts Act, or Companies Act (Section 8).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28",
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_AUDITED_ACCOUNTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Audited statement of accounts (balance sheet, income and expenditure statement) for the last 3 years certified by a Chartered Accountant, demonstrating minimum expenditure of Rs 15 lakh on core activities.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28",
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_DARPAN_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Unique ID from NITI Aayog's Darpan portal (NGO Darpan registration). All FCRA applicants must be registered on the Darpan portal before applying.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_AADHAAR_OF_BEARERS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar numbers of all office bearers, key functionaries, and directors of the organization. Each individual must provide consent for Aadhaar verification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_SBI_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Designated FCRA bank account at the State Bank of India, New Delhi Main Branch (11, Parliament Street, New Delhi). As per the 2020 amendment, all foreign contributions must be received only in this designated account. A utilization account at any scheduled bank can be opened for domestic utilization.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28",
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_ACTIVITY_REPORT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Detailed report of activities undertaken during the last 3 years with supporting documentation, photographs, and beneficiary details demonstrating the organization's track record of work for society's benefit.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FCRA_REQ_APPLICATION_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FCRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application fee of Rs 5,000 (for registration) or Rs 3,000 (for prior permission) payable online through the FCRA portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "FCRA_STEP1_DARPAN_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All organizations applying for FCRA registration",
+      "claim": "Register the organization on the NITI Aayog Darpan portal (ngodarpan.gov.in) and obtain the unique Darpan ID. This is a prerequisite for FCRA application.",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FCRA_STEP2_OPEN_SBI_ACCOUNT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All FCRA applicants",
+      "claim": "Open the designated FCRA account at the State Bank of India, New Delhi Main Branch (11, Parliament Street). Submit the required documents to SBI including the organization's registration certificate, PAN, board resolution, and address proof.",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28",
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FCRA_STEP3_ONLINE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All FCRA applicants",
+      "claim": "Submit the online application through fcraonline.nic.in by filling Form FC-3A with organization details, office bearer information, activity details, proposed utilization plan, bank account details, and uploading all required documents. Pay the application fee online.",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FCRA_STEP4_FIELD_INQUIRY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All FCRA applicants",
+      "claim": "The Ministry of Home Affairs may conduct a field inquiry through the Intelligence Bureau (IB) or state police to verify the organization's credentials, activities, and antecedents of its office bearers. The organization may be called for a personal hearing.",
+      "sourceRefs": [
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FCRA_STEP5_GRANT_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants who clear verification",
+      "claim": "Upon satisfactory verification, the Ministry of Home Affairs grants FCRA registration (valid for 5 years). The registration certificate is generated on the FCRA portal. The organization can then receive foreign contributions in its designated SBI account.",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28",
+        "SRC-FCRA-ACT-2010-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "FCRA_REGISTRATION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "FCRA Registration Certificate issued by the Ministry of Home Affairs, valid for 5 years. The certificate authorizes the organization to receive foreign contributions in its designated FCRA account at SBI New Delhi Main Branch. The registration must be renewed within 6 months before expiry.",
+    "sourceRefs": [
+      "SRC-FCRA-PORTAL-2026-10-28",
+      "SRC-FCRA-ACT-2010-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "FCRA_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 5000,
+      "currency": "INR",
+      "applicability": "FCRA registration application fee",
+      "status": "VERIFIED",
+      "claim": "Application fee of Rs 5,000 for FCRA registration (Form FC-3A). For prior permission applications, the fee is Rs 3,000. For renewal, the fee is Rs 500. Payable online through the FCRA portal.",
+      "sourceRefs": [
+        "SRC-FCRA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "FCRA_PROCESSING_TIMELINE",
+    "minimumDuration": 90,
+    "maximumDuration": 365,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From application submission to grant of FCRA registration",
+    "status": "VERIFIED",
+    "claim": "The statutory processing time is 90 days, extendable by a further 90 days. In practice, the process including field inquiry and verification by the Intelligence Bureau typically takes 6-12 months. The Ministry may seek additional information or clarifications during this period.",
+    "sourceRefs": [
+      "SRC-FCRA-PORTAL-2026-10-28",
+      "SRC-FCRA-ACT-2010-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-FCRA-PORTAL-2026-10-28",
+      "url": "https://fcraonline.nic.in/",
+      "title": "FCRA Online Portal — Foreign Contribution Regulation",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The FCRA Online portal is the official platform for all FCRA-related applications including registration, prior permission, renewal, annual returns, and compliance. Organizations must submit applications online through this portal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application submission through Form FC-3A for registration.",
+        "Application fee structure for registration, prior permission, and renewal.",
+        "Darpan ID requirement for all FCRA applicants.",
+        "Designated SBI New Delhi Main Branch account requirement.",
+        "Aadhaar verification of office bearers."
+      ],
+      "uncertainty": "Portal procedures and form formats may be updated. Fee structure may be revised by government notification."
+    },
+    {
+      "sourceCode": "SRC-FCRA-ACT-2010-2026-10-28",
+      "url": "https://www.mha.gov.in/sites/default/files/FCRA2010-Act_1.pdf",
+      "title": "Foreign Contribution (Regulation) Act, 2010 (as amended in 2020)",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Foreign Contribution (Regulation) Act, 2010 as amended by the FCRA Amendment Act 2020, regulates the acceptance and utilization of foreign contribution by individuals, associations, and companies. Key 2020 amendments include mandatory SBI New Delhi account, Aadhaar requirement, cap on administrative expenses at 20%, and prohibition on sub-granting.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Registration valid for 5 years with renewal required.",
+        "Minimum 3 years of existence and activity track record required.",
+        "Designated FCRA account at SBI New Delhi Main Branch mandatory.",
+        "Field inquiry and verification process for registration.",
+        "Prohibition on certain categories of persons and organizations.",
+        "Administrative expenses capped at 20% of foreign contribution received."
+      ],
+      "uncertainty": "The 2020 amendments have been challenged in courts; some provisions may be modified. Implementation circulars and notifications may add or modify specific requirements."
+    }
+  ],
+  "limitations": [
+    "Processing time is highly variable and may significantly exceed the statutory 90-day period due to field inquiries.",
+    "The mandatory SBI New Delhi Main Branch account requirement adds complexity for organizations located in remote areas.",
+    "The record covers the central FCRA framework; state-level police verification timelines vary.",
+    "Administrative expenses are capped at 20% of foreign contribution received, which may affect smaller organizations disproportionately.",
+    "The 2020 amendment prohibiting sub-granting of foreign funds significantly impacts the traditional grant-making model of many NGOs.",
+    "FCRA registration can be suspended or cancelled by the government if violations are found, with limited appeal mechanisms.",
+    "Organizations that receive less than Rs 1 crore may apply for prior permission instead of full registration, but prior permission is project-specific and time-limited."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core FCRA registration framework and 2020 amendments verified. Court challenges to certain provisions and evolving MHA guidelines need monitoring.",
+    "nextReviewTrigger": [
+      "Any court ruling modifying FCRA Act provisions or 2020 amendments.",
+      "MHA circulars or notifications changing registration requirements or procedures.",
+      "Changes to the fee structure or processing timelines.",
+      "Updates to the FCRA Online portal interface or application process.",
+      "Changes to Darpan portal requirements or SBI account procedures."
+    ]
+  }
+}

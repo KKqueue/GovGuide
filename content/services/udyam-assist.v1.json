@@ -1,0 +1,311 @@
+{
+  "serviceCode": "UDYAM_ASSIST",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": "Udyam Assist Platform (for Informal Micro Enterprises)",
+  "authority": "Ministry of MSME / SIDBI (Small Industries Development Bank of India)",
+  "jurisdiction": "CENTRAL",
+  "category": "UDYAM_ASSIST",
+  "description": "Udyam Assist Platform is a registration system for informal micro enterprises that do not have GST registration to obtain an Udyam Assist Certificate. This platform provides a simpler registration process than the standard Udyam Registration for enterprises with investment up to Rs. 1 crore and turnover up to Rs. 5 crore that are not registered under GST. The certificate enables access to priority sector lending, credit facilities, government procurement benefits, and various MSME schemes. Registration is facilitated through Common Service Centres (CSCs) across the country.",
+  "officialLinks": [
+    {
+      "name": "Udyam Assist Portal",
+      "url": "https://udyamassist.gov.in",
+      "description": "Official portal for Udyam Assist registration for informal micro enterprises"
+    },
+    {
+      "name": "Ministry of MSME",
+      "url": "https://msme.gov.in",
+      "description": "Ministry of Micro, Small and Medium Enterprises official website"
+    },
+    {
+      "name": "SIDBI",
+      "url": "https://sidbi.in",
+      "description": "Small Industries Development Bank of India — implementing agency for Udyam Assist"
+    },
+    {
+      "name": "Common Service Centres (CSC)",
+      "url": "https://csc.gov.in",
+      "description": "CSC portal for locating the nearest Common Service Centre for Udyam Assist registration"
+    }
+  ],
+  "eligibility": {
+    "verifiedConditions": [
+      {
+        "field": "enterprise.classification",
+        "operator": "EQUALS",
+        "value": "MICRO",
+        "description": "Enterprise must qualify as a micro enterprise under MSME classification",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "enterprise.investmentAmount",
+        "operator": "LESS_THAN",
+        "value": "10000000",
+        "description": "Enterprise investment in plant and machinery or equipment must be up to Rs. 1 crore",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "enterprise.annualTurnover",
+        "operator": "LESS_THAN",
+        "value": "50000000",
+        "description": "Enterprise annual turnover must be up to Rs. 5 crore",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "enterprise.gstRegistration",
+        "operator": "EQUALS",
+        "value": "false",
+        "description": "Enterprise must not be registered under GST (enterprises with GST should use standard Udyam Registration portal)",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "applicant.aadhaarLinked",
+        "operator": "EQUALS",
+        "value": "true",
+        "description": "Applicant (proprietor/owner) must have a valid Aadhaar number for identity verification",
+        "evidenceStatus": "NEEDS_REVIEW"
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "name": "Enterprise Type Selection",
+      "field": "enterprise.activityType",
+      "operator": "IN_SET",
+      "value": [
+        "MANUFACTURING",
+        "SERVICES"
+      ],
+      "description": "Enterprise must select the type of activity — manufacturing or services",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "UDYAM_ASSIST_COND_0"
+    },
+    {
+      "name": "Registration Channel Selection",
+      "field": "workflow.registrationChannel",
+      "operator": "IN_SET",
+      "value": [
+        "CSC",
+        "ONLINE_PORTAL"
+      ],
+      "description": "Registration can be done through Common Service Centres (CSCs) or directly through the Udyam Assist portal",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "UDYAM_ASSIST_COND_1"
+    },
+    {
+      "name": "Existing Udyam Registration Check",
+      "field": "enterprise.existingUdyamRegistration",
+      "operator": "EQUALS",
+      "value": "false",
+      "description": "Enterprise must not already have a standard Udyam Registration. Enterprises with existing Udyam Registration should not apply for Udyam Assist.",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "UDYAM_ASSIST_COND_2"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Aadhaar Card of Proprietor/Owner",
+      "description": "Valid Aadhaar card of the enterprise proprietor or owner for identity verification and OTP-based authentication.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "requirementCode": "UDYAM_ASSIST_REQ_0"
+    },
+    {
+      "name": "Mobile Number Linked to Aadhaar",
+      "description": "Active mobile number linked to the Aadhaar card for receiving OTP during the registration process.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "requirementCode": "UDYAM_ASSIST_REQ_1"
+    },
+    {
+      "name": "Enterprise Activity Details",
+      "description": "Details of the enterprise activity including type of products manufactured or services provided, NIC code, and business address.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "requirementCode": "UDYAM_ASSIST_REQ_2"
+    },
+    {
+      "name": "Investment and Turnover Declaration",
+      "description": "Self-declaration of investment in plant and machinery or equipment and annual turnover of the enterprise.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "requirementCode": "UDYAM_ASSIST_REQ_3"
+    },
+    {
+      "name": "Bank Account Details",
+      "description": "Bank account details of the enterprise for verification and benefit disbursement purposes.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "requirementCode": "UDYAM_ASSIST_REQ_4"
+    }
+  ],
+  "processInformation": [
+    {
+      "stepNumber": 1,
+      "name": "Visit CSC or Udyam Assist Portal",
+      "description": "Visit the nearest Common Service Centre (CSC) or navigate to udyamassist.gov.in to begin the registration process.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_0"
+    },
+    {
+      "stepNumber": 2,
+      "name": "Aadhaar Verification",
+      "description": "Enter the Aadhaar number of the proprietor/owner and complete OTP-based verification using the mobile number linked to Aadhaar.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_1"
+    },
+    {
+      "stepNumber": 3,
+      "name": "Fill Enterprise Details",
+      "description": "Provide details about the enterprise including name, type of activity (manufacturing/services), products or services offered, NIC code, and business address.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_2"
+    },
+    {
+      "stepNumber": 4,
+      "name": "Self-Declaration of Investment and Turnover",
+      "description": "Provide a self-declaration of the investment in plant and machinery or equipment and the annual turnover of the enterprise.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_3"
+    },
+    {
+      "stepNumber": 5,
+      "name": "Provide Bank Account Details",
+      "description": "Enter the bank account details of the enterprise for record and verification purposes.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_4"
+    },
+    {
+      "stepNumber": 6,
+      "name": "Review and Submit",
+      "description": "Review all entered details and submit the registration application. The CSC operator or applicant verifies all information before final submission.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_5"
+    },
+    {
+      "stepNumber": 7,
+      "name": "Receive Udyam Assist Certificate",
+      "description": "Upon successful verification, the Udyam Assist Certificate (UAC) is generated with a unique Udyam Assist number. The certificate can be downloaded and printed.",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "processCode": "UDYAM_ASSIST_STEP_6"
+    }
+  ],
+  "output": {
+    "name": "Udyam Assist Certificate (UAC)",
+    "description": "Udyam Assist Certificate with a unique Udyam Assist number that serves as recognition for informal micro enterprises. The certificate enables access to priority sector lending, MSME government benefits, credit guarantee schemes, and government procurement preferences.",
+    "validityPeriod": "Valid until the enterprise exceeds micro enterprise thresholds or obtains GST registration (at which point standard Udyam Registration is required)",
+    "sourceRefs": [
+      "UDYAM_ASSIST_PORTAL"
+    ],
+    "outputCode": "UDYAM_ASSIST_OUTPUT"
+  },
+  "fees": [
+    {
+      "amount": 0,
+      "currency": "INR",
+      "description": "Udyam Assist registration is free of charge. No fees are charged for obtaining the Udyam Assist Certificate. CSC operators may charge a nominal service fee for facilitation.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "UDYAM_ASSIST_PORTAL"
+      ],
+      "feeCode": "UDYAM_ASSIST_FEE_0"
+    }
+  ],
+  "processingTime": {
+    "minimum": "Instant",
+    "maximum": "1 day",
+    "description": "Udyam Assist Certificate is typically generated instantly upon successful Aadhaar verification and submission of details. In some cases, processing may take up to one working day.",
+    "evidenceStatus": "NEEDS_REVIEW",
+    "sourceRefs": [
+      "UDYAM_ASSIST_PORTAL"
+    ],
+    "timelineCode": "UDYAM_ASSIST_TIMELINE"
+  },
+  "sources": [
+    {
+      "sourceCode": "UDYAM_ASSIST_PORTAL",
+      "url": "https://udyamassist.gov.in",
+      "title": "Udyam Assist Official Portal",
+      "publisher": "Official Udyam Assist portal for registration of informal micro enterprises",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Official Udyam Assist portal for registration of informal micro enterprises",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    },
+    {
+      "sourceCode": "MSME_MINISTRY",
+      "url": "https://msme.gov.in",
+      "title": "Ministry of MSME Official Website",
+      "publisher": "Ministry of Micro, Small and Medium Enterprises website with notifications and guidelines on Udyam Assist",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Ministry of Micro, Small and Medium Enterprises website with notifications and guidelines on Udyam Assist",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    },
+    {
+      "sourceCode": "SIDBI_OFFICIAL",
+      "url": "https://sidbi.in",
+      "title": "SIDBI Official Website",
+      "publisher": "Small Industries Development Bank of India website — implementing agency for the Udyam Assist platform",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "AUTHORIZED_SERVICE_PROVIDER",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Small Industries Development Bank of India website — implementing agency for the Udyam Assist platform",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    }
+  ],
+  "limitations": [
+    "Only micro enterprises without GST registration are eligible; enterprises with GST must use the standard Udyam Registration portal at udyamregistration.gov.in.",
+    "Aadhaar card with linked mobile number is mandatory; enterprises whose proprietors do not have Aadhaar cannot register.",
+    "The certificate is based on self-declaration of investment and turnover; misrepresentation may lead to cancellation.",
+    "Enterprises that grow beyond micro enterprise thresholds must migrate to standard Udyam Registration.",
+    "CSC operators may charge a nominal facilitation fee though the government registration itself is free.",
+    "The Udyam Assist Certificate may not be recognized by all financial institutions for all credit schemes until integration is complete.",
+    "Partnership firms and companies cannot register on Udyam Assist — it is primarily for sole proprietorships and informal enterprises."
+  ],
+  "review": {
+    "reviewedBy": "GovGuide Content Team",
+    "reviewDate": "2026-10-28",
+    "notes": "Service information compiled from the official Udyam Assist portal and Ministry of MSME notifications. Investment and turnover thresholds, eligibility criteria, and benefits are subject to change as per government notifications. The platform is relatively new and integration with banking and credit systems is ongoing. CSC facilitation charges should be verified at the local level."
+  }
+}

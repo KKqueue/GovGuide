@@ -1,0 +1,219 @@
+{
+  "serviceCode": "E_SHRAM_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "E-Shram Card (Unorganised Workers Registration)"
+  },
+  "authority": "Ministry of Labour and Employment, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "E_SHRAM",
+  "description": {
+    "en": "Registration of unorganised sector workers on the E-Shram portal to obtain a Universal Account Number (UAN) and E-Shram card. The card serves as a national database of unorganised workers and provides access to social security benefits including accidental insurance coverage under PMSBY."
+  },
+  "officialLinks": {
+    "application": "https://eshram.gov.in/",
+    "informationPortal": "https://eshram.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ES_UNORGANISED_WORKER",
+        "field": "applicant.workerCategory",
+        "operator": "EQUALS",
+        "value": "UNORGANISED_SECTOR",
+        "classification": "MANDATORY",
+        "appliesTo": "Workers in the unorganised sector",
+        "claim": "The applicant must be an unorganised sector worker as defined under the Unorganised Workers' Social Security Act, 2008. This includes home-based workers, self-employed workers, wage workers in the unorganised sector such as construction workers, street vendors, domestic workers, agricultural labourers, gig and platform workers, etc.",
+        "sourceRefs": ["SRC-ESHRAM-PORTAL", "SRC-UWSS-ACT-2008"]
+      },
+      {
+        "conditionCode": "ES_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "BETWEEN",
+        "value": {"min": 16, "max": 59},
+        "classification": "MANDATORY",
+        "appliesTo": "All E-Shram applicants",
+        "claim": "The applicant must be between 16 and 59 years of age at the time of registration.",
+        "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+      },
+      {
+        "conditionCode": "ES_NOT_EPFO_ESIC_NPS_MEMBER",
+        "field": "applicant.formalSchemesMembership",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All E-Shram applicants",
+        "claim": "The applicant must not be a member of EPFO (Employees' Provident Fund Organisation), ESIC (Employees' State Insurance Corporation), or NPS (National Pension System — government employee category). Workers already covered under these formal social security schemes are not eligible for E-Shram registration.",
+        "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Gig workers and platform workers are also eligible for E-Shram registration.",
+      "Workers who are members of state-level unorganised workers' welfare boards may still register on E-Shram."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ES_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "E_SHRAM_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ES_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ES_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar number is mandatory for E-Shram registration. The Aadhaar is used for identity verification and to prevent duplicate registrations. Aadhaar-based eKYC authentication is performed during registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    },
+    {
+      "requirementCode": "ES_REQ_MOBILE_LINKED_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ES_ROUTE_SELECTED"]
+      },
+      "claim": "A mobile number linked to Aadhaar is required for OTP-based verification during the registration process. If the mobile number is not linked to Aadhaar, the applicant must visit a CSC (Common Service Centre) for biometric authentication.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    },
+    {
+      "requirementCode": "ES_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ES_ROUTE_SELECTED"]
+      },
+      "claim": "A bank account with IFSC code is required for registration. The bank account is used for direct benefit transfer (DBT) of any social security benefits. A bank passbook or cancelled cheque may be needed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ES_SELF_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Workers registering themselves online",
+      "claim": "Self-registration on E-Shram portal: (1) Visit eshram.gov.in, (2) Click on 'Register on E-Shram', (3) Enter Aadhaar number and captcha, (4) Verify via OTP sent to Aadhaar-linked mobile number, (5) Pre-filled details from Aadhaar are displayed — verify and fill remaining details including occupation, skill, bank account, and nominee information, (6) Submit the form, (7) UAN (Universal Account Number) is generated instantly, (8) E-Shram card is available for download immediately.",
+      "doesNotEstablish": [
+        "Self-registration requires an Aadhaar-linked mobile number.",
+        "Workers without an Aadhaar-linked mobile can register through CSC centers using biometric verification.",
+        "Registration is completely free of charge."
+      ],
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    },
+    {
+      "processCode": "ES_CSC_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Workers registering through Common Service Centres",
+      "claim": "Workers can also register at Common Service Centres (CSCs): (1) Visit the nearest CSC with Aadhaar card and bank passbook, (2) The CSC operator assists with filling the registration form, (3) Biometric authentication (fingerprint/iris) is done for Aadhaar verification, (4) UAN is generated and E-Shram card is printed or provided digitally. CSC registration is also free of charge for the worker.",
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    }
+  ],
+  "output": {
+    "outputCode": "ES_UAN_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An E-Shram card with a 12-digit Universal Account Number (UAN) is issued. The card contains the worker's personal details, occupation, and UAN. The UAN is portable across the country and serves as a unique identity for the unorganised worker. The card also provides accidental insurance coverage of Rs. 2,00,000 (Rs. 2 lakh) for accidental death and permanent disability and Rs. 1,00,000 for partial disability under the Pradhan Mantri Suraksha Bima Yojana (PMSBY).",
+    "sourceRefs": ["SRC-ESHRAM-PORTAL", "SRC-UWSS-ACT-2008"]
+  },
+  "fees": [
+    {
+      "feeCode": "ES_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "E-Shram registration is completely free",
+      "status": "VERIFIED",
+      "claim": "E-Shram registration is completely FREE of charge. No fee is charged for self-registration on the portal or for registration through CSC centres. The accidental insurance benefit under PMSBY is also provided free of cost — the premium is borne by the Government of India.",
+      "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ES_PROCESSING",
+    "minimumDuration": 0,
+    "maximumDuration": 0,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Instant registration — UAN generated immediately upon successful verification",
+    "status": "VERIFIED",
+    "claim": "E-Shram registration is instant. The UAN is generated immediately upon successful Aadhaar verification and form submission. The E-Shram card is available for download immediately after registration.",
+    "sourceRefs": ["SRC-ESHRAM-PORTAL"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-ESHRAM-PORTAL",
+      "url": "https://eshram.gov.in/",
+      "title": "E-Shram Portal - National Database of Unorganised Workers",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "E-Shram is the national portal for registration of unorganised workers. It provides a Universal Account Number (UAN) and E-Shram card to registered workers, along with accidental insurance coverage under PMSBY. Registration is free and can be done online or through CSC centres.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Eligibility criteria for E-Shram registration.",
+        "Document requirements (Aadhaar, mobile, bank account).",
+        "Self-registration and CSC registration process.",
+        "Free registration.",
+        "Instant UAN generation.",
+        "Accidental insurance benefit under PMSBY."
+      ],
+      "uncertainty": "Benefits linked to E-Shram may be expanded or modified by the government through future schemes."
+    },
+    {
+      "sourceCode": "SRC-UWSS-ACT-2008",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2120",
+      "title": "The Unorganised Workers' Social Security Act, 2008",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Unorganised Workers' Social Security Act, 2008 provides for social security and welfare of unorganised workers. It defines unorganised workers and mandates the creation of a national social security board and state boards for formulating social security schemes.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Definition of unorganised workers.",
+        "Legal framework for social security for unorganised workers.",
+        "Mandate for registration of unorganised workers.",
+        "Age eligibility criteria."
+      ],
+      "uncertainty": "The Act provides the framework; specific scheme benefits are determined by government orders and notifications."
+    }
+  ],
+  "limitations": [
+    "E-Shram registration does not automatically enroll the worker in all government welfare schemes; separate applications may be required.",
+    "The accidental insurance benefit under PMSBY is subject to the terms and conditions of the scheme and must be renewed annually (premium borne by government).",
+    "Workers who subsequently become members of EPFO, ESIC, or NPS may need to update their E-Shram status.",
+    "The E-Shram portal requires Aadhaar for registration; workers without Aadhaar must first obtain one.",
+    "Benefits and schemes linked to E-Shram may vary by state as states may add their own schemes.",
+    "Gig workers and platform workers are a recent addition; specific benefit provisions are evolving."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "E-Shram registration eligibility, process, and benefits verified against the E-Shram portal and Unorganised Workers Social Security Act, 2008. Evolving benefits and state variations documented as limitations.",
+    "nextReviewTrigger": [
+      "New welfare schemes linked to E-Shram UAN.",
+      "Changes to eligibility criteria or age limits.",
+      "Updates to accidental insurance coverage amount.",
+      "Integration of E-Shram with other social security platforms.",
+      "Changes to the registration process or document requirements."
+    ]
+  }
+}

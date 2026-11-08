@@ -1,0 +1,333 @@
+{
+  "serviceCode": "DRIVING_LICENSE_FRESH",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Driving License (Fresh Issue)"
+  },
+  "authority": "Ministry of Road Transport & Highways, Government of India (via Sarathi / State RTOs)",
+  "jurisdiction": "STATE",
+  "category": "DRIVING_LICENSE",
+  "description": {
+    "en": "Application for a fresh driving license through the Sarathi (Parivahan) portal. A learner's license must be obtained first, followed by a driving test at the RTO after a mandatory waiting period of 30 days."
+  },
+  "officialLinks": {
+    "application": "https://sarathi.parivahan.gov.in/",
+    "informationPortal": "https://parivahan.gov.in/parivahan/",
+    "motorVehicleAct": "https://www.indiacode.nic.in/handle/123456789/1798"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DL_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants for motor car, motorcycle above 50cc",
+        "claim": "Minimum age is 18 years for a driving license for motor car or motorcycle. For motorcycles with engine capacity up to 50cc (without gear), the minimum age is 16 years with guardian consent. For transport vehicles, the minimum age is 20 years.",
+        "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT"]
+      },
+      {
+        "conditionCode": "DL_LEARNER_LICENSE_HELD",
+        "field": "applicant.hasLearnerLicense",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All fresh DL applicants",
+        "claim": "A valid Learner's License (LL) must be held before applying for a permanent Driving License. The LL must be at least 30 days old (1 month waiting period) but not expired (valid for 6 months from issue).",
+        "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT", "SRC-SARATHI-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific medical fitness requirements may apply; Form 1A (medical certificate) may be required for certain categories.",
+      "Persons with certain disabilities may need modified vehicle endorsements."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DL_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DRIVING_LICENSE_FRESH",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DL_REQ_LEARNER_LICENSE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "A valid Learner's License is a prerequisite. The LL application requires: Form 2, age proof, address proof, passport-size photographs, and passing a written/computer-based test on traffic rules and regulations at the RTO.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SARATHI-PORTAL", "SRC-MOTOR-VEHICLE-ACT"]
+    },
+    {
+      "requirementCode": "DL_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "Form 4 (Application for Driving License) must be submitted through the Sarathi portal. Includes slot booking for driving test at the RTO.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    },
+    {
+      "requirementCode": "DL_REQ_AGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of age is required. Accepted documents include birth certificate, school-leaving certificate, PAN card, Aadhaar card, passport, or any government-issued document with DOB.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    },
+    {
+      "requirementCode": "DL_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of address is required. Accepted documents include Aadhaar card, passport, utility bill (not older than 3 months), bank passbook, voter ID, ration card, or any government-issued address proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    },
+    {
+      "requirementCode": "DL_REQ_MEDICAL_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "Form 1A (Medical Certificate) from a registered medical practitioner is required for applicants above 40 years of age or for transport vehicle license. For others, a self-declaration of physical fitness in Form 1 is accepted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT", "SRC-SARATHI-PORTAL"]
+    },
+    {
+      "requirementCode": "DL_REQ_DRIVING_TEST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "The applicant must pass a driving test conducted by the RTO Inspector. The test evaluates the applicant's ability to drive safely in traffic conditions. The test can only be taken after the 30-day waiting period from LL issue date.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT", "SRC-SARATHI-PORTAL"]
+    },
+    {
+      "requirementCode": "DL_REQ_FEE_PAYMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "Fees must be paid online through the Sarathi portal or at the RTO. Fee amount varies by state and vehicle category.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DL_APPLICATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All fresh DL applicants",
+      "claim": "Complete process: (1) Obtain Learner's License through Sarathi portal — includes online application, written test at RTO, and biometric capture, (2) Wait 30 days (mandatory), (3) Apply for DL on Sarathi portal (Form 4), (4) Book driving test slot, (5) Visit RTO for driving test, (6) If passed, DL is issued — smart card DL is dispatched via post, or a printout is provided on the same day depending on the state.",
+      "doesNotEstablish": [
+        "Driving test slots depend on RTO availability.",
+        "If the test is failed, the applicant can rebook within the LL validity period.",
+        "Some states offer automated driving test tracks."
+      ],
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    },
+    {
+      "processCode": "DL_SMART_CARD_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants in states issuing smart card DLs",
+      "claim": "Many states now issue smart card driving licenses that are dispatched via post after the test. Some states provide a temporary DL printout on the day of the test while the smart card is being printed and dispatched.",
+      "sourceRefs": ["SRC-SARATHI-PORTAL", "SRC-OPEN-PARIVAHAN-INFO"]
+    }
+  ],
+  "output": {
+    "outputCode": "DL_SMART_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Driving License (smart card format in most states) valid for 20 years from the date of issue or until the holder attains the age of 40 (whichever is earlier), renewable thereafter. For transport vehicles, validity is 3 years.",
+    "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT"]
+  },
+  "fees": [
+    {
+      "feeCode": "DL_LEARNER_LICENSE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 200,
+      "currency": "INR",
+      "applicability": "Learner's License application (prerequisite)",
+      "status": "VERIFIED",
+      "claim": "The central government fee for a Learner's License is Rs. 200. States may levy additional fees.",
+      "sourceRefs": ["SRC-MOTOR-VEHICLE-RULES"]
+    },
+    {
+      "feeCode": "DL_DRIVING_LICENSE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 200,
+      "currency": "INR",
+      "applicability": "Driving License issue (per vehicle class)",
+      "status": "VERIFIED",
+      "claim": "The central government fee for DL issuance is Rs. 200 per vehicle class. States may levy additional fees.",
+      "sourceRefs": ["SRC-MOTOR-VEHICLE-RULES"]
+    },
+    {
+      "feeCode": "DL_DRIVING_TEST_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 300,
+      "currency": "INR",
+      "applicability": "Driving test fee",
+      "status": "VERIFIED",
+      "claim": "The driving test fee is Rs. 300. If failed, re-test fee applies.",
+      "sourceRefs": ["SRC-MOTOR-VEHICLE-RULES"]
+    },
+    {
+      "feeCode": "DL_SMART_CARD_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": 200,
+      "currency": "INR",
+      "applicability": "Smart card DL printing and dispatch",
+      "status": "VERIFIED",
+      "claim": "Smart card DL production/dispatch fee of Rs. 200 is applicable in most states.",
+      "sourceRefs": ["SRC-SARATHI-PORTAL"]
+    },
+    {
+      "feeCode": "DL_STATE_ADDITIONAL",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "State-specific additional fees",
+      "status": "UNVERIFIED",
+      "claim": "States may charge additional service fees, IT charges, or convenience fees. Total fee varies by state and typically ranges from Rs. 500 to Rs. 1,500 for the complete LL + DL process."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DL_PROCESSING",
+    "minimumDuration": 37,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Fresh DL including LL waiting period",
+    "status": "VERIFIED",
+    "claim": "Minimum 30 days waiting period after LL is mandatory. LL test + DL test + processing typically takes 37-60 days total from first application. Smart card dispatch adds 7-15 days depending on the state.",
+    "estimatedCompletionDatePolicy": "Count 30 days from LL issue for the earliest DL test date. Add 7-15 days for smart card dispatch.",
+    "fallbackThresholdMentionedBySource": "LL is valid for 6 months; DL application must be made within this period",
+    "sourceRefs": ["SRC-MOTOR-VEHICLE-ACT", "SRC-SARATHI-PORTAL"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SARATHI-PORTAL",
+      "url": "https://sarathi.parivahan.gov.in/",
+      "title": "Sarathi - Driving License Services",
+      "publisher": "Ministry of Road Transport & Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Sarathi is the official portal for all driving license services including LL application, DL application, test booking, and status tracking.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for LL and DL.",
+        "Test slot booking.",
+        "Document requirements.",
+        "Fee payment process."
+      ],
+      "uncertainty": "State-specific workflows may differ slightly."
+    },
+    {
+      "sourceCode": "SRC-MOTOR-VEHICLE-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1798",
+      "title": "The Motor Vehicles Act, 1988",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Motor Vehicles Act defines age requirements, LL prerequisites, driving test requirements, DL validity, and medical fitness provisions.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Age eligibility by vehicle category.",
+        "30-day LL waiting period.",
+        "Driving test requirement.",
+        "DL validity periods.",
+        "Medical certificate requirements."
+      ],
+      "uncertainty": "Act is amended periodically; latest amendments should be verified."
+    },
+    {
+      "sourceCode": "SRC-MOTOR-VEHICLE-RULES",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Central Motor Vehicles Rules, 1989 - Fee Schedule",
+      "publisher": "Ministry of Road Transport & Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Central Motor Vehicles Rules specify fees for LL, DL issuance, driving test, and smart card production.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Central government fee schedule.",
+        "LL fee: Rs. 200.",
+        "DL fee: Rs. 200 per class.",
+        "Driving test fee: Rs. 300."
+      ],
+      "uncertainty": "States may charge additional fees above the central schedule."
+    },
+    {
+      "sourceCode": "SRC-OPEN-PARIVAHAN-INFO",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Parivahan - Transport Services Portal",
+      "publisher": "Ministry of Road Transport & Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Parivahan portal provides consolidated transport services information.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Smart card DL dispatch information.",
+        "State RTO service links."
+      ],
+      "uncertainty": "Portal aggregates information; state portals may have more current details."
+    }
+  ],
+  "limitations": [
+    "This record covers fresh non-transport DL for adults (18+). Transport vehicle DL has different age and additional requirements.",
+    "State-specific additional fees are not fully listed as they vary significantly.",
+    "Automated driving test tracks are available in some states; others conduct road tests — this varies by RTO.",
+    "International Driving Permit (IDP) is a separate application.",
+    "Motorcycle-only DL for 16-year-olds (up to 50cc without gear) has different requirements.",
+    "DL renewal, duplicate, and address change are separate workflows."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core requirements, process, and central fees verified against Motor Vehicles Act and Sarathi portal. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Motor Vehicles Act fee schedule.",
+      "Changes to the Sarathi portal workflow.",
+      "Updates to driving test requirements (e.g., mandatory simulator training).",
+      "Changes to LL/DL validity periods."
+    ]
+  }
+}

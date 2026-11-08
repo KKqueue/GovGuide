@@ -1,0 +1,313 @@
+{
+  "serviceCode": "IGNOAPS_OLD_AGE_PENSION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Indira Gandhi National Old Age Pension Scheme (IGNOAPS)"
+  },
+  "authority": "Ministry of Rural Development / State Social Welfare Departments",
+  "jurisdiction": "CENTRAL",
+  "category": "IGNOAPS_OLD_AGE_PENSION",
+  "description": {
+    "en": "The Indira Gandhi National Old Age Pension Scheme (IGNOAPS) is a non-contributory pension scheme under the National Social Assistance Programme (NSAP), administered by the Ministry of Rural Development. It provides monthly pension to destitute senior citizens belonging to Below Poverty Line (BPL) households. The Central Government provides Rs. 200 per month for beneficiaries aged 60-79 years and Rs. 500 per month for beneficiaries aged 80 years and above. State Governments supplement this with additional top-up amounts that vary from state to state. The scheme is implemented through State/UT Social Welfare Departments and pension is disbursed through Direct Benefit Transfer (DBT) to the beneficiary's bank or post office account."
+  },
+  "officialLinks": {
+    "application": "https://nsap.nic.in/",
+    "informationPortal": "https://rural.gov.in/en/nsap"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "IGNOAPS_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 59,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants seeking old age pension under IGNOAPS",
+        "claim": "The applicant must be 60 years of age or above. Central Government contributes Rs. 200 per month for beneficiaries aged 60-79 years and Rs. 500 per month for beneficiaries aged 80 years and above.",
+        "sourceRefs": [
+          "SRC-NSAP-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "IGNOAPS_BPL_STATUS",
+        "field": "applicant.isBPL",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants seeking old age pension under IGNOAPS",
+        "claim": "The applicant must belong to a Below Poverty Line (BPL) household as identified under the BPL census conducted by the State Government, or must be identified as destitute as per NSAP guidelines.",
+        "sourceRefs": [
+          "SRC-NSAP-PORTAL-2026-10-28",
+          "SRC-RURAL-DEV-NSAP-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states may have relaxed the strict BPL requirement and included other vulnerable categories such as those identified under SECC (Socio-Economic Caste Census) data.",
+      "Beneficiaries already receiving pension under any other Central Government scheme may be excluded from IGNOAPS.",
+      "State-level eligibility criteria and top-up amounts vary significantly across states and UTs."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "IGNOAPS_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "IGNOAPS_OLD_AGE_PENSION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "IGNOAPS_AGE_60_TO_79",
+      "field": "applicant.age",
+      "operator": "LESS_THAN",
+      "value": 80,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "IGNOAPS_AGE_80_PLUS",
+      "field": "applicant.age",
+      "operator": "GREATER_THAN",
+      "value": 79,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "IGNOAPS_REQ_AGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of age such as birth certificate, school leaving certificate, Aadhaar card, voter ID card, or any government-issued document showing date of birth. The applicant must be 60 years of age or above.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "IGNOAPS_REQ_BPL_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "BPL certificate or BPL ration card or inclusion in the BPL list maintained by the local body/state government. Alternatively, the applicant must be identified as destitute under the NSAP guidelines or under SECC (Socio-Economic Caste Census) data as adopted by the state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28",
+        "SRC-RURAL-DEV-NSAP-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "IGNOAPS_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number of the applicant, linked to the bank account for Direct Benefit Transfer (DBT). Aadhaar seeding is mandatory for pension disbursement through DBT.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "IGNOAPS_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account or post office savings account in the name of the applicant. The account must be Aadhaar-seeded for Direct Benefit Transfer. Alternatively, pension may be disbursed through post office accounts in areas without banking access.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "IGNOAPS_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence such as Aadhaar card, voter ID, ration card, or any government-issued document confirming the applicant's address within the jurisdiction of the local body where the application is submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "IGNOAPS_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "IGNOAPS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photograph of the applicant. Some states may capture the photograph digitally at the time of application through the NSAP portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "IGNOAPS_STEP1_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All IGNOAPS applicants",
+      "claim": "Submit application to the local Gram Panchayat (in rural areas) or Urban Local Body/Municipality (in urban areas). Applications may also be submitted online through the NSAP portal (nsap.nic.in) in states that have enabled online applications. The application form is available free of cost at the local body office.",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "IGNOAPS_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The local body verifies the applicant's age, BPL status, and residency. The Gram Panchayat or Urban Local Body forwards the verified application to the Block Development Officer (BDO) or equivalent authority for approval. Verification may include a field visit by the local revenue official or social welfare inspector.",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28",
+        "SRC-RURAL-DEV-NSAP-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "IGNOAPS_STEP3_SANCTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified applications",
+      "claim": "The sanctioning authority (Sub-Divisional Officer, District Social Welfare Officer, or equivalent as designated by the State Government) approves or rejects the application. On approval, the beneficiary is enrolled in the NSAP database and pension disbursement begins from the month of sanction or the following month.",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "IGNOAPS_STEP4_DISBURSEMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All sanctioned beneficiaries",
+      "claim": "Pension is disbursed monthly through Direct Benefit Transfer (DBT) to the beneficiary's Aadhaar-linked bank account or post office account. The Central Government share is transferred through the PFMS (Public Financial Management System) and the State Government adds its top-up amount. Beneficiaries can check payment status on the NSAP portal.",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28",
+        "SRC-RURAL-DEV-NSAP-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "IGNOAPS_PENSION_PAYMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Monthly pension payment to the beneficiary's bank or post office account via Direct Benefit Transfer. Central Government contribution is Rs. 200 per month for beneficiaries aged 60-79 years and Rs. 500 per month for beneficiaries aged 80 years and above. State Governments provide additional top-up amounts varying from Rs. 200 to Rs. 2,000 per month depending on the state. The beneficiary also receives a pension payment order (PPO) or sanction letter as proof of enrollment.",
+    "sourceRefs": [
+      "SRC-NSAP-PORTAL-2026-10-28",
+      "SRC-RURAL-DEV-NSAP-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "IGNOAPS_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Application for IGNOAPS old age pension",
+      "status": "VERIFIED",
+      "claim": "There is no application fee for IGNOAPS. The scheme is entirely non-contributory and funded by the Central and State Governments. No charges are to be collected from applicants or beneficiaries at any stage of the application or disbursement process.",
+      "sourceRefs": [
+        "SRC-NSAP-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "IGNOAPS_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From application submission to first pension disbursement",
+    "status": "VERIFIED",
+    "claim": "Processing time varies by state and local body capacity. Typically, the verification, sanction, and first disbursement take 30-90 days from the date of application. Some states have mandated a maximum processing time through citizen charter commitments, but delays are common due to verification backlogs and fund release schedules.",
+    "sourceRefs": [
+      "SRC-NSAP-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NSAP-PORTAL-2026-10-28",
+      "url": "https://nsap.nic.in/",
+      "title": "National Social Assistance Programme (NSAP) Portal",
+      "publisher": "Ministry of Rural Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NSAP portal provides guidelines, eligibility criteria, beneficiary data, and scheme details for IGNOAPS. The Central Government provides Rs. 200 per month for BPL persons aged 60-79 and Rs. 500 per month for those aged 80 and above. States are encouraged to contribute at least an equal amount.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "IGNOAPS provides monthly pension to BPL senior citizens aged 60 and above.",
+        "Central contribution is Rs. 200 per month for 60-79 age group and Rs. 500 for 80+.",
+        "Aadhaar-based DBT is the primary disbursement mechanism.",
+        "No application fee is charged.",
+        "Application is submitted through local Gram Panchayat or Urban Local Body."
+      ],
+      "uncertainty": "State-level top-up amounts and additional eligibility relaxations vary and may not be fully reflected in the central portal."
+    },
+    {
+      "sourceCode": "SRC-RURAL-DEV-NSAP-2026-10-28",
+      "url": "https://rural.gov.in/en/nsap",
+      "title": "Ministry of Rural Development — National Social Assistance Programme",
+      "publisher": "Ministry of Rural Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Rural Development administers NSAP including IGNOAPS. The scheme targets destitute households identified through BPL surveys and SECC data. Funds are released to states through PFMS and pension is paid via DBT.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "NSAP is a centrally sponsored scheme administered by Ministry of Rural Development.",
+        "BPL or SECC-identified destitute persons are eligible.",
+        "Pension disbursement is through PFMS and DBT."
+      ],
+      "uncertainty": "The revision of pension amounts and expansion of beneficiary coverage is subject to Union Budget allocations."
+    }
+  ],
+  "limitations": [
+    "Central Government pension amounts of Rs. 200 and Rs. 500 per month have not been revised for several years and may not reflect current cost of living.",
+    "State-level top-up amounts vary widely and this record does not detail state-specific pension amounts.",
+    "BPL identification methodology and lists may be outdated in some states, leading to exclusion of eligible beneficiaries.",
+    "The record does not cover the Indira Gandhi National Widow Pension Scheme (IGNWPS) or Indira Gandhi National Disability Pension Scheme (IGNDPS) which are separate NSAP schemes.",
+    "Processing times vary significantly across states and districts and the stated 30-90 days is approximate.",
+    "Annual life certificate (Jeevan Pramaan) requirements for continued pension disbursement are not detailed in this record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central pension amounts and scheme guidelines are verified from NSAP portal but state-specific top-ups and implementation practices need per-state validation.",
+    "nextReviewTrigger": [
+      "Revision of Central Government pension amounts under IGNOAPS.",
+      "Changes to NSAP guidelines or eligibility criteria.",
+      "Union Budget announcements affecting NSAP funding.",
+      "Adoption of new beneficiary identification methodology replacing BPL lists.",
+      "Changes to DBT or Aadhaar-seeding requirements for pension disbursement."
+    ]
+  }
+}

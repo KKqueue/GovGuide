@@ -1,0 +1,343 @@
+{
+  "serviceCode": "SUKANYA_SAMRIDDHI_ACCOUNT",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Sukanya Samriddhi Yojana Account"
+  },
+  "authority": "Ministry of Finance, Department of Economic Affairs, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "SUKANYA_SAMRIDDHI",
+  "description": {
+    "en": "Sukanya Samriddhi Yojana (SSY) is a government-backed savings scheme for the girl child, offering one of the highest interest rates among small savings instruments with tax benefits under Section 80C. The account can be opened at any post office or authorized bank for a girl child below 10 years of age."
+  },
+  "officialLinks": {
+    "application": "https://www.indiapost.gov.in/Financial/pages/content/post-office-saving-schemes.aspx",
+    "informationPortal": "https://www.india.gov.in/sukanya-samriddhi-yojna",
+    "nsiPortal": "https://www.nsiindia.gov.in/InternalPage.aspx?Id_Pk=89"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SSY_GIRL_CHILD_BELOW_10",
+        "field": "beneficiary.age",
+        "operator": "LESS_THAN",
+        "value": 10,
+        "classification": "MANDATORY",
+        "appliesTo": "Girl child for whom the account is opened",
+        "claim": "A Sukanya Samriddhi Account can be opened for a girl child from the date of her birth until she attains the age of 10 years. A grace period of one year beyond the age of 10 may be allowed.",
+        "sourceRefs": [
+          "SRC-SSY-RULES-2026-10-28",
+          "SRC-NSI-SSY-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SSY_MAX_TWO_ACCOUNTS",
+        "field": "guardian.totalSSYAccounts",
+        "operator": "LESS_THAN_OR_EQUALS",
+        "value": 2,
+        "classification": "MANDATORY",
+        "appliesTo": "Guardian/parent opening the account",
+        "claim": "A maximum of two Sukanya Samriddhi Accounts can be opened per family — one for each girl child. In case of twin girls born in the second birth, or triplets born in the first birth, a third account may be permitted with documentary proof.",
+        "sourceRefs": [
+          "SRC-SSY-RULES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SSY_ONE_ACCOUNT_PER_CHILD",
+        "field": "beneficiary.existingSSYAccount",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "Girl child beneficiary",
+        "claim": "Only one account can be opened in the name of a girl child. Duplicate accounts are not permitted.",
+        "sourceRefs": [
+          "SRC-SSY-RULES-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "NRI girls or girls who have acquired non-citizen status are generally not eligible, but specific cases are not fully detailed here.",
+      "The grace period provision for girls slightly above age 10 at the time of account opening may vary by post office or bank interpretation."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SSY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SUKANYA_SAMRIDDHI_ACCOUNT",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SSY_POST_OFFICE_ROUTE",
+      "field": "workflow.accountOpeningLocation",
+      "operator": "EQUALS",
+      "value": "POST_OFFICE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SSY_BANK_ROUTE",
+      "field": "workflow.accountOpeningLocation",
+      "operator": "EQUALS",
+      "value": "AUTHORIZED_BANK",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SSY_REQ_BIRTH_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SSY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Birth certificate of the girl child is mandatory for opening a Sukanya Samriddhi Account to verify the date of birth and age eligibility.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SSY_REQ_GUARDIAN_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SSY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the parent/legal guardian (such as Aadhaar, PAN, passport, voter ID, or driving license) is required for opening the account.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28",
+        "SRC-NSI-SSY-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SSY_REQ_GUARDIAN_ADDRESS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SSY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof of the parent/legal guardian (such as Aadhaar, passport, utility bill, or ration card) is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SSY_REQ_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SSY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-sized photographs of the girl child and the parent/guardian are required for account opening.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NSI-SSY-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SSY_REQ_MINIMUM_DEPOSIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SSY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A minimum initial deposit of Rs. 250 is required to open the account. The minimum annual deposit is Rs. 250, and the maximum annual deposit is Rs. 1,50,000.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28",
+        "SRC-NSI-SSY-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SSY_ACCOUNT_OPENING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Parents/guardians opening SSY account",
+      "claim": "The account can be opened at any India Post office or at authorized banks (including SBI, PNB, BOB, ICICI Bank, Axis Bank, HDFC Bank, and others). The parent/guardian must fill the account opening form (available at the post office or bank), submit required documents, and make the initial deposit.",
+      "doesNotEstablish": [
+        "This record does not list all authorized banks; the list may change over time.",
+        "This record does not cover online account opening as it may not be available at all locations."
+      ],
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28",
+        "SRC-NSI-SSY-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SSY_DEPOSIT_AND_MATURITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All SSY account holders",
+      "claim": "Deposits can be made for up to 15 years from the date of account opening. The account matures 21 years from the date of opening. Partial withdrawal of up to 50% of the balance is allowed after the girl child attains 18 years of age for higher education or marriage purposes. Premature closure is permitted after the girl turns 18 for marriage.",
+      "doesNotEstablish": [
+        "This record does not define the specific procedures for partial withdrawal or premature closure.",
+        "Interest rate changes quarterly and the specific rate at maturity cannot be pre-determined."
+      ],
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SSY_INTEREST_AND_TAX",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All SSY account holders",
+      "claim": "The interest rate for Sukanya Samriddhi Account is 8.2% per annum for Q3 FY2024-25 (October-December 2024), revised quarterly by the Ministry of Finance. The scheme enjoys EEE (Exempt-Exempt-Exempt) tax status: deposits qualify for deduction under Section 80C of the Income Tax Act, interest earned is tax-free, and the maturity amount is also tax-free.",
+      "doesNotEstablish": [
+        "The interest rate is subject to quarterly revision; the rate stated is for the specified quarter only.",
+        "This record does not provide investment advice."
+      ],
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28",
+        "SRC-NSI-SSY-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SSY_ACCOUNT_PASSBOOK",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful account opening, the depositor receives a Sukanya Samriddhi Account passbook in the name of the girl child, recording all deposits, interest credits, and withdrawals. The account accrues interest until maturity at 21 years from opening.",
+    "sourceRefs": [
+      "SRC-SSY-RULES-2026-10-28",
+      "SRC-NSI-SSY-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SSY_ACCOUNT_OPENING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Account opening at post office or authorized bank",
+      "status": "VERIFIED",
+      "claim": "There is no account opening fee for Sukanya Samriddhi Account. The minimum deposit of Rs. 250 goes directly into the account as savings.",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SSY_MINIMUM_DEPOSIT",
+      "category": "DEPOSIT",
+      "amount": 250,
+      "currency": "INR",
+      "applicability": "Minimum annual deposit required to keep the account active",
+      "status": "VERIFIED",
+      "claim": "A minimum deposit of Rs. 250 per financial year is required. Failure to deposit the minimum amount results in a penalty of Rs. 50 per year of default, along with the minimum deposit, to regularize the account.",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SSY_MAXIMUM_DEPOSIT",
+      "category": "DEPOSIT",
+      "amount": 150000,
+      "currency": "INR",
+      "applicability": "Maximum annual deposit limit",
+      "status": "VERIFIED",
+      "claim": "The maximum deposit in a financial year is Rs. 1,50,000. Deposits exceeding this limit are not accepted and do not earn interest.",
+      "sourceRefs": [
+        "SRC-SSY-RULES-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SSY_ACCOUNT_OPENING_TIME",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SCHEME_RULES",
+    "applicability": "Account opening at post office or authorized bank",
+    "status": "ESTIMATED",
+    "claim": "Account opening is typically completed on the same day or within a few working days upon submission of all required documents and the minimum deposit. Processing times may vary by post office or bank branch.",
+    "sourceRefs": [
+      "SRC-SSY-RULES-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SSY-RULES-2026-10-28",
+      "url": "https://www.india.gov.in/sukanya-samriddhi-yojna",
+      "title": "Sukanya Samriddhi Yojana — National Portal of India",
+      "publisher": "Ministry of Finance, Department of Economic Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides comprehensive details on the Sukanya Samriddhi Yojana including eligibility (girl child below 10, max 2 per family), account rules (minimum Rs. 250, maximum Rs. 1.5 lakh per year), maturity at 21 years, deposit period of 15 years, partial withdrawal rules, tax benefits under Section 80C with EEE status, and premature closure conditions.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Girl child below 10 years is eligible.",
+        "Maximum 2 accounts per family.",
+        "Minimum deposit Rs. 250, maximum Rs. 1,50,000 per year.",
+        "Maturity at 21 years from account opening.",
+        "Deposits for 15 years from date of opening.",
+        "Partial withdrawal of 50% after girl turns 18.",
+        "Tax benefits under Section 80C with EEE status.",
+        "No account opening fee.",
+        "Default penalty of Rs. 50 plus minimum deposit."
+      ],
+      "uncertainty": "Specific quarterly interest rate revisions, the complete list of authorized banks, and state-specific processing variations are not fully captured in the portal."
+    },
+    {
+      "sourceCode": "SRC-NSI-SSY-2026-10-28",
+      "url": "https://www.nsiindia.gov.in/InternalPage.aspx?Id_Pk=89",
+      "title": "Sukanya Samriddhi Account Scheme — National Savings Institute",
+      "publisher": "National Savings Institute, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Savings Institute page provides the current interest rate (8.2% for Q3 FY2024-25), scheme rules, document requirements including birth certificate and guardian ID/address proof, photographs, and the list of authorized banks and post offices where the account can be opened.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Current interest rate of 8.2% for Q3 FY2024-25.",
+        "Account can be opened at post offices and authorized banks.",
+        "Birth certificate, guardian ID, address proof, and photos required.",
+        "Scheme details align with Sukanya Samriddhi Account Rules 2019."
+      ],
+      "uncertainty": "The interest rate is for the specified quarter only and is subject to quarterly revision by the Ministry of Finance."
+    }
+  ],
+  "limitations": [
+    "This record covers Sukanya Samriddhi Account opening only; it does not cover account transfer, premature closure procedures, or partial withdrawal process in detail.",
+    "The interest rate mentioned (8.2% for Q3 FY2024-25) is subject to quarterly revision and may not be current at the time of reading.",
+    "The complete list of authorized banks is not maintained in this record as it may change.",
+    "This record does not provide investment or financial advice.",
+    "NRI eligibility and account continuation rules after the girl child becomes an NRI are not fully detailed.",
+    "No personal identification data or financial information is collected or stored by this content record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme rules, eligibility, and deposit limits verified from official sources. Interest rate requires quarterly update verification.",
+    "nextReviewTrigger": [
+      "Ministry of Finance revises the quarterly interest rate for small savings schemes.",
+      "Sukanya Samriddhi Account Rules 2019 are amended.",
+      "Eligibility criteria or deposit limits change.",
+      "Tax benefit provisions under Section 80C are modified.",
+      "The list of authorized banks is updated."
+    ]
+  }
+}

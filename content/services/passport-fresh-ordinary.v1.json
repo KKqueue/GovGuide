@@ -1,0 +1,410 @@
+{
+  "serviceCode": "PASSPORT_FRESH_ORDINARY",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Fresh Passport (Ordinary)"
+  },
+  "authority": "Ministry of External Affairs, Government of India (via Passport Seva)",
+  "jurisdiction": "CENTRAL",
+  "category": "PASSPORT",
+  "description": {
+    "en": "Application for a fresh ordinary passport through the Passport Seva portal. Covers both 36-page and 60-page booklets for Indian citizens who have not held a passport before or whose previous passport was issued more than three years before the current application."
+  },
+  "officialLinks": {
+    "application": "https://www.passportindia.gov.in/AppOnlineProject/welcomeLink",
+    "informationPortal": "https://www.passportindia.gov.in/AppOnlineProject/docAdvisor/attachmentAdvFreshInp",
+    "appointmentBooking": "https://www.passportindia.gov.in/AppOnlineProject/welcomeLink",
+    "feeCalculator": "https://www.passportindia.gov.in/AppOnlineProject/docAdvisor/attachmentAdvFreshInp",
+    "citizensCharter": "https://services1.passportindia.gov.in/AppOnlineProject/pdf/Citizen_Charter.pdf"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PASSPORT_IS_INDIAN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All ordinary passport applicants",
+        "claim": "Only Indian citizens are eligible for an Indian ordinary passport.",
+        "sourceRefs": [
+          "SRC-MEA-PASSPORT-RULES"
+        ]
+      },
+      {
+        "conditionCode": "PASSPORT_NOT_IMPOUNDED",
+        "field": "applicant.passportImpounded",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All ordinary passport applicants",
+        "claim": "Persons whose passports have been impounded or revoked under the Passports Act 1967 may be ineligible.",
+        "sourceRefs": [
+          "SRC-MEA-PASSPORT-RULES"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Applicants with pending criminal proceedings may face delays or rejection depending on the nature of the case.",
+      "Minors require additional documentation and parental consent; this record covers adult applicants."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PASSPORT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PASSPORT_FRESH_ORDINARY",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PASSPORT_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Online application form must be filled on the Passport Seva portal. Applicant can fill Annexure-A if applying in person at PSK.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_PROOF_OF_DOB",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of date of birth is required. Accepted documents include birth certificate issued by the Registrar of Births & Deaths or the Municipal Corporation, transfer/school-leaving/matriculation certificate, policy bond (if DOB mentioned), Aadhaar card/e-Aadhaar, PAN card, or voter ID card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-DOC-ADVISOR"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_PROOF_OF_ADDRESS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of present residential address is required. Accepted documents include water bill, telephone (landline or postpaid mobile) bill, electricity bill, income tax assessment order, election commission photo ID card, Aadhaar card, gas connection proof, bank/post office passbook, or rent agreement with recent receipts.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-DOC-ADVISOR"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_AADHAAR_CARD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card is mandatory for passport applications since 2017 as per MEA notification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MEA-AADHAAR-MANDATE"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs (2x2 inches, white background, no border) are required at the Passport Seva Kendra appointment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_FEE_PAYMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Fee must be paid online at the time of booking an appointment. Payment modes include internet banking, credit/debit card, and SBI bank challan.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-FEE-FAQ"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_APPOINTMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An appointment at a Passport Seva Kendra (PSK) or Post Office Passport Seva Kendra (POPSK) is required for document verification and biometric capture.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "PASSPORT_REQ_POLICE_VERIFICATION",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "PASSPORT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Police verification is conducted after the PSK visit. The passport may be issued before or after police verification depending on the applicant's profile and the type of application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-CHARTER"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PASSPORT_APPLY_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All fresh ordinary passport applicants",
+      "claim": "The process involves: (1) Register on Passport Seva portal, (2) Fill online application form, (3) Pay fee online, (4) Book appointment at nearest PSK/POPSK, (5) Visit PSK with original documents for verification and biometric capture, (6) Police verification (may happen before or after passport dispatch), (7) Passport printed and dispatched via Speed Post.",
+      "doesNotEstablish": [
+        "This record does not guarantee appointment availability at any specific PSK.",
+        "This record does not define the police verification timeline."
+      ],
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-PORTAL"
+      ]
+    },
+    {
+      "processCode": "PASSPORT_DISPATCH_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved passport applicants",
+      "claim": "The passport is dispatched via India Post Speed Post. Applicants can track dispatch status using the file number on the Passport Seva portal.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PASSPORT_BOOKLET",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A passport booklet (36-page or 60-page as selected) valid for 10 years for adults (18+) or 5 years / until age 18 for minors.",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-CHARTER"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PASSPORT_FEE_36_PAGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 1500,
+      "currency": "INR",
+      "applicability": "Fresh ordinary passport, 36-page booklet",
+      "status": "VERIFIED",
+      "claim": "The government fee for a fresh ordinary passport with 36 pages is Rs. 1,500.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-CHARTER"
+      ]
+    },
+    {
+      "feeCode": "PASSPORT_FEE_60_PAGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 2000,
+      "currency": "INR",
+      "applicability": "Fresh ordinary passport, 60-page booklet",
+      "status": "VERIFIED",
+      "claim": "The government fee for a fresh ordinary passport with 60 pages is Rs. 2,000.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-CHARTER"
+      ]
+    },
+    {
+      "feeCode": "PASSPORT_TATKAAL_SURCHARGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 2000,
+      "currency": "INR",
+      "applicability": "Additional fee for Tatkaal processing",
+      "status": "VERIFIED",
+      "claim": "An additional fee of Rs. 2,000 is applicable for Tatkaal (urgent) processing on top of the normal passport fee.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-CHARTER"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PASSPORT_NORMAL_PROCESSING",
+    "minimumDuration": null,
+    "maximumDuration": 30,
+    "unit": "WORKING_DAYS",
+    "basis": "CITIZENS_CHARTER",
+    "applicability": "Normal fresh ordinary passport, subject to police verification",
+    "status": "VERIFIED",
+    "claim": "As per the Citizen's Charter, passport is issued within 30 working days from the date of application for normal category, subject to police verification clearance.",
+    "estimatedCompletionDatePolicy": "Use 30 working days from appointment date as a rough estimate. Actual time depends on police verification.",
+    "fallbackThresholdMentionedBySource": "No specific fallback mentioned",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-CHARTER"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-PORTAL",
+      "url": "https://www.passportindia.gov.in/AppOnlineProject/welcomeLink",
+      "title": "Passport Seva Online Portal",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Passport Seva portal provides the official online application, appointment booking, fee payment, and status tracking system for Indian passports.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application and appointment booking through the portal.",
+        "Fee payment via internet banking, credit/debit card, or SBI challan.",
+        "Document verification and biometric capture at PSK/POPSK."
+      ],
+      "uncertainty": "Portal availability and appointment slots vary by location."
+    },
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-DOC-ADVISOR",
+      "url": "https://www.passportindia.gov.in/AppOnlineProject/docAdvisor/attachmentAdvFreshInp",
+      "title": "Document Advisor - Fresh Passport",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Document Advisor tool lists accepted documents for proof of DOB, address, and other requirements based on applicant category.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Accepted proof of DOB documents.",
+        "Accepted proof of address documents.",
+        "Category-specific document requirements."
+      ],
+      "uncertainty": "Document list may be updated; always check the current advisory."
+    },
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-CHARTER",
+      "url": "https://services1.passportindia.gov.in/AppOnlineProject/pdf/Citizen_Charter.pdf",
+      "title": "Citizen's Charter - Passport Services",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Citizen's Charter specifies processing timelines, fees, and service commitments for passport services.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "30 working days processing time for normal category.",
+        "Fee schedule for 36-page and 60-page booklets.",
+        "Tatkaal surcharge amount.",
+        "Passport validity periods."
+      ],
+      "uncertainty": "Fees and timelines may be revised; the charter version should be confirmed."
+    },
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-FEE-FAQ",
+      "url": "https://www.passportindia.gov.in/AppOnlineProject/online/faqPayment",
+      "title": "FAQ - Fee Payment",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The FAQ details online payment methods and the payment flow during appointment booking.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online payment is required for appointment booking.",
+        "Payment modes include internet banking, credit/debit card, and SBI challan."
+      ],
+      "uncertainty": "Available payment modes may change."
+    },
+    {
+      "sourceCode": "SRC-MEA-PASSPORT-RULES",
+      "url": "https://www.mea.gov.in/passport-cpv.htm",
+      "title": "Passport & Visa Services - MEA",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MEA website provides the legal framework under the Passports Act 1967 for passport eligibility and restrictions.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Indian citizenship is required for an ordinary passport.",
+        "Passport impoundment and revocation provisions under the Passports Act."
+      ],
+      "uncertainty": "Detailed rules depend on individual circumstances."
+    },
+    {
+      "sourceCode": "SRC-MEA-AADHAAR-MANDATE",
+      "url": "https://www.passportindia.gov.in/AppOnlineProject/online/faqAadhaar",
+      "title": "FAQ - Aadhaar for Passport",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Aadhaar is mandatory for passport applications as per MEA notification.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Aadhaar card is mandatory for passport applications."
+      ],
+      "uncertainty": "Exemptions may apply in specific cases as per MEA guidelines."
+    }
+  ],
+  "limitations": [
+    "This record covers adult fresh ordinary passport applications only.",
+    "Minor passport applications, diplomatic/official passports, Tatkaal-specific workflows, and re-issue applications are separate services.",
+    "Police verification timelines are location-dependent and cannot be estimated.",
+    "Appointment availability varies by PSK location and demand.",
+    "The complete accepted document list changes periodically; applicants should always check the current Document Advisor.",
+    "This record does not cover NRI or foreign-based applications."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Primary requirements and fees verified against official sources. Document list is summarized, not exhaustive.",
+    "nextReviewTrigger": [
+      "Fee revision by MEA.",
+      "Changes to the Citizen's Charter processing times.",
+      "Updates to the Document Advisor accepted documents list.",
+      "Changes to the Aadhaar mandate policy."
+    ]
+  }
+}

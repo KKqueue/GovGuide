@@ -1,0 +1,296 @@
+{
+  "serviceCode": "PAN_INSTANT_EPAN",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "LIMITED_ROUTE_CANDIDATE",
+  "name": {
+    "en": "Instant e-PAN"
+  },
+  "authority": "Income Tax Department, Ministry of Finance, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "PAN",
+  "description": {
+    "en": "A route on the Income Tax Department e-Filing portal for near-real-time allotment of a digitally signed electronic PAN."
+  },
+  "officialLinks": {
+    "application": "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/instant-e-pan",
+    "informationPortal": "https://www.incometax.gov.in/iec/foportal/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EPAN_HAS_VALID_AADHAAR",
+        "field": "applicant.hasValidAadhaar",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants using the Instant e-PAN route",
+        "claim": "The official page describes the facility for applicants who possess a valid Aadhaar number.",
+        "sourceRefs": [
+          "SRC-ITD-EPAN-2026-10-21"
+        ]
+      },
+      {
+        "conditionCode": "EPAN_HAS_LINKED_MOBILE",
+        "field": "applicant.hasLinkedMobileNumber",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants using the Instant e-PAN route",
+        "claim": "The official page states that the process requires a linked mobile number.",
+        "sourceRefs": [
+          "SRC-ITD-EPAN-2026-10-21"
+        ]
+      },
+      {
+        "conditionCode": "EPAN_IS_NOT_MINOR",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants using the Instant e-PAN route",
+        "claim": "The official guidance excludes a minor on the date of the request.",
+        "sourceRefs": [
+          "SRC-ITD-EPAN-2026-10-21"
+        ]
+      },
+      {
+        "conditionCode": "EPAN_NOT_REPRESENTATIVE_ASSESSEE",
+        "field": "applicant.category",
+        "operator": "NOT_EQUALS",
+        "value": "REPRESENTATIVE_ASSESSEE",
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants using the Instant e-PAN route",
+        "claim": "The official guidance excludes a person covered by the representative-assessee definition.",
+        "sourceRefs": [
+          "SRC-ITD-EPAN-2026-10-21"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "The source describes an individual taxpayer route; this record does not define entity or foreign-applicant workflows.",
+      "The record does not establish eligibility conditions beyond the claims listed above."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EPAN_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PAN_INSTANT_EPAN",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EPAN_REQUEST_REJECTED",
+      "field": "workflow.instantEpanRequestStatus",
+      "operator": "EQUALS",
+      "value": "REJECTED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EPAN_NOT_SERVICED_WITHIN_24_HOURS",
+      "field": "workflow.instantEpanRequestAgeHours",
+      "operator": "GREATER_THAN",
+      "value": 24,
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EPAN_REQ_VALID_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EPAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid Aadhaar number is required for the Instant e-PAN route.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    },
+    {
+      "requirementCode": "EPAN_REQ_LINKED_MOBILE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EPAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A linked mobile number is required for the Instant e-PAN route as described by the official page.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    },
+    {
+      "requirementCode": "EPAN_REQ_DIGILOCKER_ACCESS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EPAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Access to DigiLocker is required to fetch the accepted date-of-birth proof for the Instant e-PAN route.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EPAN_DIGILOCKER_EKYC",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants using the Instant e-PAN route",
+      "claim": "The official page states that the process uses Aadhaar e-KYC data and DigiLocker details.",
+      "doesNotEstablish": [
+        "This record does not define a separate universal DigiLocker eligibility rule.",
+        "This record does not collect or store DigiLocker credentials, OTPs, Aadhaar numbers, or authentication secrets."
+      ],
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    },
+    {
+      "processCode": "EPAN_REJECTED_OR_DELAYED_NEXT_STEP",
+      "classification": "CONDITIONAL",
+      "appliesWhen": {
+        "any": [
+          "EPAN_REQUEST_REJECTED",
+          "EPAN_NOT_SERVICED_WITHIN_24_HOURS"
+        ]
+      },
+      "claim": "The official page directs taxpayers whose Instant e-PAN request is rejected or not serviced within 24 hours to submit a PAN request through NSDL/Protean or UTIITSL.",
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "EPAN_DIGITALLY_SIGNED_PDF",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "The PAN is issued in PDF format and is digitally signed.",
+    "sourceRefs": [
+      "SRC-ITD-EPAN-2026-10-21"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "EPAN_GOVERNMENT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Instant e-PAN route as described by the Income Tax Department",
+      "status": "VERIFIED",
+      "claim": "The official page states that the service is free of cost.",
+      "sourceRefs": [
+        "SRC-ITD-EPAN-2026-10-21"
+      ]
+    },
+    {
+      "feeCode": "EPAN_SERVICE_CHARGE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Not established",
+      "status": "UNVERIFIED",
+      "claim": "No separate authorized service-centre charge is established by the reviewed source."
+    },
+    {
+      "feeCode": "EPAN_DELIVERY_CHARGE",
+      "category": "DELIVERY_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Not established; this record does not assume physical delivery",
+      "status": "UNVERIFIED",
+      "claim": "The reviewed source describes electronic PDF issuance and does not establish a physical delivery charge."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EPAN_NEAR_REAL_TIME",
+    "minimumDuration": null,
+    "maximumDuration": null,
+    "unit": null,
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Instant e-PAN route",
+    "status": "QUALITATIVE_ONLY",
+    "claim": "The official page describes Instant e-PAN allotment as near-real time.",
+    "estimatedCompletionDatePolicy": "Do not calculate a date; use the qualitative near-real-time description only.",
+    "fallbackThresholdMentionedBySource": "24 hours",
+    "sourceRefs": [
+      "SRC-ITD-EPAN-2026-10-21"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-ITD-EPAN-2026-10-21",
+      "url": "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/instant-e-pan",
+      "title": "e-PAN",
+      "publisher": "Income Tax Department, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-22",
+      "sourceLastReviewedAt": "2026-10-22",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The FAQ identifies the eligible individual/no-PAN route, Aadhaar-linked mobile, DigiLocker, exclusions, and free-of-cost status.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Instant e-PAN is an official Income Tax Department route.",
+        "The route is for applicants who possess a valid Aadhaar number.",
+        "The process uses Aadhaar e-KYC data, DigiLocker details, and a linked mobile number.",
+        "PAN is issued in digitally signed electronic PDF format.",
+        "The service is free of cost.",
+        "The service is described as near-real time.",
+        "Rejected or unserviced requests within 24 hours should be submitted through NSDL/Protean or UTIITSL."
+      ],
+      "uncertainty": "The record does not define entity or foreign-applicant workflows, numeric processing times, physical delivery, or service-centre charges."
+    },
+    {
+      "sourceCode": "SRC-ITD-PORTAL-2026-10-21",
+      "url": "https://www.incometax.gov.in/iec/foportal/",
+      "title": "e-Filing, Income Tax Department",
+      "publisher": "Income Tax Department, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-22",
+      "lastUpdatedDate": "2026-10-22",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Income Tax Department portal provides the official e-Filing entry point for the Instant e-PAN service.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "The Income Tax Department portal links to the Instant e-PAN service."
+      ],
+      "uncertainty": "The portal entry point does not by itself establish additional Instant e-PAN eligibility or document rules."
+    }
+  ],
+  "limitations": [
+    "This record is for Instant e-PAN only, not general PAN application, correction, reprint, replacement, minor, foreign-applicant, or entity workflows.",
+    "No physical PAN delivery is assumed.",
+    "No Aadhaar number, mobile number, DigiLocker credential, OTP, or authentication secret is collected or stored by this content record.",
+    "No numeric processing duration or estimated completion date is provided.",
+    "No additional identity, address, or date-of-birth documents are added because the reviewed source does not establish them for this route.",
+    "The record is not a universal PAN checklist."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-21",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Limited route evidence is verified, but universal eligibility and several applicant categories remain unresolved.",
+    "nextReviewTrigger": [
+      "The official Instant e-PAN page changes.",
+      "The Income Tax Department publishes updated eligibility or FAQ guidance.",
+      "The 24-hour service statement changes.",
+      "A new official route or eligibility restriction is introduced."
+    ]
+  }
+}

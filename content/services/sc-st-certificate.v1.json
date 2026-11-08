@@ -1,0 +1,341 @@
+{
+  "serviceCode": "SC_ST_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "SC/ST Certificate (Scheduled Caste / Scheduled Tribe)"
+  },
+  "authority": "District Magistrate / Deputy Commissioner / Revenue Department (State level); Ministry of Tribal Affairs and Ministry of Social Justice & Empowerment (Central level)",
+  "jurisdiction": "STATE",
+  "category": "SC_ST_CERTIFICATE",
+  "description": {
+    "en": "The SC/ST Certificate is issued to persons belonging to communities listed in the Scheduled Castes or Scheduled Tribes lists as specified in the Constitution of India. The certificate is essential for availing reservation benefits in government employment, educational institutions, electoral constituencies, and various welfare schemes under the provisions of Articles 341 and 342 of the Constitution."
+  },
+  "officialLinks": {
+    "application": "https://edistrict.up.gov.in/",
+    "informationPortal": "https://tribal.nic.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SC_ST_COMMUNITY_LISTED",
+        "field": "applicant.communityListedAsSCST",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All SC/ST certificate applicants",
+        "claim": "The applicant's caste or tribe must be listed in the Constitution (Scheduled Castes) Order, 1950 or the Constitution (Scheduled Tribes) Order, 1950, as amended from time to time. The lists are state-specific — a community may be listed as SC/ST in one state but not in another.",
+        "sourceRefs": [
+          "SRC-SCST-TRIBAL-2026-10-28",
+          "SRC-SCST-MOSJE-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SC_ST_STATE_RESIDENT",
+        "field": "applicant.isStateResident",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All SC/ST certificate applicants",
+        "claim": "The applicant must be a resident of the state from which the SC/ST certificate is being sought. The SC/ST status is determined based on the state of origin (birth/ancestral state), not the current state of residence.",
+        "sourceRefs": [
+          "SRC-SCST-TRIBAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Persons who have migrated from one state to another may need to obtain the certificate from their state of origin.",
+      "Persons who have converted from Hinduism, Sikhism, or Buddhism to another religion may lose SC status (as per the current constitutional provisions).",
+      "ST status is generally not affected by religious conversion.",
+      "Children of inter-caste marriages may have specific rules depending on the state."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SCST_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SC_ST_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SCST_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SCST_SC_CATEGORY",
+      "field": "applicant.category",
+      "operator": "EQUALS",
+      "value": "SC",
+      "classification": "APPLICANT_TYPE",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "SCST_ST_CATEGORY",
+      "field": "applicant.category",
+      "operator": "EQUALS",
+      "value": "ST",
+      "classification": "APPLICANT_TYPE",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SCST_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Prescribed application form available at the district/tehsil office or downloadable from the state's e-district portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SCST_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card, voter ID, or other government-issued identity document of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SCST_REQ_CASTE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of caste/tribe — father's or grandfather's SC/ST certificate, community verification report from the local authority (Gram Pradhan, Sarpanch), or an affidavit on stamp paper declaring the caste/tribe. School leaving certificate mentioning caste may also be accepted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28",
+        "SRC-SCST-TRIBAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SCST_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence — ration card, voter ID, domicile certificate, or utility bills confirming residence in the state/district.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SCST_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SCST_REQ_BIRTH_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SCST_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Birth certificate of the applicant (for first-generation applicants without parent's SC/ST certificate, this helps establish lineage and place of birth).",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SCST_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All SC/ST certificate applicants",
+      "claim": "Apply through the state's e-district portal, at the district/tehsil/SDM office, or through Common Service Centres (CSCs). Submit the completed application form along with all required documents.",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SCST_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All SC/ST certificate applicants",
+      "claim": "The revenue department conducts verification of the applicant's caste/tribe claim. Field verification through the local Lekhpal/Patwari or revenue inspector is conducted. For ST certificates, a Tribe Verification Committee may also be involved.",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28",
+        "SRC-SCST-TRIBAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SCST_STEP3_APPROVAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Verified applications",
+      "claim": "The application is processed and approved by the competent authority — typically the Sub-Divisional Magistrate (SDM), Tehsildar, or District Magistrate as designated by the state government.",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SCST_STEP4_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Approved applications",
+      "claim": "The SC/ST certificate is issued in the prescribed format. It can be downloaded from the e-district portal or collected from the issuing office. For use in central government recruitment, the certificate may need to be validated by the District Caste Certificate Scrutiny Committee.",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28",
+        "SRC-SCST-MOSJE-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SCST_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An SC/ST Certificate is issued containing the applicant's personal details, caste/tribe name, the Constitutional Order under which the community is listed, and the state. The certificate is used for availing reservation in government employment (Articles 16(4), 16(4A)), educational admissions, legislative body seats, and welfare schemes.",
+    "sourceRefs": [
+      "SRC-SCST-TRIBAL-2026-10-28",
+      "SRC-SCST-MOSJE-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SCST_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 10,
+      "maximumAmount": 50,
+      "currency": "INR",
+      "applicability": "SC/ST certificate application fee",
+      "status": "VERIFIED",
+      "claim": "Application fee ranges from Rs. 10 to Rs. 50 depending on the state. Several states issue SC/ST certificates free of charge. Online applications may have a nominal service charge.",
+      "sourceRefs": [
+        "SRC-SCST-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SCST_PROCESSING_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "SC/ST certificate from application to issuance",
+    "status": "VERIFIED",
+    "claim": "SC/ST certificate processing typically takes 15-30 days depending on the state, district workload, and whether field verification is required. ST certificates may take longer due to Tribe Verification Committee involvement. Some states guarantee issuance within a specific period under Public Service Guarantee Acts.",
+    "sourceRefs": [
+      "SRC-SCST-EDISTRICT-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SCST-TRIBAL-2026-10-28",
+      "url": "https://tribal.nic.in/",
+      "title": "Ministry of Tribal Affairs — Official Portal",
+      "publisher": "Ministry of Tribal Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Tribal Affairs portal provides information on Scheduled Tribes, their constitutional status, welfare schemes, and the state-wise list of Scheduled Tribes as per the Constitution (Scheduled Tribes) Order, 1950.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "ST lists are state-specific as per the Constitution (Scheduled Tribes) Order, 1950.",
+        "The President may by notification specify/modify the Scheduled Tribes list for any state.",
+        "ST certificate is essential for availing tribal welfare schemes and reservation benefits."
+      ],
+      "uncertainty": "The ST list is amended from time to time through Parliamentary legislation. Recent additions or modifications should be verified."
+    },
+    {
+      "sourceCode": "SRC-SCST-MOSJE-2026-10-28",
+      "url": "https://socialjustice.gov.in/",
+      "title": "Ministry of Social Justice and Empowerment — Official Portal",
+      "publisher": "Ministry of Social Justice and Empowerment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Social Justice and Empowerment oversees the welfare of Scheduled Castes and provides information on the SC list, welfare schemes, and reservation policies.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "SC lists are state-specific as per the Constitution (Scheduled Castes) Order, 1950.",
+        "SC certificate is essential for reservation in government jobs and educational institutions.",
+        "District Caste Certificate Scrutiny Committees validate SC/ST certificates for central government use."
+      ],
+      "uncertainty": "SC lists are periodically amended. State-specific processes and validation requirements may vary."
+    },
+    {
+      "sourceCode": "SRC-SCST-EDISTRICT-2026-10-28",
+      "url": "https://edistrict.up.gov.in/",
+      "title": "e-District Portal (representative state portal for SC/ST certificate)",
+      "publisher": "Revenue Department, State Government (example: Uttar Pradesh)",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State e-district portals provide the online application facility for SC/ST certificate along with document requirements, fee information, and processing timelines.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Application can be submitted online through e-district portals.",
+        "Required documents include identity proof, caste/tribe proof, and address proof.",
+        "Processing time is typically 15-30 days.",
+        "Fee ranges from free to Rs. 50."
+      ],
+      "uncertainty": "Represents one state's implementation. Other states have their own portals and processes."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview applicable across states. Specific documentation requirements and processes vary significantly by state.",
+    "The record uses one state's e-district portal as representative.",
+    "The complex rules around inter-state migration and SC/ST status are not fully modeled.",
+    "The impact of religious conversion on SC status is a legally sensitive area subject to ongoing judicial interpretation.",
+    "Tribe Verification Committee processes for ST certificates vary widely across states.",
+    "The record does not cover the SC/ST certificate scrutiny process for central government recruitment in detail."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Constitutional basis and general process verified. State-specific implementation details and recent list amendments need verification.",
+    "nextReviewTrigger": [
+      "Amendment to the Scheduled Castes or Scheduled Tribes lists.",
+      "New Supreme Court rulings on SC/ST status and certificate validity.",
+      "State-level changes to the SC/ST certificate application process.",
+      "Changes to Tribe Verification Committee procedures."
+    ]
+  }
+}

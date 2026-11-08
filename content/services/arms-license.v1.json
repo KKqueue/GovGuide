@@ -1,0 +1,314 @@
+{
+  "serviceCode": "ARMS_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Arms License"
+  },
+  "authority": "District Magistrate / Licensing Authority under Arms Act, 1959",
+  "jurisdiction": "STATE",
+  "category": "ARMS_LICENSE",
+  "description": {
+    "en": "License to acquire, possess, and carry firearms under the Arms Act, 1959 and Arms Rules, 2016. Applications are submitted through the National Database of Arms Licenses (NDAL) and Arms License Issuance System (ALIS) portal and processed by the District Magistrate or designated licensing authority."
+  },
+  "officialLinks": {
+    "application": "https://ndal-alis.gov.in/",
+    "informationPortal": "https://www.mha.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ARMS_MINIMUM_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 20,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for arms license",
+        "claim": "The applicant must be at least 21 years of age to apply for an arms license under the Arms Act, 1959.",
+        "sourceRefs": ["SRC-ARMS-ACT-1959"]
+      },
+      {
+        "conditionCode": "ARMS_NO_CRIMINAL_RECORD",
+        "field": "applicant.hasCriminalRecord",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for arms license",
+        "claim": "The applicant must not have been convicted of any offence involving violence or moral turpitude, and must not be a prohibited person under Section 3 of the Arms Act.",
+        "sourceRefs": ["SRC-ARMS-ACT-1959"]
+      },
+      {
+        "conditionCode": "ARMS_MENTAL_FITNESS",
+        "field": "applicant.isMentallyFit",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for arms license",
+        "claim": "The applicant must be of sound mind and not declared mentally unfit by a competent authority.",
+        "sourceRefs": ["SRC-ARMS-ACT-1959"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific threat perception or self-defence justification may be required depending on the licensing authority.",
+      "Government servants and defence personnel may have a different application process.",
+      "Some states impose additional eligibility criteria beyond the central Arms Act provisions.",
+      "The maximum number of firearms per license is restricted to two under the Arms (Amendment) Act, 2019."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ARMS_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ARMS_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "ARMS_APPLICATION_TYPE_NEW",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "ARMS_APPLICATION_TYPE_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ARMS_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar card of the applicant is required as proof of identity for arms license application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_RESIDENCE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of residence such as voter ID, utility bill, or property documents is required to establish domicile in the licensing district.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-size photographs of the applicant are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_CHARACTER_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "A character certificate or verification report from the local police station is required to establish that the applicant is not a prohibited person.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ARMS-ACT-1959", "SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_MEDICAL_FITNESS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "Medical fitness certificate from a registered medical practitioner certifying that the applicant is physically and mentally fit to handle firearms.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ARMS-ACT-1959"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_REASON_STATEMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "A statement of reason for requiring the arms license, such as self-defence, crop protection, or sporting purposes.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "requirementCode": "ARMS_REQ_INCOME_PROOF",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["ARMS_ROUTE_SELECTED"]
+      },
+      "claim": "Income proof or income tax return may be required by the licensing authority to assess the applicant's ability to safely secure and maintain firearms.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ARMS_STEP1_REGISTER_NDAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new arms license applicants",
+      "claim": "Register on the NDAL-ALIS portal (ndal-alis.gov.in) and create a user account with valid Aadhaar and mobile number.",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "processCode": "ARMS_STEP2_FILL_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new arms license applicants",
+      "claim": "Fill the online application form with personal details, address, purpose of license, type of firearm, and upload required documents.",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "processCode": "ARMS_STEP3_PAY_FEE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new arms license applicants",
+      "claim": "Pay the prescribed application fee online through the portal. Fee amount varies by state.",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "processCode": "ARMS_STEP4_POLICE_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new arms license applicants",
+      "claim": "The local police station conducts verification of the applicant's antecedents, character, and address. A field inquiry report is submitted to the District Magistrate.",
+      "sourceRefs": ["SRC-ARMS-ACT-1959", "SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "processCode": "ARMS_STEP5_DM_DECISION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new arms license applicants",
+      "claim": "The District Magistrate reviews the application, police verification report, and supporting documents. The application may be approved, rejected, or additional information may be sought.",
+      "sourceRefs": ["SRC-ARMS-ACT-1959"]
+    },
+    {
+      "processCode": "ARMS_STEP6_LICENSE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved arms license applications",
+      "claim": "Upon approval, the arms license is issued through the NDAL-ALIS system with a unique license number. The license is valid for the specified area and type of firearm.",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "ARMS_LICENSE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An arms license document is issued specifying the type and number of arms permitted, area of validity, and validity period. Under the Arms (Amendment) Act 2019, a license is valid for 5 years and allows a maximum of two firearms.",
+    "sourceRefs": ["SRC-ARMS-ACT-1959", "SRC-NDAL-ALIS-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "ARMS_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "minimumAmount": 100,
+      "maximumAmount": 1000,
+      "currency": "INR",
+      "applicability": "New arms license application fee varies by state",
+      "status": "VERIFIED",
+      "claim": "Arms license application fees vary by state, typically ranging from Rs. 100 to Rs. 1000 for a new license application.",
+      "sourceRefs": ["SRC-NDAL-ALIS-2026-10-28"]
+    },
+    {
+      "feeCode": "ARMS_RENEWAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "License renewal (every 5 years)",
+      "status": "UNVERIFIED",
+      "claim": "Renewal fees are prescribed by respective state governments and may differ from the initial application fee."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ARMS_PROCESSING_TIMELINE",
+    "minimumDuration": 60,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "New arms license application with complete documentation and successful police verification",
+    "status": "VERIFIED",
+    "claim": "Arms license applications are typically processed within 60 to 90 days, subject to completion of police verification and field inquiry. The District Magistrate is required to dispose of the application within a reasonable time.",
+    "sourceRefs": ["SRC-ARMS-ACT-1959", "SRC-NDAL-ALIS-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NDAL-ALIS-2026-10-28",
+      "url": "https://ndal-alis.gov.in/",
+      "title": "National Database of Arms Licenses — ALIS Portal",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NDAL-ALIS portal is the centralized online system for arms license applications, issuance, and renewal across India. All new applications must be submitted through this portal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Arms license applications are submitted online through the NDAL-ALIS portal.",
+        "Required documents include Aadhaar, address proof, photographs, and purpose statement.",
+        "Application fees vary by state and are paid online.",
+        "License is issued with a unique number through the NDAL system."
+      ],
+      "uncertainty": "State-specific fee structures and additional documentation requirements are not fully enumerated on the central portal."
+    },
+    {
+      "sourceCode": "SRC-ARMS-ACT-1959",
+      "url": "https://www.mha.gov.in/en/divisionofmha/is-division",
+      "title": "Arms Act, 1959 and Arms Rules, 2016",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Arms Act, 1959 (as amended in 2019) governs the acquisition, possession, manufacture, sale, import, export and transport of firearms and ammunition. Section 3 prohibits acquisition without license. Section 13 prescribes licensing procedures. Section 14 prescribes grounds for refusal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Minimum age of 21 years is required for arms license.",
+        "Persons convicted of violent offences or moral turpitude are prohibited from obtaining a license.",
+        "Mental fitness is a prerequisite for license issuance.",
+        "District Magistrate is the licensing authority.",
+        "Police verification and character inquiry are mandatory.",
+        "Maximum two firearms are permitted per license under the 2019 amendment.",
+        "License validity is 5 years under the 2019 amendment."
+      ],
+      "uncertainty": "State governments may impose additional restrictions. The Act has been amended multiple times and state-level rules vary."
+    }
+  ],
+  "limitations": [
+    "This record covers individual arms license for non-prohibited bore firearms only. Prohibited bore licenses require central government approval.",
+    "State-specific fee structures, additional eligibility criteria, and documentation requirements are not fully covered.",
+    "This record does not cover arms dealer licenses, arms manufacturing licenses, or institutional licenses.",
+    "The record does not cover the process for arms license transfer, amendment, or surrender.",
+    "Specific firearm categories and their classification under Schedule I of the Arms Rules are not modeled."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core licensing process is reviewed based on the Arms Act and NDAL-ALIS portal, but state-specific variations and prohibited bore licensing remain unmodeled.",
+    "nextReviewTrigger": [
+      "Amendments to the Arms Act, 1959 or Arms Rules, 2016.",
+      "Changes to the NDAL-ALIS portal application process.",
+      "New state-level notifications regarding arms license fees or eligibility.",
+      "Changes to the maximum firearms limit or license validity period."
+    ]
+  }
+}

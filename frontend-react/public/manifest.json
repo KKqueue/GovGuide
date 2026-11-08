@@ -1,0 +1,17 @@
+{
+  "name": "Government Guide Companion",
+  "short_name": "GovGuide",
+  "description": "Free comprehensive guide to Indian government services — requirements, fees, processing times, and official sources.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1E40AF",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

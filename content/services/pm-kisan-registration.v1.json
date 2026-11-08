@@ -1,0 +1,341 @@
+{
+  "serviceCode": "PM_KISAN_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "PM Kisan Samman Nidhi Registration"
+  },
+  "authority": "Department of Agriculture & Farmers Welfare, Ministry of Agriculture, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "PM_KISAN",
+  "description": {
+    "en": "Registration under the Pradhan Mantri Kisan Samman Nidhi (PM-KISAN) scheme, which provides income support of Rs. 6,000 per year in three equal installments to all landholding farmer families, subject to certain exclusion criteria."
+  },
+  "officialLinks": {
+    "application": "https://pmkisan.gov.in/registrationformnew.aspx",
+    "informationPortal": "https://pmkisan.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PMKISAN_IS_LANDHOLDING_FARMER",
+        "field": "applicant.isLandholdingFarmerFamily",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "All landholding farmer families are eligible for the scheme, where a farmer family is defined as a family comprising husband, wife, and minor children who own cultivable land as per land records of the state or union territory.",
+        "sourceRefs": [
+          "SRC-PMKISAN-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMKISAN_NOT_INSTITUTIONAL_LANDHOLDER",
+        "field": "applicant.isInstitutionalLandholder",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "Institutional landholders are excluded from the scheme benefits.",
+        "sourceRefs": [
+          "SRC-PMKISAN-GUIDELINES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMKISAN_NOT_INCOME_TAX_PAYER",
+        "field": "applicant.familyMemberIsIncomeTaxPayer",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "Farmer families in which one or more members are income tax payers in the previous assessment year are excluded from the scheme.",
+        "sourceRefs": [
+          "SRC-PMKISAN-GUIDELINES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMKISAN_NOT_GOVT_EMPLOYEE",
+        "field": "applicant.familyMemberIsGovtEmployee",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "Farmer families in which one or more members are serving or retired officers and employees of central/state government ministries, offices, departments, or local bodies (excluding Multi-Tasking Staff, Class IV, and Group D employees) are excluded.",
+        "sourceRefs": [
+          "SRC-PMKISAN-GUIDELINES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMKISAN_NOT_CONSTITUTIONAL_POST_HOLDER",
+        "field": "applicant.familyMemberHoldsConstitutionalPost",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "Former and present holders of constitutional posts, former and present ministers, state ministers, mayors, chairpersons of district panchayats, MLAs, MLCs, and MPs are excluded.",
+        "sourceRefs": [
+          "SRC-PMKISAN-GUIDELINES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PMKISAN_NOT_PROFESSIONAL",
+        "field": "applicant.familyMemberIsProfessional",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM-KISAN applicants",
+        "claim": "Professionals such as doctors, engineers, lawyers, chartered accountants, and architects registered with professional bodies and carrying out their profession are excluded.",
+        "sourceRefs": [
+          "SRC-PMKISAN-GUIDELINES-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific state-level additional eligibility conditions or beneficiary identification criteria are not fully detailed here.",
+      "The pension exclusion threshold (Rs. 10,000 or more per month) for retired government pensioners is noted in scheme guidelines but not independently verified against the latest revision."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PMKISAN_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PM_KISAN_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMKISAN_SELF_REGISTRATION",
+      "field": "workflow.registrationMode",
+      "operator": "EQUALS",
+      "value": "SELF_REGISTRATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PMKISAN_CSC_REGISTRATION",
+      "field": "workflow.registrationMode",
+      "operator": "EQUALS",
+      "value": "CSC_OR_NODAL_OFFICER",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PMKISAN_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMKISAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number is mandatory for registration under PM-KISAN. The Aadhaar must be linked to the bank account for receiving installments.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMKISAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMKISAN_REQ_LAND_RECORDS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMKISAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Land ownership documents such as khasra-khatauni (land records) are required to verify that the applicant is a landholding farmer. The state government verifies these records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMKISAN-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMKISAN_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PMKISAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "An active bank account in the name of the beneficiary is required for direct benefit transfer of installments.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMKISAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PMKISAN_REQ_MOBILE_NUMBER",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "PMKISAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A mobile number is required during registration for OTP verification and status update notifications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PMKISAN-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PMKISAN_SELF_REG_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Farmers registering themselves online",
+      "claim": "Eligible farmers can self-register on the PM-KISAN portal (pmkisan.gov.in) by selecting 'New Farmer Registration', entering Aadhaar number, providing land details, bank account details, and completing OTP verification.",
+      "doesNotEstablish": [
+        "This record does not guarantee acceptance; state government must verify land ownership and eligibility.",
+        "This record does not store Aadhaar numbers, bank details, or OTP secrets."
+      ],
+      "sourceRefs": [
+        "SRC-PMKISAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMKISAN_CSC_NODAL_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Farmers registering through CSC or state nodal officer",
+      "claim": "Farmers may also register through Common Service Centres (CSCs) or the state-designated nodal officer. CSC operators or nodal officers enter the farmer details on their behalf after verifying documents.",
+      "doesNotEstablish": [
+        "This record does not define fees for CSC-assisted registration beyond the scheme's free registration.",
+        "This record does not verify CSC operator procedures."
+      ],
+      "sourceRefs": [
+        "SRC-PMKISAN-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PMKISAN_STATE_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered farmers",
+      "claim": "After registration, the state government is responsible for verifying the land records and eligibility of the applicant. Only upon successful verification is the beneficiary approved for installment disbursement.",
+      "doesNotEstablish": [
+        "This record does not define specific timelines for state-level verification as they vary by state."
+      ],
+      "sourceRefs": [
+        "SRC-PMKISAN-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PMKISAN_BENEFICIARY_STATUS",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful registration and verification, the farmer is added to the PM-KISAN beneficiary list and receives Rs. 6,000 per year in three installments of Rs. 2,000 each, directly transferred to their bank account via DBT.",
+    "sourceRefs": [
+      "SRC-PMKISAN-PORTAL-2026-10-28",
+      "SRC-PMKISAN-GUIDELINES-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PMKISAN_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "PM-KISAN registration through official portal or nodal officer",
+      "status": "VERIFIED",
+      "claim": "Registration under PM-KISAN is free of cost. No government fee is charged for applying.",
+      "sourceRefs": [
+        "SRC-PMKISAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PMKISAN_SERVICE_CHARGE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Not established",
+      "status": "UNVERIFIED",
+      "claim": "No separate service charge is established by the reviewed sources. CSCs may charge a nominal facilitation fee, but this is not standardized across states."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PMKISAN_VERIFICATION_PERIOD",
+    "minimumDuration": 15,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SCHEME_GUIDELINES",
+    "applicability": "Registration to approval, subject to state government verification",
+    "status": "ESTIMATED",
+    "claim": "Processing time varies as the state government must verify land records and eligibility. The scheme guidelines do not specify a fixed timeline, but verification typically takes 15 to 90 days depending on the state.",
+    "sourceRefs": [
+      "SRC-PMKISAN-GUIDELINES-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PMKISAN-PORTAL-2026-10-28",
+      "url": "https://pmkisan.gov.in/",
+      "title": "PM-KISAN Official Portal",
+      "publisher": "Department of Agriculture & Farmers Welfare, Ministry of Agriculture, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The official PM-KISAN portal provides the new farmer registration form, beneficiary status check, Aadhaar-based eKYC, and scheme details including eligibility, installment structure, and registration process.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PM-KISAN provides Rs. 6,000 per year in three installments of Rs. 2,000 each.",
+        "All landholding farmer families are eligible for the scheme.",
+        "Aadhaar is mandatory for registration.",
+        "Self-registration is available on the portal.",
+        "Bank account details are required for DBT.",
+        "Registration is free of cost."
+      ],
+      "uncertainty": "State-level verification timelines and CSC fee structures are not detailed on the portal."
+    },
+    {
+      "sourceCode": "SRC-PMKISAN-GUIDELINES-2026-10-28",
+      "url": "https://pmkisan.gov.in/Documents/RevisedPM-KISANOperationalGuidelines.pdf",
+      "title": "PM-KISAN Scheme Operational Guidelines (Revised)",
+      "publisher": "Department of Agriculture & Farmers Welfare, Ministry of Agriculture, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The revised operational guidelines define the exclusion categories (institutional landholders, income tax payers, government employees, constitutional post holders, professionals, pensioners), the definition of farmer family, the land record verification process by states, and the installment disbursement mechanism.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Institutional landholders are excluded.",
+        "Income tax payers are excluded.",
+        "Government employees (excluding MTS/Class IV/Group D) are excluded.",
+        "Constitutional post holders and professionals are excluded.",
+        "State government verifies land records and eligibility.",
+        "CSC and nodal officer registration is available.",
+        "Land records (khasra-khatauni) are required for verification."
+      ],
+      "uncertainty": "Specific state-level implementation variations and updated pension thresholds may not be reflected in the central guidelines."
+    }
+  ],
+  "limitations": [
+    "This record covers PM-KISAN new registration only; it does not cover status correction, bank account update, Aadhaar seeding, or de-registration processes.",
+    "State-level verification timelines and procedures vary and are not fully defined here.",
+    "CSC facilitation charges, if any, are not standardized and may differ across states.",
+    "No Aadhaar number, bank account number, or personal data is collected or stored by this content record.",
+    "The record does not cover the PM-KISAN mobile app registration process separately."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core eligibility and registration process verified from official portal and guidelines. State-level verification timelines require periodic re-check.",
+    "nextReviewTrigger": [
+      "The PM-KISAN scheme guidelines are revised.",
+      "Exclusion categories are updated by the central government.",
+      "The PM-KISAN portal registration process changes.",
+      "Installment amount or frequency is revised.",
+      "Aadhaar-linking or eKYC requirements change."
+    ]
+  }
+}

@@ -1,0 +1,330 @@
+{
+  "serviceCode": "EWS_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "EWS (Economically Weaker Section) Certificate"
+  },
+  "authority": "District Magistrate / Sub-Divisional Officer / Tehsildar / Revenue Department (State level)",
+  "jurisdiction": "STATE",
+  "category": "EWS_CERTIFICATE",
+  "description": {
+    "en": "The EWS Certificate is issued to persons belonging to Economically Weaker Sections who are not covered under existing reservations for SC, ST, or OBC. Introduced through the 103rd Constitutional Amendment (2019), EWS reservation provides 10% quota in government jobs and educational institutions. The certificate is valid for one financial year from the date of issue."
+  },
+  "officialLinks": {
+    "application": "https://edistrict.up.gov.in/",
+    "informationPortal": "https://dopt.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EWS_INCOME_LIMIT",
+        "field": "applicant.familyAnnualIncome",
+        "operator": "LESS_THAN",
+        "value": 800000,
+        "classification": "MANDATORY",
+        "appliesTo": "All EWS certificate applicants",
+        "claim": "The gross annual family income of the applicant must be below Rs. 8 lakh for the financial year prior to the year of application. Family income includes income from all sources (salary, agriculture, business, profession, etc.) of the applicant and their family members.",
+        "sourceRefs": [
+          "SRC-EWS-DOPT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "EWS_NOT_SC_ST_OBC",
+        "field": "applicant.isNotSCSTOBC",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All EWS certificate applicants",
+        "claim": "The applicant must not belong to Scheduled Castes, Scheduled Tribes, or Other Backward Classes as notified by the Central or State Government. Persons already eligible for reservation under existing SC/ST/OBC quotas cannot avail EWS reservation.",
+        "sourceRefs": [
+          "SRC-EWS-DOPT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "EWS_ASSET_LIMIT",
+        "field": "applicant.meetsAssetCriteria",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All EWS certificate applicants",
+        "claim": "The applicant's family must not own or possess: (a) 5 acres or more of agricultural land; (b) residential flat of 1,000 sq. ft. or above; (c) residential plot of 100 sq. yards or above in notified municipalities; (d) residential plot of 200 sq. yards or above in non-notified areas.",
+        "sourceRefs": [
+          "SRC-EWS-DOPT-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Family for EWS purposes includes the applicant, parents, spouse, children below 18, and siblings below 18.",
+      "Agricultural income is computed based on land holdings as per applicable revenue records.",
+      "Some states have issued additional criteria or clarifications for EWS eligibility.",
+      "The income and asset criteria may be revised by the government."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EWS_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "EWS_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWS_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EWS_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EWS_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Prescribed application form as per the state's notification, available at the district/tehsil office or downloadable from the state's e-district portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_INCOME_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Income certificate or self-declaration affidavit on stamp paper stating that the gross annual family income is below Rs. 8 lakh. Income Tax Return (ITR) for the previous financial year may be required in some states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-DOPT-2026-10-28",
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card, PAN card, or voter ID of the applicant for identity verification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence in the state/district — ration card, voter ID, Aadhaar card, or utility bills.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_CASTE_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Self-declaration or affidavit stating that the applicant does not belong to SC/ST/OBC categories. Some states require a caste certificate or community certificate to prove non-SC/ST/OBC status.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-DOPT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_LAND_RECORDS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Revenue records, Khasra/Khatauni, or certificate from the Tehsildar/Patwari regarding agricultural land holdings of the family. A self-declaration may be accepted in lieu of land records in some states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "EWS_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "EWS_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EWS_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EWS certificate applicants",
+      "claim": "Submit the application form with required documents through the state's e-district portal or at the district/tehsil/SDM office. Applications can also be submitted through Common Service Centres (CSCs).",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "EWS_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EWS certificate applicants",
+      "claim": "The revenue department verifies the income, asset, and caste declarations. A field verification may be conducted through the local Lekhpal/Patwari.",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "EWS_STEP3_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Verified applications",
+      "claim": "The certificate is issued by the competent authority (Tehsildar/SDM/District Magistrate) as designated by the state government. The certificate is valid for one financial year from the date of issuance and must be renewed annually.",
+      "sourceRefs": [
+        "SRC-EWS-DOPT-2026-10-28",
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "EWS_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An EWS Certificate is issued in the format prescribed by DoPT, containing the applicant's personal details, family income declaration, asset declaration, and the financial year for which the certificate is valid. The certificate is required for availing 10% reservation in central and state government jobs and educational institutions.",
+    "sourceRefs": [
+      "SRC-EWS-DOPT-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "EWS_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 10,
+      "maximumAmount": 50,
+      "currency": "INR",
+      "applicability": "EWS certificate application fee",
+      "status": "VERIFIED",
+      "claim": "Application fee ranges from Rs. 10 to Rs. 50 depending on the state. Many states issue EWS certificates free of charge. Online applications may have a nominal service charge.",
+      "sourceRefs": [
+        "SRC-EWS-EDISTRICT-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EWS_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "EWS certificate from application to issuance",
+    "status": "VERIFIED",
+    "claim": "EWS certificate processing typically takes 7-15 days depending on the state and district workload. Some states with time-bound service delivery acts guarantee issuance within a specific period (e.g., 7 days in some states).",
+    "sourceRefs": [
+      "SRC-EWS-EDISTRICT-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EWS-DOPT-2026-10-28",
+      "url": "https://dopt.gov.in/",
+      "title": "Department of Personnel and Training — EWS Reservation Guidelines",
+      "publisher": "Department of Personnel and Training, Ministry of Personnel, Public Grievances and Pensions, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DoPT Office Memorandum dated 19.01.2019 and subsequent clarifications define the eligibility criteria for EWS reservation: gross annual family income below Rs. 8 lakh, agricultural land less than 5 acres, residential flat less than 1000 sq. ft., residential plot limits in notified and non-notified areas.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "EWS reservation is 10% in government jobs and educational institutions.",
+        "Income threshold is Rs. 8 lakh per annum gross family income.",
+        "Asset limits include 5 acres agricultural land, 1000 sq. ft. residential flat.",
+        "Certificate is valid for one financial year.",
+        "Applicant must not belong to SC/ST/OBC categories."
+      ],
+      "uncertainty": "Income and asset thresholds may be revised. Supreme Court has upheld EWS reservation but criteria may be subject to further judicial review."
+    },
+    {
+      "sourceCode": "SRC-EWS-EDISTRICT-2026-10-28",
+      "url": "https://edistrict.up.gov.in/",
+      "title": "e-District Portal (representative state portal for EWS certificate)",
+      "publisher": "Revenue Department, State Government (example: Uttar Pradesh)",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State e-district portals provide online application facility for EWS certificate with document requirements, fee information, and processing timelines.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Application can be submitted online through e-district portals.",
+        "Required documents include income proof, identity proof, and land records.",
+        "Processing time is typically 7-15 days.",
+        "Fees range from free to Rs. 50 depending on state."
+      ],
+      "uncertainty": "This source represents one state's implementation. Other states have their own processes."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview applicable across states. Specific documentation requirements and processes vary by state.",
+    "The record uses one state's e-district portal as representative.",
+    "The income and asset criteria are based on DoPT guidelines and may differ for state-level EWS reservation.",
+    "The record does not cover the EWS certificate validation or dispute resolution process.",
+    "The Supreme Court upheld EWS reservation in Janhit Abhiyan v. Union of India (2022) but further constitutional challenges may arise.",
+    "The financial year validity means annual renewal is required for ongoing use."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central eligibility criteria verified from DoPT guidelines. State-specific implementation details need verification across major states.",
+    "nextReviewTrigger": [
+      "Revision of income or asset thresholds by the government.",
+      "New DoPT guidelines or clarifications.",
+      "State-level changes to EWS certificate application processes.",
+      "Further judicial pronouncements affecting EWS reservation criteria."
+    ]
+  }
+}

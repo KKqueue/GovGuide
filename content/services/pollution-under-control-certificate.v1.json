@@ -1,0 +1,264 @@
+{
+  "serviceCode": "PUC_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pollution Under Control (PUC) Certificate"
+  },
+  "authority": "State Transport Department / State Pollution Control Board",
+  "jurisdiction": "STATE",
+  "category": "PUC_CERTIFICATE",
+  "description": {
+    "en": "A Pollution Under Control (PUC) certificate is a mandatory document for all motor vehicles in India, certifying that the vehicle's exhaust emissions are within the prescribed limits set by the Central Pollution Control Board (CPCB). Under the Motor Vehicles Act, 1988 and Central Motor Vehicles Rules, 1989, all vehicles must carry a valid PUC certificate. It is required for vehicle registration renewal, fitness certificate, and during traffic checks. Operating a vehicle without a valid PUC certificate is a punishable offence."
+  },
+  "officialLinks": {
+    "application": "https://vahan.parivahan.gov.in/",
+    "informationPortal": "https://parivahan.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PUC_REGISTERED_VEHICLE",
+        "field": "vehicle.isRegistered",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All PUC certificate applicants",
+        "claim": "The vehicle must be registered under the Motor Vehicles Act, 1988 and possess a valid Registration Certificate (RC). PUC testing is applicable to all registered motor vehicles including two-wheelers, three-wheelers, four-wheelers, and commercial vehicles.",
+        "sourceRefs": [
+          "SRC-PUC-PARIVAHAN-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PUC_VEHICLE_OPERATIONAL",
+        "field": "vehicle.isOperational",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All PUC certificate applicants",
+        "claim": "The vehicle must be in running condition for the emission test to be conducted. The testing center checks exhaust emissions while the vehicle engine is running at idle and, for some tests, at higher RPM.",
+        "sourceRefs": [
+          "SRC-PUC-PARIVAHAN-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "New vehicles are exempt from PUC testing for the first year from the date of registration.",
+      "Electric vehicles are exempt from PUC requirements as they produce no exhaust emissions.",
+      "CNG/LPG vehicles have different emission norms compared to petrol/diesel vehicles.",
+      "BS-VI vehicles may have different emission thresholds than older BS-IV vehicles."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PUC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PUC_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PUC_NEW_TEST",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW_TEST",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PUC_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PUC_REQ_VEHICLE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PUC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The physical vehicle must be brought to an authorized PUC testing center for emission testing. The vehicle engine must be warmed up and in running condition.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PUC-PARIVAHAN-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PUC_REQ_REGISTRATION_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PUC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Vehicle Registration Certificate (RC) or a copy thereof. The testing center records the vehicle registration number, engine number, chassis number, and fuel type from the RC for the PUC certificate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PUC-PARIVAHAN-2026-10-28",
+        "SRC-PUC-MVA-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PUC_STEP1_VISIT_CENTER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All PUC applicants",
+      "claim": "Visit any authorized PUC testing center. These centers are typically located at petrol pumps, automobile service stations, and standalone emission testing facilities authorized by the State Transport Department. Some states list authorized centers on the Parivahan portal.",
+      "sourceRefs": [
+        "SRC-PUC-PARIVAHAN-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PUC_STEP2_EMISSION_TEST",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All PUC applicants",
+      "claim": "The emission testing is conducted using calibrated equipment. For petrol vehicles, CO (carbon monoxide) and HC (hydrocarbons) levels are measured at idle. For diesel vehicles, smoke density is measured using a smoke meter. The test takes approximately 5-10 minutes.",
+      "sourceRefs": [
+        "SRC-PUC-MVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PUC_STEP3_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Vehicles that pass the emission test",
+      "claim": "If the vehicle passes the emission test (readings within prescribed CPCB norms), the PUC certificate is issued on the spot. The certificate is generated electronically and linked to the vehicle registration number in the Vahan database. A printed certificate is provided to the vehicle owner.",
+      "sourceRefs": [
+        "SRC-PUC-PARIVAHAN-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PUC_STEP4_FAILURE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Vehicles that fail the emission test",
+      "claim": "If the vehicle fails the emission test, no certificate is issued. The vehicle owner must get the vehicle serviced or repaired to reduce emissions and return for re-testing. Common causes of failure include dirty air filters, worn spark plugs, faulty catalytic converters, and engine tuning issues.",
+      "sourceRefs": [
+        "SRC-PUC-MVA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PUC_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A PUC certificate is issued containing the vehicle registration number, engine and chassis number, fuel type, emission test readings, testing center details, date of test, and validity period. The certificate is valid for 6 months (for vehicles older than 1 year) or 1 year (for new vehicles in their first year). The PUC data is uploaded to the Vahan portal for verification by authorities.",
+    "sourceRefs": [
+      "SRC-PUC-PARIVAHAN-2026-10-28",
+      "SRC-PUC-MVA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PUC_TWO_WHEELER_FEE",
+      "category": "SERVICE_FEE",
+      "minimumAmount": 60,
+      "maximumAmount": 100,
+      "currency": "INR",
+      "applicability": "PUC testing fee for two-wheelers",
+      "status": "VERIFIED",
+      "claim": "PUC testing fee for two-wheelers ranges from Rs. 60 to Rs. 100. The fee is regulated by the state government and may vary slightly across states and testing centers.",
+      "sourceRefs": [
+        "SRC-PUC-MVA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PUC_FOUR_WHEELER_FEE",
+      "category": "SERVICE_FEE",
+      "minimumAmount": 80,
+      "maximumAmount": 150,
+      "currency": "INR",
+      "applicability": "PUC testing fee for four-wheelers and above",
+      "status": "VERIFIED",
+      "claim": "PUC testing fee for four-wheelers (cars, SUVs) ranges from Rs. 80 to Rs. 150. For commercial vehicles and heavy vehicles, the fee may be slightly higher. Fees are set by state transport authorities.",
+      "sourceRefs": [
+        "SRC-PUC-MVA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PUC_PROCESSING_TIMELINE",
+    "minimumDuration": 0,
+    "maximumDuration": 0,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "PUC certificate issuance (on-the-spot)",
+    "claim": "PUC certificates are issued on the spot after the emission test. The entire process — from arrival at the testing center to certificate issuance — typically takes 10-15 minutes. No prior appointment is needed. The certificate is printed immediately if the vehicle passes the test.",
+    "status": "VERIFIED",
+    "sourceRefs": [
+      "SRC-PUC-PARIVAHAN-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PUC-PARIVAHAN-2026-10-28",
+      "url": "https://parivahan.gov.in/",
+      "title": "Parivahan — Ministry of Road Transport and Highways Portal",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Parivahan portal provides information on vehicle registration, PUC requirements, and links to the Vahan database where PUC data is recorded. The portal also lists emission norms prescribed by CPCB for different vehicle categories and fuel types.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PUC is mandatory for all registered motor vehicles.",
+        "PUC data is uploaded to the Vahan database.",
+        "New vehicles are exempt for the first year.",
+        "Authorized testing centers conduct the emission test."
+      ],
+      "uncertainty": "Specific state-level authorized center lists and fee variations are not centrally maintained."
+    },
+    {
+      "sourceCode": "SRC-PUC-MVA-2026-10-28",
+      "url": "https://morth.nic.in/",
+      "title": "Motor Vehicles Act, 1988 and Central Motor Vehicles Rules, 1989",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Motor Vehicles Act, 1988 (Section 56 and Rule 115) mandates that all motor vehicles must comply with emission standards and carry a valid PUC certificate. The Central Motor Vehicles Rules prescribe the emission norms, testing procedures, and certificate formats. Penalties for non-compliance have been enhanced under the Motor Vehicles (Amendment) Act, 2019.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PUC is mandatory under Motor Vehicles Act Section 56.",
+        "Emission norms are set by CPCB and enforced through CMVR.",
+        "Penalty for no PUC: first offence Rs. 10,000; subsequent Rs. 10,000.",
+        "Testing procedure measures CO, HC for petrol; smoke density for diesel."
+      ],
+      "uncertainty": "Emission norms are periodically tightened. The transition from BS-IV to BS-VI norms may affect testing thresholds."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview. State-specific fee regulations and authorized center lists vary.",
+    "Specific emission threshold values (CO ppm, HC ppm, smoke density) are not listed as they differ by vehicle age, fuel type, and BS norms.",
+    "The record does not cover the enforcement or penalty regime in detail beyond basic penalties.",
+    "Commercial vehicle PUC requirements and fitness certificate linkage are not detailed.",
+    "State-specific initiatives (e.g., Delhi's PUC audit system) are not individually covered.",
+    "Electric vehicle exemption and hybrid vehicle norms are mentioned but not detailed."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General PUC framework reviewed. State-specific fee structures and emission thresholds need individual verification.",
+    "nextReviewTrigger": [
+      "Revision of emission norms by CPCB.",
+      "Changes to PUC fee structure by state governments.",
+      "Amendments to Motor Vehicles Act or CMVR regarding emission testing.",
+      "Introduction of remote sensing or automated emission monitoring."
+    ]
+  }
+}

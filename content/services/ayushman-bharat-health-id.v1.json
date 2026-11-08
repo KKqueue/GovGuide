@@ -1,0 +1,271 @@
+{
+  "serviceCode": "ABHA_HEALTH_ID",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Ayushman Bharat Health Account (ABHA) / Health ID"
+  },
+  "authority": "National Health Authority (NHA), Ministry of Health and Family Welfare, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "ABHA_HEALTH_ID",
+  "description": {
+    "en": "Ayushman Bharat Health Account (ABHA) is a 14-digit unique health identification number that enables individuals to share and access their digital health records seamlessly across healthcare providers. Part of the Ayushman Bharat Digital Mission (ABDM), ABHA links health records across hospitals, clinics, and laboratories. It can be created free of cost using Aadhaar or driving license via the web portal, ABHA mobile app, or at participating health facilities."
+  },
+  "officialLinks": {
+    "application": "https://abha.abdm.gov.in/",
+    "informationPortal": "https://abdm.gov.in/",
+    "mobileApp": "https://play.google.com/store/apps/details?id=in.ndhm.phr",
+    "healthFacilityRegistry": "https://facility.abdm.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ABHA_INDIAN_RESIDENT",
+        "field": "applicant.isIndianResident",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for ABHA creation",
+        "claim": "Any resident of India can create an ABHA number. There is no restriction on age, income, or employment status. The service is available to all Indian residents.",
+        "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28", "SRC-ABDM-GUIDELINES-2026-10-28"]
+      },
+      {
+        "conditionCode": "ABHA_AADHAAR_OR_DL",
+        "field": "applicant.hasAadhaarOrDrivingLicense",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for ABHA creation",
+        "claim": "Applicants must have either an Aadhaar number (with linked mobile number for OTP-based verification) or a valid driving license to create an ABHA number. Aadhaar-based creation uses eKYC for instant verification.",
+        "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28", "SRC-ABDM-GUIDELINES-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some health facilities may offer assisted ABHA creation using biometric authentication for applicants without a mobile number linked to Aadhaar; facility-specific procedures may vary.",
+      "NRIs and Indian passport holders residing abroad may have limited access to ABHA services; the exact provisions are not detailed here."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ABHA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ABHA_HEALTH_ID",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "ABHA_AADHAAR_MODE",
+      "field": "workflow.creationMode",
+      "operator": "EQUALS",
+      "value": "AADHAAR_OTP",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "ABHA_DL_MODE",
+      "field": "workflow.creationMode",
+      "operator": "EQUALS",
+      "value": "DRIVING_LICENSE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "ABHA_FACILITY_MODE",
+      "field": "workflow.creationMode",
+      "operator": "EQUALS",
+      "value": "HEALTH_FACILITY",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ABHA_REQ_AADHAAR",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ABHA_ROUTE_SELECTED", "ABHA_AADHAAR_MODE"]
+      },
+      "claim": "Aadhaar number with a linked mobile number is required for Aadhaar-based ABHA creation. OTP will be sent to the Aadhaar-linked mobile number for identity verification via eKYC.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "ABHA_REQ_DRIVING_LICENSE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ABHA_ROUTE_SELECTED", "ABHA_DL_MODE"]
+      },
+      "claim": "A valid driving license number is required as an alternative to Aadhaar for ABHA creation. Additional identity details (name, date of birth, gender, address) must be provided manually when using the driving license option.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "ABHA_REQ_MOBILE_NUMBER",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["ABHA_ROUTE_SELECTED"]
+      },
+      "claim": "A valid mobile number is mandatory for ABHA creation. OTP verification is required for both Aadhaar and driving license based creation methods. The mobile number is also used for login and health record access.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28", "SRC-ABDM-GUIDELINES-2026-10-28"]
+    },
+    {
+      "requirementCode": "ABHA_REQ_EMAIL",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["ABHA_ROUTE_SELECTED"]
+      },
+      "claim": "An email address may be optionally provided during ABHA creation for additional communication and recovery options.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ABHA_CREATE_VIA_AADHAAR",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants creating ABHA using Aadhaar",
+      "claim": "Visit abha.abdm.gov.in and select 'Create ABHA Number' using Aadhaar. Enter the Aadhaar number, verify via OTP sent to Aadhaar-linked mobile, review auto-populated details from eKYC, set an ABHA address (username@abdm), and receive the 14-digit ABHA number instantly.",
+      "doesNotEstablish": [
+        "This record does not store any Aadhaar numbers or personal health data.",
+        "Biometric verification at health facilities follows facility-specific protocols."
+      ],
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "ABHA_CREATE_VIA_DL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants creating ABHA using driving license",
+      "claim": "Visit abha.abdm.gov.in and select 'Create ABHA Number' using driving license. Enter the driving license number, provide personal details (name, date of birth, gender, address), verify via mobile OTP, set an ABHA address, and receive the 14-digit ABHA number.",
+      "doesNotEstablish": [
+        "This record does not verify driving license details or store any license information."
+      ],
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "ABHA_CREATE_VIA_FACILITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants creating ABHA at health facilities",
+      "claim": "ABHA can be created at participating health facilities (hospitals, clinics) that are registered on the Health Facility Registry. The facility staff assist with Aadhaar-based biometric or OTP verification and create the ABHA number on behalf of the patient.",
+      "doesNotEstablish": [
+        "This record does not list participating health facilities or their specific procedures."
+      ],
+      "sourceRefs": ["SRC-ABDM-GUIDELINES-2026-10-28"]
+    },
+    {
+      "processCode": "ABHA_LINK_RECORDS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ABHA holders linking health records",
+      "claim": "After ABHA creation, health records from ABDM-compliant hospitals and labs are automatically linked to the ABHA number. Users can view and manage linked records through the ABHA app or PHR (Personal Health Records) applications. Consent-based sharing allows controlled access to health data.",
+      "doesNotEstablish": [
+        "This record does not define the consent framework or data sharing protocols in detail."
+      ],
+      "sourceRefs": ["SRC-ABDM-GUIDELINES-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "ABHA_NUMBER_OUTPUT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful verification, the applicant receives a 14-digit ABHA number and an ABHA address (username@abdm). The ABHA number serves as a unique health identifier for linking and accessing digital health records across all ABDM-compliant healthcare providers in India. A downloadable ABHA card (PDF) is also available.",
+    "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28", "SRC-ABDM-GUIDELINES-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "ABHA_CREATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "ABHA number creation via any mode (web, app, or health facility)",
+      "status": "VERIFIED",
+      "claim": "ABHA number creation is completely free of cost. There are no charges for creating, downloading, or using the ABHA number or ABHA address through any of the available channels.",
+      "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ABHA_CREATION_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 15,
+    "unit": "MINUTES",
+    "basis": "OFFICIAL_SCHEME_DESCRIPTION",
+    "applicability": "ABHA creation via Aadhaar OTP or driving license on the web portal or app",
+    "status": "VERIFIED",
+    "claim": "ABHA number creation via Aadhaar OTP is near-instant, typically completed within 5 to 10 minutes. Creation via driving license may take slightly longer due to manual detail entry. Facility-based creation depends on queue and staff availability.",
+    "sourceRefs": ["SRC-ABHA-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-ABHA-PORTAL-2026-10-28",
+      "url": "https://abha.abdm.gov.in/",
+      "title": "Ayushman Bharat Health Account (ABHA) Official Portal",
+      "publisher": "National Health Authority (NHA), Ministry of Health and Family Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The ABHA portal allows creation of a 14-digit Ayushman Bharat Health Account number using Aadhaar OTP or driving license. The ABHA number is free to create and links health records across ABDM-compliant healthcare providers.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "ABHA is a 14-digit unique health identification number.",
+        "ABHA can be created using Aadhaar OTP or driving license.",
+        "ABHA creation is free of cost.",
+        "Mobile number is required for OTP verification.",
+        "Email is optional during creation.",
+        "ABHA card can be downloaded as PDF.",
+        "Near-instant creation via Aadhaar OTP."
+      ],
+      "uncertainty": "Facility-based creation procedures and biometric verification details may vary by location."
+    },
+    {
+      "sourceCode": "SRC-ABDM-GUIDELINES-2026-10-28",
+      "url": "https://abdm.gov.in/",
+      "title": "Ayushman Bharat Digital Mission (ABDM) Official Portal and Guidelines",
+      "publisher": "National Health Authority (NHA), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "ABDM guidelines describe ABHA as the foundational health identifier for India's digital health ecosystem. ABHA enables consent-based sharing of health records across compliant health facilities, labs, and pharmacies. Available to all Indian residents.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "ABHA is part of the Ayushman Bharat Digital Mission.",
+        "Any Indian resident can create an ABHA.",
+        "ABHA links health records across hospitals and labs.",
+        "Consent-based health data sharing framework.",
+        "ABHA can be created at participating health facilities.",
+        "Mobile number is mandatory for account creation.",
+        "ABHA address format is username@abdm."
+      ],
+      "uncertainty": "NRI eligibility and cross-border health record interoperability details are not fully specified."
+    }
+  ],
+  "limitations": [
+    "This record covers ABHA number creation and its basic functionality only; it does not cover the full ABDM ecosystem including Health Information Exchange, Health Facility Registry, or Healthcare Professional Registry.",
+    "Health record linking depends on healthcare providers being ABDM-compliant; non-compliant facilities cannot link records to ABHA.",
+    "Facility-based ABHA creation procedures may vary by hospital and are not detailed here.",
+    "No Aadhaar number, driving license number, mobile number, or personal health data is collected or stored by this content record.",
+    "ABHA mobile app features and version-specific functionality are not covered in this record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core ABHA creation process, eligibility, and fee structure verified from official NHA/ABDM sources. ABDM ecosystem is evolving rapidly with new integrations and features.",
+    "nextReviewTrigger": [
+      "NHA updates the ABHA creation process or accepted identity documents.",
+      "ABDM guidelines on health record sharing or consent framework change.",
+      "New identity verification methods are added for ABHA creation.",
+      "Fee structure changes for any ABHA service.",
+      "Major changes to the ABDM architecture or ABHA numbering system."
+    ]
+  }
+}

@@ -1,0 +1,391 @@
+{
+  "serviceCode": "MARRIAGE_CERTIFICATE_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Marriage Certificate Registration"
+  },
+  "authority": "Registrar of Marriages (under respective State Governments / Municipal Corporations)",
+  "jurisdiction": "STATE",
+  "category": "MARRIAGE_CERTIFICATE",
+  "description": {
+    "en": "Registration of marriage and issuance of a Marriage Certificate under the Hindu Marriage Act 1955, Special Marriage Act 1954, or respective state-level Registration of Marriages Acts. Marriage registration is compulsory in most Indian states and can be done online or at the Sub-Registrar / Municipal office."
+  },
+  "officialLinks": {
+    "informationPortal": "https://www.india.gov.in/topics/law-justice/marriage",
+    "hinduMarriageAct": "https://www.indiacode.nic.in/handle/123456789/1560",
+    "specialMarriageAct": "https://www.indiacode.nic.in/handle/123456789/1387"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "MARRIAGE_LEGAL_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 21,
+        "classification": "MANDATORY",
+        "appliesTo": "Bridegroom; bride must be at least 18 years of age",
+        "claim": "The legal age for marriage is 21 years for the bridegroom and 18 years for the bride as per the Hindu Marriage Act 1955 and the Special Marriage Act 1954.",
+        "sourceRefs": [
+          "SRC-HINDU-MARRIAGE-ACT",
+          "SRC-SPECIAL-MARRIAGE-ACT"
+        ]
+      },
+      {
+        "conditionCode": "MARRIAGE_HAS_OCCURRED",
+        "field": "applicant.marriagePerformed",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All marriage registration applicants",
+        "claim": "The marriage must have been solemnized (already performed) before applying for registration under the Hindu Marriage Act. Under the Special Marriage Act, the marriage is solemnized by the Marriage Officer after a 30-day notice period.",
+        "sourceRefs": [
+          "SRC-HINDU-MARRIAGE-ACT",
+          "SRC-SPECIAL-MARRIAGE-ACT"
+        ]
+      },
+      {
+        "conditionCode": "MARRIAGE_NOT_PROHIBITED",
+        "field": "applicant.prohibitedRelationship",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All marriage registration applicants",
+        "claim": "Neither party should have a living spouse at the time of marriage. The parties must not fall within the degrees of prohibited relationship unless custom permits it.",
+        "sourceRefs": [
+          "SRC-HINDU-MARRIAGE-ACT",
+          "SRC-SPECIAL-MARRIAGE-ACT"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific eligibility conditions for marriages performed abroad and registered in India are not covered here.",
+      "Court marriages under the Special Marriage Act have additional procedural requirements not fully detailed in this record."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "MARRIAGE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "MARRIAGE_CERTIFICATE_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "MARRIAGE_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A prescribed application form must be submitted to the local Sub-Registrar or Municipal authority. Many states offer online application through their e-District or municipal portals.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_MARRIAGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of marriage ceremony is required. Accepted documents include wedding invitation card, wedding photographs, a certificate from the priest or religious authority who solemnized the marriage, or an affidavit declaring the date and place of marriage.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE",
+        "SRC-REGISTRATION-OF-MARRIAGES"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_AADHAAR_BOTH_SPOUSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card of both the husband and wife is required for identity verification and address proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_AGE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of age for both spouses is required. Accepted documents include birth certificate, school-leaving certificate, passport, PAN card, or Aadhaar card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residential address for both spouses is required. Accepted documents include Aadhaar card, voter ID, passport, driving license, utility bill (not older than 3 months), or ration card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_WITNESSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Two witnesses are required who were present at the marriage ceremony. Each witness must provide a valid photo ID (Aadhaar, voter ID, passport, or driving license) and a passport-size photograph.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-OF-MARRIAGES",
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "requirementCode": "MARRIAGE_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MARRIAGE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Joint passport-size photographs of the couple are required along with individual passport-size photographs of both spouses.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "MARRIAGE_REGISTRATION_PROCESS_HINDU",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Marriages solemnized under the Hindu Marriage Act 1955",
+      "claim": "Registration process under the Hindu Marriage Act: (1) Apply online or visit the Sub-Registrar office, (2) Submit the application form with all required documents, (3) Both spouses and two witnesses must be present for verification, (4) The Sub-Registrar verifies documents and records the marriage, (5) Marriage Certificate is issued after verification.",
+      "doesNotEstablish": [
+        "Processing time varies by state and office workload.",
+        "Some states require both spouses to appear together on a specific appointment date."
+      ],
+      "sourceRefs": [
+        "SRC-HINDU-MARRIAGE-ACT",
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "processCode": "MARRIAGE_REGISTRATION_PROCESS_SPECIAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Marriages under the Special Marriage Act 1954 (inter-faith, court marriages)",
+      "claim": "Registration process under the Special Marriage Act: (1) Give notice of intended marriage to the Marriage Officer in the prescribed form, (2) Notice is published for 30 days for objections, (3) If no valid objections are raised within 30 days, the Marriage Officer solemnizes and registers the marriage, (4) Three witnesses are required, (5) Marriage Certificate is issued.",
+      "doesNotEstablish": [
+        "The 30-day notice period is mandatory and cannot be waived.",
+        "Either party must have resided in the district for at least 30 days before the notice."
+      ],
+      "sourceRefs": [
+        "SRC-SPECIAL-MARRIAGE-ACT"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "MARRIAGE_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Marriage Certificate issued by the Registrar of Marriages or Sub-Registrar. This is a legally valid document that serves as proof of marriage for all official purposes including passport applications, joint bank accounts, insurance nominations, and visa applications.",
+    "sourceRefs": [
+      "SRC-REGISTRATION-OF-MARRIAGES"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "MARRIAGE_TIMELY_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Registration within the prescribed time (varies by state, typically within 30-90 days of marriage)",
+      "status": "VERIFIED",
+      "claim": "Fee for timely registration varies by state, typically ranging from Rs. 10 to Rs. 100. Some states offer free registration if done within the prescribed period.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-MARRIAGE"
+      ]
+    },
+    {
+      "feeCode": "MARRIAGE_LATE_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Late registration (after prescribed time period)",
+      "status": "VERIFIED",
+      "claim": "A late fee or penalty is applicable if the marriage is registered after the prescribed period. The late fee varies by state and the duration of the delay, typically ranging from Rs. 50 to Rs. 500.",
+      "sourceRefs": [
+        "SRC-REGISTRATION-OF-MARRIAGES"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "MARRIAGE_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 45,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Marriage certificate registration",
+    "status": "VERIFIED",
+    "claim": "Under the Hindu Marriage Act, the certificate is typically issued within 7-15 days of application with all documents. Under the Special Marriage Act, a mandatory 30-day notice period applies before the marriage can be solemnized and registered, making the total timeline 30-45 days.",
+    "estimatedCompletionDatePolicy": "For Hindu Marriage Act: 7-15 days from appointment. For Special Marriage Act: minimum 30 days from notice plus processing.",
+    "fallbackThresholdMentionedBySource": "No specific fallback; applicant should follow up with the Sub-Registrar office",
+    "sourceRefs": [
+      "SRC-HINDU-MARRIAGE-ACT",
+      "SRC-SPECIAL-MARRIAGE-ACT"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-HINDU-MARRIAGE-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1560",
+      "title": "The Hindu Marriage Act, 1955",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Hindu Marriage Act 1955 governs marriage registration for Hindus, Buddhists, Jains, and Sikhs. Section 8 provides for registration of Hindu marriages.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal age for marriage (21 for groom, 18 for bride).",
+        "Registration process under Hindu Marriage Act.",
+        "Conditions for a valid Hindu marriage.",
+        "Prohibited degrees of relationship."
+      ],
+      "uncertainty": "State rules under Section 8 may differ in documentation requirements."
+    },
+    {
+      "sourceCode": "SRC-SPECIAL-MARRIAGE-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1387",
+      "title": "The Special Marriage Act, 1954",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Special Marriage Act 1954 provides for civil marriages irrespective of religion. It requires a 30-day notice period and three witnesses.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "30-day notice period requirement.",
+        "Three witnesses needed.",
+        "Civil marriage process.",
+        "Age requirements.",
+        "30-day residency requirement in the district."
+      ],
+      "uncertainty": "Specific procedures may vary by state Marriage Officer."
+    },
+    {
+      "sourceCode": "SRC-REGISTRATION-OF-MARRIAGES",
+      "url": "https://www.india.gov.in/topics/law-justice/marriage",
+      "title": "Registration of Marriages - Legal Framework",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides information on the compulsory registration of marriages and the legal framework across states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Compulsory registration mandate in most states.",
+        "Witness requirements.",
+        "Marriage certificate as legal proof.",
+        "Late registration fee applicability."
+      ],
+      "uncertainty": "State-specific portals and requirements may differ."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-MARRIAGE",
+      "url": "https://www.india.gov.in/topics/law-justice/marriage",
+      "title": "Marriage Registration - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal provides consolidated information on marriage registration including document requirements and the general process.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for marriage registration.",
+        "Application process overview.",
+        "Fee information (varies by state).",
+        "Aadhaar requirement."
+      ],
+      "uncertainty": "State-specific requirements may differ from the general information."
+    },
+    {
+      "sourceCode": "SRC-SC-MANDATORY-REGISTRATION",
+      "url": "https://main.sci.gov.in/",
+      "title": "Supreme Court of India - Seema vs. Ashwani Kumar (2006)",
+      "publisher": "Supreme Court of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Supreme Court in Seema vs. Ashwani Kumar (2006) directed all states and Union Territories to make marriage registration compulsory.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Compulsory marriage registration directed by Supreme Court.",
+        "Applicable to all marriages irrespective of religion."
+      ],
+      "uncertainty": "Implementation and enforcement varies by state."
+    }
+  ],
+  "limitations": [
+    "This record covers the general marriage registration process. State-specific portals, forms, and fees are not detailed as they vary significantly.",
+    "NRI marriage registration and marriages performed abroad have separate requirements not covered here.",
+    "Registration of marriages under personal laws of other religions (Muslim, Christian, Parsi) may have additional or different requirements.",
+    "Court marriage procedures under the Special Marriage Act may vary by district.",
+    "Tatkal or urgent registration services available in some states are not covered.",
+    "Divorce, annulment, and remarriage registration are separate workflows."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core requirements, process under both Hindu Marriage Act and Special Marriage Act, and general fee structure verified against central government sources. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Changes to the Hindu Marriage Act or Special Marriage Act.",
+      "New central guidelines on marriage registration.",
+      "Updates to mandatory document requirements.",
+      "Changes to the Aadhaar linking requirement for marriage registration."
+    ]
+  }
+}

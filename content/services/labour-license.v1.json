@@ -1,0 +1,365 @@
+{
+  "serviceCode": "LABOUR_LICENSE",
+  "version": 1,
+  "slug": "labour-license",
+  "category": "LABOUR_LICENSE",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "CENTRAL",
+  "title": "Labour License under Contract Labour (Regulation and Abolition) Act, 1970",
+  "purpose": "To obtain a licence for engaging contract labour or supplying contract labour under the Contract Labour (Regulation and Abolition) Act, 1970, ensuring regulation of working conditions and welfare of contract workers.",
+  "shortDescription": "Licence for principal employers engaging 20 or more contract workers, or for contractors supplying contract labour, under the CLRA Act 1970.",
+  "authority": {
+    "name": "Labour Commissioner / Chief Labour Commissioner (Central)",
+    "department": "Ministry of Labour and Employment / State Labour Department",
+    "level": "CENTRAL"
+  },
+  "legalBasis": [
+    {
+      "law": "Contract Labour (Regulation and Abolition) Act, 1970",
+      "sections": [
+        "Section 7 - Registration of Establishments",
+        "Section 12 - Licensing of Contractors",
+        "Section 13 - Grant of Licences"
+      ],
+      "description": "Regulates the employment of contract labour in certain establishments and provides for its abolition in certain circumstances."
+    },
+    {
+      "law": "Contract Labour (Regulation and Abolition) Central Rules, 1971",
+      "sections": [
+        "Rule 17 - Application for Registration",
+        "Rule 21 - Application for Licence"
+      ],
+      "description": "Prescribes the forms, fees, and procedures for registration and licensing under the Act."
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_CLRA_ACT",
+      "url": "https://labour.gov.in/contract-labour-regulation-and-abolition-act-1970",
+      "title": "Contract Labour (Regulation and Abolition) Act, 1970",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-18T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-18T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Every principal employer of an establishment to which this Act applies shall, within such time as the appropriate Government may by notification in the Official Gazette fix, make an application for registration of the establishment in the prescribed manner.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_LABOUR_REGISTRATION_FORM",
+        "REQ_LABOUR_WORKER_THRESHOLD",
+        "PROC_LABOUR_REGISTRATION_APPLY"
+      ],
+      "uncertainty": "Threshold of 20 workers applies to Central sphere; some states have different thresholds."
+    },
+    {
+      "sourceCode": "SRC_CLRA_RULES",
+      "url": "https://labour.gov.in/contract-labour-central-rules-1971",
+      "title": "Contract Labour (Regulation and Abolition) Central Rules, 1971",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-18T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-18T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "An application for the grant of a licence under section 12 shall be made in triplicate in Form IV to the licensing officer of the area, accompanied by a certificate of registration of the establishment and the prescribed fee.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_LABOUR_LICENCE_FORM",
+        "REQ_LABOUR_CONTRACTOR_DETAILS",
+        "REQ_LABOUR_FEE",
+        "PROC_LABOUR_LICENCE_APPLY"
+      ],
+      "uncertainty": "Fee schedule may be updated periodically by notification."
+    },
+    {
+      "sourceCode": "SRC_LABOUR_PORTAL",
+      "url": "https://shramsuvidha.gov.in/",
+      "title": "Shram Suvidha Portal - Unified Labour Compliance",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-20T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-20T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Principal employers and contractors can apply online for registration and licensing under the Contract Labour Act through the Shram Suvidha Portal using a single unified registration number (LIN).",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "PROC_LABOUR_ONLINE_APPLY",
+        "REQ_LABOUR_LIN"
+      ],
+      "uncertainty": "Online portal availability and features may vary; some states maintain separate portals."
+    },
+    {
+      "sourceCode": "SRC_LABOUR_FEE_SCHEDULE",
+      "url": "https://labour.gov.in/fee-schedule-clra",
+      "title": "Fee Schedule for Contract Labour Registration and Licensing",
+      "publisher": "Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Registration fee for principal employers: Rs. 50 (20-49 workers) to Rs. 500 (400+ workers). Licence fee for contractors: Rs. 25 (20-49 workers) to Rs. 150 (400+ workers), with security deposit ranging from Rs. 30 to Rs. 150.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_LABOUR_FEE",
+        "REQ_LABOUR_SECURITY_DEPOSIT"
+      ],
+      "uncertainty": "Fee schedule was last revised in 1971 rules; states may have different fee structures."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_LABOUR_PRINCIPAL_EMPLOYER",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PRINCIPAL_EMPLOYER_REGISTRATION",
+      "label": "Applicant is a principal employer seeking registration",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_LABOUR_CONTRACTOR",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "CONTRACTOR_LICENCE",
+      "label": "Applicant is a contractor seeking licence to supply contract labour",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_LABOUR_WORKER_THRESHOLD",
+      "field": "establishment.contractWorkerCount",
+      "operator": "GREATER_THAN",
+      "value": "20",
+      "label": "Establishment engages or proposes to engage 20 or more contract workers",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_LABOUR_CENTRAL_SPHERE",
+      "field": "establishment.isCentralSphere",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Establishment falls under the Central sphere (railways, mines, oilfields, major ports, etc.)",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_LABOUR_STATE_SPHERE",
+      "field": "establishment.isCentralSphere",
+      "operator": "EQUALS",
+      "value": "false",
+      "label": "Establishment falls under the State sphere",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_LABOUR_RENEWAL",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "LICENCE_RENEWAL",
+      "label": "Applicant is applying for renewal of an existing licence",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_LABOUR_REGISTRATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_PRINCIPAL_EMPLOYER",
+          "COND_LABOUR_WORKER_THRESHOLD"
+        ]
+      },
+      "claim": "Application in Form I (prescribed under Rule 17) for registration of the establishment by the principal employer, containing details of the establishment, nature of work, and maximum number of contract workers to be employed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_WORKER_THRESHOLD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_PRINCIPAL_EMPLOYER"
+        ]
+      },
+      "claim": "The Act applies to every establishment in which 20 or more workmen are employed or were employed on any day of the preceding 12 months as contract labour.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_LICENCE_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CONTRACTOR",
+          "COND_LABOUR_WORKER_THRESHOLD"
+        ]
+      },
+      "claim": "Application in Form IV (prescribed under Rule 21) for grant of licence by the contractor, submitted in triplicate to the licensing officer of the area.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_CONTRACTOR_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CONTRACTOR"
+        ]
+      },
+      "claim": "Details of the contractor including name, address, nature of business, number of workmen to be employed, and the establishment(s) where contract labour will be deployed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_WORKER_THRESHOLD"
+        ]
+      },
+      "claim": "Prescribed registration fee (for principal employer) or licence fee (for contractor) based on the number of contract workers, as specified in the Central Rules or applicable State Rules.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_RULES",
+        "SRC_LABOUR_FEE_SCHEDULE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_SECURITY_DEPOSIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CONTRACTOR",
+          "COND_LABOUR_WORKER_THRESHOLD"
+        ]
+      },
+      "claim": "Security deposit as prescribed in the fee schedule must be paid by the contractor along with the licence application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_LABOUR_FEE_SCHEDULE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_LIN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CENTRAL_SPHERE"
+        ]
+      },
+      "claim": "Labour Identification Number (LIN) obtained through the Shram Suvidha Portal is required for online compliance under Central sphere.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_LABOUR_PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_ESTABLISHMENT_REGISTRATION_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CONTRACTOR"
+        ]
+      },
+      "claim": "A certificate of registration of the establishment issued to the principal employer under Section 7 must be attached with the contractor's licence application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_LABOUR_WELFARE_FACILITIES",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "COND_LABOUR_CONTRACTOR",
+          "COND_LABOUR_WORKER_THRESHOLD"
+        ]
+      },
+      "claim": "Details of welfare and health facilities (canteen, rest rooms, drinking water, latrines, urinals, first aid) to be provided to contract workers as required under Chapter V of the Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_CLRA_ACT"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_LABOUR_REGISTRATION_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal employer of the establishment",
+      "claim": "The principal employer must apply for registration of the establishment in Form I to the registering officer (usually the Assistant Labour Commissioner or equivalent) within the prescribed time after the Act becomes applicable, along with the registration fee.",
+      "sourceRefs": [
+        "SRC_CLRA_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_LABOUR_REGISTRATION_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registering Officer",
+      "claim": "The registering officer shall register the establishment and issue a certificate of registration in Form II, specifying the maximum number of contract workers that may be employed. The registration certificate must be displayed at the establishment.",
+      "sourceRefs": [
+        "SRC_CLRA_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_LABOUR_LICENCE_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Contractor supplying contract labour",
+      "claim": "The contractor must apply for a licence in Form IV in triplicate to the licensing officer, attaching the establishment's registration certificate, details of workmen, particulars of work, and the prescribed fee and security deposit.",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_LABOUR_LICENCE_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Licensing Officer",
+      "claim": "The licensing officer, after making inquiries and being satisfied, shall grant the licence in Form V subject to conditions regarding hours of work, wages, welfare facilities, and other terms. The licence is valid for the period specified and must be renewed before expiry.",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_LABOUR_ONLINE_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal employer or contractor under Central sphere",
+      "claim": "For establishments under the Central sphere, applications for registration and licensing can be filed online through the Shram Suvidha Portal (shramsuvidha.gov.in) using the LIN. The portal provides a unified interface for all labour law compliances.",
+      "sourceRefs": [
+        "SRC_LABOUR_PORTAL"
+      ]
+    },
+    {
+      "processCode": "PROC_LABOUR_COMPLIANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal employer and contractor",
+      "claim": "After obtaining registration and licence, the principal employer and contractor must maintain registers (Form XII - Muster Roll, Form XIII - Register of Wages, etc.), ensure timely payment of wages, provide welfare facilities, and file half-yearly returns in Form XXIV.",
+      "sourceRefs": [
+        "SRC_CLRA_RULES"
+      ]
+    }
+  ]
+}

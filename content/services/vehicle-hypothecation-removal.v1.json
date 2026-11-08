@@ -1,0 +1,324 @@
+{
+  "serviceCode": "VEHICLE_HP_REMOVAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Vehicle Hypothecation Termination / HP Removal from RC"
+  },
+  "authority": "Regional Transport Office (RTO) / State Transport Department",
+  "jurisdiction": "STATE",
+  "category": "VEHICLE_HP_REMOVAL",
+  "description": {
+    "en": "When a vehicle is purchased using a loan from a bank or financial institution, a hypothecation (lien) is recorded on the vehicle's Registration Certificate (RC) indicating that the financier holds a security interest in the vehicle. Upon full repayment of the loan, the vehicle owner must apply to the Regional Transport Office (RTO) for removal (termination) of this hypothecation endorsement from the RC. This process requires filing Form 35 under the Motor Vehicles Act 1988 along with a No Objection Certificate (NOC) from the financier. The updated RC without hypothecation endorsement confirms the owner's unencumbered title to the vehicle."
+  },
+  "officialLinks": {
+    "application": "https://parivahan.gov.in/parivahan/",
+    "informationPortal": "https://parivahan.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "HP_LOAN_CLEARED",
+        "field": "applicant.hasFullyRepaidVehicleLoan",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Vehicle owners who have fully repaid their vehicle loan",
+        "claim": "The vehicle loan must be fully repaid and the financier (bank/NBFC) must have issued a No Objection Certificate or loan closure letter confirming that no outstanding dues remain on the vehicle loan account.",
+        "sourceRefs": [
+          "SRC-PARIVAHAN-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "HP_REGISTERED_OWNER",
+        "field": "applicant.isRegisteredOwner",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All HP removal applicants",
+        "claim": "The application must be made by the registered owner of the vehicle as recorded in the Registration Certificate. In case of death of the registered owner, the legal heir must first complete the transfer of ownership before applying for HP removal.",
+        "sourceRefs": [
+          "SRC-PARIVAHAN-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some states allow the financier to initiate HP removal directly through the Vahan portal on behalf of the vehicle owner.",
+      "If the loan was foreclosed or settled (not fully repaid), the financier may issue a conditional NOC which the RTO may accept.",
+      "Vehicles with pending challans, tax arrears, or court orders may face delays in HP removal processing."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "HP_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "VEHICLE_HP_REMOVAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "HP_VEHICLE_REGISTERED",
+      "field": "vehicle.isRegisteredInIndia",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "HP_HYPOTHECATION_EXISTS",
+      "field": "vehicle.hasHypothecationEndorsement",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "HP_REQ_FORM35",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 35 (Application for recording termination of hire-purchase/lease/hypothecation agreement) duly filled and signed by both the registered owner and the financier, as prescribed under Rule 61 of the Central Motor Vehicles Rules 1989.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "HP_REQ_NOC_FINANCIER",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "No Objection Certificate (NOC) or loan closure letter from the bank/financial institution/NBFC on their official letterhead confirming full repayment of the vehicle loan and no objection to removal of hypothecation from the vehicle RC.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28",
+        "SRC-MVA-RULES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "HP_REQ_RC_ORIGINAL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Original Registration Certificate (RC) of the vehicle or Smart Card RC. If the RC is lost, a duplicate RC must first be obtained before applying for HP removal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "HP_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the registered owner — Aadhaar card, voter ID, passport, or driving licence. Address proof may also be required if the address on the RC differs from the current address.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "HP_REQ_INSURANCE",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid vehicle insurance certificate. The vehicle must have an active insurance policy at the time of application for HP removal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "HP_REQ_PUC",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "HP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid Pollution Under Control (PUC) certificate. Some RTOs may require this as part of the documentation for any RC-related modification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "HP_STEP1_OBTAIN_NOC",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All vehicle owners seeking HP removal",
+      "claim": "After full repayment of the vehicle loan, obtain a No Objection Certificate (NOC) and loan closure letter from the bank or financier. The financier may also update the HP termination status on the Vahan portal directly. Collect Form 35 signed by the authorized signatory of the financier.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "HP_STEP2_ONLINE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants with financier NOC",
+      "claim": "Submit the application online through the Parivahan Sewa portal (parivahan.gov.in) or the respective state transport department website. Select the service 'Termination of HP Agreement', fill in vehicle and financier details, upload scanned copies of Form 35, NOC, RC, identity proof, and insurance. Pay the prescribed fee online.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "HP_STEP3_RTO_VISIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants after online submission",
+      "claim": "Visit the jurisdictional RTO on the appointed date with all original documents for verification. The RTO officer verifies the originals against uploaded documents, checks the vehicle record in the Vahan database, and confirms the financier's NOC. Some states may allow fully online processing without a physical RTO visit.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28",
+        "SRC-MVA-RULES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "HP_STEP4_RC_UPDATE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "Upon approval, the RTO updates the vehicle record in the Vahan database to remove the hypothecation endorsement. An updated Registration Certificate (Smart Card) without the financier's name is issued to the vehicle owner. The updated RC can be downloaded from the mParivahan app or Parivahan Sewa portal.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "HP_REMOVAL_UPDATED_RC",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An updated Registration Certificate (RC / Smart Card) is issued without the hypothecation endorsement, confirming the owner's unencumbered ownership of the vehicle. The Vahan database record is also updated to reflect the termination of the hire-purchase/hypothecation agreement. The updated status is visible on the mParivahan app and Parivahan Sewa portal.",
+    "sourceRefs": [
+      "SRC-PARIVAHAN-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "HP_FEE_APPLICATION",
+      "category": "GOVERNMENT_FEE",
+      "amount": 200,
+      "currency": "INR",
+      "applicability": "Application fee for HP termination at RTO",
+      "status": "VERIFIED",
+      "claim": "The RTO application fee for recording termination of hypothecation is approximately Rs. 200 (varies by state). This covers the processing of Form 35 and updating the vehicle record. Some states charge Rs. 100-300 depending on the vehicle category.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "HP_FEE_SMART_CARD",
+      "category": "GOVERNMENT_FEE",
+      "amount": 200,
+      "currency": "INR",
+      "applicability": "Fee for issuance of updated Smart Card RC",
+      "status": "VERIFIED",
+      "claim": "An additional fee of approximately Rs. 200 is charged for issuance of an updated Smart Card RC without the hypothecation endorsement. The exact amount varies by state. Some states include this in the application fee.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-2026-10-28",
+        "SRC-MVA-RULES-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "HP_REMOVAL_TIMELINE",
+    "minimumDuration": 3,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "HP removal processing from application to updated RC issuance",
+    "status": "VERIFIED",
+    "claim": "HP removal is typically processed within 3-15 working days from the date of application with complete documents. Online applications through the Parivahan Sewa portal may be processed faster (3-7 days). Physical applications at the RTO may take up to 15 working days. Smart Card RC dispatch may take additional time.",
+    "sourceRefs": [
+      "SRC-PARIVAHAN-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PARIVAHAN-PORTAL-2026-10-28",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Parivahan Sewa — Vehicle Related Services Portal",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Parivahan Sewa portal provides online services for vehicle registration-related activities including recording of hypothecation, termination of hypothecation, transfer of ownership, and duplicate RC issuance. Form 35 is prescribed for recording termination of hire-purchase/lease/hypothecation agreement. The portal is integrated with the Vahan national vehicle registry.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Form 35 is the prescribed form for HP termination.",
+        "NOC from financier is mandatory for HP removal.",
+        "Online application available through Parivahan Sewa portal.",
+        "Updated Smart Card RC is issued after HP removal.",
+        "Processing time is 3-15 working days."
+      ],
+      "uncertainty": "Fees and exact processing timelines vary by state as transport is a state subject."
+    },
+    {
+      "sourceCode": "SRC-MVA-RULES-2026-10-28",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Motor Vehicles Act 1988 and Central Motor Vehicles Rules 1989 — Hypothecation Provisions",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 51 of the Motor Vehicles Act 1988 provides for recording of hire-purchase agreements and termination thereof. Rule 61 of the Central Motor Vehicles Rules 1989 prescribes Form 35 for application to record termination of an agreement of hire-purchase, lease, or hypothecation. Both the registered owner and the financier must sign Form 35.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Section 51 of MVA 1988 governs hypothecation recording and termination.",
+        "Rule 61 of CMVR 1989 prescribes Form 35.",
+        "Both owner and financier must sign Form 35.",
+        "The registering authority updates the RC upon receiving Form 35."
+      ],
+      "uncertainty": "State-specific rules may add additional documentation requirements or modify fees."
+    }
+  ],
+  "limitations": [
+    "Fees and processing timelines vary significantly by state as transport is a concurrent subject under the Indian Constitution.",
+    "This record covers the standard HP removal process. If the financier has closed operations or been merged with another entity, additional documentation (RBI notification, merger order) may be required.",
+    "The record does not cover hypothecation addition (recording of new lien) or transfer of hypothecation between financiers.",
+    "Some states have migrated to fully online processing while others still require physical RTO visits.",
+    "The process may be delayed if the vehicle has pending challans, tax dues, or is involved in any police/court case.",
+    "The record does not cover the separate process for removal of lien recorded on vehicles by the Armed Forces or government departments."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core process under MVA 1988 is stable but state-level fee structures, online portal availability, and Vahan system updates require periodic monitoring.",
+    "nextReviewTrigger": [
+      "Amendments to Motor Vehicles Act or Central Motor Vehicles Rules regarding hypothecation.",
+      "Changes to Parivahan Sewa portal functionality for HP termination.",
+      "State-level fee revisions for RC-related services.",
+      "Updates to Vahan system impacting HP recording and termination workflow.",
+      "Introduction of fully automated HP removal through financier-RTO integration."
+    ]
+  }
+}

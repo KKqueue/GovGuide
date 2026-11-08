@@ -1,0 +1,273 @@
+{
+  "serviceCode": "DISABILITY_CERTIFICATE_UDID",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Disability Certificate / UDID Card"
+  },
+  "authority": "Department of Empowerment of Persons with Disabilities (DEPwD), Ministry of Social Justice and Empowerment",
+  "jurisdiction": "CENTRAL",
+  "category": "DISABILITY_CERTIFICATE",
+  "description": {
+    "en": "Issuance of a Disability Certificate and Unique Disability Identity Card (UDID) under the Rights of Persons with Disabilities Act, 2016 (RPwD Act). The UDID card serves as a single document for identification and verification of persons with disabilities for availing benefits under various government schemes, concessions in travel, education, employment reservations, and other entitlements."
+  },
+  "officialLinks": {
+    "application": "https://www.swavlambancard.gov.in/",
+    "informationPortal": "https://disabilityaffairs.gov.in/",
+    "actText": "https://www.indiacode.nic.in/handle/123456789/2155"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DISABILITY_TYPE_COVERED",
+        "field": "applicant.disabilityType",
+        "operator": "IN",
+        "value": "21_SPECIFIED_DISABILITIES",
+        "classification": "MANDATORY",
+        "appliesTo": "All UDID applicants",
+        "claim": "The applicant must have one or more of the 21 types of disabilities specified in the Schedule of the RPwD Act, 2016. These include: (1) Blindness, (2) Low-vision, (3) Leprosy Cured persons, (4) Hearing Impairment (deaf and hard of hearing), (5) Locomotor Disability, (6) Dwarfism, (7) Intellectual Disability, (8) Mental Illness, (9) Autism Spectrum Disorder, (10) Cerebral Palsy, (11) Muscular Dystrophy, (12) Chronic Neurological conditions, (13) Specific Learning Disabilities, (14) Multiple Sclerosis, (15) Speech and Language disability, (16) Thalassemia, (17) Hemophilia, (18) Sickle Cell disease, (19) Multiple Disabilities including deafblindness, (20) Acid Attack victim, (21) Parkinson's disease.",
+        "sourceRefs": ["SRC-RPWD-ACT-2016", "SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+      },
+      {
+        "conditionCode": "DISABILITY_PERCENTAGE_MINIMUM",
+        "field": "applicant.disabilityPercentage",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 40,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants seeking benchmark disability certification",
+        "claim": "For availing most government benefits and reservations, the disability must be assessed at 40% or more (benchmark disability) by a certified medical authority. However, the UDID card can be issued for any assessed percentage of disability. The percentage is determined by the medical board at the district hospital or designated government hospital.",
+        "sourceRefs": ["SRC-RPWD-ACT-2016", "SRC-UDID-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Temporary disabilities may receive a certificate with a limited validity period, requiring reassessment.",
+      "Children below 5 years of age may have provisional assessments that need to be reassessed at age 5 or later.",
+      "Persons with multiple disabilities are assessed for each disability separately and the combined percentage is computed as per prescribed rules."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DISABILITY_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DISABILITY_CERTIFICATE_UDID",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DISABILITY_REQ_ONLINE_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Online application must be submitted on the UDID portal (swavlambancard.gov.in). The applicant or their caregiver/guardian must register on the portal and fill the application form with personal details, disability type, and other required information.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL"]
+    },
+    {
+      "requirementCode": "DISABILITY_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, voter ID, passport, driving license, PAN card, or any government-issued photo identity document. For minors, the identity proof of the parent or legal guardian is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+    },
+    {
+      "requirementCode": "DISABILITY_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of address of the applicant such as Aadhaar card, voter ID, ration card, utility bill, or any government-issued address proof. This is used to assign the applicant to the nearest district hospital for medical assessment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL"]
+    },
+    {
+      "requirementCode": "DISABILITY_REQ_MEDICAL_RECORDS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Medical records, prescriptions, diagnostic reports, or previous medical certificates related to the disability. These documents help the medical board in assessing the type and extent of disability. Any previous disability certificate (if already issued) should also be submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+    },
+    {
+      "requirementCode": "DISABILITY_REQ_PASSPORT_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-sized photographs of the applicant (typically 2-4 copies). The photograph should clearly show the applicant's face and, where applicable, the visible disability.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL"]
+    },
+    {
+      "requirementCode": "DISABILITY_REQ_AADHAAR",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["DISABILITY_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar number is recommended for linking with the UDID card for digital verification and benefit disbursement. While not strictly mandatory, Aadhaar linkage facilitates faster processing and easier availing of benefits.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-UDID-PORTAL"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DISABILITY_CERT_UDID_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All UDID applicants",
+      "claim": "UDID card application process: (1) Register on the UDID portal (swavlambancard.gov.in) and fill the online application form with personal details and disability information, (2) Upload scanned copies of required documents (identity proof, address proof, medical records, photographs), (3) Submit the online application and note the enrollment number, (4) Visit the assigned district hospital or designated government hospital on the scheduled date for medical assessment by the Medical Board, (5) The Medical Board examines the applicant and assesses the type and percentage of disability, (6) The disability certificate is generated on the UDID portal with the assessed percentage, (7) The UDID card (physical smart card) is dispatched to the applicant's address or can be collected from the district office.",
+      "doesNotEstablish": [
+        "Medical board composition and assessment procedures may vary by state.",
+        "Some district hospitals may have designated days for disability assessment.",
+        "The physical UDID card dispatch timeline may vary."
+      ],
+      "sourceRefs": ["SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+    },
+    {
+      "processCode": "DISABILITY_CERT_RENEWAL_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants with temporary disability certificates requiring renewal",
+      "claim": "Renewal process: For disabilities that may change over time (temporary or progressive), the certificate has a validity period set by the medical board. Before expiry, the applicant must apply for renewal through the UDID portal and undergo a fresh medical assessment. Permanent disabilities may receive a lifetime certificate not requiring renewal.",
+      "doesNotEstablish": [
+        "The classification of permanent vs. temporary disability is determined by the medical board.",
+        "Validity period for temporary certificates varies based on the condition."
+      ],
+      "sourceRefs": ["SRC-RPWD-ACT-2016", "SRC-UDID-PORTAL"]
+    }
+  ],
+  "output": {
+    "outputCode": "UDID_CARD_AND_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Disability Certificate (digital) and a Unique Disability Identity Card (UDID - physical smart card) issued under the RPwD Act, 2016. The certificate specifies the type(s) of disability and the assessed percentage. The UDID card serves as a nationally recognized identity document for persons with disabilities, accepted for availing benefits under all central and state government schemes, travel concessions (railway, air), educational reservations, employment reservations (3-4% in government jobs), and other entitlements.",
+    "sourceRefs": ["SRC-RPWD-ACT-2016", "SRC-UDID-PORTAL"]
+  },
+  "fees": [
+    {
+      "feeCode": "DISABILITY_CERT_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "All applicants",
+      "status": "VERIFIED",
+      "claim": "The disability certificate and UDID card are issued completely free of charge. No government fee is charged for the application, medical assessment, certificate issuance, or UDID card generation.",
+      "sourceRefs": ["SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DISABILITY_CERT_PROCESSING",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Standard application with medical assessment",
+    "status": "VERIFIED",
+    "claim": "The overall processing time from application submission to receipt of the UDID card typically ranges from 30 to 60 days. This includes: online application processing (3-7 days), scheduling of medical assessment (7-15 days), medical board assessment and certificate generation (7-14 days), and UDID card printing and dispatch (14-21 days). The digital certificate may be available on the portal sooner than the physical UDID card.",
+    "estimatedCompletionDatePolicy": "The digital disability certificate is typically available on the UDID portal within 30 days of the medical assessment. The physical UDID card may take an additional 2-4 weeks for printing and dispatch.",
+    "fallbackThresholdMentionedBySource": "If not received within 60 days, contact the District Disability Rehabilitation Centre (DDRC) or the state DEPwD office",
+    "sourceRefs": ["SRC-UDID-PORTAL", "SRC-DEPWD-PORTAL"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-UDID-PORTAL",
+      "url": "https://www.swavlambancard.gov.in/",
+      "title": "UDID Portal - Unique Disability Identity Card",
+      "publisher": "Department of Empowerment of Persons with Disabilities, Ministry of Social Justice and Empowerment",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The UDID portal is the official national platform for online registration, application, and issuance of Unique Disability Identity Cards. It provides the application form, document requirements, process flow, and status tracking for UDID card applications.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application process for UDID card.",
+        "Document requirements.",
+        "Medical assessment scheduling.",
+        "UDID card features and benefits.",
+        "Free issuance policy."
+      ],
+      "uncertainty": "Portal functionality and district hospital integration may vary across states and districts."
+    },
+    {
+      "sourceCode": "SRC-DEPWD-PORTAL",
+      "url": "https://disabilityaffairs.gov.in/",
+      "title": "Department of Empowerment of Persons with Disabilities",
+      "publisher": "Ministry of Social Justice and Empowerment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The DEPwD portal provides comprehensive information on disability rights, the RPwD Act 2016, government schemes for persons with disabilities, UDID card programme, and guidelines for disability certification.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "21 types of specified disabilities under RPwD Act.",
+        "Government schemes and benefits for PwDs.",
+        "UDID programme objectives and implementation.",
+        "Medical board guidelines for disability assessment.",
+        "Employment reservation policies."
+      ],
+      "uncertainty": "State-level implementation of DEPwD guidelines may vary."
+    },
+    {
+      "sourceCode": "SRC-RPWD-ACT-2016",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2155",
+      "title": "The Rights of Persons with Disabilities Act, 2016",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The RPwD Act, 2016 replaced the Persons with Disabilities Act, 1995 and expanded the list of recognized disabilities from 7 to 21. Section 56-59 cover certification of specified disabilities, assessment by certifying authorities, and the procedure for issuance of disability certificates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "21 types of specified disabilities.",
+        "Benchmark disability definition (40% or more).",
+        "Rights to disability certification.",
+        "Medical board assessment procedure.",
+        "Employment reservation (3-4%).",
+        "Education and welfare entitlements."
+      ],
+      "uncertainty": "Rules and notifications under the Act are periodically updated by the DEPwD."
+    }
+  ],
+  "limitations": [
+    "The medical assessment for disability percentage is conducted by the medical board at designated government hospitals; the board's decision is final unless appealed.",
+    "Physical UDID card dispatch timelines may vary significantly based on printing capacity and postal delays.",
+    "Some district hospitals may have limited capacity for disability assessments, leading to longer wait times.",
+    "The 21 disability categories are defined in the RPwD Act 2016; conditions not covered under these categories may not be certified.",
+    "Appeals against the medical board's assessment can be made to the Chief Medical Officer or designated appellate authority, but the process varies by state.",
+    "Aadhaar linkage, while recommended, may not be available for all applicants, particularly those in remote areas."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Eligibility criteria, document requirements, and process verified against the RPwD Act 2016, UDID portal, and DEPwD portal. Medical assessment and UDID card issuance process confirmed.",
+    "nextReviewTrigger": [
+      "Amendments to the RPwD Act or addition of new disability categories.",
+      "Changes to the UDID portal application process.",
+      "Updates to medical board assessment guidelines.",
+      "Changes to the benchmark disability threshold.",
+      "New government schemes or benefits linked to the UDID card."
+    ]
+  }
+}

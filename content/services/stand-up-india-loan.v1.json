@@ -1,0 +1,348 @@
+{
+  "serviceCode": "STAND_UP_INDIA_LOAN",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Stand Up India Scheme — Bank Loan for SC/ST and Women Entrepreneurs"
+  },
+  "authority": "Department of Financial Services / SIDBI (Small Industries Development Bank of India)",
+  "jurisdiction": "CENTRAL",
+  "category": "STAND_UP_INDIA_LOAN",
+  "description": {
+    "en": "The Stand Up India Scheme facilitates bank loans between Rs. 10 lakh and Rs. 1 crore to at least one Scheduled Caste (SC) or Scheduled Tribe (ST) borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise in manufacturing, services, or the trading sector. The scheme is implemented through all Scheduled Commercial Banks and supported by SIDBI through the Stand Up India portal (standupmitra.in). It aims to leverage the institutional credit structure to reach out to the underserved sectors of the population."
+  },
+  "officialLinks": {
+    "application": "https://www.standupmitra.in/",
+    "informationPortal": "https://www.standupmitra.in/Home/SUISchemes"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SUI_SC_ST_OR_WOMAN",
+        "field": "applicant.belongsToSCSTOrWoman",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants under the Stand Up India Scheme",
+        "claim": "The applicant must be either a Scheduled Caste (SC) or Scheduled Tribe (ST) individual, or a woman. In the case of a non-individual enterprise, at least 51% of the shareholding and controlling stake should be held by either an SC/ST or woman entrepreneur.",
+        "sourceRefs": [
+          "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SUI_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants under the Stand Up India Scheme",
+        "claim": "The applicant must be above 18 years of age at the time of applying for the loan.",
+        "sourceRefs": [
+          "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SUI_GREENFIELD_ENTERPRISE",
+        "field": "enterprise.isGreenfield",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants under the Stand Up India Scheme",
+        "claim": "The loan is available only for greenfield enterprises — new ventures in manufacturing, services, or the trading sector. Existing businesses seeking expansion are not eligible.",
+        "sourceRefs": [
+          "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+          "SRC-DFS-GUIDELINES-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Borrowers should not be in default to any bank or financial institution at the time of application.",
+      "In case of non-individual enterprises, 51% shareholding and controlling stake should be held by the SC/ST or woman entrepreneur.",
+      "The scheme may also cover enterprises in allied activities as notified by the Government from time to time."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SUI_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "STAND_UP_INDIA_LOAN",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SUI_LOAN_AMOUNT_RANGE",
+      "field": "applicant.requestedLoanAmount",
+      "operator": "GREATER_THAN",
+      "value": 999999,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "SUI_SECTOR_CHECK",
+      "field": "enterprise.sectorType",
+      "operator": "IN_SET",
+      "value": ["MANUFACTURING", "SERVICES", "TRADING"],
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "SUI_SC_ST_OR_WOMAN",
+      "field": "applicant.belongsToSCSTOrWoman",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SUI_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid identity proof such as Aadhaar card, Voter ID, PAN card, or Passport of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUI_REQ_CASTE_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED",
+          "SUI_SC_ST_OR_WOMAN"
+        ]
+      },
+      "claim": "SC/ST certificate issued by the competent authority (for SC/ST applicants). Women applicants must provide identity proof confirming gender.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUI_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence/address such as Aadhaar card, utility bill, ration card, or passport.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUI_REQ_BUSINESS_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A detailed project report or business plan for the proposed greenfield enterprise, including cost estimates, revenue projections, and the proposed sector (manufacturing, services, or trading).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+        "SRC-DFS-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUI_REQ_BANK_STATEMENTS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account statements for the last 6 months and proof that the applicant is not in default with any bank or financial institution.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUI_REQ_QUOTATIONS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SUI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Quotations for machinery, equipment, or other capital expenditure items to be procured for the enterprise.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-DFS-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SUI_STEP1_REGISTER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants seeking Stand Up India loans",
+      "claim": "Register on the Stand Up India portal at standupmitra.in. Fill in personal details, enterprise details, and the proposed project information. Alternatively, the applicant may directly approach any branch of a Scheduled Commercial Bank.",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUI_STEP2_CONNECT_BANK",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered applicants",
+      "claim": "The portal connects the applicant with the nearest bank branch or Lead District Manager (LDM). The applicant can also directly visit the bank branch with the application and required documents.",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUI_STEP3_APPRAISAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants whose documents are submitted to the bank",
+      "claim": "The bank branch appraises the project report, verifies documents, assesses the viability of the proposed enterprise, and processes the loan application. The bank may seek clarification or additional information from the applicant.",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+        "SRC-DFS-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUI_STEP4_SANCTION_DISBURSE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "Upon successful appraisal, the bank sanctions the loan between Rs. 10 lakh and Rs. 1 crore. The loan is disbursed to the applicant's account, and the composite loan covers term loan and working capital components. Repayment period is up to 7 years with a maximum moratorium period of 18 months.",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+        "SRC-DFS-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SUI_LOAN_SANCTION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A composite loan (covering term loan and working capital) between Rs. 10 lakh and Rs. 1 crore is sanctioned to the eligible SC/ST or woman entrepreneur for setting up a greenfield enterprise. The margin money component is 25% of the project cost, which can be provided through convergence with eligible Central or State Government schemes. The loan is repayable over 7 years with a moratorium period of up to 18 months.",
+    "sourceRefs": [
+      "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+      "SRC-DFS-GUIDELINES-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SUI_PROCESSING_FEE",
+      "category": "BANK_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Loan processing under Stand Up India Scheme",
+      "status": "VERIFIED",
+      "claim": "There is no specific government fee for the Stand Up India Scheme. However, banks may charge standard loan processing fees as per their norms, which vary by bank. The processing fee is typically nominal and may be waived for this scheme at the discretion of the bank.",
+      "sourceRefs": [
+        "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SUI_CGTSMI_FEE",
+      "category": "GUARANTEE_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Credit guarantee cover under CGTSMI for Stand Up India loans",
+      "status": "VERIFIED",
+      "claim": "Stand Up India loans are covered under the Credit Guarantee Fund Scheme for Stand Up India (CGFSUI). The guarantee cover fee is borne by the scheme and not charged to the borrower. The guarantee covers loans up to Rs. 1 crore.",
+      "sourceRefs": [
+        "SRC-DFS-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SUI_PROCESSING_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From application submission to loan sanction",
+    "status": "VERIFIED",
+    "claim": "Loan processing under the Stand Up India Scheme typically takes 15-30 working days from the date of submission of a complete application with all required documents. The actual timeline depends on the bank's internal appraisal process and any clarifications required.",
+    "sourceRefs": [
+      "SRC-STANDUPMITRA-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-STANDUPMITRA-PORTAL-2026-10-28",
+      "url": "https://www.standupmitra.in/",
+      "title": "Stand Up India Portal — standupmitra.in",
+      "publisher": "Department of Financial Services / SIDBI, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Stand Up India scheme facilitates bank loans between Rs. 10 lakh and Rs. 1 crore to at least one SC or ST borrower and at least one woman borrower per bank branch for setting up a greenfield enterprise in manufacturing, services, or trading sector. The portal connects borrowers with banks and provides handholding support.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Loan amount between Rs. 10 lakh and Rs. 1 crore.",
+        "Available for SC/ST and women entrepreneurs for greenfield enterprises.",
+        "Covers manufacturing, services, and trading sectors.",
+        "Portal connects borrowers with bank branches.",
+        "Repayment period up to 7 years with moratorium of up to 18 months."
+      ],
+      "uncertainty": "Bank-specific processing fees and timelines may vary."
+    },
+    {
+      "sourceCode": "SRC-DFS-GUIDELINES-2026-10-28",
+      "url": "https://financialservices.gov.in/",
+      "title": "Department of Financial Services — Stand Up India Guidelines",
+      "publisher": "Department of Financial Services, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Guidelines for the Stand Up India Scheme specify that composite loans (term loan and working capital) between Rs. 10 lakh and Rs. 1 crore are to be provided to SC/ST and women entrepreneurs. Margin money is 25% which can be converged with other government schemes. Credit guarantee cover is provided under CGFSUI.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Composite loan covers term loan and working capital.",
+        "Margin money of 25% of project cost.",
+        "Credit guarantee cover under CGFSUI.",
+        "Greenfield enterprise requirement.",
+        "Project report or business plan is mandatory."
+      ],
+      "uncertainty": "The scheme has been extended multiple times; the current extension validity should be confirmed."
+    }
+  ],
+  "limitations": [
+    "Only greenfield enterprises are eligible — expansion or brownfield projects are not covered.",
+    "Loan amount is fixed between Rs. 10 lakh and Rs. 1 crore; smaller or larger requirements are not covered under this scheme.",
+    "Bank-specific processing fees, interest rates, and timelines may vary across different Scheduled Commercial Banks.",
+    "The scheme requires 25% margin money which, if not available through convergence with other schemes, must be arranged by the borrower.",
+    "The borrower must not be in default to any bank or financial institution.",
+    "This record does not cover the detailed process for convergence with other Central or State Government subsidy schemes."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme guidelines are reviewed but bank-specific implementation, interest rates, and scheme extension status need monitoring.",
+    "nextReviewTrigger": [
+      "Changes to the Stand Up India Scheme guidelines or extension status.",
+      "Updates to CGFSUI credit guarantee coverage terms.",
+      "Changes in margin money requirements or convergence norms.",
+      "New notifications regarding eligible sectors or activities.",
+      "Changes to the standupmitra.in portal functionality."
+    ]
+  }
+}

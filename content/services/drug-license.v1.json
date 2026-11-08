@@ -1,0 +1,295 @@
+{
+  "serviceCode": "DRUG_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Drug License"
+  },
+  "authority": "Central Drugs Standard Control Organisation (CDSCO) / State Drug Controller",
+  "jurisdiction": "STATE",
+  "category": "DRUG_LICENSE",
+  "description": {
+    "en": "A Drug License is mandatory for manufacturing, selling, stocking, or distributing drugs and cosmetics in India. Issued under the Drugs and Cosmetics Act, 1940, the license is required for retail pharmacies, wholesale drug distributors, and drug manufacturers. The State Drug Controller issues licenses for retail and wholesale operations, while CDSCO handles manufacturing licenses for certain categories."
+  },
+  "officialLinks": {
+    "application": "https://sugam.cdsco.gov.in/",
+    "informationPortal": "https://cdscoonline.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DRUG_QUALIFIED_PERSON",
+        "field": "applicant.hasQualifiedPerson",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All drug license applicants",
+        "claim": "The applicant must employ a registered pharmacist or a person holding a degree in Pharmacy or Pharmaceutical Chemistry as a competent/qualified person to supervise the sale or manufacture of drugs.",
+        "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+      },
+      {
+        "conditionCode": "DRUG_PREMISES_SUITABLE",
+        "field": "premises.isSuitable",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All drug license applicants",
+        "claim": "The premises where drugs are to be stored, sold, or manufactured must meet the prescribed standards for area, ventilation, storage conditions, and hygiene as per the Drugs and Cosmetics Rules.",
+        "sourceRefs": ["SRC-DRUG-DCA-2026-10-28", "SRC-DRUG-SUGAM-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific area requirements for premises vary by state and type of license (retail, wholesale, manufacturing).",
+      "Additional qualifications may be required for manufacturing licenses depending on the drug category.",
+      "Some states require prior experience in the pharmaceutical field for the applicant or competent person.",
+      "Cold storage facilities may be required for certain categories of drugs."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DRUG_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DRUG_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DRUG_LICENSE_TYPE_RETAIL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RETAIL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DRUG_LICENSE_TYPE_WHOLESALE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "WHOLESALE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DRUG_LICENSE_TYPE_MANUFACTURING",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "MANUFACTURING",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DRUG_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "Prescribed application form — Form 19 (retail sale), Form 19AA (restricted retail sale), Form 20B (wholesale), or Form 21B (manufacturing) — must be submitted to the State Drug Controller or CDSCO as applicable.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DRUG_REQ_PREMISES_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "Blueprint/layout plan of the premises showing the area, storage arrangements, and facilities available. The premises must have adequate space for storing drugs separately from non-drug items.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DRUG_REQ_QUALIFIED_PERSON_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "Qualification certificate (B.Pharm / D.Pharm) and registration certificate from the State Pharmacy Council of the competent/qualified person who will supervise the drug operations.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28", "SRC-DRUG-SUGAM-2026-10-28"]
+    },
+    {
+      "requirementCode": "DRUG_REQ_NOC_LANDLORD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "No Objection Certificate (NOC) from the landlord or proof of ownership of the premises where the drug business will be conducted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-SUGAM-2026-10-28"]
+    },
+    {
+      "requirementCode": "DRUG_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof and address proof of the applicant (proprietor/partners/directors) — Aadhaar card, PAN card, passport, or voter ID.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-SUGAM-2026-10-28"]
+    },
+    {
+      "requirementCode": "DRUG_REQ_CONSTITUTION_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DRUG_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of constitution of the firm — partnership deed, certificate of incorporation, or Memorandum and Articles of Association as applicable.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DRUG-SUGAM-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DRUG_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All drug license applicants",
+      "claim": "Submit the application online through the SUGAM portal (for central licenses) or through the respective state's online drug licensing system with the prescribed form and required documents. The application fee must be paid online.",
+      "sourceRefs": ["SRC-DRUG-SUGAM-2026-10-28"]
+    },
+    {
+      "processCode": "DRUG_STEP2_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All drug license applicants",
+      "claim": "A Drug Inspector is assigned to inspect the premises. The inspector verifies the suitability of the premises, storage facilities, availability of the qualified person, and compliance with prescribed standards under the Drugs and Cosmetics Rules.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "processCode": "DRUG_STEP3_REPORT_REVIEW",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All inspected applications",
+      "claim": "The Drug Inspector submits the inspection report to the licensing authority. If deficiencies are found, the applicant is given an opportunity to rectify them. Additional documentation may be requested.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "processCode": "DRUG_STEP4_LICENSE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "Upon satisfactory inspection and verification, the drug license is issued by the licensing authority. Retail licenses are issued in Form 20/21, wholesale in Form 20B/21B, and manufacturing in Form 25/28. The license is valid for 5 years and must be renewed before expiry.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28", "SRC-DRUG-SUGAM-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "DRUG_LICENSE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Drug License is issued in the prescribed form (Form 20, 20B, 21, 21B, 25, or 28 depending on the type) containing the licensee's details, premises address, categories of drugs permitted to be sold/manufactured, name of the competent person, and validity period. The license must be prominently displayed at the licensed premises.",
+    "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "DRUG_RETAIL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 250,
+      "maximumAmount": 1500,
+      "currency": "INR",
+      "applicability": "Retail drug license application and inspection fee",
+      "status": "VERIFIED",
+      "claim": "Retail drug license fees range from Rs. 250 to Rs. 1,500 depending on the state and drug categories covered. Fee includes application processing and premises inspection charges.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "feeCode": "DRUG_WHOLESALE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 3000,
+      "currency": "INR",
+      "applicability": "Wholesale drug license application and inspection fee",
+      "status": "VERIFIED",
+      "claim": "Wholesale drug license fees range from Rs. 500 to Rs. 3,000 depending on the state and categories of drugs. Additional fees may apply for licenses covering Schedule X drugs.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    },
+    {
+      "feeCode": "DRUG_MANUFACTURING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 1500,
+      "maximumAmount": 6000,
+      "currency": "INR",
+      "applicability": "Manufacturing drug license application fee",
+      "status": "VERIFIED",
+      "claim": "Manufacturing drug license fees range from Rs. 1,500 to Rs. 6,000 depending on the drug category and state. Fees are higher for manufacturers of Schedule C and Schedule X drugs.",
+      "sourceRefs": ["SRC-DRUG-DCA-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DRUG_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Drug license from application to issuance",
+    "status": "VERIFIED",
+    "claim": "Drug license processing typically takes 30-60 days from application submission to license issuance, including the premises inspection. Some states have implemented time-bound processing under the Business Reform Action Plan (BRAP). Delays may occur if premises require modifications after inspection.",
+    "sourceRefs": ["SRC-DRUG-DCA-2026-10-28", "SRC-DRUG-SUGAM-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-DRUG-DCA-2026-10-28",
+      "url": "https://cdscoonline.gov.in/",
+      "title": "Central Drugs Standard Control Organisation — Official Portal",
+      "publisher": "Central Drugs Standard Control Organisation, Ministry of Health and Family Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "CDSCO is the national regulatory body for pharmaceuticals and medical devices. The Drugs and Cosmetics Act, 1940 and Rules thereunder prescribe the forms, fees, and procedures for obtaining drug licenses for retail sale, wholesale, and manufacturing of drugs.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Drug licenses are mandatory for manufacturing, sale, and distribution of drugs.",
+        "Different forms are prescribed for retail (Form 19/20), wholesale (Form 20B/21B), and manufacturing (Form 21B/25).",
+        "A qualified person (registered pharmacist) is mandatory.",
+        "Premises inspection by Drug Inspector is required before license issuance."
+      ],
+      "uncertainty": "State-level fee structures and processing timelines may differ from central guidelines."
+    },
+    {
+      "sourceCode": "SRC-DRUG-SUGAM-2026-10-28",
+      "url": "https://sugam.cdsco.gov.in/",
+      "title": "SUGAM — Online Portal for CDSCO License Applications",
+      "publisher": "Central Drugs Standard Control Organisation, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "SUGAM is the online portal for submitting drug license applications to CDSCO. The portal enables applicants to submit applications, upload documents, track application status, and receive licenses electronically.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Applications can be submitted online through SUGAM portal.",
+        "Required documents include premises layout, qualified person credentials, NOC from landlord.",
+        "Application tracking is available online."
+      ],
+      "uncertainty": "SUGAM primarily handles central-level licenses. State-level applications use separate state portals."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview of drug licensing. Specific requirements vary significantly by state and license type.",
+    "State-specific online portals and their processes are not individually modeled.",
+    "The record does not cover specialized licenses for blood banks, large volume parenterals, or vaccines.",
+    "Renewal procedures and timelines are not covered in detail.",
+    "Good Manufacturing Practice (GMP) compliance requirements for manufacturing licenses are summarized but not exhaustively documented."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central regulatory framework is reviewed, but state-specific implementation details and fee structures need verification.",
+    "nextReviewTrigger": [
+      "Amendments to the Drugs and Cosmetics Act or Rules.",
+      "Changes to SUGAM portal procedures.",
+      "State-level reforms in drug licensing processes.",
+      "Introduction of unified national drug licensing portal."
+    ]
+  }
+}

@@ -1,0 +1,333 @@
+{
+  "serviceCode": "PASSPORT_TATKAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Passport Tatkal (Urgent) Service"
+  },
+  "authority": "Ministry of External Affairs / Passport Seva",
+  "jurisdiction": "CENTRAL",
+  "category": "PASSPORT_TATKAL",
+  "description": {
+    "en": "The Tatkal (Urgent) Passport Service enables Indian citizens to obtain a passport on an expedited basis, typically within 1-3 working days of application, as opposed to the normal processing time of up to 30 days. Tatkal applications attract higher government fees and require additional verification documents such as Annexure F (Verification Certificate from any one of the listed authorities) or Annexure I (Identity Certificate from a gazetted officer or equivalent). The service is available for both fresh passports and re-issue of passports and is processed through the Passport Seva Kendra (PSK) network."
+  },
+  "officialLinks": {
+    "application": "https://www.passportindia.gov.in/",
+    "informationPortal": "https://www.passportindia.gov.in/AppOnlineProject/online/faqTatkal"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "TATKAL_INDIAN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants seeking Tatkal passport service",
+        "claim": "The applicant must be an Indian citizen. Foreign nationals and Overseas Citizens of India (OCI) are not eligible for Tatkal passport issuance.",
+        "sourceRefs": [
+          "SRC-PASSPORT-SEVA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "TATKAL_URGENCY_REQUIREMENT",
+        "field": "applicant.hasUrgentNeed",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All Tatkal passport applicants",
+        "claim": "The Tatkal scheme is meant for applicants who need a passport urgently and cannot wait for the normal processing period. No formal proof of urgency is required but the applicant must pay the additional Tatkal fee.",
+        "sourceRefs": [
+          "SRC-PASSPORT-SEVA-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Minors under 18 years of age applying under Tatkal may have different verification requirements.",
+      "Applicants who have been issued a passport before may face different document requirements for re-issue under Tatkal.",
+      "Government servants applying under Tatkal may need prior permission from their department or an NOC."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "TATKAL_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PASSPORT_TATKAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TATKAL_APPLICANT_IS_ADULT",
+      "field": "applicant.age",
+      "operator": "GREATER_THAN",
+      "value": 17,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "TATKAL_FRESH_PASSPORT",
+      "field": "applicant.applicationType",
+      "operator": "EQUALS",
+      "value": "FRESH",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "TATKAL_REISSUE_PASSPORT",
+      "field": "applicant.applicationType",
+      "operator": "EQUALS",
+      "value": "REISSUE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "TATKAL_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Completed online passport application form submitted through the Passport Seva portal (passportindia.gov.in) with the Tatkal scheme selected. The applicant must book an appointment at a Passport Seva Kendra (PSK) or Regional Passport Office (RPO).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TATKAL_REQ_PROOF_OF_IDENTITY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of present address such as Aadhaar card, water bill, telephone (landline or postpaid mobile), electricity bill, bank passbook, voter ID card, or spouse's passport with current address.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TATKAL_REQ_DOB_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of date of birth such as birth certificate, school leaving certificate, Aadhaar card, PAN card, or voter ID card. One of the listed documents must be provided.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TATKAL_REQ_ANNEXURE_F",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED",
+          "TATKAL_FRESH_PASSPORT"
+        ]
+      },
+      "claim": "Annexure F — Verification Certificate signed by any one of the listed authorities (such as officers of Central/State Government, PSU, scheduled commercial bank, or MLA/MP) attesting the identity and address of the applicant. Required for fresh Tatkal passport applications where the applicant has not held a passport before.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28",
+        "SRC-MEA-PASSPORT-INFO-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TATKAL_REQ_ANNEXURE_I",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED",
+          "TATKAL_FRESH_PASSPORT"
+        ]
+      },
+      "claim": "Annexure I — Identity Certificate signed by a gazetted officer or equivalent, certifying the applicant's identity and address. This can be submitted as an alternative to Annexure F for fresh Tatkal passport applications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TATKAL_REQ_OLD_PASSPORT",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TATKAL_ROUTE_SELECTED",
+          "TATKAL_REISSUE_PASSPORT"
+        ]
+      },
+      "claim": "Original old passport (and a self-attested copy of the first two and last two pages, and the page containing ECR/ECNR stamp) for re-issue applications under Tatkal. If the old passport is lost or damaged, an FIR/police report must be submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "TATKAL_STEP1_APPLY_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Tatkal passport applicants",
+      "claim": "Register on the Passport Seva portal (passportindia.gov.in) if not already registered. Fill the online application form selecting 'Tatkal' as the scheme type, pay the fees online, and book an appointment at the nearest Passport Seva Kendra (PSK) or Regional Passport Office (RPO).",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TATKAL_STEP2_VISIT_PSK",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants with confirmed appointment",
+      "claim": "Visit the Passport Seva Kendra (PSK) on the appointed date and time. Submit the printed application form along with original and self-attested copies of supporting documents, Annexure F or I (for fresh applications), and the fee receipt. Biometric data (photograph and fingerprints) will be captured at the counter.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TATKAL_STEP3_POLICE_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All Tatkal applicants",
+      "claim": "For Tatkal passports, the passport may be issued before police verification (post-issuance police verification). However, for fresh applicants without prior passport history, police verification may be initiated before or after issuance depending on the case. The passport is printed and dispatched after clearance.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28",
+        "SRC-MEA-PASSPORT-INFO-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TATKAL_STEP4_PASSPORT_DISPATCH",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants whose passport is approved",
+      "claim": "The printed passport booklet is dispatched to the applicant's address via Speed Post. The applicant can track the status online through the Passport Seva portal or the mPassport Seva mobile app using the application reference number or file number.",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "TATKAL_PASSPORT_BOOKLET",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An Indian passport booklet (36 or 60 pages) is issued within 1-3 working days of the application being accepted at the Passport Seva Kendra. The passport is valid for 10 years for adults (18 years and above) and 5 years for minors (below 18 years). The passport is dispatched to the applicant's address via Speed Post.",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "TATKAL_FEE_FRESH_36PAGE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 3500,
+      "currency": "INR",
+      "applicability": "Fresh Tatkal passport (36 pages) for adults and minors",
+      "status": "VERIFIED",
+      "claim": "The government fee for a fresh passport under the Tatkal scheme (36 pages) is Rs. 3,500. This includes the normal passport fee of Rs. 1,500 plus an additional Tatkal fee of Rs. 2,000. For a 60-page jumbo passport under Tatkal, the total fee is Rs. 3,500 as well (Rs. 2,000 normal + Rs. 1,500 Tatkal surcharge on the additional pages).",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "TATKAL_FEE_REISSUE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 3500,
+      "currency": "INR",
+      "applicability": "Re-issue of passport under Tatkal scheme (36 pages)",
+      "status": "VERIFIED",
+      "claim": "The government fee for re-issue of passport under the Tatkal scheme (36 pages) is Rs. 3,500. This includes the normal re-issue fee of Rs. 1,500 plus the Tatkal additional fee of Rs. 2,000. The fee is the same regardless of the reason for re-issue (renewal, name change, address change, damaged passport, etc.).",
+      "sourceRefs": [
+        "SRC-PASSPORT-SEVA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "TATKAL_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 3,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Tatkal passport processing from PSK visit to passport dispatch",
+    "status": "VERIFIED",
+    "claim": "Under the Tatkal scheme, the passport is typically issued within 1-3 working days of the application being submitted and accepted at the Passport Seva Kendra (PSK). This is significantly faster than the normal processing time of up to 30 working days. Dispatch via Speed Post may take an additional 2-3 days.",
+    "sourceRefs": [
+      "SRC-PASSPORT-SEVA-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PASSPORT-SEVA-2026-10-28",
+      "url": "https://www.passportindia.gov.in/",
+      "title": "Passport Seva Portal — Official Passport Application System",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Passport Seva portal is the official online platform for passport applications in India. It provides information on Tatkal passport fees, required documents including Annexure F and Annexure I, processing timelines, and appointment booking at Passport Seva Kendras across India.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Tatkal passport is issued within 1-3 working days.",
+        "Additional Tatkal fee of Rs. 2,000 over normal passport fee.",
+        "Annexure F or Annexure I required for fresh Tatkal applications.",
+        "Post-issuance police verification applies for Tatkal passports.",
+        "Passport booklet dispatched via Speed Post."
+      ],
+      "uncertainty": "Fee amounts and document requirements may be revised periodically by MEA circulars."
+    },
+    {
+      "sourceCode": "SRC-MEA-PASSPORT-INFO-2026-10-28",
+      "url": "https://www.mea.gov.in/passport.htm",
+      "title": "Ministry of External Affairs — Passport Information and Policies",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MEA provides overarching policy guidance on passport issuance including Tatkal scheme rules, police verification norms, and the list of acceptable documents for various types of passport applications.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Tatkal scheme allows expedited passport processing.",
+        "Police verification may be conducted post-issuance for Tatkal.",
+        "Annexure F and Annexure I are prescribed verification documents for Tatkal."
+      ],
+      "uncertainty": "Passport rules are subject to amendment through MEA circulars and office memoranda."
+    }
+  ],
+  "limitations": [
+    "Fee amounts are as per the latest available fee schedule and may be revised by the Ministry of External Affairs.",
+    "Processing time of 1-3 days is indicative and may vary depending on the workload at the specific PSK/RPO.",
+    "This record covers Tatkal passport processing for adults primarily; minors may have additional or different requirements.",
+    "Police verification norms (pre-issuance or post-issuance) may vary by state or district.",
+    "The record does not cover diplomatic or official passports, which follow separate procedures.",
+    "Annexure formats and list of authorised signatories may be updated by MEA from time to time."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Fee schedule and document requirements are verified against the Passport Seva portal but may change with MEA circulars.",
+    "nextReviewTrigger": [
+      "Changes to Tatkal passport fee schedule.",
+      "Revision of Annexure F or Annexure I formats or signatory rules.",
+      "Changes to police verification norms for Tatkal passports.",
+      "Updates to the Passport Seva portal or appointment system.",
+      "Any amendments to the Passports Act 1967 or Passport Rules 1980."
+    ]
+  }
+}

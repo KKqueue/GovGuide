@@ -1,0 +1,373 @@
+{
+  "serviceCode": "INCOME_TAX_RETURN_FILING",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Income Tax Return (ITR) Filing"
+  },
+  "authority": "Central Board of Direct Taxes (CBDT), Department of Revenue, Ministry of Finance, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "INCOME_TAX",
+  "description": {
+    "en": "Filing of Income Tax Return (ITR) for individuals, HUFs, firms, and companies through the Income Tax e-Filing portal. Various ITR forms (ITR-1 through ITR-7) are available based on the nature and source of income. Filing is mandatory for individuals whose gross total income exceeds the basic exemption limit."
+  },
+  "officialLinks": {
+    "application": "https://eportal.incometax.gov.in/iec/foservices/#/login",
+    "informationPortal": "https://incometax.gov.in/iec/foportal/",
+    "itrForms": "https://incometax.gov.in/iec/foportal/help/individual/return-applicable-702702702702",
+    "taxCalculator": "https://incometax.gov.in/iec/foportal/help/tax-calculator"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ITR_INCOME_ABOVE_EXEMPTION",
+        "field": "applicant.grossTotalIncome",
+        "operator": "GREATER_THAN",
+        "value": "basic_exemption_limit",
+        "classification": "MANDATORY",
+        "appliesTo": "Individuals and HUFs",
+        "claim": "Filing ITR is mandatory if gross total income before deductions exceeds the basic exemption limit. Under the new tax regime (default from AY 2024-25), the basic exemption limit is Rs. 3,00,000. Under the old regime, it is Rs. 2,50,000 (Rs. 3,00,000 for senior citizens aged 60-80, Rs. 5,00,000 for super senior citizens aged 80+).",
+        "sourceRefs": [
+          "SRC-INCOME-TAX-ACT"
+        ]
+      },
+      {
+        "conditionCode": "ITR_HAS_PAN",
+        "field": "applicant.hasPAN",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All ITR filers",
+        "claim": "A valid Permanent Account Number (PAN) is mandatory for filing income tax returns. PAN must be linked with Aadhaar for the return to be processed.",
+        "sourceRefs": [
+          "SRC-INCOME-TAX-ACT",
+          "SRC-EFILING-PORTAL"
+        ]
+      },
+      {
+        "conditionCode": "ITR_MANDATORY_EVEN_BELOW_LIMIT",
+        "field": "applicant.hasMandatoryFilingCondition",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "CONDITIONAL",
+        "appliesTo": "Individuals meeting specific conditions regardless of income",
+        "claim": "ITR filing is mandatory even if income is below the exemption limit if the individual: (a) has deposited more than Rs. 1 crore in current accounts, (b) has incurred foreign travel expenditure exceeding Rs. 2 lakh, (c) has electricity expenditure exceeding Rs. 1 lakh, (d) wants to claim a tax refund, or (e) has assets or financial interest outside India.",
+        "sourceRefs": [
+          "SRC-INCOME-TAX-ACT",
+          "SRC-CBDT-NOTIFICATION"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific rules for NRIs and persons with foreign income may involve additional forms and disclosure requirements.",
+      "Businesses with turnover above prescribed limits must get accounts audited under Section 44AB before filing."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ITR_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "INCOME_TAX_RETURN_FILING",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ITR_REQ_PAN_CARD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid PAN (Permanent Account Number) is required for filing ITR. PAN serves as the primary identifier on the e-Filing portal. If PAN is not linked with Aadhaar, the return will not be processed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL",
+        "SRC-INCOME-TAX-ACT"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_AADHAAR_PAN_LINK",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar must be linked with PAN as per Section 139AA of the Income Tax Act. If Aadhaar-PAN linking is not done, the PAN becomes inoperative and the return cannot be filed or processed. Linking can be done on the e-Filing portal or via SMS.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INCOME-TAX-ACT",
+        "SRC-CBDT-NOTIFICATION"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_FORM_16",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 16 (TDS certificate from employer) is needed for salaried individuals. Form 16A is the TDS certificate for non-salary income (interest, rent, professional fees). These are issued by the deductor and reflect tax deducted at source. If Form 16 is not available, salary slips and Form 26AS/AIS can be used as alternatives.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL",
+        "SRC-INCOME-TAX-ACT"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_FORM_26AS_AIS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 26AS (Annual Tax Statement) and AIS (Annual Information Statement) must be reviewed before filing. Form 26AS shows all TDS/TCS credits and advance tax/self-assessment tax payments. AIS provides a comprehensive view of financial transactions reported to the department. Both are available on the e-Filing portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_BANK_STATEMENTS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account statements for all accounts held during the financial year are needed to report interest income and verify transactions. The pre-validated bank account linked to PAN is required for receiving any refund via direct credit.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_INVESTMENT_PROOFS",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Investment and deduction proofs are required if claiming deductions under the old tax regime: Section 80C (PPF, ELSS, LIC, tuition fees — up to Rs. 1,50,000), Section 80D (health insurance premium), Section 80E (education loan interest), Section 24(b) (home loan interest — up to Rs. 2,00,000), and HRA exemption receipts. Under the new tax regime, most deductions are not available.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INCOME-TAX-ACT",
+        "SRC-EFILING-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ITR_REQ_E_VERIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ITR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "After filing, the ITR must be verified within 30 days. E-verification can be done via Aadhaar OTP, net banking, bank account EVC, Demat account EVC, or by sending a signed ITR-V to CPC Bengaluru. Without verification, the return is treated as not filed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL",
+        "SRC-CBDT-NOTIFICATION"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ITR_FILING_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All individual ITR filers",
+      "claim": "Filing process: (1) Log in to the e-Filing portal at incometax.gov.in with PAN, (2) Select the applicable ITR form — ITR-1 (Sahaj) for salaried individuals with income up to Rs. 50 lakh, ITR-2 for individuals with capital gains or foreign income, ITR-3 for business/profession income, ITR-4 (Sugam) for presumptive taxation, (3) Pre-fill data from Form 26AS/AIS, (4) Enter income, deduction, and tax details, (5) Compute tax payable or refund, (6) Pay any outstanding tax via challan, (7) Submit and e-verify the return.",
+      "doesNotEstablish": [
+        "ITR form selection depends on individual circumstances; the portal provides a wizard to help choose.",
+        "Revised returns can be filed under Section 139(5) if errors are discovered."
+      ],
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL"
+      ]
+    },
+    {
+      "processCode": "ITR_REFUND_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Filers eligible for tax refund",
+      "claim": "If excess tax has been paid (through TDS, advance tax, or self-assessment tax), a refund is issued after processing. The refund is credited directly to the pre-validated bank account linked to PAN. Refund status can be tracked on the e-Filing portal or NSDL/TIN website.",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL",
+        "SRC-CBDT-NOTIFICATION"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "ITR_ACKNOWLEDGEMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful filing and e-verification, an ITR acknowledgement (ITR-V) is generated with an acknowledgement number. After processing by CPC Bengaluru, an intimation under Section 143(1) is sent to the registered email confirming acceptance, or indicating any adjustments. If a refund is due, it is credited to the bank account.",
+    "sourceRefs": [
+      "SRC-EFILING-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "ITR_FILING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Filing ITR on the government e-Filing portal",
+      "status": "VERIFIED",
+      "claim": "Filing income tax returns on the official e-Filing portal (incometax.gov.in) is completely free of charge. No government fee is applicable.",
+      "sourceRefs": [
+        "SRC-EFILING-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "ITR_LATE_FILING_FEE",
+      "category": "PENALTY",
+      "amount": 5000,
+      "currency": "INR",
+      "applicability": "Late filing after due date under Section 234F",
+      "status": "VERIFIED",
+      "claim": "A late filing fee of Rs. 5,000 is levied under Section 234F if the return is filed after the due date. For taxpayers whose total income does not exceed Rs. 5,00,000, the fee is reduced to Rs. 1,000.",
+      "sourceRefs": [
+        "SRC-INCOME-TAX-ACT"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ITR_PROCESSING",
+    "minimumDuration": 20,
+    "maximumDuration": 45,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Processing and refund after e-verification",
+    "status": "VERIFIED",
+    "claim": "After e-verification, CPC Bengaluru processes the return and issues an intimation under Section 143(1). Processing typically takes 20-45 days. Refunds, if any, are credited to the bank account after processing. In some cases, processing may take longer if the return is selected for scrutiny.",
+    "estimatedCompletionDatePolicy": "20-45 days from e-verification date for normal processing. Refund credit follows processing.",
+    "fallbackThresholdMentionedBySource": "If refund is not received within 60 days of e-verification, the taxpayer should check refund status online or contact CPC",
+    "sourceRefs": [
+      "SRC-EFILING-PORTAL",
+      "SRC-CBDT-NOTIFICATION"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EFILING-PORTAL",
+      "url": "https://incometax.gov.in/iec/foportal/",
+      "title": "Income Tax e-Filing Portal",
+      "publisher": "Central Board of Direct Taxes (CBDT), Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The official e-Filing portal for income tax return filing, Form 26AS/AIS access, refund tracking, and tax payment.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online ITR filing process and form selection.",
+        "Form 26AS and AIS access.",
+        "E-verification methods.",
+        "Refund tracking.",
+        "No fee for online filing."
+      ],
+      "uncertainty": "Portal UI and workflows may be updated periodically."
+    },
+    {
+      "sourceCode": "SRC-INCOME-TAX-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2490",
+      "title": "The Income-tax Act, 1961",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Income-tax Act defines filing obligations, exemption limits, deductions, due dates, penalties for late filing, PAN requirements, and Aadhaar-PAN linking provisions.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Basic exemption limits under old and new regimes.",
+        "Mandatory filing conditions.",
+        "Section 139AA: Aadhaar-PAN linking.",
+        "Section 234F: Late filing fee.",
+        "Deduction sections (80C, 80D, 24b, etc.)."
+      ],
+      "uncertainty": "The Act is amended via Finance Acts annually; latest provisions should be verified."
+    },
+    {
+      "sourceCode": "SRC-CBDT-NOTIFICATION",
+      "url": "https://incometax.gov.in/iec/foportal/help/individual/return-applicable-702702702702",
+      "title": "CBDT Notifications and Circulars",
+      "publisher": "Central Board of Direct Taxes, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "CBDT notifications specify ITR form applicability, due dates, e-verification timelines, and Aadhaar-PAN linking deadlines.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "ITR form applicability guidelines.",
+        "E-verification deadline of 30 days.",
+        "Aadhaar-PAN linking enforcement.",
+        "Refund processing guidelines.",
+        "Mandatory filing conditions beyond income threshold."
+      ],
+      "uncertainty": "Notifications are issued periodically; deadlines and thresholds may change."
+    },
+    {
+      "sourceCode": "SRC-TIN-NSDL",
+      "url": "https://tin.tin.nsdl.com/oltas/refund-status-pan.html",
+      "title": "TIN-NSDL - Tax Information Network",
+      "publisher": "National Securities Depository Limited (NSDL), authorized by CBDT",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "TIN-NSDL provides refund status tracking, challan verification, and PAN-related services.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Refund status tracking by PAN.",
+        "Challan status verification."
+      ],
+      "uncertainty": "NSDL services are being migrated to Protean eGov Technologies."
+    }
+  ],
+  "limitations": [
+    "This record covers individual ITR filing for residents. NRI filing, company returns, and trust returns have different requirements.",
+    "ITR form selection depends on the nature of income; this record provides general guidance — the e-Filing portal's ITR form wizard should be used for accurate selection.",
+    "Tax computation under old vs. new regime involves complex comparisons not fully detailed here.",
+    "Presumptive taxation under Sections 44AD/44ADA has separate conditions not fully covered.",
+    "Assessment and scrutiny procedures after filing are not covered in this record.",
+    "State-specific professional tax and surcharge details are not included.",
+    "Capital gains computation rules (short-term vs. long-term, indexation) are complex and not detailed here."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core filing requirements, process, fees, and timelines verified against the official e-Filing portal and Income Tax Act. Exemption limits and deduction sections reflect AY 2025-26 provisions.",
+    "nextReviewTrigger": [
+      "Annual Finance Act amendments changing exemption limits or deductions.",
+      "Changes to ITR form structure or applicability.",
+      "Updates to e-verification deadlines.",
+      "Changes to Aadhaar-PAN linking requirements.",
+      "Updates to the e-Filing portal process."
+    ]
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "serviceCode": "TRADE_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Trade License"
+  },
+  "authority": "Municipal Corporation / Local Body (State/Local Government)",
+  "jurisdiction": "STATE",
+  "category": "TRADE_LICENSE",
+  "description": {
+    "en": "A license issued by the local municipal corporation or local body authorizing an individual or entity to carry on a specified trade, business, or industry within the jurisdiction of the issuing authority."
+  },
+  "officialLinks": {
+    "application": "https://www.india.gov.in/",
+    "informationPortal": "https://www.india.gov.in/topics/governance-administration/municipal-corporation"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "TRADE_LICENSE_BUSINESS_ACTIVITY",
+        "field": "applicant.conductsBusiness",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Any person, firm, or company carrying on any trade, business, or industry within municipal limits",
+        "claim": "Any person, firm, or company carrying on or intending to carry on any trade, business, or industry within the jurisdiction of a municipal corporation or local body is required to obtain a trade license.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-TRADE-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "TRADE_LICENSE_PREMISES_WITHIN_JURISDICTION",
+        "field": "premises.withinMunicipalLimits",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Business premises located within the jurisdiction of the issuing municipal corporation",
+        "claim": "The business premises must be located within the jurisdictional limits of the municipal corporation or local body from which the trade license is sought.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-TRADE-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "TRADE_LICENSE_LEGAL_BUSINESS",
+        "field": "business.isLegal",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All trade license applicants",
+        "claim": "The trade or business for which the license is sought must be legal and not prohibited under any law.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-TRADE-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific trade categories and their licensing requirements vary by municipal corporation.",
+      "Some trades (food, hazardous materials, health-related) may require additional licenses from other departments.",
+      "Home-based businesses may have different requirements in some municipalities.",
+      "This record provides a general framework; specific municipal bylaws govern eligibility in each jurisdiction."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "TRADE_LICENSE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "TRADE_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TRADE_LICENSE_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TRADE_LICENSE_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "TRADE_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled application form (prescribed by the respective municipal corporation) is required for trade license application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, PAN card, Voter ID, or Passport is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof of the applicant (residential and business premises) is required, such as utility bill, bank statement, or Aadhaar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_PROPERTY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of business premises ownership (property deed, tax receipt) or rent/lease agreement is required to establish the location of the trade.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photographs of the applicant/proprietor/partners are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_NOC_FIRE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "No Objection Certificate (NOC) from the Fire Department may be required for trades involving hazardous materials, manufacturing, or premises exceeding certain area thresholds. Applicability varies by municipal corporation.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_NOC_POLLUTION",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "NOC from the Pollution Control Board may be required for businesses involving manufacturing, chemicals, or activities with environmental impact.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TRADE_REQ_PARTNERSHIP_DEED",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "TRADE_LICENSE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Partnership deed (for partnership firms), Certificate of Incorporation (for companies), or other constitution document may be required depending on the type of business entity.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "TRADE_STEP1_OBTAIN_FORM",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "Obtain the prescribed application form from the municipal corporation office or download from the respective municipal corporation's website/online portal.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP2_FILL_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "Fill the application form with details of the applicant, business name, trade type, business address, number of employees, and nature of goods/services.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP3_ATTACH_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "Attach all required documents including identity proof, address proof, property ownership/rent agreement, photographs, and any applicable NOCs.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP4_PAY_FEES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "Pay the prescribed trade license fee. The fee amount varies based on the type of trade, area of premises, and the specific municipal corporation's fee schedule.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP5_SUBMIT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "Submit the completed application with documents and fee receipt to the municipal corporation office or through the online portal where available. An acknowledgement receipt is issued.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP6_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All trade license applicants",
+      "claim": "A municipal inspector may conduct a site inspection to verify the business premises, trade type, and compliance with health, safety, and building regulations.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TRADE_STEP7_LICENSE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved trade license applications",
+      "claim": "Upon satisfactory inspection and verification, the trade license is issued by the municipal corporation. The license must be displayed at the business premises.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "TRADE_LICENSE_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Trade License certificate is issued containing the license number, trade/business type, name and address of the licensee, business premises address, validity period, and conditions of the license. The license is typically valid for one year and must be renewed annually.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-TRADE-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "TRADE_LICENSE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Varies by trade type, premises area, and municipal corporation",
+      "status": "VERIFIED",
+      "claim": "Trade license fees vary significantly based on the type of trade/business, area of premises, number of employees, and the specific municipal corporation's fee schedule. Fees can range from a few hundred rupees for small traders to several thousand rupees for large commercial establishments.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-TRADE-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "TRADE_PENALTY_LATE_RENEWAL",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Applicable when trade license renewal is done after the expiry date",
+      "status": "UNVERIFIED",
+      "claim": "A penalty or late fee may be levied for late renewal of trade license. The penalty amount varies by municipal corporation."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "TRADE_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "New trade license application with complete documentation",
+    "status": "VERIFIED",
+    "claim": "Trade license processing typically takes 7-30 days depending on the municipal corporation, completeness of application, and time required for site inspection. Some municipal corporations with online portals may process applications faster.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-TRADE-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-TRADE-2026-10-28",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India — Trade License Information",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides general guidance on trade license requirements, eligibility, documentation, and the application process applicable across municipal corporations in India.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Trade license is mandatory for carrying on trade, business, or industry within municipal limits.",
+        "The license is issued by the respective municipal corporation or local body.",
+        "Required documents include identity proof, address proof, property proof, photographs, and applicable NOCs.",
+        "Fees vary by trade type and municipality.",
+        "Processing takes 7-30 days.",
+        "The license is typically valid for one year and requires annual renewal."
+      ],
+      "uncertainty": "Specific requirements, fee amounts, and processing times vary by municipal corporation. This record provides a general framework applicable across most Indian municipalities."
+    },
+    {
+      "sourceCode": "SRC-MUNICIPAL-GENERAL-2026-10-28",
+      "url": "https://www.india.gov.in/topics/governance-administration/municipal-corporation",
+      "title": "Municipal Corporation — Governance and Administration",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The portal provides links to various municipal corporations across India and their respective online services including trade license applications.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Municipal corporations are the issuing authority for trade licenses.",
+        "Many municipal corporations now offer online application facilities.",
+        "Each municipal corporation has its own fee schedule and processing procedures."
+      ],
+      "uncertainty": "Individual municipal corporation procedures and requirements may differ from the general framework described."
+    }
+  ],
+  "limitations": [
+    "This record provides a general framework for trade license applicable across Indian municipal corporations. Specific requirements, fees, and processes vary by municipality.",
+    "Fee amounts are not specified as they are determined by individual municipal corporations based on trade type, area, and local bylaws.",
+    "The record does not cover specific trade categories that may require additional specialized licenses (e.g., food establishments, pharmacies, explosives, liquor).",
+    "Online application availability varies by municipality; some still require physical application.",
+    "Trade license renewal process and requirements are mentioned but not fully detailed.",
+    "Specific municipal corporation website URLs are not listed as they vary by jurisdiction."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General trade license framework is reviewed, but municipality-specific details, fee schedules, and specialized trade category requirements need individual modeling.",
+    "nextReviewTrigger": [
+      "Changes to municipal laws governing trade licenses.",
+      "Introduction of centralized trade license portals.",
+      "Significant changes to documentation requirements by major municipal corporations.",
+      "Integration of trade license with other business registrations at national level."
+    ]
+  }
+}

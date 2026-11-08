@@ -1,0 +1,361 @@
+{
+  "serviceCode": "RATION_CARD_NEW_APPLICATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Ration Card (New Application)"
+  },
+  "authority": "Department of Food & Public Distribution, Ministry of Consumer Affairs, Food & Public Distribution, Government of India (via State Food & Civil Supplies Departments)",
+  "jurisdiction": "STATE",
+  "category": "RATION_CARD",
+  "description": {
+    "en": "Application for a new ration card under the National Food Security Act (NFSA), 2013. Ration cards are issued by State Food & Civil Supplies departments and entitle eligible households to subsidised foodgrains through the Targeted Public Distribution System (TPDS). Cards are categorised as Priority Household (PHH), Antyodaya Anna Yojana (AAY), or Above Poverty Line (APL/non-NFSA) depending on eligibility. Under the One Nation One Ration Card (ONORC) scheme, beneficiaries can lift their entitled foodgrains from any Fair Price Shop in the country."
+  },
+  "officialLinks": {
+    "application": "https://nfsa.gov.in/",
+    "informationPortal": "https://dfpd.gov.in/",
+    "onorcPortal": "https://impds.nic.in/",
+    "rationCardStatus": "https://nfsa.gov.in/State/state_rc_formsearch.htm"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "RC_IS_INDIAN_RESIDENT",
+        "field": "applicant.residency",
+        "operator": "EQUALS",
+        "value": "INDIAN_RESIDENT",
+        "classification": "MANDATORY",
+        "appliesTo": "All ration card applicants",
+        "claim": "The applicant must be a resident of the state where the ration card is being applied for.",
+        "sourceRefs": [
+          "SRC-NFSA-ACT"
+        ]
+      },
+      {
+        "conditionCode": "RC_HEAD_OF_FAMILY",
+        "field": "applicant.isHeadOfFamily",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All ration card applicants",
+        "claim": "The applicant must be the head of the family or the eldest female member of the household (as per NFSA, the eldest woman of 18 years or above is the head of household for the purpose of issuing ration cards).",
+        "sourceRefs": [
+          "SRC-NFSA-ACT"
+        ]
+      },
+      {
+        "conditionCode": "RC_NO_EXISTING_CARD",
+        "field": "applicant.hasExistingRationCard",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All new ration card applicants",
+        "claim": "The applicant's household must not already hold a ration card in the same state or any other state. Duplicate cards are not issued.",
+        "sourceRefs": [
+          "SRC-NFSA-PORTAL"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Income and deprivation criteria for BPL/PHH/AAY classification vary by state and are determined by the State government based on SECC (Socio-Economic and Caste Census) data or state-specific surveys.",
+      "Migrant workers may face practical difficulties in applying in a new state; ONORC aims to address portability but new-card issuance remains state-governed.",
+      "Households not covered under NFSA may still be eligible for state-specific ration card schemes."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "RC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "RATION_CARD_NEW_APPLICATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "RC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The prescribed application form for a new ration card must be submitted. Most states now accept online applications through their Food & Civil Supplies department portal. Offline forms are available at the Taluk/Tehsil Supply Office or District Supply Office.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL",
+        "SRC-DFPD-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "RC_REQ_AADHAAR_ALL_MEMBERS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar numbers of all family members to be included in the ration card are required. Aadhaar seeding (linking Aadhaar to ration card) is mandatory under the NFSA for receiving subsidised foodgrains through the electronic Point of Sale (ePoS) system at Fair Price Shops.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-ACT",
+        "SRC-DFPD-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "RC_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence is required to establish the household's address for the ration card. Accepted documents include Aadhaar card, voter ID, electricity bill, water bill, rent agreement, property tax receipt, or any government-issued address proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "RC_REQ_INCOME_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Income certificate or proof of income may be required for BPL/PHH/AAY category determination. This is not universally required for APL cards. The requirement and the issuing authority vary by state (e.g., Tehsildar, Revenue Department, or local self-government body).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-ACT",
+        "SRC-DFPD-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "RC_REQ_FAMILY_PHOTO",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A recent family photograph (all members who will appear on the ration card) or individual passport-size photographs of each member are required. Requirements vary by state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "RC_REQ_SELF_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "RC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A self-declaration that the household does not hold any other ration card in the state or in any other state. Some states require this to be notarised or witnessed by a gazetted officer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "RC_APPLICATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All new ration card applicants",
+      "claim": "Application process: (1) Apply online through the state Food & Civil Supplies portal or submit the offline form at the Taluk/Tehsil/District Supply Office, (2) Upload or attach required documents and photographs, (3) Field verification may be conducted by a Supply Inspector or designated officer to verify the household details, (4) After verification, the ration card is approved by the designated authority (Tehsildar/District Supply Officer), (5) The ration card is issued and linked to a nearby Fair Price Shop (FPS).",
+      "doesNotEstablish": [
+        "The category of ration card (PHH, AAY, APL) is determined by the state government based on eligibility criteria and is not guaranteed by the application.",
+        "Field verification timelines depend on the state and local office workload.",
+        "Fair Price Shop assignment is based on the applicant's residential area."
+      ],
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL",
+        "SRC-DFPD-PORTAL"
+      ]
+    },
+    {
+      "processCode": "RC_ONORC_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NFSA beneficiaries with Aadhaar-seeded ration cards",
+      "claim": "Under the One Nation One Ration Card (ONORC) scheme, beneficiaries can purchase their entitled subsidised foodgrains from any Fair Price Shop in the country using Aadhaar-based biometric authentication. ONORC is operational across all 36 states and Union Territories.",
+      "sourceRefs": [
+        "SRC-ONORC-IMPDS"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "RC_RATION_CARD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A ration card is issued to the household head, listing all eligible family members. NFSA beneficiaries (PHH) are entitled to 5 kg of foodgrains per person per month at subsidised rates (rice at Rs. 3/kg, wheat at Rs. 2/kg, coarse grains at Rs. 1/kg). AAY households receive 35 kg per household per month.",
+    "sourceRefs": [
+      "SRC-NFSA-ACT"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "RC_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "New ration card application",
+      "status": "QUALITATIVE_ONLY",
+      "claim": "The application fee for a new ration card is nominal and varies by state. Many states do not charge any fee. Where applicable, the fee typically ranges from Rs. 0 to Rs. 45 depending on the state.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "RC_PROCESSING",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "STATE_GUIDELINE",
+    "applicability": "New ration card application",
+    "status": "VERIFIED",
+    "claim": "Most states process new ration card applications within 15 to 30 days from the date of submission. Timelines depend on field verification completion and the state's processing workflow.",
+    "estimatedCompletionDatePolicy": "15-30 days from application submission. Actual timelines vary by state and local office workload.",
+    "fallbackThresholdMentionedBySource": "If not issued within the state's prescribed timeline, the applicant may escalate to the District Supply Officer or the State Food Commission.",
+    "sourceRefs": [
+      "SRC-NFSA-PORTAL",
+      "SRC-DFPD-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NFSA-ACT",
+      "url": "https://nfsa.gov.in/portal/nfsa-act",
+      "title": "National Food Security Act, 2013",
+      "publisher": "Department of Food & Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NFSA defines entitlements, eligibility criteria, eldest woman as head of household provision, Aadhaar requirement, and subsidised grain prices.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Eligibility and entitlement framework.",
+        "PHH entitlement: 5 kg per person per month.",
+        "AAY entitlement: 35 kg per household per month.",
+        "Subsidised prices for rice, wheat, and coarse grains.",
+        "Eldest woman as head of household."
+      ],
+      "uncertainty": "State-level implementation rules may differ on specific eligibility thresholds."
+    },
+    {
+      "sourceCode": "SRC-NFSA-PORTAL",
+      "url": "https://nfsa.gov.in/",
+      "title": "National Food Security Act Portal",
+      "publisher": "Department of Food & Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The NFSA portal provides ration card search, state-wise data, application status tracking, and beneficiary details.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Ration card status check.",
+        "State-wise beneficiary data.",
+        "Application document requirements.",
+        "Self-declaration requirement."
+      ],
+      "uncertainty": "Portal aggregates state data; individual state portals may be more current."
+    },
+    {
+      "sourceCode": "SRC-DFPD-PORTAL",
+      "url": "https://dfpd.gov.in/",
+      "title": "Department of Food & Public Distribution",
+      "publisher": "Ministry of Consumer Affairs, Food & Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DFPD is the administrative ministry overseeing NFSA implementation, TPDS, and ration card issuance policy.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Ration card issuance policy.",
+        "Aadhaar seeding requirements.",
+        "Income certificate relevance for card categorisation.",
+        "Application and verification process."
+      ],
+      "uncertainty": "Policy circulars are updated periodically."
+    },
+    {
+      "sourceCode": "SRC-ONORC-IMPDS",
+      "url": "https://impds.nic.in/",
+      "title": "Integrated Management of Public Distribution System (IM-PDS) — ONORC Portal",
+      "publisher": "Department of Food & Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "IM-PDS portal tracks inter-state and intra-state portability transactions under ONORC.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "ONORC operational across all 36 states/UTs.",
+        "Aadhaar-based biometric authentication for portability.",
+        "Fair Price Shop portability."
+      ],
+      "uncertainty": "Operational status of ONORC at individual FPS level may vary."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-RATION",
+      "url": "https://www.india.gov.in/topics/food-public-distribution",
+      "title": "Food & Public Distribution — National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides a consolidated view of food and public distribution schemes, ration card application links, and citizen services.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General processing timeline information.",
+        "Links to state-specific portals."
+      ],
+      "uncertainty": "Timelines are indicative; state portals are authoritative."
+    }
+  ],
+  "limitations": [
+    "This record covers new ration card applications under the NFSA framework. State-specific schemes, categories, and additional benefits are not exhaustively listed.",
+    "Income thresholds and deprivation criteria for BPL/PHH/AAY categorisation vary significantly by state and are determined by state governments.",
+    "Application fees, document requirements, and processing timelines vary by state; the information here represents the general framework.",
+    "Ration card correction, addition/deletion of members, transfer, and surrender are separate workflows.",
+    "This record does not cover the Sugar and Kerosene entitlements that some states provide through the PDS.",
+    "NRI or non-resident household members cannot be included on the ration card."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core framework of NFSA entitlements, application process, Aadhaar requirement, and ONORC portability verified against central government sources. State-specific variations noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the National Food Security Act.",
+      "Changes to NFSA entitlement quantities or prices.",
+      "Updates to ONORC implementation status.",
+      "Changes to Aadhaar seeding requirements.",
+      "Updates to ration card application digitisation across states."
+    ]
+  }
+}

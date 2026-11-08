@@ -1,0 +1,307 @@
+{
+  "serviceCode": "PROPERTY_MUTATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Property Mutation / Khata Transfer"
+  },
+  "authority": "Revenue Department / Municipal Corporation (State/Local Government)",
+  "jurisdiction": "STATE",
+  "category": "PROPERTY",
+  "description": {
+    "en": "Application for mutation of property records (khata transfer) to reflect change of ownership due to sale, inheritance, gift, or partition. Mutation updates the revenue records and municipal tax records to the new owner's name. The process and terminology vary by state (mutation, khata transfer, patta transfer, naam kharij)."
+  },
+  "officialLinks": {
+    "application": "https://www.india.gov.in/topics/land-resources",
+    "informationPortal": "https://www.india.gov.in/topics/land-resources"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "MUTATION_OWNERSHIP_CHANGE",
+        "field": "applicant.ownershipChangeType",
+        "operator": "IN",
+        "value": [
+          "SALE",
+          "INHERITANCE",
+          "GIFT",
+          "PARTITION"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All property mutation applicants",
+        "claim": "Property mutation is required when ownership of a property changes through sale, inheritance, gift, or partition. The applicant must be the new legal owner or heir of the property.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-LAND"
+        ]
+      },
+      {
+        "conditionCode": "MUTATION_REGISTERED_DEED",
+        "field": "applicant.hasRegisteredDeed",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Sale-based mutation applicants",
+        "claim": "For sale-based mutations, the sale deed must be registered with the Sub-Registrar office before applying for mutation.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-LAND",
+          "SRC-STATE-REVENUE-PORTAL"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Mutation rules, timelines, and fees vary significantly from state to state.",
+      "Court-ordered mutations may follow a different process.",
+      "Agricultural land mutation may fall under a different department than urban property mutation."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "MUTATION_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PROPERTY_MUTATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "MUTATION_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A filled application form for mutation/khata transfer must be submitted to the concerned revenue office or municipal corporation. Many states now offer online application through state land record portals.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND",
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_SALE_DEED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Registered sale deed is required for sale-based mutations. For inheritance, a succession certificate or legal heir certificate is required. For gift, a registered gift deed is required. For partition, a registered partition deed or court decree is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND",
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_PROPERTY_TAX_RECEIPTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Up-to-date property tax paid receipts for the property must be submitted to ensure no tax arrears exist.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_PREVIOUS_KHATA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Copy of previous khata/patta or existing land record extract in the name of the previous owner is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity and address proof of the applicant (new owner) such as Aadhaar card, voter ID, or passport is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_DEATH_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Death certificate of the previous owner is required if the mutation is on account of inheritance.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND",
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "MUTATION_REQ_ENCUMBRANCE_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUTATION_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Encumbrance certificate (EC) for the property from the Sub-Registrar office is required to confirm the property is free of legal liabilities.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "MUTATION_APPLY_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All property mutation applicants",
+      "claim": "The process involves: (1) Obtain registered sale deed/succession certificate/gift deed as applicable, (2) Collect required documents including property tax receipts, previous khata, and encumbrance certificate, (3) Submit application at the Sub-Registrar office, Tehsildar/Taluk office, or Municipal Corporation office, or apply online through state land record portals (e.g., Bhoomi in Karnataka, Bhulekh in UP), (4) Revenue officer conducts verification and may hold a hearing, (5) Mutation entry is made in the revenue records upon approval.",
+      "doesNotEstablish": [
+        "This record does not establish the specific state-level process as it varies across states.",
+        "This record does not cover stamp duty or registration fee calculations."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND",
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "MUTATION_RECORD",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Updated revenue record (khata/patta) reflecting the new owner's name. The mutation entry serves as official recognition of ownership change in government records.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-LAND",
+      "SRC-STATE-REVENUE-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "MUTATION_FEE_STANDARD",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Standard mutation/khata transfer fee (varies by state, typically Rs. 25-500)",
+      "status": "VERIFIED",
+      "claim": "The mutation fee varies by state and is typically in the range of Rs. 25 to Rs. 500. Some states charge a nominal fee of Rs. 25-100 while others may charge up to Rs. 500 depending on property type and value.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND",
+        "SRC-STATE-REVENUE-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "MUTATION_STAMP_DUTY_NOTE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Stamp duty and registration fee are separate charges applicable at the time of sale deed registration, not mutation itself",
+      "status": "VERIFIED",
+      "claim": "Stamp duty and registration fees are paid separately at the time of property registration (sale deed). These are not part of the mutation fee but are prerequisites for sale-based mutation.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-LAND"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "MUTATION_PROCESSING_TIME",
+    "minimumDuration": 15,
+    "maximumDuration": 45,
+    "unit": "DAYS",
+    "basis": "STATE_GUIDELINES",
+    "applicability": "Standard property mutation processing, varies by state",
+    "status": "VERIFIED",
+    "claim": "Property mutation typically takes 15 to 45 days depending on the state, completeness of documents, and workload at the concerned office. Online applications through state portals may be processed faster.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-LAND",
+      "SRC-STATE-REVENUE-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-LAND",
+      "url": "https://www.india.gov.in/topics/land-resources",
+      "title": "Land Resources - National Portal of India",
+      "publisher": "National Portal of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides overview information on land resource management, property registration, and mutation processes across states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Property mutation is required upon change of ownership.",
+        "Documents required include sale deed, identity proof, and property tax receipts.",
+        "Mutation fee varies by state."
+      ],
+      "uncertainty": "State-specific processes and fees are not detailed on the central portal."
+    },
+    {
+      "sourceCode": "SRC-STATE-REVENUE-PORTAL",
+      "url": "https://bhoomi.karnataka.gov.in/",
+      "title": "Bhoomi - Karnataka Land Records Portal (representative state portal)",
+      "publisher": "Department of Revenue, Government of Karnataka",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State revenue portals like Bhoomi (Karnataka) and Bhulekh (UP/Maharashtra) provide online mutation application, land record viewing, and status tracking. Specific document requirements and fees are published on respective state portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online mutation application through state portals.",
+        "Document requirements for mutation including sale deed, khata extract, and tax receipts.",
+        "Encumbrance certificate requirement.",
+        "Processing timelines for mutation."
+      ],
+      "uncertainty": "Each state has its own portal and process; this source is representative. Applicants should check their specific state portal."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview applicable across Indian states; specific processes, fees, and document requirements vary by state.",
+    "Agricultural land mutation and urban property mutation may fall under different departments.",
+    "Stamp duty and registration fees (which vary from 3% to 10% of property value depending on the state) are not covered here as they are separate from mutation fees.",
+    "Court-ordered mutations and disputed property mutations follow different processes.",
+    "This record does not cover conversion of agricultural land to non-agricultural use.",
+    "Online availability of mutation services varies by state; not all states have digitized the process."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "General mutation process and requirements verified against national portal and representative state portals. State-specific details are summarized.",
+    "nextReviewTrigger": [
+      "Changes in state-level mutation fee schedules.",
+      "New states digitizing mutation processes.",
+      "Central policy changes affecting land record management.",
+      "Updates to state revenue portal processes."
+    ]
+  }
+}

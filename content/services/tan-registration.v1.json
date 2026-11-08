@@ -1,0 +1,292 @@
+{
+  "serviceCode": "TAN_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "TAN (Tax Deduction and Collection Account Number) Registration"
+  },
+  "authority": "Income Tax Department, Ministry of Finance, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "TAN",
+  "description": {
+    "en": "TAN (Tax Deduction and Collection Account Number) is a 10-character alphanumeric number issued by the Income Tax Department to persons who are required to deduct or collect tax at source (TDS/TCS). All persons responsible for deducting or collecting tax at source under the Income Tax Act, 1961 are required to apply for and obtain TAN."
+  },
+  "officialLinks": {
+    "application": "https://www.tin-nsdl.com/",
+    "informationPortal": "https://www.incometax.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "TAN_TDS_OBLIGATION",
+        "field": "applicant.hasTDSDeductionObligation",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Persons required to deduct tax at source under Income Tax Act",
+        "claim": "Any person who is required to deduct tax at source (TDS) under the provisions of the Income Tax Act, 1961 must apply for and obtain a TAN. This includes employers deducting TDS on salaries, businesses deducting TDS on contractor payments, and others specified under Sections 192 to 206C.",
+        "sourceRefs": [
+          "SRC-INCOMETAX-TAN-2026-10-28",
+          "SRC-TIN-NSDL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "TAN_TCS_OBLIGATION",
+        "field": "applicant.hasTCSCollectionObligation",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Persons required to collect tax at source under Income Tax Act",
+        "claim": "Any person who is required to collect tax at source (TCS) under Section 206C of the Income Tax Act, 1961 must obtain a TAN. This includes sellers of specified goods like timber, minerals, scrap, and motor vehicles above prescribed thresholds.",
+        "sourceRefs": [
+          "SRC-INCOMETAX-TAN-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Government deductors may have a separate process for TAN allotment through the Accounts Officer.",
+      "A person can hold only one TAN for the same category of tax deduction responsibility; multiple TANs for the same entity are not permitted.",
+      "TAN is not required for individuals or entities that have no TDS or TCS obligations."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "TAN_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "TAN_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TAN_ONLINE_APPLICATION",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "ONLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "TAN_OFFLINE_APPLICATION",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "OFFLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "TAN_REQ_FORM_49B",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 49B is the prescribed application form for allotment of TAN. It requires details of the applicant including name, address, category of deductor, PAN, and nature of TDS/TCS responsibility.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INCOMETAX-TAN-2026-10-28",
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TAN_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN (Permanent Account Number) of the deductor or collector is required in the TAN application. The PAN helps link TDS/TCS deductions to the correct entity.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INCOMETAX-TAN-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TAN_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of identity of the applicant such as Aadhaar, Voter ID, Passport, or company registration certificate for corporate applicants.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "TAN_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "TAN_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of address of the deductor such as electricity bill, bank statement, registered office address proof, or lease agreement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "TAN_STEP1_ONLINE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All TAN applicants using online method",
+      "claim": "Visit the TIN-NSDL website (tin-nsdl.com) or the new Income Tax e-filing portal. Select 'Apply Online for TAN' and fill Form 49B with the required details including name, address, category of deductor, and PAN.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TAN_STEP2_CATEGORY_SELECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All TAN applicants",
+      "claim": "Select the appropriate category of deductor from the list: Central Government, State Government, Company, Branch/Division of a Company, Firm, Trust, Association of Persons, Body of Individuals, Local Authority, Individual, or Artificial Juridical Person.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TAN_STEP3_PAYMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All TAN applicants",
+      "claim": "Pay the processing fee of Rs. 65 (plus applicable taxes) through the online payment gateway using net banking, debit card, credit card, or demand draft.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TAN_STEP4_ACKNOWLEDGMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All TAN applicants",
+      "claim": "Upon successful submission and payment, a 14-digit acknowledgment number is generated. For online applications, the signed acknowledgment must be sent to NSDL e-Governance Infrastructure Limited, Pune within 15 days of online application.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "TAN_STEP5_PROCESSING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All TAN applicants",
+      "claim": "NSDL processes the application and forwards it to the Income Tax Department for TAN allotment. Upon allotment, the TAN is communicated to the applicant via email and post.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28",
+        "SRC-INCOMETAX-TAN-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "TAN_ALLOTMENT_LETTER",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A TAN Allotment Letter is issued containing the 10-character alphanumeric TAN in the format AAAA99999A (4 letters, 5 digits, 1 letter). The TAN must be quoted in all TDS/TCS returns, challans, certificates, and correspondence with the Income Tax Department.",
+    "sourceRefs": [
+      "SRC-INCOMETAX-TAN-2026-10-28",
+      "SRC-TIN-NSDL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "TAN_PROCESSING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 65,
+      "currency": "INR",
+      "applicability": "TAN application processing fee payable to NSDL",
+      "status": "VERIFIED",
+      "claim": "The processing fee for TAN application (Form 49B) is Rs. 65 plus applicable Goods and Services Tax. This fee is payable at the time of application submission.",
+      "sourceRefs": [
+        "SRC-TIN-NSDL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "TAN_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "TAN allotment processing time from date of receipt of complete application",
+    "status": "VERIFIED",
+    "claim": "TAN allotment typically takes 7-15 working days from the date of receipt of the complete and valid application by NSDL. Online applications are generally processed faster than offline applications.",
+    "sourceRefs": [
+      "SRC-TIN-NSDL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INCOMETAX-TAN-2026-10-28",
+      "url": "https://www.incometax.gov.in/",
+      "title": "Income Tax Department — TAN Information",
+      "publisher": "Income Tax Department, Central Board of Direct Taxes, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Income Tax Department portal provides information on TAN requirements, the obligation to obtain TAN for TDS/TCS deductors, and the legal provisions under the Income Tax Act, 1961 governing TAN.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "TAN is mandatory for all persons responsible for TDS or TCS.",
+        "TAN application is through Form 49B.",
+        "PAN of the deductor is required.",
+        "TAN must be quoted in all TDS/TCS returns and challans.",
+        "TAN is a 10-character alphanumeric number."
+      ],
+      "uncertainty": "The Income Tax e-filing portal is being updated; some features may migrate between the old and new portals."
+    },
+    {
+      "sourceCode": "SRC-TIN-NSDL-2026-10-28",
+      "url": "https://www.tin-nsdl.com/",
+      "title": "TIN-NSDL — TAN Application Services",
+      "publisher": "NSDL e-Governance Infrastructure Limited (authorized by Income Tax Department)",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "TIN-NSDL is the authorized agency for processing TAN applications. The portal provides online and offline TAN application facility through Form 49B, fee payment, and status tracking.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online TAN application through Form 49B is available.",
+        "Processing fee is Rs. 65 plus GST.",
+        "Category of deductor must be selected during application.",
+        "Identity proof and address proof are required.",
+        "Acknowledgment number generated upon submission.",
+        "Processing takes 7-15 working days."
+      ],
+      "uncertainty": "NSDL is an intermediary; final TAN allotment is by the Income Tax Department."
+    }
+  ],
+  "limitations": [
+    "This record covers new TAN allotment only; TAN change/correction (Form 49B for changes) is not covered.",
+    "The specific TDS/TCS sections and thresholds that trigger TAN obligation are not fully enumerated.",
+    "Government deductors may have a separate process through the Pay and Accounts Officer (PAO) which is not covered.",
+    "The record does not cover TAN cancellation or surrender processes.",
+    "Penalty provisions under Section 272BB for failure to obtain or quoting incorrect TAN are not covered."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core TAN registration process is reviewed, but comprehensive TDS/TCS obligation thresholds and government deductor procedures are not fully modeled.",
+    "nextReviewTrigger": [
+      "Changes to TAN application processing fee.",
+      "Migration of TAN services from TIN-NSDL to the new Income Tax e-filing portal.",
+      "Changes to TDS/TCS provisions affecting TAN obligation.",
+      "Changes to Form 49B or TAN application procedures."
+    ]
+  }
+}

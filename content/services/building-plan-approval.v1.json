@@ -1,0 +1,285 @@
+{
+  "serviceCode": "BUILDING_PLAN_APPROVAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Building Plan Approval"
+  },
+  "authority": "Municipal Corporation / Urban Development Authority / Local Body (State Government)",
+  "jurisdiction": "STATE",
+  "category": "BUILDING_PLAN",
+  "description": {
+    "en": "Approval of a building plan by the local municipal authority or development authority before construction commences. Building plan approval ensures the proposed construction complies with local building bye-laws, zoning regulations, and the National Building Code. It is mandatory for all new constructions, additions, and major alterations."
+  },
+  "officialLinks": {
+    "application": "https://www.smartcitymission.gov.in/",
+    "informationPortal": "https://mohua.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "BPA_LAND_OWNERSHIP",
+        "field": "applicant.hasLandOwnership",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All building plan approval applicants",
+        "claim": "The applicant must be the legal owner of the land or have an authorized development right (such as a registered lease, power of attorney, or development agreement) to apply for building plan approval.",
+        "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+      },
+      {
+        "conditionCode": "BPA_LAND_USE_CONFORMITY",
+        "field": "property.conformsToLandUseZone",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All proposed constructions",
+        "claim": "The proposed construction must conform to the land use zone as defined in the approved master plan or development plan of the area. Residential construction is not permitted in industrial zones and vice versa.",
+        "sourceRefs": ["SRC-NBC-INDIA-2016"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "The specific building bye-laws, FAR (Floor Area Ratio), and setback requirements vary by municipal area and zone.",
+      "Agricultural land may need to be converted to non-agricultural use before building plan approval can be sought.",
+      "Building plan approval may not be required for minor repairs that do not alter the structure or layout of the building.",
+      "Heritage zones and ecologically sensitive areas may have additional restrictions."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "BPA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "BUILDING_PLAN_APPROVAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "BPA_NEW_CONSTRUCTION",
+      "field": "workflow.constructionType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "BPA_ADDITION_ALTERATION",
+      "field": "workflow.constructionType",
+      "operator": "EQUALS",
+      "value": "ADDITION_ALTERATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "BPA_REQ_LAND_OWNERSHIP_DOCUMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "Registered sale deed, lease deed, or other document establishing ownership or development right over the land.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+    },
+    {
+      "requirementCode": "BPA_REQ_SITE_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "A site plan drawn to scale showing the plot boundaries, dimensions, setbacks, approach road, and existing structures if any, prepared by a licensed architect or engineer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "requirementCode": "BPA_REQ_BUILDING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "Detailed building plan including floor plans, sections, elevations, and specifications prepared and signed by a licensed architect or structural engineer registered with the local authority.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+    },
+    {
+      "requirementCode": "BPA_REQ_STRUCTURAL_STABILITY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "Structural stability certificate or structural design report from a licensed structural engineer for buildings above a certain height (typically ground plus one floor) or load-bearing capacity.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "requirementCode": "BPA_REQ_FIRE_NOC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "No Objection Certificate from the State Fire Service Department is required for buildings above 15 meters in height, or for certain categories of buildings including commercial, institutional, and high-rise residential buildings.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "requirementCode": "BPA_REQ_POLLUTION_NOC",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "NOC from the State Pollution Control Board may be required for industrial or commercial constructions, or for projects exceeding the threshold size requiring Environmental Clearance.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "requirementCode": "BPA_REQ_PROPERTY_TAX_RECEIPT",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["BPA_ROUTE_SELECTED"]
+      },
+      "claim": "Latest property tax payment receipt or no-dues certificate from the municipal authority to confirm no outstanding property tax liabilities.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MOHUA-OBPAS-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "BPA_STEP1_ENGAGE_ARCHITECT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All building plan approval applicants",
+      "claim": "Engage a licensed architect or structural engineer registered with the local municipal authority to prepare the site plan, building plan, and structural designs as per applicable building bye-laws.",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "processCode": "BPA_STEP2_APPLY_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All building plan approval applicants",
+      "claim": "Submit the application through the Online Building Permission Approval System (OBPAS) or the respective municipal corporation's online portal. Upload all required documents including building plan, site plan, ownership documents, and NOCs.",
+      "sourceRefs": ["SRC-MOHUA-OBPAS-2026-10-28"]
+    },
+    {
+      "processCode": "BPA_STEP3_SCRUTINY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All building plan approval applicants",
+      "claim": "The municipal authority scrutinizes the building plan for compliance with building bye-laws, zoning regulations, FAR norms, setback requirements, and NBC provisions. Automated scrutiny is available in some municipalities through OBPAS.",
+      "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+    },
+    {
+      "processCode": "BPA_STEP4_SITE_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All building plan approval applicants",
+      "claim": "A site inspection may be conducted by the municipal engineer to verify the plot dimensions, boundaries, existing structures, and conformity with the submitted site plan.",
+      "sourceRefs": ["SRC-NBC-INDIA-2016"]
+    },
+    {
+      "processCode": "BPA_STEP5_APPROVAL_COMMENCEMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved building plans",
+      "claim": "Upon approval, a Building Permission Certificate or Commencement Certificate is issued authorizing the construction. Construction must commence within the validity period (typically 2-3 years) and must adhere strictly to the approved plan.",
+      "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "BPA_APPROVAL_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Building Permission Certificate (or Commencement Certificate) is issued bearing the approved building plan, conditions of approval, validity period, and the sanctioned FAR and coverage. The approved plan must be displayed at the construction site.",
+    "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "BPA_SCRUTINY_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Building plan scrutiny and approval fee",
+      "status": "UNVERIFIED",
+      "claim": "Fees for building plan approval vary widely based on the municipal area, plot size, type of construction, and built-up area. Fees typically include scrutiny fee, development charges, infrastructure charges, and betterment charges. The exact fee schedule is published by each municipal corporation."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "BPA_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Building plan approval from municipal authority after complete submission",
+    "status": "VERIFIED",
+    "claim": "Building plan approval typically takes 30-60 days from the date of complete submission with all required documents and NOCs. The Model Building Bye-Laws 2016 recommend auto-approval within 30 days for residential buildings up to a certain size if no objection is raised.",
+    "sourceRefs": ["SRC-NBC-INDIA-2016", "SRC-MOHUA-OBPAS-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NBC-INDIA-2016",
+      "url": "https://bis.gov.in/index.php/standards/technical-department/national-building-code/",
+      "title": "National Building Code of India 2016 (NBC)",
+      "publisher": "Bureau of Indian Standards (BIS), Ministry of Consumer Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "NBC 2016 Part 3 (Development Control Rules and General Building Requirements) provides the national framework for building plan approval including land use zoning, FAR, setbacks, structural requirements, fire safety, and building permission procedures.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Building plan approval is mandatory for new construction.",
+        "Licensed architect or engineer must prepare and sign building plans.",
+        "Fire NOC is required for buildings above 15 meters.",
+        "Structural stability certificate is required for multi-storey buildings.",
+        "Site plan and building plan with specifications are mandatory submissions.",
+        "Approved plan must be displayed at construction site."
+      ],
+      "uncertainty": "NBC provides the national framework, but individual states and municipalities may have additional or modified building bye-laws."
+    },
+    {
+      "sourceCode": "SRC-MOHUA-OBPAS-2026-10-28",
+      "url": "https://mohua.gov.in/",
+      "title": "Ministry of Housing and Urban Affairs — Online Building Permission Approval System (OBPAS)",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MoHUA promotes OBPAS for standardized online building permission approval across Indian cities. The system provides automated plan scrutiny, online submission, and tracking of building permission applications.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online submission of building plan applications is available through OBPAS in participating cities.",
+        "Automated plan scrutiny speeds up the approval process.",
+        "Land ownership documents and property tax receipts are required.",
+        "The system recommends processing within 30 days for standard residential buildings."
+      ],
+      "uncertainty": "OBPAS implementation varies by city; not all municipalities have adopted the system."
+    }
+  ],
+  "limitations": [
+    "Building plan approval procedures, fees, and bye-laws vary significantly across municipal corporations and development authorities in India.",
+    "This record covers the general national framework based on NBC 2016 and MoHUA guidelines; specific municipal bye-laws are not modeled.",
+    "Fee structures are not modeled as they vary by municipal area, plot size, and construction type.",
+    "Environmental clearance requirements for large construction projects are not covered in this record.",
+    "Heritage zone restrictions and coastal regulation zone requirements are not covered.",
+    "The record does not cover the occupancy certificate or completion certificate process that follows construction."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "National framework is reviewed, but municipality-specific bye-laws, fee schedules, and approval processes are not fully modeled.",
+    "nextReviewTrigger": [
+      "Updates to the National Building Code of India.",
+      "New MoHUA guidelines for building permission reforms.",
+      "Expansion of OBPAS to additional municipalities.",
+      "Changes to Model Building Bye-Laws."
+    ]
+  }
+}

@@ -1,0 +1,331 @@
+{
+  "serviceCode": "SUCCESSION_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Succession Certificate"
+  },
+  "authority": "District Court / Civil Court under the jurisdiction where the deceased ordinarily resided",
+  "jurisdiction": "STATE",
+  "category": "SUCCESSION_CERTIFICATE",
+  "description": {
+    "en": "A Succession Certificate is a legal document issued by a competent civil court that establishes the legal heir(s) of a deceased person for the purpose of inheriting debts and securities. It is required to claim bank deposits, shares, mutual funds, insurance proceeds, provident fund, gratuity, and other financial assets of the deceased. The certificate is granted under Part X of the Indian Succession Act, 1925."
+  },
+  "officialLinks": {
+    "application": "https://districts.ecourts.gov.in/",
+    "informationPortal": "https://www.indiacode.nic.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SUCC_LEGAL_HEIR",
+        "field": "applicant.isLegalHeirOfDeceased",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All succession certificate applicants",
+        "claim": "The applicant must be a legal heir of the deceased person — spouse, children, parents, or other persons entitled to succeed under the applicable personal law or the Indian Succession Act, 1925.",
+        "sourceRefs": [
+          "SRC-SUCC-ISA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SUCC_DECEASED_DOMICILE",
+        "field": "applicant.filingInJurisdictionOfDeceased",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All succession certificate applicants",
+        "claim": "The petition must be filed in the district court having jurisdiction over the area where the deceased ordinarily resided at the time of death, or where the property of the deceased is situated.",
+        "sourceRefs": [
+          "SRC-SUCC-ISA-2026-10-28",
+          "SRC-SUCC-ECOURTS-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Applicability of the Indian Succession Act may be excluded for certain communities governed by their own personal laws (e.g., Hindu Succession Act for Hindus, Muslim personal law for Muslims). However, succession certificates under the ISA are widely used across communities for debts and securities.",
+      "In some states, revenue courts or tehsildars may issue legal heir certificates for limited purposes, which differ from a court-issued succession certificate.",
+      "Multiple legal heirs may jointly apply or one heir may apply with the consent or knowledge of others."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SUCC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SUCCESSION_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SUCC_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SUCC_REQ_PETITION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A written petition (application) to the district court stating the time of death of the deceased, the ordinary residence of the deceased at the time of death, details of the petitioner's relationship with the deceased, details of other legal heirs, particulars of debts and securities for which the certificate is sought, and the absence of any impediment to the grant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_DEATH_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Death certificate of the deceased person issued by the local municipal authority or registrar of births and deaths.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_RELATIONSHIP_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Documentary proof establishing the petitioner's relationship with the deceased — such as birth certificate, marriage certificate, Aadhaar card, ration card, or family pension documents.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_ASSET_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of the debts and securities of the deceased for which the succession certificate is being sought — bank account statements, fixed deposit receipts, share certificates, mutual fund statements, insurance policy documents, provident fund details, etc.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_COURT_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Court fee stamp as per the state court fees schedule. The fee is typically a percentage of the value of the estate (debts and securities) for which the certificate is sought, usually ranging from 2% to 7.5% with state-specific caps and slab rates.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28",
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Affidavit on stamp paper (typically Rs. 10-100) sworn before a notary or oath commissioner, attesting to the facts stated in the petition and confirming that no other application for succession certificate has been made.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SUCC_REQ_NOC_HEIRS",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SUCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "No Objection Certificate (NOC) from other legal heirs, if available, can expedite the process. While not strictly mandatory, it helps the court proceed without contested hearings.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SUCC_STEP1_PETITION_FILING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All succession certificate applicants",
+      "claim": "File the petition along with supporting documents and court fee in the district court having jurisdiction. The petition can be filed by the applicant in person or through an advocate.",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUCC_STEP2_NOTICE_PUBLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All succession certificate applicants",
+      "claim": "The court issues a notice to all persons who may have an interest in the estate. This notice is typically published in a local newspaper and displayed on the court notice board. A mandatory waiting period of at least 45 days from the date of the first publication of the notice is required before the certificate can be granted (Section 375, ISA).",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUCC_STEP3_HEARING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All petitions after notice period",
+      "claim": "After the notice period expires, if no objections are received, the court may proceed to hear the petition. If objections are filed, the court conducts a contested hearing. The petitioner may need to present witnesses and additional evidence.",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28",
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SUCC_STEP4_CERTIFICATE_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved petitions",
+      "claim": "If satisfied, the court grants the succession certificate specifying the debts and securities and the names of the persons to whom the certificate is issued. The certificate empowers the holder(s) to collect debts due to the deceased and to receive payment of securities standing in the name of the deceased.",
+      "sourceRefs": [
+        "SRC-SUCC-ISA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SUCCESSION_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Succession Certificate issued by the district court under Part X of the Indian Succession Act, 1925. The certificate specifies the debts and securities of the deceased and the persons entitled to them. It is recognized by banks, insurance companies, depositories, mutual fund houses, and other financial institutions for transferring the deceased's assets to the legal heir(s).",
+    "sourceRefs": [
+      "SRC-SUCC-ISA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SUCC_COURT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 200,
+      "maximumAmount": 50000,
+      "currency": "INR",
+      "applicability": "Court fee for succession certificate petition",
+      "status": "REVIEW",
+      "claim": "Court fee is calculated as a percentage of the value of the estate (debts and securities) for which the certificate is sought. The percentage and caps vary by state — typically 2% to 7.5% of the estate value. Some states have maximum fee caps (e.g., Rs. 50,000 or Rs. 1,00,000). For small estates, minimum court fees of Rs. 200-500 may apply.",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SUCC_NEWSPAPER_NOTICE",
+      "category": "OTHER_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 3000,
+      "currency": "INR",
+      "applicability": "Newspaper publication charges for mandatory public notice",
+      "status": "REVIEW",
+      "claim": "The court-mandated public notice must be published in at least one local newspaper. Publication charges typically range from Rs. 500 to Rs. 3,000 depending on the newspaper and location.",
+      "sourceRefs": [
+        "SRC-SUCC-ECOURTS-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SUCC_PROCESSING_TIMELINE",
+    "minimumDuration": 45,
+    "maximumDuration": 180,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Succession certificate from petition filing to grant",
+    "status": "VERIFIED",
+    "claim": "The minimum processing time is 45 days due to the mandatory notice period under Section 375 of the Indian Succession Act. In uncontested cases, the certificate is typically granted within 60-90 days. Contested cases or complex estates may take 6-12 months or longer.",
+    "sourceRefs": [
+      "SRC-SUCC-ISA-2026-10-28",
+      "SRC-SUCC-ECOURTS-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SUCC-ISA-2026-10-28",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2376",
+      "title": "Indian Succession Act, 1925 — Part X (Sections 370-390)",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Part X of the Indian Succession Act, 1925 provides for the grant of succession certificates by district courts. Section 372 specifies who may apply (any person claiming to be entitled to the estate). Section 375 mandates a 45-day notice period before the grant. Section 381 specifies the effect of the certificate — it empowers the holder to receive debts and securities of the deceased.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Succession certificates are granted by district courts under the Indian Succession Act, 1925.",
+        "A mandatory 45-day notice period applies before the certificate can be granted.",
+        "The certificate empowers holders to collect debts and receive securities of the deceased.",
+        "The petition must include details of the deceased, the petitioner's relationship, and the debts/securities."
+      ],
+      "uncertainty": "The Act has been amended by various state amendments. Some states have enacted their own succession-related legislation that may modify the procedure."
+    },
+    {
+      "sourceCode": "SRC-SUCC-ECOURTS-2026-10-28",
+      "url": "https://districts.ecourts.gov.in/",
+      "title": "e-Courts Services — District Courts of India",
+      "publisher": "e-Committee, Supreme Court of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The e-Courts portal provides case filing information and status tracking for district courts across India, including succession certificate petitions. The portal allows checking of pending and disposed cases.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Succession certificate petitions are filed in district courts.",
+        "The process involves document submission, notice publication, hearing, and grant.",
+        "Required documents include death certificate, relationship proof, asset details, court fee, and affidavit."
+      ],
+      "uncertainty": "Specific procedural rules may vary by state. Court fees are governed by respective state Court Fees Acts."
+    }
+  ],
+  "limitations": [
+    "Court fees vary significantly by state and are governed by state-specific Court Fees Acts. The fee ranges provided are indicative.",
+    "Processing time depends heavily on court workload, whether objections are filed, and state-specific procedural rules.",
+    "This record covers succession certificates under the Indian Succession Act, 1925. For immovable property, a separate process (probate or letters of administration) may be required.",
+    "The record does not cover Hindu Succession Certificate or Muslim succession rules in detail, which are governed by different personal laws.",
+    "Lawyer fees are not included in the fee estimates as they vary by practitioner and case complexity.",
+    "Some states have introduced online filing through e-Courts or dedicated portals, but the process is still largely court-based."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core legal framework is well-established under the ISA, but state-specific court fee schedules and procedural variations need individual verification.",
+    "nextReviewTrigger": [
+      "Amendments to the Indian Succession Act or related state laws.",
+      "Changes in court fee schedules by state governments.",
+      "Introduction of online/digital succession certificate application processes.",
+      "Judicial pronouncements affecting succession certificate procedures."
+    ]
+  }
+}

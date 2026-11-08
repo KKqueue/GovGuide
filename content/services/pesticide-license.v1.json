@@ -1,0 +1,298 @@
+{
+  "serviceCode": "PESTICIDE_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pesticide Dealer License"
+  },
+  "authority": "State Agriculture Department / Plant Protection Adviser",
+  "jurisdiction": "STATE",
+  "category": "PESTICIDE_LICENSE",
+  "description": {
+    "en": "A Pesticide Dealer License (also referred to as an Insecticide Dealer License) is required for any person engaged in selling, stocking, distributing, or exhibiting for sale any insecticide or pesticide. The license is issued under the Insecticides Act 1968 and the Insecticides Rules 1971. It ensures that pesticides are sold only through qualified dealers who can advise farmers on safe and proper usage."
+  },
+  "officialLinks": {
+    "informationPortal": "https://ppqs.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PESTICIDE_QUALIFICATION",
+        "field": "applicant.hasRequiredQualification",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All pesticide dealer license applicants",
+        "claim": "The applicant must have passed a prescribed examination or hold a degree or diploma in Agriculture, Horticulture, Chemistry, or a related science from a recognised university, or must have completed an approved training course in handling and use of insecticides.",
+        "sourceRefs": [
+          "SRC-INSECTICIDES-ACT-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PESTICIDE_STORAGE_SAFE",
+        "field": "premises.hasSafeStorageFacility",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All pesticide dealer license applicants",
+        "claim": "The applicant must have adequate storage facilities that are separate from food items, well-ventilated, equipped with safety measures for handling toxic substances, and comply with prescribed safety norms.",
+        "sourceRefs": [
+          "SRC-INSECTICIDES-ACT-2026-10-28",
+          "SRC-PPQS-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific qualifications accepted vary by state — some accept B.Sc Chemistry, others require Agriculture degree specifically.",
+      "Some states require first-aid training certification for the applicant or at least one staff member.",
+      "Existing dealers without formal qualifications may be given time to acquire prescribed training."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PESTICIDE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PESTICIDE_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PESTICIDE_NEW_APPLICATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PESTICIDE_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PEST_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Prescribed application form for insecticide/pesticide dealer license under the Insecticides Rules 1971.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PEST_REQ_QUALIFICATION_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Copies of educational qualification certificates — degree or diploma in Agriculture, Horticulture, Chemistry, or related field, or certificate of approved training course in insecticide handling.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PEST_REQ_PREMISES_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of premises with adequate and safe storage — ownership documents or lease agreement, along with layout plan showing separate storage for pesticides away from food, feed, and habitation areas.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PPQS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PEST_REQ_FIRST_AID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Declaration that the premises has first-aid arrangements and protective equipment (gloves, masks) for handling pesticides as prescribed.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PEST_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the applicant — Aadhaar card, PAN card, or voter ID.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PPQS-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PEST_REQ_PRODUCT_LIST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PESTICIDE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "List of insecticides/pesticides proposed to be sold, along with details of supply sources.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PEST_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All pesticide dealer license applicants",
+      "claim": "Submit the application form with all required documents to the designated licensing authority (usually the Agriculture Officer at the district or sub-district level) or through the state's online portal where available.",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PEST_STEP2_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants after submission",
+      "claim": "An Insecticides Inspector visits the applicant's premises to verify storage safety, first-aid arrangements, qualification documents, and compliance with the Insecticides Rules.",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PEST_STEP3_GRANT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All inspected applications",
+      "claim": "Upon satisfactory verification, the licensing authority grants the pesticide dealer license. The license is typically valid for a period of one to three years depending on the state and must be renewed before expiry.",
+      "sourceRefs": [
+        "SRC-INSECTICIDES-ACT-2026-10-28",
+        "SRC-PPQS-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PESTICIDE_LICENSE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Pesticide Dealer License is issued containing the dealer's name, address, categories and types of insecticides/pesticides authorised for sale, validity period, and conditions. The license must be displayed prominently at the business premises.",
+    "sourceRefs": [
+      "SRC-INSECTICIDES-ACT-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PESTICIDE_LICENSE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 5000,
+      "currency": "INR",
+      "applicability": "Pesticide dealer license application and issuance fee",
+      "status": "VERIFIED",
+      "claim": "License fee ranges from Rs. 500 to Rs. 5,000 depending on the state, type of license (retail vs wholesale), and whether the applicant deals in restricted-use pesticides. Renewal fees are generally similar.",
+      "sourceRefs": [
+        "SRC-PPQS-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PESTICIDE_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Pesticide dealer license from application to issuance",
+    "status": "VERIFIED",
+    "claim": "Processing typically takes 30-60 days including premises inspection and document verification. Delays may occur due to pending inspection visits or non-compliance issues identified during inspection.",
+    "sourceRefs": [
+      "SRC-PPQS-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INSECTICIDES-ACT-2026-10-28",
+      "url": "https://ppqs.gov.in/",
+      "title": "Insecticides Act 1968 and Insecticides Rules 1971",
+      "publisher": "Directorate of Plant Protection, Quarantine & Storage, Ministry of Agriculture and Farmers Welfare",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Insecticides Act 1968 regulates the import, manufacture, sale, transport, distribution and use of insecticides. Section 13 requires any person desiring to manufacture or sell insecticides to obtain a license. The Insecticides Rules 1971 prescribe forms, qualifications, and conditions for dealer licensing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Dealer license is mandatory under Insecticides Act 1968.",
+        "Prescribed qualifications include Agriculture degree or approved training.",
+        "Premises must have safe storage and first-aid provisions.",
+        "Insecticides Inspector conducts verification."
+      ],
+      "uncertainty": "The Pesticide Management Bill may replace the Insecticides Act if enacted."
+    },
+    {
+      "sourceCode": "SRC-PPQS-2026-10-28",
+      "url": "https://ppqs.gov.in/",
+      "title": "Directorate of Plant Protection, Quarantine & Storage — Pesticide Licensing Information",
+      "publisher": "Directorate of Plant Protection, Quarantine & Storage, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "PPQS provides information on pesticide regulation, licensing requirements, banned and restricted pesticides list, and state-wise licensing authority contact details.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Fee ranges from Rs. 500 to Rs. 5,000 depending on state and type.",
+        "Processing takes 30-60 days.",
+        "Identity proof and premises documentation are required."
+      ],
+      "uncertainty": "State-level fee structures and processing timelines may differ."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview based on central legislation. State-specific licensing rules, fees, and qualifications may differ.",
+    "The record does not cover pesticide manufacturing licenses which have separate requirements under the Central Insecticides Board.",
+    "Restricted-use pesticides may require additional licensing conditions not detailed here.",
+    "The record does not cover online vs offline application processes for each state.",
+    "If the Pesticide Management Bill is enacted, licensing requirements may change significantly."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central act provisions are reviewed, but state-specific implementation details and online portal availability need verification.",
+    "nextReviewTrigger": [
+      "Enactment of the Pesticide Management Bill.",
+      "Changes to the list of banned or restricted pesticides.",
+      "Changes to state-level licensing fees or qualification requirements.",
+      "Introduction of unified national pesticide dealer licensing portal."
+    ]
+  }
+}

@@ -1,0 +1,245 @@
+{
+  "serviceCode": "EPF_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Employee Provident Fund Registration"
+  },
+  "authority": "Employees' Provident Fund Organisation (EPFO), Ministry of Labour and Employment",
+  "jurisdiction": "CENTRAL",
+  "category": "EPF",
+  "description": {
+    "en": "Registration of an establishment with the Employees' Provident Fund Organisation (EPFO) under the Employees' Provident Funds and Miscellaneous Provisions Act, 1952. Mandatory for establishments employing 20 or more persons, and voluntary for smaller establishments."
+  },
+  "officialLinks": {
+    "application": "https://unifiedportal-emp.epfindia.gov.in/epfo/",
+    "informationPortal": "https://www.epfindia.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EPF_EMPLOYEE_THRESHOLD",
+        "field": "establishment.employeeCount",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 20,
+        "classification": "MANDATORY",
+        "appliesTo": "Establishments employing 20 or more persons in industries listed in Schedule I of the EPF & MP Act",
+        "claim": "Registration under the EPF scheme is mandatory for every establishment employing 20 or more persons engaged in any industry specified in Schedule I of the Employees' Provident Funds and Miscellaneous Provisions Act, 1952. Once an establishment is covered, it continues to be covered even if the number of employees falls below 20.",
+        "sourceRefs": ["SRC-EPF-ACT-1952"]
+      },
+      {
+        "conditionCode": "EPF_VOLUNTARY_REGISTRATION",
+        "field": "establishment.voluntaryRegistration",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "OPTIONAL",
+        "appliesTo": "Establishments with fewer than 20 employees that wish to voluntarily register",
+        "claim": "Establishments with fewer than 20 employees may voluntarily register under the EPF scheme by mutual agreement between the employer and a majority of employees. Once registered voluntarily, the provisions of the Act apply fully.",
+        "sourceRefs": ["SRC-EPF-ACT-1952", "SRC-EPFO-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Certain categories of establishments may be exempted by the Central Government through notification.",
+      "Cooperative societies employing fewer than 50 persons and working without the aid of power may be exempt in some cases."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EPF_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "EPF_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EPF_REQ_PAN_ESTABLISHMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "PAN (Permanent Account Number) of the establishment/company is mandatory for EPF registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    },
+    {
+      "requirementCode": "EPF_REQ_INCORPORATION_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "Certificate of incorporation or registration of the establishment is required. For companies, this is the MCA incorporation certificate. For partnerships, the partnership deed. For proprietorships, the relevant trade license or registration certificate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    },
+    {
+      "requirementCode": "EPF_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "Address proof of the establishment is required. Accepted documents include rent agreement, lease deed, utility bills, property tax receipt, or ownership documents of the premises.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    },
+    {
+      "requirementCode": "EPF_REQ_BANK_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "Bank account details of the establishment including a cancelled cheque or bank statement. The bank account must be in the name of the establishment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    },
+    {
+      "requirementCode": "EPF_REQ_DSC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "Digital Signature Certificate (DSC) of the authorized signatory of the establishment is required for online registration and subsequent filings on the EPFO Unified Portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    },
+    {
+      "requirementCode": "EPF_REQ_EMPLOYEE_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EPF_ROUTE_SELECTED"]
+      },
+      "claim": "Details of all employees must be provided including name, date of birth, date of joining, Aadhaar number, bank account details, and nominee/family details. This is required for generating Universal Account Numbers (UAN) for each employee.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EPF_ONLINE_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All establishments registering under EPF",
+      "claim": "EPF registration is done online through the EPFO Unified Portal: (1) Visit the EPFO Unified Portal for employers, (2) Register as a new employer on the portal, (3) Fill in establishment details including name, address, type, date of incorporation, and employee strength, (4) Upload required documents (PAN, incorporation certificate, address proof, bank details), (5) Add DSC of authorized signatory, (6) Enter details of all employees, (7) Submit the application, (8) EPFO verifies the documents and allots an EPF establishment code number.",
+      "doesNotEstablish": [
+        "Physical verification of the establishment may be conducted by EPFO officials.",
+        "After registration, monthly ECR (Electronic Challan cum Return) filing is mandatory by the 15th of each month.",
+        "Both employer and employee contributions must be deposited by the 15th of the following month."
+      ],
+      "sourceRefs": ["SRC-EPFO-PORTAL"]
+    }
+  ],
+  "output": {
+    "outputCode": "EPF_ESTABLISHMENT_CODE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An EPF Establishment Code Number is allotted to the registered establishment. This code is used for all future EPF filings, contributions, and correspondence with EPFO. Universal Account Numbers (UAN) are generated for each enrolled employee.",
+    "sourceRefs": ["SRC-EPFO-PORTAL", "SRC-EPF-ACT-1952"]
+  },
+  "fees": [
+    {
+      "feeCode": "EPF_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "No registration fee for EPF establishment registration",
+      "status": "VERIFIED",
+      "claim": "There is no registration fee charged by EPFO for establishment registration. However, the employer is required to contribute 12% of the basic wages (including dearness allowance) of each employee towards EPF from the date of coverage.",
+      "sourceRefs": ["SRC-EPFO-PORTAL", "SRC-EPF-ACT-1952"]
+    },
+    {
+      "feeCode": "EPF_EMPLOYER_CONTRIBUTION",
+      "category": "STATUTORY_CONTRIBUTION",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Monthly employer contribution (12% of basic pay + DA per employee)",
+      "status": "VERIFIED",
+      "claim": "The employer must contribute 12% of each employee's basic wages plus dearness allowance. Of this 12%, 3.67% goes to EPF and 8.33% goes to EPS (Employees' Pension Scheme). Employer also pays 0.5% towards EDLI (Employees' Deposit Linked Insurance) and administrative charges.",
+      "sourceRefs": ["SRC-EPF-ACT-1952", "SRC-EPFO-PORTAL"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EPF_PROCESSING",
+    "minimumDuration": 3,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Time for EPF establishment code allotment from online application",
+    "status": "VERIFIED",
+    "claim": "EPF establishment registration is typically processed within 3-7 days from submission of a complete online application with all required documents. The establishment code is allotted digitally through the Unified Portal.",
+    "sourceRefs": ["SRC-EPFO-PORTAL"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EPFO-PORTAL",
+      "url": "https://www.epfindia.gov.in/",
+      "title": "Employees' Provident Fund Organisation - Official Portal",
+      "publisher": "Employees' Provident Fund Organisation, Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The EPFO portal provides comprehensive information on establishment registration, employee enrollment, contribution rates, and online filing through the Unified Portal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online registration process for establishments.",
+        "Document requirements for EPF registration.",
+        "Employer and employee contribution rates.",
+        "UAN generation process.",
+        "Monthly filing requirements."
+      ],
+      "uncertainty": "Portal interface and process steps may be updated periodically."
+    },
+    {
+      "sourceCode": "SRC-EPF-ACT-1952",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1397",
+      "title": "The Employees' Provident Funds and Miscellaneous Provisions Act, 1952",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The EPF & MP Act, 1952 mandates provident fund, pension, and deposit-linked insurance schemes for employees in establishments employing 20 or more persons. Section 1(3) defines applicability and Section 6 specifies contribution rates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory coverage for establishments with 20+ employees.",
+        "Voluntary registration provisions.",
+        "Contribution rates (12% each from employer and employee).",
+        "EPF, EPS, and EDLI scheme provisions.",
+        "Penalties for non-compliance."
+      ],
+      "uncertainty": "Contribution rates and wage ceiling are revised periodically by the Central Government through notifications."
+    }
+  ],
+  "limitations": [
+    "This record covers establishment registration only. Individual employee enrollment, transfer, and withdrawal are separate processes.",
+    "Contribution rates may be revised by the Central Government through notifications; current rates should be verified.",
+    "Certain categories of employees earning above Rs. 15,000 per month (basic + DA) may opt out at the time of joining (first-time EPF members).",
+    "International workers have separate provisions under the EPF scheme.",
+    "Establishments in certain industries may have different applicability thresholds.",
+    "Administrative charges and EDLI contribution rates are subject to periodic revision."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "EPF registration requirements, process, and contribution rates verified against EPF & MP Act 1952 and EPFO portal. Contribution rate variations documented as limitations.",
+    "nextReviewTrigger": [
+      "Changes to EPF contribution rates or wage ceiling.",
+      "Amendments to the EPF & MP Act.",
+      "Updates to the EPFO Unified Portal registration process.",
+      "Changes to document requirements for registration.",
+      "Revision of administrative charges."
+    ]
+  }
+}

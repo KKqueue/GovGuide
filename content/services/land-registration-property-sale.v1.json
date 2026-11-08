@@ -1,0 +1,408 @@
+{
+  "serviceCode": "LAND_REGISTRATION_PROPERTY_SALE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Property / Land Registration (Sale Deed)"
+  },
+  "authority": "Department of Registration & Stamps, respective State Government (under the Registration Act, 1908)",
+  "jurisdiction": "STATE",
+  "category": "LAND_REGISTRATION",
+  "description": {
+    "en": "Registration of a property sale deed (conveyance deed) at the Sub-Registrar's office. This process is mandatory for all immovable property transfers above Rs. 100 in value under the Registration Act, 1908. The process involves stamp duty payment, document preparation, and registration at the jurisdictional Sub-Registrar office."
+  },
+  "officialLinks": {
+    "registrationAct": "https://www.indiacode.nic.in/handle/123456789/2318",
+    "stampAct": "https://www.indiacode.nic.in/handle/123456789/2392",
+    "informationPortal": "https://www.india.gov.in/topics/law-justice/property-registration"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "LAND_PARTIES_COMPETENT",
+        "field": "transaction.partiesCompetent",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All property sale deed registrations",
+        "claim": "Both buyer and seller must be competent to contract — of sound mind, not a minor (18+ years), and not disqualified by any law. Legal entities (companies, trusts) must act through authorized representatives.",
+        "sourceRefs": [
+          "SRC-REGISTRATION-ACT",
+          "SRC-TRANSFER-PROPERTY-ACT"
+        ]
+      },
+      {
+        "conditionCode": "LAND_CLEAR_TITLE",
+        "field": "property.titleClear",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All property sale deed registrations",
+        "claim": "The seller must have clear, marketable title to the property. The property must be free from encumbrances, liens, or disputes. An encumbrance certificate (EC) is required as proof.",
+        "sourceRefs": [
+          "SRC-TRANSFER-PROPERTY-ACT"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Agricultural land transfer restrictions vary by state — some states restrict sale to non-agriculturists or non-residents.",
+      "NRI property purchases may have specific restrictions under FEMA regulations.",
+      "Properties in certain scheduled areas or tribal lands have additional transfer restrictions."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "LAND_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "LAND_REGISTRATION_PROPERTY_SALE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "LAND_REQ_SALE_DEED",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A sale deed (conveyance deed) must be drafted on non-judicial stamp paper of the requisite value. The deed must contain: names and addresses of buyer and seller, property description with survey/plot number, sale consideration amount, mode of payment, and terms of sale.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_STAMP_DUTY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Stamp duty must be paid on the sale deed as per the state's Stamp Act schedule. The duty is calculated on the market value or the sale consideration, whichever is higher. Most states allow e-stamping through the Stock Holding Corporation of India (SHCIL).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-STAMP-ACT",
+        "SRC-SHCIL-ESTAMPING"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of both buyer and seller is required. Accepted: Aadhaar card, PAN card, passport, voter ID, or driving license. PAN card is mandatory for transactions above Rs. 10 lakh as per Income Tax Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT",
+        "SRC-INCOME-TAX-PAN-REQUIREMENT"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_ENCUMBRANCE_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Encumbrance Certificate (EC) for the past 13-30 years (period varies by state) from the Sub-Registrar's office is required to verify that the property is free from legal dues, mortgages, or other encumbrances.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_PROPERTY_DOCUMENTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Original property documents are required: previous sale deed or title deed, property tax receipts (latest), khata certificate (urban) or patta/chitta (rural), approved building plan (if applicable), and NOC from the housing society (if applicable).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT",
+        "SRC-INDIA-GOV-PROPERTY"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_PHOTOGRAPHS_WITNESSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photographs of buyer and seller are required. Two witnesses with valid ID proof must be present at the time of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "LAND_REQ_REGISTRATION_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "LAND_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Registration fee (typically 1% of the property value in most states, subject to a cap) must be paid at the Sub-Registrar's office. This is in addition to stamp duty.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "LAND_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All property sale deed registrations",
+      "claim": "Registration process: (1) Draft the sale deed through a lawyer, (2) Calculate and pay stamp duty — via e-stamping portal or franking or physical stamp paper, (3) Book an appointment at the jurisdictional Sub-Registrar office (online booking available in many states), (4) Both parties and two witnesses visit the Sub-Registrar with originals and copies, (5) Biometric capture (fingerprint, photo) of all parties, (6) Document verification by the Sub-Registrar, (7) Registration done and document number assigned, (8) Certified copy of the registered deed available for collection within 2-15 days.",
+      "doesNotEstablish": [
+        "Appointment availability varies by Sub-Registrar office workload.",
+        "Some states have mandatory online slot booking while others accept walk-ins.",
+        "Document preparation (drafting, stamp duty calculation) time is not included."
+      ],
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT",
+        "SRC-INDIA-GOV-PROPERTY"
+      ]
+    },
+    {
+      "processCode": "LAND_MUTATION_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Buyers after registration",
+      "claim": "After registration, the buyer must apply for mutation (name change) in revenue records at the Tahsildar/Municipal office. This is a separate process from registration and is necessary to update the property ownership in government land records. Without mutation, the property tax records and revenue records will still show the previous owner's name.",
+      "doesNotEstablish": [
+        "Mutation is a separate process with its own timeline and requirements."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-PROPERTY"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "LAND_REGISTERED_DEED",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A registered sale deed with a unique document number assigned by the Sub-Registrar. The registered deed is legal proof of property ownership transfer. A certified copy can be obtained from the Sub-Registrar's office.",
+    "sourceRefs": [
+      "SRC-REGISTRATION-ACT"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "LAND_STAMP_DUTY",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Stamp duty on the sale deed (state-specific)",
+      "status": "VERIFIED",
+      "claim": "Stamp duty varies significantly by state — typically 3% to 8% of the property's market value or registered value, whichever is higher. Some states offer reduced stamp duty for women buyers (e.g., Delhi: 4% for women vs. 6% for men). First-time homebuyers may get concessions in some states.",
+      "sourceRefs": [
+        "SRC-INDIAN-STAMP-ACT"
+      ]
+    },
+    {
+      "feeCode": "LAND_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Registration fee at Sub-Registrar office",
+      "status": "VERIFIED",
+      "claim": "Registration fee is typically 1% of the property value in most states, often with a maximum cap (e.g., Rs. 30,000). This is separate from stamp duty.",
+      "sourceRefs": [
+        "SRC-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "feeCode": "LAND_TDS_REQUIREMENT",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "TDS on property purchase above Rs. 50 lakh",
+      "status": "VERIFIED",
+      "claim": "For property transactions valued above Rs. 50 lakh, the buyer must deduct TDS at 1% (for residents) or 20% (for NRI sellers) and deposit it with Form 26QB within 30 days of the end of the month of deduction.",
+      "sourceRefs": [
+        "SRC-INCOME-TAX-PAN-REQUIREMENT"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "LAND_REGISTRATION_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICE_DEPENDENT",
+    "applicability": "Property sale deed registration at Sub-Registrar office",
+    "status": "VERIFIED",
+    "claim": "Registration at the Sub-Registrar's office is typically completed on the same day of visit. The certified copy of the registered deed is available within 2-15 working days depending on the state and Sub-Registrar office. In states with computerized registration, the process may be faster.",
+    "estimatedCompletionDatePolicy": "Registration itself happens on the appointment day. Certified copy collection in 2-15 working days.",
+    "fallbackThresholdMentionedBySource": "Under the Registration Act, the Sub-Registrar must complete registration within the prescribed time or communicate refusal within 3 days",
+    "sourceRefs": [
+      "SRC-REGISTRATION-ACT"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-REGISTRATION-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2318",
+      "title": "The Registration Act, 1908",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Registration Act mandates registration of documents relating to immovable property. Sections 17-18 specify compulsory and optional registrations. Section 21 specifies the time limit for presentation.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Compulsory registration for property transfers above Rs. 100.",
+        "Registration must be done at the jurisdictional Sub-Registrar office.",
+        "Both parties and witnesses must be present.",
+        "Encumbrance certificate requirement.",
+        "Registration fee structure."
+      ],
+      "uncertainty": "State amendments to the Act may modify certain provisions."
+    },
+    {
+      "sourceCode": "SRC-TRANSFER-PROPERTY-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2338",
+      "title": "The Transfer of Property Act, 1882",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Transfer of Property Act governs the transfer of immovable property. Section 54 defines 'sale' and requires registered instrument for tangible immovable property of value Rs. 100 or more.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal requirements for valid property transfer.",
+        "Competence of parties to transfer.",
+        "Clear title requirement."
+      ],
+      "uncertainty": "Specific provisions may be modified by state amendments."
+    },
+    {
+      "sourceCode": "SRC-INDIAN-STAMP-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2392",
+      "title": "The Indian Stamp Act, 1899",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Indian Stamp Act prescribes stamp duty on various documents. Schedule I contains the rates. Most states have their own stamp acts with modified rates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Stamp duty requirement for property sale deeds.",
+        "Stamp duty calculation basis (market value or consideration)."
+      ],
+      "uncertainty": "Stamp duty rates are state-specific; most states have their own Stamp Acts superseding central rates."
+    },
+    {
+      "sourceCode": "SRC-SHCIL-ESTAMPING",
+      "url": "https://www.shcilestamp.com/",
+      "title": "SHCIL e-Stamping Portal",
+      "publisher": "Stock Holding Corporation of India Ltd.",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "AUTHORIZED_SERVICE_PROVIDER",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "SHCIL is the Central Record Keeping Agency (CRA) appointed by the Government of India for e-Stamping.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "E-stamping facility available for stamp duty payment.",
+        "Authorized by the Government of India."
+      ],
+      "uncertainty": "Not all states have adopted e-stamping through SHCIL."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-PROPERTY",
+      "url": "https://www.india.gov.in/topics/law-justice/property-registration",
+      "title": "Property Registration - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides consolidated information on property registration including links to state registration portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General property registration process overview.",
+        "Links to state-specific registration portals.",
+        "Mutation process information."
+      ],
+      "uncertainty": "State-specific details may be more current on respective state portals."
+    },
+    {
+      "sourceCode": "SRC-INCOME-TAX-PAN-REQUIREMENT",
+      "url": "https://incometaxindia.gov.in/",
+      "title": "Income Tax Department - PAN and TDS Requirements",
+      "publisher": "Central Board of Direct Taxes, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "PAN is mandatory for property transactions above Rs. 10 lakh. TDS at 1% is applicable for property purchases above Rs. 50 lakh.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "PAN mandatory for property transactions above Rs. 10 lakh.",
+        "TDS requirement for transactions above Rs. 50 lakh.",
+        "Form 26QB for TDS deposit."
+      ],
+      "uncertainty": "Thresholds and rates may change with Finance Act amendments."
+    }
+  ],
+  "limitations": [
+    "Stamp duty rates are state-specific and change frequently — this record provides general guidance only. Always check with the local Sub-Registrar or state registration portal for current rates.",
+    "Agricultural land registration has different rules and restrictions that vary by state (e.g., non-agriculturist restrictions, ceiling limits).",
+    "This record covers simple sale deed registration only. Gift deed, partition deed, power of attorney, lease deed, and mortgage deed are separate workflows.",
+    "Property bought under RERA-registered projects may have additional documentation requirements.",
+    "NRI property transactions have FEMA-specific requirements not fully covered here.",
+    "Mutation / name change in revenue records is a separate post-registration process.",
+    "Legal due diligence (title search, litigation check, RERA status) is strongly recommended before purchase but is not part of the registration process itself."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core registration requirements and process verified against central legislation. Stamp duty and registration fees are state-specific and noted as such. The Registration Act provides the universal framework.",
+    "nextReviewTrigger": [
+      "Changes to the Registration Act or its rules.",
+      "Stamp duty rate revisions by states.",
+      "Changes to TDS thresholds in the Finance Act.",
+      "Introduction of mandatory online registration in more states.",
+      "Changes to e-stamping framework."
+    ]
+  }
+}

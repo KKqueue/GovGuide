@@ -1,0 +1,349 @@
+{
+  "serviceCode": "FOSTAC_CERTIFICATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "FOSTAC — Food Safety Training and Certification"
+  },
+  "authority": "Food Safety and Standards Authority of India (FSSAI)",
+  "jurisdiction": "CENTRAL",
+  "category": "FOSTAC_CERTIFICATION",
+  "description": {
+    "en": "Food Safety Training and Certification (FOSTAC) is a mandatory food safety training programme initiated by the Food Safety and Standards Authority of India (FSSAI). It is designed for Food Business Operators (FBOs) and their food handlers, supervisors, and managers to ensure compliance with food safety standards. FOSTAC training covers food hygiene, safe food handling practices, personal hygiene, and regulatory requirements under the Food Safety and Standards Act, 2006. Certification is issued upon successful completion of the training programme and is required for FSSAI license compliance."
+  },
+  "officialLinks": {
+    "application": "https://fostac.fssai.gov.in/",
+    "informationPortal": "https://www.fssai.gov.in/cms/fostac.php"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "FOSTAC_FBO_STATUS",
+        "field": "business.isFoodBusinessOperator",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All Food Business Operators holding or applying for FSSAI license/registration",
+        "claim": "Food Business Operators (FBOs) who hold or are applying for an FSSAI license or registration are required to ensure that their food handlers and supervisors undergo FOSTAC training as per FSSAI directions.",
+        "sourceRefs": [
+          "SRC-FSSAI-FOSTAC-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "FOSTAC_FOOD_HANDLER_ROLE",
+        "field": "employee.role",
+        "operator": "IN_SET",
+        "value": [
+          "FOOD_HANDLER",
+          "SUPERVISOR",
+          "MANAGER",
+          "FBO_OWNER"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "Persons involved in food handling, preparation, storage, or service within a food business",
+        "claim": "FOSTAC training is applicable to food handlers, food safety supervisors, food business owners, and managers who are involved in food production, processing, storage, distribution, or service.",
+        "sourceRefs": [
+          "SRC-FSSAI-FOSTAC-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "FOSTAC_MINIMUM_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All individuals enrolling for FOSTAC training",
+        "claim": "Applicants must be at least 18 years of age to enroll for FOSTAC training and certification.",
+        "sourceRefs": [
+          "SRC-FSSAI-FOSTAC-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific FOSTAC training levels (Basic, Advanced, Special) may apply depending on the food business category and FSSAI license type.",
+      "Some state food safety departments may mandate additional training programmes beyond FOSTAC.",
+      "FBOs with petty food business registration (as opposed to license) may have different training requirements.",
+      "Special category training may be required for specific sectors such as catering, milk and milk products, meat and poultry, or bakery."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "FOSTAC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "FOSTAC_CERTIFICATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FOSTAC_TRAINING_TYPE_BASIC",
+      "field": "workflow.trainingLevel",
+      "operator": "EQUALS",
+      "value": "BASIC",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FOSTAC_TRAINING_TYPE_ADVANCED",
+      "field": "workflow.trainingLevel",
+      "operator": "EQUALS",
+      "value": "ADVANCED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "FOSTAC_FBO_COMPLIANCE_CHECK",
+      "field": "business.hasFssaiLicense",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "FOSTAC_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FOSTAC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid photo identity proof such as Aadhaar card, PAN card, voter ID, or passport of the person enrolling for FOSTAC training.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FOSTAC_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FOSTAC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photograph of the applicant for the FOSTAC training certificate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FOSTAC_REQ_FSSAI_LICENSE",
+      "kind": "CONDITIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "FOSTAC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "FSSAI license or registration number of the food business. Required for linking the training certification to the FBO's FSSAI compliance record.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FOSTAC_REQ_TRAINING_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FOSTAC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Payment of the prescribed training fee to the FOSTAC-certified training partner. The fee varies by training level and training partner.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "FOSTAC_REQ_ATTENDANCE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "FOSTAC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Mandatory attendance for the full duration of the FOSTAC training programme. Basic level training is typically a one-day programme and advanced level training may extend to two or more days.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "FOSTAC_STEP1_IDENTIFY_TRAINING_PARTNER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All FBOs and food handlers seeking FOSTAC certification",
+      "claim": "Identify a FOSTAC-certified training partner from the list available on the FOSTAC portal (fostac.fssai.gov.in). Training partners include authorized institutions, organizations, and agencies empanelled by FSSAI to conduct FOSTAC training.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FOSTAC_STEP2_REGISTER_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All participants enrolling for FOSTAC training",
+      "claim": "Register for the training programme through the FOSTAC portal or directly with the training partner. Provide personal details, FSSAI license/registration number, and select the appropriate training level (Basic, Advanced, or Special).",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FOSTAC_STEP3_ATTEND_TRAINING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered participants",
+      "claim": "Attend the FOSTAC training programme conducted by the certified training partner. Training covers food safety management, personal hygiene, food hygiene practices, cleaning and sanitation, pest control, food laws and regulations, and HACCP principles.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28",
+        "SRC-FSS-ACT-2006"
+      ]
+    },
+    {
+      "processCode": "FOSTAC_STEP4_ASSESSMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All training participants",
+      "claim": "Complete the assessment or examination conducted at the end of the training programme. The assessment tests knowledge of food safety principles, hygiene practices, and regulatory requirements covered during the training.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "FOSTAC_STEP5_CERTIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Participants who successfully pass the assessment",
+      "claim": "Upon successful completion of the training and passing the assessment, a FOSTAC certificate is issued. The certificate is digitally generated through the FOSTAC portal and linked to the participant's Aadhaar and FSSAI registration.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "FOSTAC_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A FOSTAC (Food Safety Training and Certification) certificate is issued upon successful completion of the training and assessment. The certificate is valid for a period as prescribed by FSSAI and must be renewed upon expiry. The certificate is linked to the FBO's FSSAI license/registration and serves as proof of food safety training compliance.",
+    "sourceRefs": [
+      "SRC-FSSAI-FOSTAC-2026-10-28",
+      "SRC-FSS-ACT-2006"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "FOSTAC_BASIC_TRAINING_FEE",
+      "category": "TRAINING_FEE",
+      "amount": null,
+      "minimumAmount": 100,
+      "maximumAmount": 500,
+      "currency": "INR",
+      "applicability": "Basic level FOSTAC training fee per participant",
+      "status": "VERIFIED",
+      "claim": "Basic level FOSTAC training fee is typically in the range of Rs. 100 to Rs. 500 per participant, payable to the FOSTAC-certified training partner. The fee may vary based on the training partner and location.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "FOSTAC_ADVANCED_TRAINING_FEE",
+      "category": "TRAINING_FEE",
+      "amount": null,
+      "minimumAmount": 500,
+      "maximumAmount": 1500,
+      "currency": "INR",
+      "applicability": "Advanced level FOSTAC training fee per participant",
+      "status": "VERIFIED",
+      "claim": "Advanced level FOSTAC training fees typically range from Rs. 500 to Rs. 1500 per participant depending on the training partner, programme duration, and sector-specific modules.",
+      "sourceRefs": [
+        "SRC-FSSAI-FOSTAC-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "FOSTAC_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From completion of training and assessment to issuance of FOSTAC certificate",
+    "status": "VERIFIED",
+    "claim": "FOSTAC certificates are typically issued within 1 to 7 days after successful completion of the training programme and assessment. Basic level training is completed in a single day, while advanced training may take 2 to 3 days. Certificate generation is done digitally through the FOSTAC portal.",
+    "sourceRefs": [
+      "SRC-FSSAI-FOSTAC-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-FSSAI-FOSTAC-2026-10-28",
+      "url": "https://fostac.fssai.gov.in/",
+      "title": "FOSTAC — Food Safety Training and Certification Portal",
+      "publisher": "Food Safety and Standards Authority of India (FSSAI)",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "FOSTAC is FSSAI's food safety training and certification programme to ensure that food businesses across India maintain prescribed food safety standards through trained and certified food handlers and supervisors.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "FOSTAC training is mandatory for FBOs for FSSAI license compliance.",
+        "Training is conducted by FSSAI-empanelled training partners.",
+        "Registration is done through the FOSTAC portal or training partners.",
+        "Identity proof, photograph, and FSSAI license number are required.",
+        "Certificate is issued upon successful completion of training and assessment.",
+        "Training fees vary by level and training partner.",
+        "Basic and advanced training levels are available."
+      ],
+      "uncertainty": "Fee structures may vary across training partners. Specific training durations and validity periods for certificates may be updated by FSSAI notifications."
+    },
+    {
+      "sourceCode": "SRC-FSS-ACT-2006",
+      "url": "https://www.fssai.gov.in/cms/food-safety-and-standards-act-2006.php",
+      "title": "Food Safety and Standards Act, 2006",
+      "publisher": "Food Safety and Standards Authority of India (FSSAI), Ministry of Health and Family Welfare, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Food Safety and Standards Act, 2006 establishes the Food Safety and Standards Authority of India (FSSAI) to regulate and oversee food safety in India. It mandates licensing and registration of food businesses and prescribes food safety standards, including provisions for training of food business personnel.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "FSSAI is the regulatory authority for food safety in India.",
+        "Food business operators must hold FSSAI license or registration.",
+        "Training of food handlers is mandated under food safety regulations.",
+        "FOSTAC certificate is linked to FSSAI compliance requirements."
+      ],
+      "uncertainty": "Specific regulations and directions regarding FOSTAC training are issued by FSSAI from time to time and may be updated. State food safety departments may have additional requirements."
+    }
+  ],
+  "limitations": [
+    "This record covers the general FOSTAC training and certification process. Sector-specific training modules (e.g., catering, dairy, meat processing) are not individually detailed.",
+    "Training fees are indicative and vary across FOSTAC-certified training partners and regions.",
+    "The record does not cover other FSSAI training initiatives such as FoSTaR (Food Safety Training for Regulators) or food testing laboratory certification.",
+    "Certificate validity period and renewal process may be updated by FSSAI notifications and are not fixed in this record.",
+    "Online training options and their equivalence to in-person training may vary based on FSSAI guidelines.",
+    "Specific HACCP and food safety management system requirements for different license categories are not modeled."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core FOSTAC training process and requirements are reviewed based on the FOSTAC portal and FSS Act, but training partner details, sector-specific modules, and certificate validity periods may require updates.",
+    "nextReviewTrigger": [
+      "Updates to FOSTAC training guidelines or curriculum by FSSAI.",
+      "Changes to FSSAI licensing requirements related to food safety training.",
+      "New FSSAI directions on online or hybrid training formats.",
+      "Revisions to training fee structures or certificate validity periods.",
+      "Amendments to the Food Safety and Standards Act, 2006 or associated regulations."
+    ]
+  }
+}

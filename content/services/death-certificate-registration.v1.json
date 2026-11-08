@@ -1,0 +1,314 @@
+{
+  "serviceCode": "DEATH_CERTIFICATE_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Death Certificate Registration"
+  },
+  "authority": "Registrar General & Census Commissioner of India (via State/Municipal Registrars)",
+  "jurisdiction": "STATE",
+  "category": "DEATH_CERTIFICATE",
+  "description": {
+    "en": "Registration of death and issuance of a death certificate under the Registration of Births and Deaths Act, 1969. Death registration is mandatory and must be done within 21 days of the event. The certificate is issued by the local municipal body or panchayat registrar and is required for legal, property, insurance, and succession purposes."
+  },
+  "officialLinks": {
+    "application": "https://crsorgi.gov.in/",
+    "informationPortal": "https://censusindia.gov.in/",
+    "actText": "https://www.indiacode.nic.in/handle/123456789/1444"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DEATH_OCCURRED_IN_INDIA",
+        "field": "event.location",
+        "operator": "EQUALS",
+        "value": "INDIA",
+        "classification": "MANDATORY",
+        "appliesTo": "All death registration applicants",
+        "claim": "The death must have occurred in India. Deaths occurring in hospitals, nursing homes, or other institutions are reported by the medical officer in charge. Deaths occurring at home are reported by the head of the household or a near relative.",
+        "sourceRefs": ["SRC-RBD-ACT-1969"]
+      },
+      {
+        "conditionCode": "DEATH_REGISTRATION_TIMELINE",
+        "field": "event.daysSinceDeath",
+        "operator": "LESS_THAN_OR_EQUALS",
+        "value": 21,
+        "classification": "RECOMMENDED",
+        "appliesTo": "Timely registration without late fee",
+        "claim": "Death must be registered within 21 days of occurrence for free registration. Registration between 22 days and 30 days may be done with a late fee. Registration after 30 days up to 1 year requires written permission from the prescribed authority, and after 1 year requires a Magistrate's order.",
+        "sourceRefs": ["SRC-RBD-ACT-1969", "SRC-CRS-PORTAL"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Deaths of Indian citizens abroad are registered through consular services and are not covered here.",
+      "Unidentified or unclaimed bodies follow a separate police-initiated registration process."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DEATH_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DEATH_CERTIFICATE_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DEATH_REQ_FORM_2",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DEATH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Form No. 2 (Report of Death) under the RBD Act must be filled. For institutional deaths (hospital/nursing home), the medical officer in charge fills and submits this form. For deaths at home, the head of the household or a near relative of the deceased must report the death to the local registrar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-RBD-ACT-1969", "SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "DEATH_REQ_MEDICAL_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DEATH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Medical Certificate of Cause of Death (MCCD) issued by the attending physician or hospital is required for institutional deaths. For deaths at home without medical attendance, the cause of death is recorded based on the informant's statement or a verbal autopsy conducted by the local health worker.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-RBD-ACT-1969", "SRC-MCCD-GUIDELINES"]
+    },
+    {
+      "requirementCode": "DEATH_REQ_DECEASED_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DEATH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the deceased is required. Aadhaar card of the deceased is the most commonly accepted document. Other accepted documents include voter ID, passport, driving license, or any government-issued photo ID.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "DEATH_REQ_INFORMANT_ID",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DEATH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the informant (person reporting the death) is required. The informant is typically the head of the household, a near relative, or an authorised representative. Aadhaar card, voter ID, passport, or driving license is accepted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL"]
+    },
+    {
+      "requirementCode": "DEATH_REQ_CREMATION_BURIAL_PROOF",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["DEATH_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Cremation or burial certificate from the cremation ground, burial ground, or local authority may be required by some municipal registrars, especially for late registrations or when other documentation is incomplete.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-CRS-PORTAL", "SRC-INDIA-GOV-DEATH"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DEATH_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All death registration applicants",
+      "claim": "Registration process: (1) For institutional deaths, the hospital reports the death electronically or manually through Form 2 to the local registrar and issues a Medical Certificate of Cause of Death, (2) For deaths at home, the family reports to the local registrar or gram panchayat office within 21 days with required documents, (3) The registrar verifies the details and enters the death in the register, (4) A death certificate is issued — either immediately or within 7 days depending on the state/municipal body, (5) The certificate can be downloaded from the CRS portal (crsorgi.gov.in) in states where online registration is available.",
+      "doesNotEstablish": [
+        "Hospital-initiated electronic reporting may not be available in all institutions.",
+        "Some states have fully digitised the process while others still require physical visits."
+      ],
+      "sourceRefs": ["SRC-CRS-PORTAL", "SRC-RBD-ACT-1969"]
+    },
+    {
+      "processCode": "DEATH_LATE_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registrations after 21 days",
+      "claim": "Late registration process: (a) Between 22-30 days: registration with a prescribed late fee. (b) Between 30 days and 1 year: written permission from the Registrar or Area Magistrate, along with a late fee and an affidavit from the informant. (c) After 1 year: order from a First Class Magistrate or Executive Magistrate after verifying the facts, along with prescribed fees and supporting evidence such as cremation/burial records, hospital records, or police records.",
+      "doesNotEstablish": [
+        "Late fee amounts vary by state.",
+        "Magistrate procedures and evidentiary requirements may differ by jurisdiction."
+      ],
+      "sourceRefs": ["SRC-RBD-ACT-1969"]
+    }
+  ],
+  "output": {
+    "outputCode": "DEATH_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A death certificate issued by the local registrar under the Registration of Births and Deaths Act, 1969. This is an official document required for claiming life insurance, settling bank accounts, property succession, pension claims, and other legal and administrative purposes.",
+    "sourceRefs": ["SRC-RBD-ACT-1969"]
+  },
+  "fees": [
+    {
+      "feeCode": "DEATH_REGISTRATION_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Registration within 21 days of death",
+      "status": "VERIFIED",
+      "claim": "Death registration within 21 days of the event is free of charge across all states as mandated by the RBD Act.",
+      "sourceRefs": ["SRC-RBD-ACT-1969"]
+    },
+    {
+      "feeCode": "DEATH_LATE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Late registration (after 21 days)",
+      "status": "UNVERIFIED",
+      "claim": "Late registration fees vary by state. Typical late fees range from Rs. 2 to Rs. 50 for registration between 22-30 days. For registration after 30 days, additional prescribed fees, affidavit costs, and potentially court fees apply."
+    },
+    {
+      "feeCode": "DEATH_CERTIFICATE_COPY_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Additional copies of death certificate",
+      "status": "UNVERIFIED",
+      "claim": "Fee for obtaining additional or duplicate copies of the death certificate varies by state and municipal body. Typical range is Rs. 10 to Rs. 50 per copy."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DEATH_CERT_PROCESSING",
+    "minimumDuration": 0,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Timely registration within 21 days",
+    "status": "VERIFIED",
+    "claim": "For deaths reported within 21 days, the death certificate is typically issued on the same day or within 7 working days depending on the state and municipal body. Hospitals with electronic registration systems may provide the certificate within 24-48 hours.",
+    "estimatedCompletionDatePolicy": "For institutional deaths with electronic reporting, certificate may be available within 1-3 days. For manual registration, allow up to 7 working days.",
+    "fallbackThresholdMentionedBySource": "No specific fallback; if delayed, contact the local registrar office",
+    "sourceRefs": ["SRC-CRS-PORTAL", "SRC-INDIA-GOV-DEATH"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-RBD-ACT-1969",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1444",
+      "title": "The Registration of Births and Deaths Act, 1969",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The RBD Act mandates compulsory registration of every birth and death in India. Sections 8-13 define the timeline, informant responsibilities, and late registration procedures for deaths.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory death registration within 21 days.",
+        "Free registration within 21 days.",
+        "Late registration procedures and penalties.",
+        "Informant responsibilities for institutional and home deaths.",
+        "Legal validity of death certificate."
+      ],
+      "uncertainty": "States may have amended procedures under their state rules."
+    },
+    {
+      "sourceCode": "SRC-CRS-PORTAL",
+      "url": "https://crsorgi.gov.in/",
+      "title": "Civil Registration System (CRS) Portal",
+      "publisher": "Office of the Registrar General & Census Commissioner, India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The CRS portal is the official online system for registration and downloading of birth and death certificates in participating states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online death registration and certificate download.",
+        "Document requirements for registration.",
+        "Registration process flow.",
+        "Processing timelines."
+      ],
+      "uncertainty": "Not all states have fully integrated with the CRS portal; some still use state-specific systems."
+    },
+    {
+      "sourceCode": "SRC-MCCD-GUIDELINES",
+      "url": "https://censusindia.gov.in/",
+      "title": "Medical Certification of Cause of Death (MCCD) Guidelines",
+      "publisher": "Office of the Registrar General & Census Commissioner, India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MCCD guidelines specify requirements for medical certification of cause of death by attending physicians, and the use of verbal autopsy for deaths without medical attendance.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "MCCD is required for institutional deaths.",
+        "Verbal autopsy procedure for home deaths without medical attendance.",
+        "Physician responsibilities for cause-of-death reporting."
+      ],
+      "uncertainty": "MCCD coverage varies; not all deaths in India receive medical certification of cause."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-DEATH",
+      "url": "https://www.india.gov.in/topics/health/death-certificate",
+      "title": "Death Certificate - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides a consolidated overview of death certificate services, document requirements, and links to state portals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for death registration.",
+        "Cremation/burial certificate as supporting document.",
+        "Overview of registration process."
+      ],
+      "uncertainty": "Information is aggregated and may not reflect the latest state-specific changes."
+    },
+    {
+      "sourceCode": "SRC-CENSUS-INDIA",
+      "url": "https://censusindia.gov.in/",
+      "title": "Office of the Registrar General & Census Commissioner, India",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The office oversees the implementation of the RBD Act and publishes annual reports on civil registration statistics including death registration rates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Oversight of death registration.",
+        "National civil registration statistics.",
+        "Role of Registrar General."
+      ],
+      "uncertainty": "Portal primarily covers census data; CRS-specific information is on crsorgi.gov.in."
+    }
+  ],
+  "limitations": [
+    "This record covers death registration for deaths occurring in India only. Consular registration for deaths abroad is a separate process.",
+    "Late fee amounts are state-specific and are not fully listed.",
+    "Medico-legal cases (accidental, suspicious, or unnatural deaths) involve police and post-mortem procedures before registration and have additional requirements.",
+    "Unidentified or unclaimed body registration follows a separate police-initiated process.",
+    "Stillbirth registration (Form 3) is a separate process from death registration.",
+    "Some states have their own online portals that may differ from the CRS national portal.",
+    "Succession certificate, legal heir certificate, and property mutation after death are separate processes not covered here."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core registration requirements, timeline, and process verified against the RBD Act 1969 and CRS portal. State-specific fee variations and medico-legal case procedures noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Registration of Births and Deaths Act.",
+      "Changes to the CRS portal registration process.",
+      "Updates to MCCD guidelines or requirements.",
+      "Changes to the 21-day free registration timeline."
+    ]
+  }
+}

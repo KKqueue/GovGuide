@@ -1,0 +1,336 @@
+{
+  "serviceCode": "OCI_CARD",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "OCI (Overseas Citizen of India) Card"
+  },
+  "authority": "Ministry of Home Affairs, Government of India / Bureau of Immigration",
+  "jurisdiction": "CENTRAL",
+  "category": "OCI_CARD",
+  "description": {
+    "en": "OCI (Overseas Citizen of India) card for foreign nationals of Indian origin or spouses of Indian citizens/OCI cardholders. The OCI card provides a lifelong multiple-entry, multi-purpose visa to visit India, parity with Non-Resident Indians (NRIs) in specified economic, financial, and educational fields, and exemption from FRRO registration for any length of stay. Applications are submitted online through the OCI Services portal and processed through Indian missions abroad or the Foreigners Regional Registration Office (FRRO) in India."
+  },
+  "officialLinks": {
+    "ociPortal": "https://ociservices.gov.in/",
+    "mhaOciPage": "https://www.mha.gov.in/en/divisionofmha/foreigners-division/overseas-citizen-of-india-oci-cardholder",
+    "citizenshipAct": "https://www.indiacode.nic.in/handle/123456789/1522",
+    "boiPortal": "https://boi.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "OCI_FOREIGN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "NOT_EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All OCI card applicants",
+        "claim": "The applicant must be a foreign national (citizen of another country). Indian citizens are not eligible for OCI cards. The applicant must hold a valid foreign passport.",
+        "sourceRefs": [
+          "SRC-CITIZENSHIP-ACT-1955",
+          "SRC-MHA-OCI-GUIDELINES"
+        ]
+      },
+      {
+        "conditionCode": "OCI_INDIAN_ORIGIN_OR_SPOUSE",
+        "field": "applicant.ociEligibilityCategory",
+        "operator": "IN_SET",
+        "value": [
+          "INDIAN_ORIGIN",
+          "SPOUSE_OF_INDIAN",
+          "SPOUSE_OF_OCI",
+          "CHILD_OF_OCI",
+          "MINOR_CHILD_PARENTS_INDIAN"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All OCI card applicants",
+        "claim": "The applicant must fall into one of the eligible categories: (a) was a citizen of India or eligible to become a citizen at commencement of the Constitution, (b) belonged to a territory that became part of India after 15 August 1947, (c) is a child, grandchild, or great-grandchild of such a person, (d) is a minor child of an Indian citizen or OCI cardholder, (e) is a spouse of a citizen of India or an OCI cardholder (marriage must be registered and subsisting for at least two years).",
+        "sourceRefs": [
+          "SRC-CITIZENSHIP-ACT-1955",
+          "SRC-MHA-OCI-GUIDELINES"
+        ]
+      },
+      {
+        "conditionCode": "OCI_NOT_PAKISTAN_BANGLADESH",
+        "field": "applicant.previousNationality",
+        "operator": "NOT_EQUALS",
+        "value": "PAKISTAN_OR_BANGLADESH",
+        "classification": "MANDATORY",
+        "appliesTo": "All OCI card applicants claiming Indian origin",
+        "claim": "Citizens of Pakistan and Bangladesh, or persons who were at any time citizens of these countries, are not eligible for OCI registration. However, spouses of Indian citizens who are Pakistani or Bangladeshi nationals may be eligible after the marriage has subsisted for at least two years.",
+        "sourceRefs": [
+          "SRC-CITIZENSHIP-ACT-1955"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Persons who have served in any military or intelligence organization of a foreign country may face additional scrutiny or rejection.",
+      "Applicants with criminal records or those on India's blacklist may be denied OCI registration.",
+      "Eligibility of adopted children for OCI may require additional documentation depending on the adoption jurisdiction."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "OCI_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "OCI_CARD",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "OCI_REQ_ONLINE_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Online application must be submitted through the OCI Services portal (ociservices.gov.in). The form requires personal details, current and previous nationality, Indian origin details (parents'/grandparents' Indian documents), current foreign passport details, and a recent photograph conforming to specified dimensions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-OCI-SERVICES-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "OCI_REQ_FOREIGN_PASSPORT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid foreign passport of the applicant is required. The passport must have a validity of at least 6 months from the date of application. A self-attested copy of the passport (bio-data page and observation/endorsement page) must be submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MHA-OCI-GUIDELINES",
+        "SRC-OCI-SERVICES-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "OCI_REQ_INDIAN_ORIGIN_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of Indian origin must be provided: (a) for persons who were Indian citizens — surrendered/cancelled Indian passport, renunciation certificate, or Indian birth certificate, (b) for descendants — parent's/grandparent's Indian passport or birth certificate or other evidence of Indian citizenship, (c) for spouses — marriage certificate (registered, subsisting for at least 2 years) and spouse's Indian passport/OCI card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CITIZENSHIP-ACT-1955",
+        "SRC-MHA-OCI-GUIDELINES"
+      ]
+    },
+    {
+      "requirementCode": "OCI_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs as per the specifications prescribed by the Indian mission or FRRO. Photographs must have a white background, with the face covering 70-80% of the frame. Digital photographs are uploaded during online application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-OCI-SERVICES-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "OCI_REQ_RENUNCIATION_CERTIFICATE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "For persons who were previously Indian citizens: a renunciation certificate or evidence that Indian citizenship was lost (e.g., by acquiring foreign citizenship). If the Indian passport was not surrendered, a declaration explaining the circumstances is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-CITIZENSHIP-ACT-1955",
+        "SRC-MHA-OCI-GUIDELINES"
+      ]
+    },
+    {
+      "requirementCode": "OCI_REQ_FEE_PAYMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "OCI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application fee must be paid online during the application process. Fee amount varies by the country of application and the category of applicant. Payment can be made via credit card, debit card, or bank transfer depending on the mission or FRRO.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-OCI-SERVICES-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "OCI_APPLICATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All OCI card applicants",
+      "claim": "OCI application process: (1) Register on the OCI Services portal (ociservices.gov.in), (2) Fill the online application form with personal details, nationality, and Indian origin proof, (3) Upload required documents (passport copy, photographs, proof of Indian origin), (4) Pay the application fee online, (5) Print the application receipt, (6) Submit the physical documents at the designated Indian mission/consulate abroad or FRRO office in India (for applicants in India), (7) Biometric data (fingerprints, photograph) captured at the mission/FRRO, (8) Application processed and verified by the Bureau of Immigration, (9) OCI card printed and dispatched to the mission/FRRO, (10) Applicant collects the OCI card or receives it by post.",
+      "doesNotEstablish": [
+        "Processing times vary significantly by Indian mission and country.",
+        "Some missions may require an appointment; others accept walk-in submissions.",
+        "Additional documents or an interview may be requested on a case-by-case basis."
+      ],
+      "sourceRefs": [
+        "SRC-OCI-SERVICES-PORTAL",
+        "SRC-MHA-OCI-GUIDELINES"
+      ]
+    },
+    {
+      "processCode": "OCI_RE_ISSUANCE_INFO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "OCI cardholders needing re-issuance",
+      "claim": "OCI card must be re-issued when the holder obtains a new passport (up to age 20) or once after completing 50 years of age, to update the photograph. Re-issuance is applied for through the same OCI Services portal. After the age of 20 and before 50, re-issuance is not mandatory on passport renewal.",
+      "doesNotEstablish": [
+        "Re-issuance requirements and fees may change with policy updates."
+      ],
+      "sourceRefs": [
+        "SRC-MHA-OCI-GUIDELINES"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "OCI_CARD_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An OCI card (booklet) issued by the Government of India containing the holder's photograph, personal details, and a U-visa sticker affixed in the foreign passport. The OCI card provides lifelong multiple-entry, multi-purpose visa to visit India, exemption from FRRO registration for any length of stay, and parity with NRIs in economic, financial, and educational fields as specified by the Government of India from time to time.",
+    "sourceRefs": [
+      "SRC-CITIZENSHIP-ACT-1955",
+      "SRC-MHA-OCI-GUIDELINES"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "OCI_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "USD",
+      "applicability": "OCI card application fee (varies by country and category)",
+      "status": "VERIFIED",
+      "claim": "The OCI application fee varies by the country of application. In the United States, the fee is approximately USD 275 for adults. In India, the fee is approximately Rs. 15,000. Fees may differ for minors, PIO cardholders converting to OCI, and other categories. Fee is non-refundable if the application is rejected.",
+      "sourceRefs": [
+        "SRC-OCI-SERVICES-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "OCI_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 120,
+    "unit": "DAYS",
+    "basis": "MISSION_DEPENDENT",
+    "applicability": "OCI card issuance from date of application submission",
+    "status": "VERIFIED",
+    "claim": "Processing time for OCI cards is typically 30 days on a normal basis but can extend to 8-16 weeks depending on the Indian mission, verification requirements, and workload. Applications involving security clearance or additional verification may take longer. The status can be tracked online through the OCI Services portal.",
+    "estimatedCompletionDatePolicy": "30 days on a normal basis; actual processing depends on the Indian mission and any additional verification required.",
+    "fallbackThresholdMentionedBySource": "No statutory processing time guarantee. MHA guidelines indicate processing within 30 days on a normal basis.",
+    "sourceRefs": [
+      "SRC-MHA-OCI-GUIDELINES"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-CITIZENSHIP-ACT-1955",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1522",
+      "title": "The Citizenship Act, 1955 (as amended by the Citizenship Amendment Act, 2015)",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 7A of the Citizenship Act, 1955 provides for registration as an Overseas Citizen of India Cardholder. The section specifies the eligible categories, rights and entitlements, and grounds for cancellation. The 2015 amendment merged PIO and OCI categories.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Eligibility categories for OCI registration.",
+        "Rights and entitlements of OCI cardholders.",
+        "Restriction on citizens of Pakistan and Bangladesh.",
+        "Grounds for cancellation of OCI registration.",
+        "Renunciation certificate requirement."
+      ],
+      "uncertainty": "The Citizenship Amendment Act, 2019 may introduce changes affecting OCI provisions. Some provisions are subject to rules notified by the Central Government."
+    },
+    {
+      "sourceCode": "SRC-MHA-OCI-GUIDELINES",
+      "url": "https://www.mha.gov.in/en/divisionofmha/foreigners-division/overseas-citizen-of-india-oci-cardholder",
+      "title": "OCI Cardholder — Ministry of Home Affairs",
+      "publisher": "Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The MHA page provides comprehensive information on OCI cardholder eligibility, entitlements, application process, documentation requirements, and guidelines for Indian missions. It also details the restrictions on OCI cardholders regarding agricultural/plantation property, government positions, and voting rights.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "OCI application process and documentation.",
+        "Entitlements and rights of OCI cardholders.",
+        "Re-issuance requirements.",
+        "Spouse eligibility criteria (2-year marriage requirement).",
+        "Processing timeline (30 days on normal basis)."
+      ],
+      "uncertainty": "Guidelines are updated periodically. Recent notifications may modify entitlements or process."
+    },
+    {
+      "sourceCode": "SRC-OCI-SERVICES-PORTAL",
+      "url": "https://ociservices.gov.in/",
+      "title": "OCI Services Portal — Government of India",
+      "publisher": "Bureau of Immigration, Ministry of Home Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The OCI Services portal is the official online platform for OCI card applications, tracking, and re-issuance. It provides application forms, document checklists, fee information, and status tracking.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application submission process.",
+        "Document upload requirements.",
+        "Fee payment mechanism.",
+        "Application status tracking.",
+        "Photograph specifications."
+      ],
+      "uncertainty": "Portal features and fee structures may be updated. Country-specific fee schedules change periodically."
+    }
+  ],
+  "limitations": [
+    "OCI cardholders do not have the right to vote, hold government office, or purchase agricultural/plantation land in India.",
+    "OCI registration can be cancelled if the cardholder violates any provision of the Citizenship Act or any other law in force.",
+    "Fee amounts and processing times are indicative and vary by Indian mission and country of application. Always check the specific mission's website.",
+    "This record does not cover conversion from PIO (Person of Indian Origin) card to OCI — the PIO scheme was merged with OCI in 2015, and existing PIO cards continue to be valid as OCI.",
+    "Travel to restricted or protected areas in India may require special permission even for OCI cardholders.",
+    "OCI cardholders engaging in missionary, mountaineering, research, or Tabligh activities require special permission or a separate visa.",
+    "Dual citizenship is not permitted under Indian law. OCI is not citizenship but a long-term visa and residency status."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "OCI eligibility, rights, and application process verified against the Citizenship Act, 1955, MHA guidelines, and the OCI Services portal. Fee amounts are country-specific and noted as variable.",
+    "nextReviewTrigger": [
+      "Amendments to the Citizenship Act affecting OCI provisions.",
+      "Changes to MHA guidelines on OCI entitlements or restrictions.",
+      "Changes to the OCI application fee structure.",
+      "Updates to the OCI Services portal or application process.",
+      "New notifications regarding OCI cardholder rights in India."
+    ]
+  }
+}

@@ -1,0 +1,326 @@
+{
+  "serviceCode": "PROFESSIONAL_TAX",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Professional Tax Registration"
+  },
+  "authority": "State Municipal Corporation / Commercial Tax Department",
+  "jurisdiction": "STATE",
+  "category": "PROFESSIONAL_TAX",
+  "description": {
+    "en": "Professional Tax is a state-level tax levied on individuals and entities earning income through profession, trade, employment, or calling. It is governed by the respective state's Professional Tax Act. Employers with employees above a threshold must register as employers and deduct professional tax from salaries. Self-employed professionals and businesses must also register and pay directly. Professional Tax is deductible under Section 16(iii) of the Income Tax Act."
+  },
+  "officialLinks": {
+    "application": "https://mahagst.gov.in/",
+    "informationPortal": "https://gst.kar.nic.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PT_EARNING_INCOME",
+        "field": "applicant.earnsIncome",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All professional tax registrants",
+        "claim": "Any person earning income through salary, profession, trade, calling, or employment in a state that levies professional tax is liable to register and pay the tax. The tax is applicable in states including Maharashtra, Karnataka, West Bengal, Andhra Pradesh, Telangana, Tamil Nadu, Gujarat, Madhya Pradesh, Bihar, Jharkhand, Assam, Kerala, Meghalaya, Odisha, Tripura, Manipur, Sikkim, Mizoram, and Nagaland.",
+        "sourceRefs": [
+          "SRC-PT-MAHARASHTRA-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "PT_INCOME_ABOVE_THRESHOLD",
+        "field": "applicant.monthlyIncome",
+        "operator": "GREATER_THAN",
+        "value": 7500,
+        "classification": "MANDATORY",
+        "appliesTo": "Salaried employees and self-employed individuals",
+        "claim": "Professional tax is applicable only when monthly income exceeds the state-prescribed threshold. For example, in Maharashtra the threshold starts at Rs. 7,500 per month, while in Karnataka it starts at Rs. 15,000 per month.",
+        "sourceRefs": [
+          "SRC-PT-MAHARASHTRA-2026-10-28",
+          "SRC-PT-KARNATAKA-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Income thresholds and slab rates vary significantly across states.",
+      "Some states exempt senior citizens, disabled persons, or members of armed forces.",
+      "Not all Indian states levy professional tax. Delhi, Rajasthan, Uttarakhand, Haryana, Punjab, Uttar Pradesh, and several others do not.",
+      "The maximum professional tax payable is capped at Rs. 2,500 per year as per the Constitution (Article 276)."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PROFESSIONAL_TAX",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PT_TYPE_EMPLOYER",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "EMPLOYER",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "PT_TYPE_SELF_EMPLOYED",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "SELF_EMPLOYED",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PT_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Prescribed application form for professional tax registration. For employers, this is typically a registration form for obtaining the Professional Tax Registration Certificate (PTRC). Self-employed persons apply for the Professional Tax Enrollment Certificate (PTEC).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PT_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN card of the applicant (individual or entity). PAN is used for identification and cross-referencing with income tax records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PT_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the proprietor/partners/directors — Aadhaar card, passport, voter ID, or driving license.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PT_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of business address — electricity bill, rental agreement, property tax receipt, or utility bill in the name of the business or proprietor.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PT_REQ_BUSINESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of business or profession — GST registration certificate, shop and establishment license, certificate of incorporation, partnership deed, or professional qualification certificate as applicable.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28",
+        "SRC-PT-KARNATAKA-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "PT_REQ_EMPLOYEE_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PT_TYPE_EMPLOYER"
+        ]
+      },
+      "claim": "Details of employees including count, salary structure, and deduction schedule. Employers must provide this for PTRC registration to determine the professional tax to be deducted from each employee's salary.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PT_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All professional tax registrants",
+      "claim": "Apply online through the state's commercial tax or GST department portal. In Maharashtra, applications are made through the MAHAGST portal. In Karnataka, through the e-PTAX module on the Commercial Taxes Department website. Fill in the prescribed form and upload required documents.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28",
+        "SRC-PT-KARNATAKA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PT_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All professional tax registrants",
+      "claim": "The tax department verifies the submitted documents and details. In some states, a physical verification of the business premises may be conducted.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PT_STEP3_CERTIFICATE_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified applications",
+      "claim": "Upon verification, the Professional Tax Registration Certificate (PTRC for employers) or Enrollment Certificate (PTEC for self-employed) is issued with a unique registration number. The certificate can be downloaded from the portal.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "PT_STEP4_PAYMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All registered persons",
+      "claim": "Employers must deduct professional tax from employee salaries monthly and remit to the state government. Self-employed persons pay directly on a monthly, quarterly, or annual basis depending on the state. Returns must be filed periodically.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28",
+        "SRC-PT-KARNATAKA-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PT_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Professional Tax Registration Certificate (PTRC) for employers or Professional Tax Enrollment Certificate (PTEC) for self-employed persons is issued. The certificate contains the registration number, name of the registrant, business address, and date of registration. The registration number is used for filing returns and making tax payments.",
+    "sourceRefs": [
+      "SRC-PT-MAHARASHTRA-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PT_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 0,
+      "maximumAmount": 500,
+      "currency": "INR",
+      "applicability": "Professional tax registration fee",
+      "status": "VERIFIED",
+      "claim": "Registration fee for professional tax ranges from nil to Rs. 500 depending on the state. Many states do not charge a separate registration fee and only require the periodic tax payment. Maharashtra charges no registration fee; Karnataka charges a nominal fee.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28",
+        "SRC-PT-KARNATAKA-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "PT_TAX_AMOUNT",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 200,
+      "maximumAmount": 2500,
+      "currency": "INR",
+      "applicability": "Annual professional tax payable",
+      "status": "VERIFIED",
+      "claim": "The actual professional tax ranges from Rs. 200 to Rs. 2,500 per year depending on the state and income slab. The Constitution of India (Article 276) caps the maximum professional tax at Rs. 2,500 per person per year.",
+      "sourceRefs": [
+        "SRC-PT-MAHARASHTRA-2026-10-28",
+        "SRC-PT-KARNATAKA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PT_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Professional tax registration from application to certificate issuance",
+    "status": "VERIFIED",
+    "claim": "Professional tax registration is typically processed within 7-15 days from application submission. In states with fully online processes (Maharashtra, Karnataka), registration may be completed within 3-7 days. Processing time may increase if additional documentation or physical verification is required.",
+    "sourceRefs": [
+      "SRC-PT-MAHARASHTRA-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PT-MAHARASHTRA-2026-10-28",
+      "url": "https://mahagst.gov.in/",
+      "title": "Maharashtra Goods and Services Tax Department — Professional Tax Portal",
+      "publisher": "Commercial Tax Department, Government of Maharashtra",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Maharashtra GST department administers professional tax under the Maharashtra State Tax on Professions, Trades, Callings and Employments Act, 1975. The portal provides online registration, return filing, and payment facilities for PTRC and PTEC.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Professional tax is levied under state-specific legislation.",
+        "Employers need PTRC and self-employed need PTEC.",
+        "Online registration and return filing is available.",
+        "Tax is deductible under Section 16(iii) of the Income Tax Act."
+      ],
+      "uncertainty": "This source covers Maharashtra specifically. Other states have separate legislation and portals."
+    },
+    {
+      "sourceCode": "SRC-PT-KARNATAKA-2026-10-28",
+      "url": "https://gst.kar.nic.in/",
+      "title": "Karnataka Commercial Taxes Department — Professional Tax",
+      "publisher": "Commercial Taxes Department, Government of Karnataka",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Karnataka levies professional tax under the Karnataka Tax on Professions, Trades, Callings and Employments Act, 1976. Registration and payment can be done through the Commercial Taxes Department's e-services portal.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Karnataka professional tax starts from income above Rs. 15,000 per month.",
+        "Online registration is available through the CT department portal.",
+        "Employee details are required for employer registration."
+      ],
+      "uncertainty": "Slab rates and thresholds are subject to state government revisions in the annual budget."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview using Maharashtra and Karnataka as representative states. Exact requirements, thresholds, and slabs vary by state.",
+    "Not all Indian states levy professional tax. States that do not levy it are not individually listed.",
+    "State-specific online portals and processes are not exhaustively documented.",
+    "Penalty and interest provisions for late registration or payment are not covered.",
+    "Inter-state professional tax obligations for employees working across states are not addressed."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "General framework reviewed using two representative states. Other state-specific details need individual verification.",
+    "nextReviewTrigger": [
+      "State budget changes affecting professional tax slabs or thresholds.",
+      "Introduction of professional tax in new states.",
+      "Changes to Constitutional cap under Article 276.",
+      "New online portal implementations in states."
+    ]
+  }
+}

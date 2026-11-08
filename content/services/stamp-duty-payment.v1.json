@@ -1,0 +1,269 @@
+{
+  "serviceCode": "STAMP_DUTY_PAYMENT",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Stamp Duty Payment / e-Stamping"
+  },
+  "authority": "State Revenue Department / Stock Holding Corporation of India Ltd. (SHCIL) as Central Record Keeping Agency",
+  "jurisdiction": "STATE",
+  "category": "STAMP_DUTY_PAYMENT",
+  "description": {
+    "en": "Payment of stamp duty on property transactions, agreements, and legal documents through the e-Stamping mechanism. SHCIL operates the e-Stamping system as the Central Record Keeping Agency (CRA) appointed by the Government of India. E-stamp certificates can be obtained from SHCIL-authorized centres or online. Stamp duty rates vary by state and document type, and payment is mandatory before registration of property sale deeds, lease agreements, partnership deeds, affidavits, and other instruments."
+  },
+  "officialLinks": {
+    "shcilPortal": "https://www.shcilestamp.com/",
+    "stampActLegislation": "https://www.indiacode.nic.in/handle/123456789/2392",
+    "informationPortal": "https://www.india.gov.in/topics/law-justice/property-registration"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "STAMP_DUTY_DOCUMENT_APPLICABLE",
+        "field": "transaction.instrumentType",
+        "operator": "NOT_EQUALS",
+        "value": "EXEMPT",
+        "classification": "MANDATORY",
+        "appliesTo": "All stamp duty payments",
+        "claim": "The instrument or document must be one that is chargeable with stamp duty under the Indian Stamp Act, 1899, or the respective state's Stamp Act. Instruments exempt under the Act do not require stamp duty.",
+        "sourceRefs": [
+          "SRC-INDIAN-STAMP-ACT-1899"
+        ]
+      },
+      {
+        "conditionCode": "STAMP_DUTY_PARTIES_COMPETENT",
+        "field": "transaction.partiesCompetent",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All stamp duty payments for bilateral instruments",
+        "claim": "Parties to the instrument must be competent to contract. For property transactions, the executant must have legal capacity and authority to execute the instrument.",
+        "sourceRefs": [
+          "SRC-INDIAN-STAMP-ACT-1899"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Certain categories of persons (e.g., women in some states, SC/ST in some states, first-time homebuyers) may be eligible for reduced stamp duty rates.",
+      "Agricultural land transactions may have different stamp duty rates or exemptions in some states.",
+      "Government-to-government transactions are generally exempt from stamp duty."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "STAMP_DUTY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "STAMP_DUTY_PAYMENT",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "STAMP_REQ_INSTRUMENT_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STAMP_DUTY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of the instrument for which stamp duty is being paid must be provided: type of document (sale deed, lease, agreement, affidavit, etc.), names and addresses of first party and second party, property description (if applicable), consideration amount or market value, and article number under the Stamp Act schedule.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "STAMP_REQ_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STAMP_DUTY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid identity proof of the purchaser of the e-stamp certificate is required. Accepted documents include Aadhaar card, PAN card, passport, voter ID, or driving license. At SHCIL-authorized centres, the applicant must present original ID for verification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "STAMP_REQ_CONSIDERATION_AMOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STAMP_DUTY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The consideration amount or market value of the property/transaction must be declared. Stamp duty is calculated on the market value or the consideration amount, whichever is higher, as per the respective state's Stamp Act schedule.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-STAMP-ACT-1899"
+      ]
+    },
+    {
+      "requirementCode": "STAMP_REQ_PAYMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "STAMP_DUTY_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Payment of the stamp duty amount through accepted modes: online payment (net banking, debit card, credit card, UPI) on the SHCIL e-Stamping portal, or cash/demand draft at SHCIL-authorized collection centres. The payment must be made before or at the time of execution of the instrument.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "STAMP_DUTY_ONLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "E-stamping through SHCIL portal or authorized centres",
+      "claim": "E-Stamping process: (1) Visit the SHCIL e-Stamping portal (shcilestamp.com) or an authorized collection centre, (2) Select the state and type of instrument, (3) Enter details — first party, second party, property details, consideration amount, (4) The system calculates stamp duty based on the state's schedule of rates, (5) Make payment online or at the centre, (6) E-stamp certificate is generated with a unique identification number (UIN), (7) The certificate can be printed and used for the instrument/document, (8) The UIN can be verified online for authenticity.",
+      "doesNotEstablish": [
+        "E-stamping availability varies by state — not all states have adopted e-stamping through SHCIL.",
+        "Some states operate their own e-stamping mechanisms separate from SHCIL.",
+        "Physical stamp paper through licensed stamp vendors remains an alternative where available."
+      ],
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    },
+    {
+      "processCode": "STAMP_DUTY_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Verification of e-stamp certificates",
+      "claim": "Each e-stamp certificate carries a unique identification number (UIN) that can be verified online on the SHCIL portal. The Sub-Registrar's office verifies the e-stamp certificate at the time of document registration. Certificates with mismatched details or tampering are rejected.",
+      "doesNotEstablish": [
+        "Verification is a check at the time of registration; it does not independently verify the underlying transaction."
+      ],
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "STAMP_DUTY_ESTAMP_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An e-Stamp certificate bearing a unique identification number (UIN), QR code, and watermark issued by the Stock Holding Corporation of India. The certificate serves as proof of stamp duty payment and is accepted by all Sub-Registrar offices and courts in participating states. It is used as the stamp paper on which the instrument is executed.",
+    "sourceRefs": [
+      "SRC-SHCIL-ESTAMPING-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "STAMP_DUTY_AMOUNT",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Stamp duty on the instrument (state-specific, document-type-specific)",
+      "status": "VERIFIED",
+      "claim": "Stamp duty rates are determined by the respective state's Stamp Act schedule. For property sale deeds, rates typically range from 3% to 8% of the market value or consideration, whichever is higher. For other instruments (lease agreements, partnership deeds, affidavits, power of attorney), rates are fixed amounts or percentages as per the state schedule. Some states offer concessions for women, SC/ST, and first-time buyers.",
+      "sourceRefs": [
+        "SRC-INDIAN-STAMP-ACT-1899"
+      ]
+    },
+    {
+      "feeCode": "STAMP_ESTAMP_SERVICE_CHARGE",
+      "category": "SERVICE_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "SHCIL service charge for e-stamp certificate generation",
+      "status": "VERIFIED",
+      "claim": "SHCIL charges a nominal service fee for generating the e-stamp certificate. The service charge varies by state and is typically a small fixed amount (Rs. 25 to Rs. 50) in addition to the stamp duty amount.",
+      "sourceRefs": [
+        "SRC-SHCIL-ESTAMPING-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "STAMP_DUTY_TIMELINE",
+    "minimumDuration": 0,
+    "maximumDuration": 1,
+    "unit": "DAYS",
+    "basis": "IMMEDIATE_OR_SAME_DAY",
+    "applicability": "E-stamp certificate generation",
+    "status": "VERIFIED",
+    "claim": "E-stamp certificates are generated instantly when purchased online through the SHCIL portal (subject to successful payment). At authorized collection centres, certificates are generated on the same day, typically within 15-30 minutes. Physical stamp paper purchase from licensed vendors is also immediate subject to availability.",
+    "estimatedCompletionDatePolicy": "Instant for online; same day for authorized centres.",
+    "fallbackThresholdMentionedBySource": "No statutory processing time — e-stamps are generated upon receipt of payment",
+    "sourceRefs": [
+      "SRC-SHCIL-ESTAMPING-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIAN-STAMP-ACT-1899",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2392",
+      "title": "The Indian Stamp Act, 1899",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Indian Stamp Act, 1899 prescribes stamp duty on various instruments. Schedule I contains the articles and rates. Section 3 charges every instrument with duty. Section 17 provides for instruments executed outside India. Most states have enacted their own Stamp Acts with modified rates.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Stamp duty is chargeable on instruments as per Schedule I.",
+        "Duty calculated on market value or consideration, whichever is higher.",
+        "State-specific stamp duty rates apply.",
+        "Certain instruments are exempt from stamp duty."
+      ],
+      "uncertainty": "Most states have enacted their own Stamp Acts superseding central rates. State amendments change frequently."
+    },
+    {
+      "sourceCode": "SRC-SHCIL-ESTAMPING-PORTAL",
+      "url": "https://www.shcilestamp.com/",
+      "title": "SHCIL e-Stamping Portal — Stock Holding Corporation of India Ltd.",
+      "publisher": "Stock Holding Corporation of India Ltd. (Central Record Keeping Agency)",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "AUTHORIZED_SERVICE_PROVIDER",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "SHCIL is the Central Record Keeping Agency (CRA) appointed by the Government of India for the e-Stamping system. The portal provides e-stamp certificate issuance, verification, and information on participating states and authorized collection centres.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "E-stamp certificates are generated with a unique identification number (UIN).",
+        "Online and centre-based issuance available.",
+        "Certificates can be verified online.",
+        "Service charges apply in addition to stamp duty.",
+        "ID proof required for purchase."
+      ],
+      "uncertainty": "Not all states have adopted e-stamping through SHCIL. State-specific portals may co-exist."
+    }
+  ],
+  "limitations": [
+    "Stamp duty rates are state-specific and change frequently. This record provides the general framework only — always check the state's current schedule of rates.",
+    "Not all states have adopted SHCIL e-stamping. Some states (e.g., Maharashtra, Karnataka) have their own e-stamping or e-registration portals.",
+    "Physical non-judicial stamp paper is still used in some states and for certain instruments; this may not be available in all denominations at all vendor locations.",
+    "Refund of stamp duty (for unused e-stamps or overpayment) is a separate process governed by the Stamp Act and varies by state. It is typically a lengthy process.",
+    "Stamp duty exemptions and concessions (for women, SC/ST, first-time buyers, government transactions) vary significantly between states.",
+    "Adjudication of stamp duty (where the correct duty is disputed) is handled by the Collector of Stamps, not by SHCIL.",
+    "This record does not cover court fee stamps, revenue stamps, or postal stamps — only stamp duty on legal instruments."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core stamp duty framework verified against the Indian Stamp Act, 1899, and SHCIL e-Stamping portal. Rates are state-specific and noted as variable. E-stamping process verified through SHCIL as the CRA.",
+    "nextReviewTrigger": [
+      "State-level stamp duty rate revisions.",
+      "Changes to the Indian Stamp Act (central amendments).",
+      "New states adopting or leaving the SHCIL e-stamping framework.",
+      "Changes to the e-stamping technology or process.",
+      "Finance Act provisions affecting stamp duty on securities transactions."
+    ]
+  }
+}

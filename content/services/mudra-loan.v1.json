@@ -1,0 +1,316 @@
+{
+  "serviceCode": "MUDRA_LOAN",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pradhan Mantri MUDRA Yojana (PMMY) Loan"
+  },
+  "authority": "MUDRA Ltd (Micro Units Development & Refinance Agency), Department of Financial Services, Ministry of Finance",
+  "jurisdiction": "CENTRAL",
+  "category": "MUDRA",
+  "description": {
+    "en": "Pradhan Mantri MUDRA Yojana provides loans up to Rs. 10 lakhs to non-corporate, non-farm small and micro enterprises through banks, NBFCs, and MFIs. Loans are categorized as Shishu (up to Rs. 50,000), Kishore (Rs. 50,001 to Rs. 5 lakhs), and Tarun (Rs. 5,00,001 to Rs. 10 lakhs)."
+  },
+  "officialLinks": {
+    "application": "https://www.mudra.org.in/",
+    "informationPortal": "https://www.mudra.org.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "MUDRA_IS_MICRO_ENTERPRISE",
+        "field": "applicant.isMicroSmallEnterprise",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Non-corporate, non-farm small/micro enterprises",
+        "claim": "Any Indian citizen who has a business plan for a non-farm income generating activity such as manufacturing, trading, or services whose credit need is up to Rs. 10 lakhs is eligible for MUDRA loan.",
+        "sourceRefs": [
+          "SRC-MUDRA-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "MUDRA_NOT_DEFAULTER",
+        "field": "applicant.isLoanDefaulter",
+        "operator": "EQUALS",
+        "value": false,
+        "classification": "MANDATORY",
+        "appliesTo": "All MUDRA loan applicants",
+        "claim": "The applicant must not be a defaulter with any bank or financial institution. CIBIL score and credit history are checked.",
+        "sourceRefs": [
+          "SRC-MUDRA-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "New entrepreneurs without an existing business can also apply for Shishu category loans.",
+      "SC/ST/OBC and women entrepreneurs may receive priority processing under government directives.",
+      "The scheme does not cover agricultural loans, which are handled under separate schemes like KCC."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "MUDRA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "MUDRA_LOAN",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MUDRA_SHISHU",
+      "field": "workflow.loanCategory",
+      "operator": "EQUALS",
+      "value": "SHISHU",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MUDRA_KISHORE",
+      "field": "workflow.loanCategory",
+      "operator": "EQUALS",
+      "value": "KISHORE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MUDRA_TARUN",
+      "field": "workflow.loanCategory",
+      "operator": "EQUALS",
+      "value": "TARUN",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "MUDRA_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof such as Aadhaar card, Voter ID, PAN card, passport, or driving license is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MUDRA_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof such as Aadhaar card, utility bill, rent agreement, or property ownership document is required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MUDRA_REQ_BUSINESS_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A business plan or project report detailing the proposed or existing business activity, revenue projections, and utilization of loan amount is required for Kishore and Tarun categories. For Shishu loans, a simplified plan may suffice.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MUDRA_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Two recent passport-size photographs of the applicant are required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MUDRA_REQ_CATEGORY_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "SC/ST/OBC certificate if applicable, for availing priority sector benefits and any applicable interest concessions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MUDRA_REQ_BUSINESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "MUDRA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of existing business (if applicable) such as GST registration, trade license, shop establishment license, or Udyam registration certificate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "MUDRA_STEP1_IDENTIFY_LENDER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All MUDRA loan applicants",
+      "claim": "Identify a lending institution — any public sector bank, private bank, Regional Rural Bank (RRB), small finance bank, NBFC, or micro-finance institution that is registered as a MUDRA lending partner.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MUDRA_STEP2_SUBMIT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All MUDRA loan applicants",
+      "claim": "Submit the MUDRA loan application (available at the lending institution's branch or online portal) along with required documents. Applications can also be submitted through the Udyamimitra portal (udyamimitra.in) or PSBLoansIn59Minutes portal.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MUDRA_STEP3_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All MUDRA loan applicants",
+      "claim": "The lending institution verifies the documents, business plan, credit history (CIBIL score), and may conduct a site visit for Kishore and Tarun category loans.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MUDRA_STEP4_SANCTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved MUDRA loan applications",
+      "claim": "Upon approval, the loan is sanctioned and a MUDRA Card (RuPay debit card) may be issued for managing working capital portion of the loan. The loan amount is disbursed to the borrower's account.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MUDRA_STEP5_REPAYMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All MUDRA loan borrowers",
+      "claim": "Repayment tenure is typically 3-5 years depending on the loan category and bank policy. EMI-based repayment begins after the moratorium period, if applicable.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "MUDRA_LOAN_SANCTION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A MUDRA loan sanction letter is issued specifying the loan amount, interest rate, repayment tenure, and terms. A MUDRA Card (RuPay debit card) may be issued for managing working capital. The loan is disbursed directly to the borrower's bank account.",
+    "sourceRefs": [
+      "SRC-MUDRA-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "MUDRA_PROCESSING_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "MUDRA loans under the scheme",
+      "status": "VERIFIED",
+      "claim": "No processing fee is charged for MUDRA loans. Banks and lending institutions are instructed not to levy processing fees on MUDRA loans.",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "MUDRA_COLLATERAL",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Collateral requirement",
+      "status": "VERIFIED",
+      "claim": "No collateral or guarantee is required for MUDRA loans. The loans are covered under the Credit Guarantee Fund Trust for Micro and Small Enterprises (CGTMSE).",
+      "sourceRefs": [
+        "SRC-MUDRA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "MUDRA_PROCESSING_TIMELINE",
+    "minimumDuration": 7,
+    "maximumDuration": 14,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "MUDRA loan application to disbursement",
+    "status": "VERIFIED",
+    "claim": "MUDRA loan processing typically takes 7-14 working days from submission of a complete application. Shishu loans may be processed faster. Processing through online platforms like PSBLoansIn59Minutes may offer in-principle approval faster.",
+    "sourceRefs": [
+      "SRC-MUDRA-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-MUDRA-PORTAL-2026-10-28",
+      "url": "https://www.mudra.org.in/",
+      "title": "Pradhan Mantri MUDRA Yojana (PMMY) — Official Portal",
+      "publisher": "MUDRA Ltd, Department of Financial Services, Ministry of Finance, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The MUDRA portal provides information on the three loan categories (Shishu, Kishore, Tarun), eligibility criteria, document requirements, lending institution details, and application process. The scheme is available through all public sector banks, private banks, RRBs, small finance banks, NBFCs, and MFIs.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Loans up to Rs. 10 lakhs for non-corporate, non-farm small/micro enterprises.",
+        "Three categories: Shishu (up to Rs. 50,000), Kishore (Rs. 50,001 to Rs. 5 lakhs), Tarun (Rs. 5,00,001 to Rs. 10 lakhs).",
+        "No processing fee and no collateral required.",
+        "Available through banks, NBFCs, and MFIs.",
+        "MUDRA Card for working capital management.",
+        "Processing typically takes 7-14 working days."
+      ],
+      "uncertainty": "Interest rates vary across lending institutions. Actual processing time depends on the lender and completeness of documentation."
+    }
+  ],
+  "limitations": [
+    "This record covers the standard PMMY scheme. Bank-specific interest rates, loan assessment criteria, and processing procedures may vary.",
+    "The record does not cover MUDRA loan refinancing, NPA management, or restructuring processes.",
+    "State-level subsidy schemes linked to MUDRA loans (e.g., interest subvention for women entrepreneurs) are not covered.",
+    "Individual NBFC and MFI lending practices may differ from banking standards.",
+    "The record does not cover the detailed credit assessment methodology used by individual lending institutions."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core MUDRA scheme information is reviewed, but institution-specific interest rates and state-level integration details need further verification.",
+    "nextReviewTrigger": [
+      "Changes to MUDRA loan limits or category thresholds.",
+      "Changes to CGTMSE guarantee coverage or terms.",
+      "RBI directives affecting MUDRA lending guidelines.",
+      "Introduction of new digital application channels or process changes."
+    ]
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "serviceCode": "ESI_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "ESI Registration (Employee State Insurance)"
+  },
+  "authority": "Employees' State Insurance Corporation (ESIC), Ministry of Labour and Employment",
+  "jurisdiction": "CENTRAL",
+  "category": "ESI",
+  "description": {
+    "en": "Registration of an establishment and its employees under the Employees' State Insurance (ESI) scheme administered by the Employees' State Insurance Corporation (ESIC). The ESI scheme provides medical, cash, maternity, disability, and dependent benefits to employees and their families."
+  },
+  "officialLinks": {
+    "application": "https://www.esic.gov.in/",
+    "informationPortal": "https://www.esic.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "ESI_EMPLOYEE_THRESHOLD",
+        "field": "establishment.employeeCount",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 10,
+        "classification": "MANDATORY",
+        "appliesTo": "Establishments in notified areas with 10 or more employees",
+        "claim": "Registration under the ESI scheme is mandatory for all establishments employing 10 or more persons (in some states the threshold is 20) in areas notified by the government under the ESI Act, 1948. The threshold was reduced from 20 to 10 in many states through government notifications.",
+        "sourceRefs": [
+          "SRC-ESI-ACT-1948",
+          "SRC-ESIC-PORTAL"
+        ]
+      },
+      {
+        "conditionCode": "ESI_WAGE_LIMIT",
+        "field": "employee.monthlyWages",
+        "operator": "LESS_THAN_OR_EQUALS",
+        "value": 21000,
+        "classification": "MANDATORY",
+        "appliesTo": "Employees whose monthly wages do not exceed Rs. 21,000",
+        "claim": "Employees earning wages up to Rs. 21,000 per month are covered under the ESI scheme. For employees with disabilities, the wage ceiling is Rs. 25,000 per month. Wages include basic pay, dearness allowance, city compensatory allowance, and other specified allowances.",
+        "sourceRefs": [
+          "SRC-ESI-ACT-1948",
+          "SRC-ESIC-PORTAL"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "In some states, the employee threshold may still be 20. The specific threshold depends on state-level notification.",
+      "Certain categories of establishments such as shops, hotels, restaurants, cinemas, and road transport undertakings are also covered in notified areas."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "ESI_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ESI_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "ESI_REQ_REGISTRATION_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ESI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Registration certificate of the company/establishment is required. For companies, this is the Certificate of Incorporation from MCA. For partnerships, the partnership deed. For proprietorships, the Shops and Establishment registration or trade license.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ESI_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ESI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof of the establishment is required. Accepted documents include rent agreement, lease deed, utility bills, property tax receipt, or premises ownership documents.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ESI_REQ_PAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ESI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN (Permanent Account Number) of the establishment/company is mandatory for ESI registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ESI_REQ_BANK_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ESI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account details of the establishment including a cancelled cheque or bank statement are required for contribution payments.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "ESI_REQ_EMPLOYEE_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "ESI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Details of all employees covered under ESI must be provided including name, date of birth, date of joining, Aadhaar number, bank account details, photographs, and family/nominee details for generating Individual Insurance Numbers.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "ESI_ONLINE_REGISTRATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All establishments registering under ESI",
+      "claim": "ESI registration is done online through the ESIC portal: (1) Visit the ESIC portal (www.esic.gov.in), (2) Click on 'Employer Login' and then 'Sign Up' for new registration, (3) Enter employer/establishment details including name, type of establishment, address, and employee count, (4) Upload required documents (registration certificate, address proof, PAN, bank details), (5) Enter details of all employees with photographs, (6) Submit the application, (7) ESIC verifies the documents and allots a 17-digit establishment code, (8) Employee Insurance Numbers are generated for each covered employee.",
+      "doesNotEstablish": [
+        "Physical inspection of the establishment may be conducted by ESIC officials.",
+        "After registration, contributions must be filed and paid through the ESIC portal on a monthly basis.",
+        "Employees receive ESI cards (Pehchan cards) for availing medical benefits at ESIC dispensaries and hospitals."
+      ],
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "ESI_ESTABLISHMENT_CODE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A 17-digit ESI Establishment Code is allotted to the registered establishment. Individual Insurance Numbers are generated for each covered employee. Employees receive access to comprehensive medical care, sickness benefits, maternity benefits, disablement benefits, and dependants' benefits under the ESI scheme.",
+    "sourceRefs": [
+      "SRC-ESI-ACT-1948",
+      "SRC-ESIC-PORTAL"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "ESI_EMPLOYER_CONTRIBUTION",
+      "category": "STATUTORY_CONTRIBUTION",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Employer contributes 3.25% of employee wages",
+      "status": "VERIFIED",
+      "claim": "The employer is required to contribute 3.25% of the employee's wages towards the ESI scheme. This is a mandatory monthly contribution for all covered employees.",
+      "sourceRefs": [
+        "SRC-ESI-ACT-1948",
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "ESI_EMPLOYEE_CONTRIBUTION",
+      "category": "STATUTORY_CONTRIBUTION",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Employee contributes 0.75% of wages",
+      "status": "VERIFIED",
+      "claim": "The employee contributes 0.75% of their wages towards the ESI scheme. This is deducted from the employee's salary by the employer. Employees earning up to Rs. 176 per day are exempt from employee contribution.",
+      "sourceRefs": [
+        "SRC-ESI-ACT-1948",
+        "SRC-ESIC-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "ESI_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "No separate registration fee for ESI establishment registration",
+      "status": "VERIFIED",
+      "claim": "There is no separate registration fee charged by ESIC for establishment registration. The employer's obligation is to pay monthly contributions based on employee wages.",
+      "sourceRefs": [
+        "SRC-ESIC-PORTAL"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "ESI_PROCESSING",
+    "minimumDuration": 3,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Time for ESI establishment code allotment from online application",
+    "status": "VERIFIED",
+    "claim": "ESI establishment registration is typically processed within 3-7 working days from submission of a complete online application with all required documents. The establishment code is allotted digitally through the ESIC portal.",
+    "sourceRefs": [
+      "SRC-ESIC-PORTAL"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-ESIC-PORTAL",
+      "url": "https://www.esic.gov.in/",
+      "title": "Employees' State Insurance Corporation - Official Portal",
+      "publisher": "Employees' State Insurance Corporation, Ministry of Labour and Employment, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The ESIC portal provides comprehensive information on establishment registration, employee enrollment, contribution rates, and benefits under the ESI scheme. The portal facilitates online registration and monthly contribution filing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online registration process for establishments.",
+        "Document requirements for ESI registration.",
+        "Employer and employee contribution rates.",
+        "Wage limit for ESI coverage.",
+        "Benefits available under the ESI scheme."
+      ],
+      "uncertainty": "Portal interface and process steps may be updated periodically."
+    },
+    {
+      "sourceCode": "SRC-ESI-ACT-1948",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1372",
+      "title": "The Employees' State Insurance Act, 1948",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The ESI Act, 1948 provides for health insurance and social security for Indian workers. Section 1(5) specifies applicability to establishments in notified areas. Section 2(12) defines the wage limit. Sections 46-73 detail the various benefits including sickness, maternity, disablement, and dependants' benefits.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory coverage for establishments with 10+ employees in notified areas.",
+        "Wage ceiling of Rs. 21,000 per month.",
+        "Contribution rates (employer 3.25%, employee 0.75%).",
+        "Benefits covered under ESI scheme.",
+        "Exemption from employee contribution for low-wage workers."
+      ],
+      "uncertainty": "Wage ceiling and contribution rates are revised periodically by the Central Government through notifications. Employee threshold varies by state notification."
+    }
+  ],
+  "limitations": [
+    "This record covers establishment registration only. Individual employee enrollment, IP card issuance, and claim processes are separate workflows.",
+    "The employee threshold (10 or 20) varies by state notification; applicants should verify the applicable threshold for their state.",
+    "Wage ceiling and contribution rates may be revised by the Central Government through notifications.",
+    "ESI benefits are available only at ESIC dispensaries, hospitals, and empanelled medical institutions.",
+    "Establishments in non-notified areas are not covered under ESI even if they meet the employee threshold.",
+    "The ESI Act is proposed to be subsumed under the Social Security Code, 2020, which may change provisions upon implementation."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "ESI registration requirements, process, and contribution rates verified against ESI Act 1948 and ESIC portal. State-specific threshold variations and upcoming Social Security Code changes documented as limitations.",
+    "nextReviewTrigger": [
+      "Changes to ESI wage ceiling or contribution rates.",
+      "Implementation of the Social Security Code, 2020.",
+      "Updates to the ESIC portal registration process.",
+      "Changes to the employee threshold for ESI applicability.",
+      "Expansion of ESI to new areas through government notifications."
+    ]
+  }
+}

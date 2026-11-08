@@ -1,0 +1,265 @@
+{
+  "serviceCode": "DOMICILE_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Domicile / Residence Certificate"
+  },
+  "authority": "District Magistrate / Tehsildar (State Government)",
+  "jurisdiction": "STATE",
+  "category": "DOMICILE_CERTIFICATE",
+  "description": {
+    "en": "Issuance of a domicile certificate (also known as residence certificate) by the state government authority, certifying that the applicant is a resident of the particular state for a specified minimum period. The certificate is required for admissions to state educational institutions, state government employment, and availing state-specific benefits and reservations."
+  },
+  "officialLinks": {
+    "application": "https://serviceonline.gov.in/",
+    "informationPortal": "https://www.india.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "RESIDENT_OF_STATE_MIN_PERIOD",
+        "field": "applicant.residenceDuration",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": "STATE_SPECIFIC_MINIMUM",
+        "classification": "MANDATORY",
+        "appliesTo": "All domicile certificate applicants",
+        "claim": "The applicant must have been residing in the state for a minimum continuous period as prescribed by the state government. Most states require a minimum of 10 to 15 years of continuous residence, though this varies. Some states accept birth in the state as sufficient for domicile eligibility.",
+        "sourceRefs": ["SRC-INDIA-GOV-DOMICILE", "SRC-STATE-REVENUE-DOMICILE"]
+      },
+      {
+        "conditionCode": "DOMICILE_APPLICANT_IDENTITY",
+        "field": "applicant.identity",
+        "operator": "EXISTS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants",
+        "claim": "The applicant must have valid identity and address proof documents establishing their identity and residence in the state. Minors may apply through their parents or legal guardian.",
+        "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Married women who have moved to a new state after marriage may have specific provisions for obtaining domicile in the new state, depending on state rules.",
+      "Government employees transferred to a state may have different domicile rules depending on the state's policy.",
+      "NRIs and persons returning from abroad may have specific requirements for establishing domicile."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DOMICILE_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DOMICILE_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DOMICILE_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "A duly filled application form in the prescribed format of the respective state government. The form can be obtained from the Tehsildar or District Magistrate office, or downloaded from the state's e-District portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of address establishing continuous residence in the state. Accepted documents include Aadhaar card, voter ID, ration card, utility bills (electricity, water, gas), property tax receipts, rent agreement, or any government-issued document showing the applicant's address in the state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE", "SRC-STATE-REVENUE-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, voter ID, passport, driving license, PAN card, or any government-issued photo identity document.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_BIRTH_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Birth certificate of the applicant issued by the local municipal authority or registrar. This serves as proof of birth in the state (if applicable) and establishes the applicant's age and place of birth.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "A self-declaration affidavit on stamp paper (typically Rs. 10 to Rs. 100 non-judicial stamp paper) stating that the applicant has been a continuous resident of the state for the prescribed minimum period and intends to permanently reside in the state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE", "SRC-STATE-REVENUE-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_SCHOOL_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "School leaving certificate, transfer certificate, or educational certificates from schools or colleges in the state as additional proof of long-term residence. Particularly useful when other address proof documents for the full residence period are unavailable.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    },
+    {
+      "requirementCode": "DOMICILE_REQ_PASSPORT_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DOMICILE_CERT_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-sized photographs of the applicant (typically 2-3 copies) are required for the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DOMICILE_CERT_OFFLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying at the Tehsil/District office",
+      "claim": "Offline application process: (1) Obtain the application form from the Tehsildar or District Magistrate office, (2) Fill the form and attach all required documents including identity proof, address proof, birth certificate, affidavit, and photographs, (3) Submit the application at the Tehsil/District Magistrate office along with the fee (if applicable), (4) A revenue officer (Patwari/Lekhpal) may conduct a field inquiry to verify the residence claim, (5) Upon successful verification, the Tehsildar or District Magistrate issues the domicile certificate.",
+      "doesNotEstablish": [
+        "The exact verification process varies by state and district.",
+        "Some states may require an inquiry report from two or more witnesses."
+      ],
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE", "SRC-STATE-REVENUE-DOMICILE"]
+    },
+    {
+      "processCode": "DOMICILE_CERT_ONLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying through state e-District or online portal",
+      "claim": "Online application process: (1) Visit the state e-District portal or Common Service Centre (CSC), (2) Register or log in using credentials, (3) Select 'Domicile Certificate' or 'Residence Certificate' from the services menu, (4) Fill the online application form and upload scanned copies of all required documents, (5) Pay the applicable fee online, (6) The application is forwarded to the concerned Tehsildar for verification, (7) After verification, the certificate is issued digitally and can be downloaded from the portal.",
+      "doesNotEstablish": [
+        "Online portals for domicile certificates are not available in all states.",
+        "Physical verification may still be required for online applications."
+      ],
+      "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+    }
+  ],
+  "output": {
+    "outputCode": "DOMICILE_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A domicile or residence certificate issued by the District Magistrate or Tehsildar certifying that the applicant is a bonafide resident of the state. The certificate is accepted as proof of domicile for educational admissions under state quota, state government employment, and availing state-specific schemes and reservations.",
+    "sourceRefs": ["SRC-INDIA-GOV-DOMICILE"]
+  },
+  "fees": [
+    {
+      "feeCode": "DOMICILE_CERT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Standard application fee varies by state",
+      "status": "UNVERIFIED",
+      "claim": "The fee for a domicile certificate varies by state. Many states charge a nominal fee ranging from Rs. 10 to Rs. 50. Some states issue it free of charge. Additional costs may include stamp paper for the affidavit (Rs. 10 to Rs. 100)."
+    },
+    {
+      "feeCode": "DOMICILE_CERT_ONLINE_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Online application processing fee",
+      "status": "UNVERIFIED",
+      "claim": "Some state portals charge an online processing or service charge in addition to the government fee. This typically ranges from Rs. 10 to Rs. 50. Applications through Common Service Centres may attract an additional facilitation charge."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DOMICILE_CERT_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Standard application with complete documents",
+    "status": "VERIFIED",
+    "claim": "The processing time for a domicile certificate typically ranges from 7 to 30 days depending on the state and verification requirements. Online applications in states with streamlined processes may be completed within 7-15 days. Applications requiring field verification may take up to 30 days.",
+    "estimatedCompletionDatePolicy": "Most states aim to process domicile certificate applications within 15-21 working days from the date of submission with complete documents.",
+    "fallbackThresholdMentionedBySource": "If not received within 30 days, applicant should follow up at the Tehsil/District office or file a grievance on the state portal",
+    "sourceRefs": ["SRC-INDIA-GOV-DOMICILE", "SRC-STATE-REVENUE-DOMICILE"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-DOMICILE",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India - Domicile Certificate Information",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides consolidated information on the domicile/residence certificate application process, required documents, and links to state e-District portals for online application.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for domicile certificate.",
+        "Application process overview.",
+        "Links to state-specific e-District portals.",
+        "General eligibility criteria."
+      ],
+      "uncertainty": "Information is aggregated and may not reflect the latest state-specific changes. Minimum residence period requirements are state-specific."
+    },
+    {
+      "sourceCode": "SRC-STATE-REVENUE-DOMICILE",
+      "url": "https://serviceonline.gov.in/",
+      "title": "State Revenue Department Portals - Service Online",
+      "publisher": "National Informatics Centre / State Revenue Departments",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State e-District and revenue department portals provide state-specific information on domicile certificate issuance including the prescribed application form, document requirements, fee structure, and processing timelines.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "State-specific document requirements.",
+        "Online application process.",
+        "Fee structure by state.",
+        "Processing timeline by state.",
+        "Minimum residence period requirements."
+      ],
+      "uncertainty": "Portal availability and features vary significantly across states. Not all states have integrated their services on serviceonline.gov.in."
+    }
+  ],
+  "limitations": [
+    "Domicile certificate requirements, minimum residence period, and processes are entirely state-specific; this record provides a general overview.",
+    "The minimum continuous residence period required varies from state to state (commonly 10-15 years).",
+    "Some states distinguish between domicile certificate and residence certificate; the latter may be issued for shorter residence periods.",
+    "Fee amounts are indicative and vary by state and mode of application.",
+    "The validity period of the domicile certificate varies by state; some are valid permanently while others need renewal.",
+    "Online portal availability for domicile certificates is not uniform across all states."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core eligibility, document requirements, and process verified against india.gov.in and state revenue portal information. State-specific variations in residence period and fees noted as limitations.",
+    "nextReviewTrigger": [
+      "Changes to state-specific domicile rules or minimum residence requirements.",
+      "Updates to the e-District portal or online application process.",
+      "Policy changes regarding domicile for married women or transferred employees.",
+      "Introduction of new national-level guidelines for domicile certification."
+    ]
+  }
+}

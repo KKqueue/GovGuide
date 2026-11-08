@@ -1,0 +1,244 @@
+{
+  "serviceCode": "ATAL_PENSION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Atal Pension Yojana (APY)"
+  },
+  "authority": "Pension Fund Regulatory and Development Authority (PFRDA), Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "ATAL_PENSION",
+  "description": {
+    "en": "Atal Pension Yojana (APY) is a government-backed pension scheme targeted at workers in the unorganized sector. Subscribers receive a guaranteed minimum pension of Rs. 1,000 to Rs. 5,000 per month after attaining the age of 60, depending on the contribution amount and age of joining. The scheme is administered by PFRDA through the National Pension System (NPS) architecture."
+  },
+  "officialLinks": {
+    "application": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+    "informationPortal": "https://www.pfrda.org.in/MyAuth/Admin/showimg.cshtml?ID=2156"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "APY_AGE_ELIGIBLE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": 17,
+        "classification": "MANDATORY",
+        "appliesTo": "All APY applicants",
+        "claim": "The subscriber must be between 18 and 40 years of age at the time of joining. The minimum contribution period is 20 years, and pension commences at age 60.",
+        "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+      },
+      {
+        "conditionCode": "APY_BANK_ACCOUNT",
+        "field": "applicant.hasSavingsBankAccount",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All APY applicants",
+        "claim": "The applicant must have a savings bank account. The monthly contribution is auto-debited from the linked bank account.",
+        "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Income tax payers were excluded from APY from October 2022 onwards (as per a government notification).",
+      "Existing members of EPF, EPS, or any other statutory social security scheme may not be eligible.",
+      "NRI citizens are not eligible to join APY.",
+      "The spouse of the subscriber is the default nominee; after the subscriber and spouse, the corpus is paid to the nominee."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "APY_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ATAL_PENSION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "APY_NEW_ENROLLMENT",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "APY_UPGRADE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "UPGRADE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "APY_REQ_REGISTRATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APY_ROUTE_SELECTED"]
+      },
+      "claim": "APY registration form (available at the bank branch or online through eNPS portal/net banking). The form requires personal details, bank account number, pension amount selection (Rs. 1,000/2,000/3,000/4,000/5,000 per month), and nominee details.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    },
+    {
+      "requirementCode": "APY_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APY_ROUTE_SELECTED"]
+      },
+      "claim": "Aadhaar number of the subscriber. Aadhaar is used for identity verification and linking to the bank account for auto-debit.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    },
+    {
+      "requirementCode": "APY_REQ_MOBILE_NUMBER",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APY_ROUTE_SELECTED"]
+      },
+      "claim": "Active mobile number registered with the bank account for receiving transaction alerts and OTPs.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    },
+    {
+      "requirementCode": "APY_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["APY_ROUTE_SELECTED"]
+      },
+      "claim": "Active savings bank account with sufficient balance for the first contribution debit. The bank account will be linked for auto-debit of monthly/quarterly/half-yearly contributions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "APY_STEP1_CHOOSE_PENSION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All APY applicants",
+      "claim": "Choose the desired pension amount: Rs. 1,000, Rs. 2,000, Rs. 3,000, Rs. 4,000, or Rs. 5,000 per month. The monthly contribution depends on the chosen pension amount and the age of the subscriber at the time of joining.",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    },
+    {
+      "processCode": "APY_STEP2_ENROLL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All APY applicants",
+      "claim": "Enroll through the bank branch by submitting the APY registration form, or online through net banking, mobile banking apps, or the eNPS portal. Some banks allow enrollment through their mobile apps with Aadhaar e-KYC.",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28", "SRC-ENPS-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "APY_STEP3_PRAN_ALLOTTED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All enrolled subscribers",
+      "claim": "A Permanent Retirement Account Number (PRAN) is generated and linked to the subscriber's bank account. Contribution deduction starts from the next scheduled debit date.",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    },
+    {
+      "processCode": "APY_STEP4_CONTRIBUTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All active subscribers",
+      "claim": "Monthly contributions are auto-debited from the linked bank account. Contributions can be made monthly, quarterly, or half-yearly. Default in contribution leads to penalty charges and eventual account freezing/closure.",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "APY_PENSION_ACCOUNT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A guaranteed monthly pension of Rs. 1,000 to Rs. 5,000 after the age of 60, paid for the lifetime of the subscriber. After the subscriber's death, the spouse receives the same pension amount. After both, the accumulated pension corpus is returned to the nominee.",
+    "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "APY_MONTHLY_CONTRIBUTION",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 42,
+      "maximumAmount": 1454,
+      "currency": "INR",
+      "applicability": "Monthly contribution for APY (varies by age and pension amount)",
+      "status": "VERIFIED",
+      "claim": "Monthly contribution ranges from Rs. 42 (for Rs. 1,000 pension, joining at age 18) to Rs. 1,454 (for Rs. 5,000 pension, joining at age 40). The contribution chart is fixed at the time of joining and does not change during the contribution period.",
+      "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "APY_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 1,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "APY enrollment at bank branch or online",
+    "status": "VERIFIED",
+    "claim": "APY enrollment is typically completed on the same day at the bank branch or instantly through online channels. PRAN generation may take a few working days in some cases.",
+    "sourceRefs": ["SRC-PFRDA-APY-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PFRDA-APY-2026-10-28",
+      "url": "https://www.pfrda.org.in/MyAuth/Admin/showimg.cshtml?ID=2156",
+      "title": "Atal Pension Yojana — PFRDA Official Information",
+      "publisher": "Pension Fund Regulatory and Development Authority, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "PFRDA provides the APY contribution chart, eligibility criteria (age 18-40, savings bank account, Aadhaar, mobile number), pension amounts (Rs. 1,000-5,000), and scheme details including spousal continuation and nominee corpus return.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Guaranteed pension of Rs. 1,000-5,000 per month after age 60.",
+        "Age limit for joining: 18-40 years.",
+        "Monthly contribution ranges from Rs. 42 to Rs. 1,454.",
+        "Spouse continues to receive same pension after subscriber's death."
+      ],
+      "uncertainty": "Government co-contribution benefit (available for those who joined before March 2016) may not apply to new subscribers. Penalty structure for defaults may be revised."
+    },
+    {
+      "sourceCode": "SRC-ENPS-PORTAL-2026-10-28",
+      "url": "https://enps.nsdl.com/eNPS/NationalPensionSystem.html",
+      "title": "eNPS Portal — Online APY Enrollment",
+      "publisher": "NSDL e-Governance Infrastructure Limited (CRA for NPS/APY)",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The eNPS portal provides online enrollment for APY using Aadhaar e-KYC and PAN verification. Subscribers can enroll, view statements, and manage their APY account online.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online enrollment through eNPS portal with Aadhaar e-KYC.",
+        "PRAN is generated upon successful enrollment.",
+        "Account management and statement viewing available online."
+      ],
+      "uncertainty": "Online enrollment availability depends on Aadhaar e-KYC service uptime and bank integration status."
+    }
+  ],
+  "limitations": [
+    "Contributions are fixed at enrollment based on age and chosen pension amount; they cannot be changed after joining (though pension amount can be upgraded/downgraded once per year).",
+    "Income tax payers (as per the Income Tax Act) are not eligible to join APY from October 2022 onwards.",
+    "Premature exit before age 60 is permitted only in exceptional circumstances (death, terminal illness) with limited return.",
+    "Default in contributions attracts penalties: Rs. 1 per month for contribution up to Rs. 100, increasing proportionally.",
+    "The scheme does not cover inflation adjustment of pension amounts.",
+    "NRIs are not eligible to join APY."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme details verified from PFRDA. Tax eligibility exclusion and default penalty structure need periodic verification.",
+    "nextReviewTrigger": [
+      "Changes to APY contribution chart or pension amounts by PFRDA.",
+      "Revision of eligibility criteria (age, income tax status).",
+      "Changes to premature exit or default penalty rules.",
+      "Introduction of new enrollment channels or process changes."
+    ]
+  }
+}

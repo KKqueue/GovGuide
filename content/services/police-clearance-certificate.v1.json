@@ -1,0 +1,327 @@
+{
+  "serviceCode": "POLICE_CLEARANCE_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Police Clearance Certificate (PCC)"
+  },
+  "authority": "State Police / Passport Office (for passport-related PCC)",
+  "jurisdiction": "STATE",
+  "category": "POLICE_CLEARANCE",
+  "description": {
+    "en": "Application for a Police Clearance Certificate (PCC) which certifies that the applicant has no criminal record in India. PCC is typically required for employment abroad, immigration, visa applications, and foreign residency. It can be obtained through the Passport Seva portal (for passport holders) or through the state police department (for general purposes)."
+  },
+  "officialLinks": {
+    "application": "https://www.passportindia.gov.in/AppOnlineProject/welcomeLink",
+    "informationPortal": "https://www.passportindia.gov.in/AppOnlineProject/online/pccOnlineApp",
+    "statePolice": "https://www.india.gov.in/topics/law-justice"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "PCC_VALID_REASON",
+        "field": "applicant.pccPurpose",
+        "operator": "IN",
+        "value": [
+          "EMPLOYMENT_ABROAD",
+          "IMMIGRATION",
+          "VISA_APPLICATION",
+          "FOREIGN_RESIDENCY",
+          "OVERSEAS_EDUCATION"
+        ],
+        "classification": "MANDATORY",
+        "appliesTo": "All PCC applicants",
+        "claim": "PCC is issued for specific purposes such as employment abroad, immigration/emigration, visa applications, foreign residency, and in some cases overseas education. The applicant must provide the reason and supporting documentation.",
+        "sourceRefs": [
+          "SRC-PASSPORT-INDIA-PCC",
+          "SRC-INDIA-GOV-POLICE"
+        ]
+      },
+      {
+        "conditionCode": "PCC_PASSPORT_HOLDER",
+        "field": "applicant.hasValidPassport",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Passport-route PCC applicants",
+        "claim": "For PCC through the Passport Office route, the applicant must hold a valid Indian passport. The PCC is issued based on the passport database and police verification records.",
+        "sourceRefs": [
+          "SRC-PASSPORT-INDIA-PCC"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Applicants without a passport may obtain PCC through the state police route.",
+      "Some states have separate procedures and forms for police clearance certificates.",
+      "Multiple PCCs may be needed if the applicant has resided in different states."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "PCC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "POLICE_CLEARANCE_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "PCC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled application form must be submitted. For the passport route, the application is filed online through the Passport Seva portal. For the state police route, the application form is obtained from the local police station or Commissioner's office.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC",
+        "SRC-INDIA-GOV-POLICE"
+      ]
+    },
+    {
+      "requirementCode": "PCC_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof such as Aadhaar card, voter ID, or PAN card is required along with the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC",
+        "SRC-INDIA-GOV-POLICE"
+      ]
+    },
+    {
+      "requirementCode": "PCC_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof covering current and previous addresses where the applicant has resided. This helps the police verify the applicant's background across jurisdictions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC"
+      ]
+    },
+    {
+      "requirementCode": "PCC_REQ_PASSPORT_COPY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A copy of the valid passport (first and last pages) is required. For the passport route, the passport number is used to retrieve the applicant's records from the passport database.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC"
+      ]
+    },
+    {
+      "requirementCode": "PCC_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the applicant are required for the application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC",
+        "SRC-INDIA-GOV-POLICE"
+      ]
+    },
+    {
+      "requirementCode": "PCC_REQ_REASON_DOCUMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "PCC_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Supporting document establishing the reason for PCC, such as a job offer letter from a foreign employer, visa application reference, immigration application number, or a letter from the embassy/consulate.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "PCC_PASSPORT_ROUTE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants with valid Indian passport seeking PCC for emigration/visa",
+      "claim": "Passport Office route: (1) Register/login on the Passport Seva portal, (2) Fill the online PCC application form, (3) Pay the fee online, (4) Book an appointment at the nearest Passport Seva Kendra (PSK), (5) Visit PSK with original documents for verification, (6) If no adverse police record exists, PCC is issued on the same day or within a few days. If police verification is pending, the applicant may need to wait for clearance.",
+      "doesNotEstablish": [
+        "This record does not guarantee same-day issuance if police verification is pending.",
+        "This record does not cover PCC from foreign police departments."
+      ],
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC"
+      ]
+    },
+    {
+      "processCode": "PCC_STATE_POLICE_ROUTE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants seeking PCC from state police for general purposes",
+      "claim": "State Police route: (1) Obtain application form from the local police station or Commissioner's office, (2) Submit filled form with documents, (3) Police conducts background verification, (4) PCC is issued after verification clearance. The process and terminology may vary by state (some states call it Character Certificate or Good Conduct Certificate).",
+      "doesNotEstablish": [
+        "This record does not specify state-specific police verification procedures.",
+        "This record does not cover the appeal process if PCC is denied."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-POLICE"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "PCC_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Police Clearance Certificate certifying that the applicant has no criminal record or pending criminal cases in India. The certificate is typically valid for 6 months to 1 year from the date of issue, depending on the requesting authority's requirements.",
+    "sourceRefs": [
+      "SRC-PASSPORT-INDIA-PCC",
+      "SRC-INDIA-GOV-POLICE"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "PCC_FEE_PASSPORT_ROUTE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 500,
+      "currency": "INR",
+      "applicability": "PCC through Passport Seva Kendra",
+      "status": "VERIFIED",
+      "claim": "The fee for a Police Clearance Certificate through the Passport Office/Passport Seva Kendra is Rs. 500.",
+      "sourceRefs": [
+        "SRC-PASSPORT-INDIA-PCC"
+      ]
+    },
+    {
+      "feeCode": "PCC_FEE_STATE_POLICE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "PCC through state police — fees vary by state",
+      "status": "VERIFIED",
+      "claim": "For PCC through the state police route, fees vary by state. Some states charge a nominal fee of Rs. 50-200 while others may charge more. The fee structure is determined by the respective state police department.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-POLICE"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "PCC_PROCESSING_TIME",
+    "minimumDuration": 7,
+    "maximumDuration": 21,
+    "unit": "DAYS",
+    "basis": "PASSPORT_SEVA_GUIDELINES",
+    "applicability": "PCC processing time including police verification if required",
+    "status": "VERIFIED",
+    "claim": "PCC through the Passport Office route may be issued on the same day if no adverse record exists and police verification is already complete. Otherwise, it takes 7 to 21 days depending on police verification. State police route typically takes 7 to 21 days for background verification and issuance.",
+    "sourceRefs": [
+      "SRC-PASSPORT-INDIA-PCC",
+      "SRC-INDIA-GOV-POLICE"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PASSPORT-INDIA-PCC",
+      "url": "https://www.passportindia.gov.in/AppOnlineProject/online/pccOnlineApp",
+      "title": "Police Clearance Certificate - Passport Seva Portal",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Passport Seva portal provides online application facility for Police Clearance Certificate for Indian passport holders. The PCC is issued based on existing police verification records and passport database.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online PCC application through Passport Seva portal.",
+        "Fee of Rs. 500 for PCC through passport route.",
+        "Document requirements including passport copy and reason for PCC.",
+        "Same-day issuance possible if no adverse record."
+      ],
+      "uncertainty": "Processing time depends on police verification status and may vary."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-POLICE",
+      "url": "https://www.india.gov.in/topics/law-justice",
+      "title": "Law & Justice - National Portal of India",
+      "publisher": "National Portal of India, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal provides links to state police departments and information on police services including character/clearance certificates available through state police.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "State police departments issue PCC for general purposes.",
+        "Process varies by state.",
+        "Identity and address proof requirements."
+      ],
+      "uncertainty": "Each state police department has its own process, fees, and terminology for PCC."
+    },
+    {
+      "sourceCode": "SRC-STATE-POLICE-WEBSITES",
+      "url": "https://www.india.gov.in/topics/law-justice",
+      "title": "State Police Websites (accessed via National Portal links)",
+      "publisher": "Various State Police Departments",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State police websites provide information on PCC/character certificate application, required documents, and processing times specific to each state.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "State-level PCC application process.",
+        "State-specific fees and timelines.",
+        "Background verification procedures."
+      ],
+      "uncertainty": "Processes vary significantly across states. Some states have digitized the process while others still require in-person applications."
+    }
+  ],
+  "limitations": [
+    "This record covers PCC for Indian citizens within India; obtaining PCC from foreign jurisdictions follows different processes.",
+    "State police PCC processes and fees vary significantly across states and are not exhaustively covered.",
+    "PCC validity period depends on the requesting authority and not on the issuing authority.",
+    "Applicants with pending criminal cases or adverse police records may face delays or denial of PCC.",
+    "This record does not cover PCC requirements for specific countries as those are determined by the destination country's immigration laws.",
+    "The state police route may be called Character Certificate, Good Conduct Certificate, or Police Verification Certificate in different states.",
+    "This record does not cover criminal record checks for employment within India which follow different processes."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "PCC process through passport route verified against Passport Seva portal. State police route covered at a general level due to state-level variations.",
+    "nextReviewTrigger": [
+      "Changes in PCC fee by the Passport Office.",
+      "New online application systems by state police departments.",
+      "Changes in PCC requirements for major destination countries.",
+      "Updates to the Passport Seva portal PCC module.",
+      "Centralization or standardization of PCC processes across states."
+    ]
+  }
+}

@@ -1,0 +1,410 @@
+{
+  "serviceCode": "WILL_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Registration of Will"
+  },
+  "authority": "Sub-Registrar of Assurances",
+  "jurisdiction": "STATE",
+  "category": "WILL_REGISTRATION",
+  "description": {
+    "en": "Registration of a Will (testament) under Section 18 of the Indian Registration Act 1908. While registration of a Will is optional under Indian law, it is strongly recommended as it provides legal presumption of authenticity and reduces the likelihood of the Will being challenged. The testator must appear in person before the Sub-Registrar of Assurances along with two witnesses to register the Will."
+  },
+  "officialLinks": {
+    "indianRegistrationAct": "https://www.indiacode.nic.in/handle/123456789/2319",
+    "indianSuccessionAct": "https://www.indiacode.nic.in/handle/123456789/2390"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "WR_TESTATOR_LEGAL_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "The testator (person making the Will)",
+        "claim": "The testator must have attained the age of majority (18 years) as per the Indian Majority Act 1875 to make a valid Will, as stated in Section 59 of the Indian Succession Act 1925.",
+        "sourceRefs": [
+          "SRC-INDIAN-SUCCESSION-ACT"
+        ]
+      },
+      {
+        "conditionCode": "WR_TESTATOR_SOUND_MIND",
+        "field": "applicant.isMentallySoundForConsent",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "The testator (person making the Will)",
+        "claim": "The testator must be of sound mind at the time of making the Will. A person who is usually of unsound mind but occasionally of sound mind may make a Will during a lucid interval, as per Section 59 of the Indian Succession Act 1925.",
+        "sourceRefs": [
+          "SRC-INDIAN-SUCCESSION-ACT"
+        ]
+      },
+      {
+        "conditionCode": "WR_FREE_CONSENT",
+        "field": "applicant.hasGivenFreeConsent",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "The testator (person making the Will)",
+        "claim": "The Will must be made by the testator's own free will without coercion, undue influence, or fraud. A Will obtained by fraud, coercion, or undue influence is void as per Section 61 of the Indian Succession Act 1925.",
+        "sourceRefs": [
+          "SRC-INDIAN-SUCCESSION-ACT"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Wills made by members of the Indian Armed Forces (privileged Wills under Section 66) have relaxed formal requirements not covered here.",
+      "Wills governed by Muslim personal law or other personal laws may have different requirements regarding testamentary capacity and disposition limits.",
+      "Joint or mutual Wills have specific legal implications not covered in this record."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "WR_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "WILL_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "WR_TESTATOR_ALIVE",
+      "field": "applicant.isAlive",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "WR_IS_NEW_REGISTRATION",
+      "field": "workflow.isNewRegistration",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "CATEGORY",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "WR_IMMOVABLE_PROPERTY_INCLUDED",
+      "field": "applicant.willCoversImmovableProperty",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "CATEGORY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "WR_REQ_ORIGINAL_WILL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The original Will document must be presented for registration. The Will should clearly state the testator's name, the names of beneficiaries, details of properties and assets being bequeathed, and the testator's signature or thumb impression at the end.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_TESTATOR_PRESENCE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "The testator must appear in person before the Sub-Registrar of Assurances for registration of the Will. The Sub-Registrar must satisfy himself as to the identity of the testator and that the testator is executing the Will voluntarily. Under Section 40 of the Indian Registration Act, a Will cannot be registered after the death of the testator.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_TWO_WITNESSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Two witnesses must be present at the time of registration who have seen the testator sign the Will or have received a personal acknowledgment from the testator. Each witness must sign the Will and carry a valid photo identity proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-SUCCESSION-ACT",
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_TESTATOR_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid photo identity proof of the testator is required. Accepted documents include Aadhaar card, passport, voter ID, PAN card, or driving license.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_TESTATOR_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residential address of the testator is required. Accepted documents include Aadhaar card, voter ID, passport, utility bill (not older than 3 months), or ration card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photographs of the testator and both witnesses are required for the registration records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_PROPERTY_DOCUMENTS",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED",
+          "WR_IMMOVABLE_PROPERTY_INCLUDED"
+        ]
+      },
+      "claim": "If the Will includes immovable property, supporting property documents such as sale deed, title deed, property tax receipts, or encumbrance certificate may be requested by the Sub-Registrar for identification of the property, though they are not legally mandatory for Will registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    },
+    {
+      "requirementCode": "WR_REQ_MEDICAL_CERTIFICATE",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "WR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A medical certificate certifying the testator's soundness of mind is recommended especially for elderly testators or those with known health conditions. While not legally mandatory, it strengthens the Will against future challenges.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIAN-SUCCESSION-ACT"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "WR_PROCESS_WILL_DRAFTING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Testators preparing a Will for registration",
+      "claim": "Step 1 - Will Drafting: The testator drafts the Will (preferably with legal assistance). The Will must clearly identify the testator, list all assets and properties, name beneficiaries and their respective shares, appoint an executor, and be signed by the testator and attested by two witnesses. The Will should be typed or written on plain white paper (stamp paper is not required for a Will).",
+      "sourceRefs": [
+        "SRC-INDIAN-SUCCESSION-ACT"
+      ]
+    },
+    {
+      "processCode": "WR_PROCESS_VISIT_SUB_REGISTRAR",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Testators registering a Will",
+      "claim": "Step 2 - Visit Sub-Registrar: The testator visits the office of the Sub-Registrar of Assurances along with the original Will, two witnesses, and all required documents. The testator may visit the Sub-Registrar of any district regardless of the location of the property mentioned in the Will.",
+      "sourceRefs": [
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "processCode": "WR_PROCESS_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Testators registering a Will",
+      "claim": "Step 3 - Verification: The Sub-Registrar verifies the identity of the testator and witnesses, satisfies himself that the testator is of sound mind and acting voluntarily, and records the testator's statement. The Sub-Registrar may ask questions to confirm the testator understands the contents of the Will.",
+      "sourceRefs": [
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "processCode": "WR_PROCESS_REGISTRATION_ENTRY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Testators registering a Will",
+      "claim": "Step 4 - Registration: The Sub-Registrar registers the Will in the Register Book maintained under the Indian Registration Act. A registration number is assigned. The original Will is kept in the safe custody of the Sub-Registrar in a sealed cover as per Section 42 of the Act. A certified copy may be provided to the testator.",
+      "sourceRefs": [
+        "SRC-INDIAN-REGISTRATION-ACT"
+      ]
+    },
+    {
+      "processCode": "WR_PROCESS_REVOCATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Testators who wish to revoke or modify a registered Will",
+      "claim": "A registered Will can be revoked or modified at any time during the testator's lifetime. The testator may execute a new Will (which automatically revokes the previous one to the extent of inconsistency), execute a codicil (supplementary document), or register a revocation deed. The new Will or codicil should also be registered for consistency.",
+      "sourceRefs": [
+        "SRC-INDIAN-SUCCESSION-ACT"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "REGISTERED_WILL_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A registered Will, with the original deposited in sealed cover with the Sub-Registrar of Assurances as per Section 42 of the Indian Registration Act 1908. The registration provides presumption of authenticity and the Will is preserved safely in government records. A certified copy is provided to the testator. After the testator's death, the Will can be opened and its contents disclosed to authorized persons upon application to the court.",
+    "sourceRefs": [
+      "SRC-INDIAN-REGISTRATION-ACT"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "WR_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Registration of Will at the Sub-Registrar's office",
+      "status": "VERIFIED",
+      "claim": "The registration fee for a Will is nominal and varies by state. Typically it ranges from Rs. 50 to Rs. 500. Stamp duty is generally not applicable on Wills in most states, though some states may charge a nominal stamp duty.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    },
+    {
+      "feeCode": "WR_CERTIFIED_COPY_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Obtaining a certified copy of the registered Will",
+      "status": "NEEDS_REVIEW",
+      "claim": "A fee is charged for obtaining a certified copy of the registered Will from the Sub-Registrar's office. The amount varies by state and is typically nominal.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-WILL-REGISTRATION"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "WR_PROCESSING_TIME",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Registration of Will at Sub-Registrar's office",
+    "status": "VERIFIED",
+    "claim": "Will registration is typically completed on the same day of visit if all documents are in order and the testator, witnesses are present. In some offices, the certified copy may take 1-7 working days to be issued after the registration entry.",
+    "estimatedCompletionDatePolicy": "Same day for registration entry; 1-7 working days for certified copy.",
+    "fallbackThresholdMentionedBySource": "No specific statutory timeline for Will registration processing; it is processed on a walk-in basis.",
+    "sourceRefs": [
+      "SRC-INDIAN-REGISTRATION-ACT"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIAN-REGISTRATION-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2319",
+      "title": "The Indian Registration Act, 1908 (Act No. 16 of 1908)",
+      "publisher": "Government of India, Ministry of Law and Justice, Legislative Department",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Indian Registration Act 1908 governs the registration of documents in India. Section 18 provides that Wills may optionally be registered. Section 40 states that a Will cannot be registered after the testator's death. Section 42 requires the Sub-Registrar to keep the Will in sealed cover and not allow inspection during the testator's lifetime. Section 45 provides for opening the sealed cover after the testator's death.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Will registration is optional under Section 18.",
+        "Testator must appear in person for registration.",
+        "Will is kept in sealed cover by the Sub-Registrar.",
+        "Will cannot be registered after testator's death.",
+        "Two witnesses required for registration.",
+        "Will can be registered at any Sub-Registrar's office."
+      ],
+      "uncertainty": "State amendments to the Registration Act may impose additional requirements or procedures."
+    },
+    {
+      "sourceCode": "SRC-INDIAN-SUCCESSION-ACT",
+      "url": "https://www.indiacode.nic.in/handle/123456789/2390",
+      "title": "The Indian Succession Act, 1925 (Act No. 39 of 1925)",
+      "publisher": "Government of India, Ministry of Law and Justice, Legislative Department",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Indian Succession Act 1925 governs the making, alteration, and revocation of Wills. Section 59 specifies who can make a Will (person of sound mind, not a minor). Section 61 deals with fraud and coercion making a Will void. Section 63 prescribes formal requirements for execution of a Will (testator's signature, attestation by two witnesses).",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Testator must be of legal age (18 years).",
+        "Testator must be of sound mind.",
+        "Will must be free from fraud, coercion, or undue influence.",
+        "Two witnesses must attest the Will.",
+        "Will can be revoked or modified at any time during testator's lifetime.",
+        "Privileged Wills for armed forces personnel.",
+        "Medical certificate recommendation for elderly testators."
+      ],
+      "uncertainty": "The Indian Succession Act does not apply uniformly to all communities; Hindu succession, Muslim personal law, and other personal laws may override certain provisions."
+    },
+    {
+      "sourceCode": "SRC-INDIA-GOV-WILL-REGISTRATION",
+      "url": "https://www.india.gov.in/topics/law-justice",
+      "title": "Will Registration - National Portal of India",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-27",
+      "sourceLastReviewedAt": "2026-10-27",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Portal of India provides consolidated information on Will registration including required documents, general process, and the importance of registering a Will for legal validity.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Identity proof and address proof requirements for testator.",
+        "Photograph requirements.",
+        "Property documents as optional supporting evidence.",
+        "Registration fee information (varies by state).",
+        "Certified copy fee information."
+      ],
+      "uncertainty": "State-specific procedures, fee amounts, and online portal availability may differ from general information."
+    }
+  ],
+  "limitations": [
+    "This record covers the general process for Will registration under the Indian Registration Act 1908 applicable across India. State-specific fees, procedures, and online portals vary.",
+    "Muslim personal law limits testamentary disposition to one-third of the estate; this and other personal law limitations are not detailed here.",
+    "Privileged Wills (for armed forces personnel) under Section 66 of the Indian Succession Act have different requirements not covered here.",
+    "Joint or mutual Wills, and Wills with trusts or conditions, have complex legal implications not covered in this record.",
+    "Probate requirements for Wills (mandatory in some jurisdictions such as Mumbai, Kolkata, and Chennai) are separate proceedings not covered here.",
+    "Online Will registration is available in some states but not uniformly; state-specific online portal details are not provided.",
+    "International or cross-border Wills involving assets in multiple countries are not covered."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-27",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core requirements, eligibility conditions, and process for Will registration verified against the Indian Registration Act 1908 and Indian Succession Act 1925. State-specific variations and personal law exceptions noted as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to the Indian Registration Act 1908 affecting Will registration.",
+      "Changes to the Indian Succession Act 1925.",
+      "Supreme Court or High Court judgments affecting Will registration procedures or validity.",
+      "New central guidelines on digitization of Will registration."
+    ]
+  }
+}

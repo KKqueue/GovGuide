@@ -1,0 +1,444 @@
+{
+  "serviceCode": "NGO_SECTION8",
+  "version": 1,
+  "slug": "ngo-section8-registration",
+  "category": "NGO_SECTION8",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "title": "Registration of NGO as Section 8 Company",
+  "shortDescription": "Register a non-profit organization as a Section 8 Company under the Companies Act, 2013 for promoting commerce, art, science, sports, education, research, social welfare, religion, charity, protection of the environment, or any other similar objective.",
+  "jurisdiction": "CENTRAL",
+  "authority": {
+    "name": "Registrar of Companies (ROC) / Ministry of Corporate Affairs (MCA)",
+    "portalUrl": "https://www.mca.gov.in",
+    "contactInfo": "MCA Helpdesk: 0120-4832500"
+  },
+  "legalBasis": [
+    "Companies Act, 2013 — Section 8",
+    "Companies (Incorporation) Rules, 2014 — Rule 19",
+    "Companies Act, 2013 — Section 12 (Registered Office)"
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_MCA_SEC8_ACT",
+      "url": "https://www.mca.gov.in/Ministry/pdf/CompaniesAct2013.pdf",
+      "title": "The Companies Act, 2013 — Section 8",
+      "publisher": "Ministry of Corporate Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 8 permits formation of companies for promoting commerce, art, science, sports, education, research, social welfare, religion, charity, protection of environment or any such object, provided the profits are applied for promoting only the objects of the company and no dividend is paid to its members.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_SEC8_OBJECTS",
+        "REQ_NO_PROFIT_DISTRIBUTION",
+        "REQ_MOA_AOA",
+        "PROC_APPLY_NAME_APPROVAL",
+        "PROC_FILE_INCORPORATION"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_MCA_INCORP_RULES",
+      "url": "https://www.mca.gov.in/Ministry/pdf/NCArules_Chapter2.pdf",
+      "title": "Companies (Incorporation) Rules, 2014",
+      "publisher": "Ministry of Corporate Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Rule 19 prescribes the procedure for incorporation of a Section 8 company including application in Form INC-12 for license, declaration in Form INC-14 by a practicing Chartered Accountant or Company Secretary, and Form INC-15 by each subscriber.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_INC12_APPLICATION",
+        "REQ_CA_CS_DECLARATION",
+        "REQ_SUBSCRIBER_DECLARATION",
+        "PROC_FILE_INCORPORATION"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_MCA_PORTAL_GUIDE",
+      "url": "https://www.mca.gov.in/content/mca/global/en/acts-rules/ebooks/acts.html",
+      "title": "MCA Portal — Section 8 Company Incorporation Guide",
+      "publisher": "Ministry of Corporate Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Applicants must obtain Digital Signature Certificate (DSC), apply for Director Identification Number (DIN), reserve the company name via RUN service, and then file SPICe+ form for incorporation along with the Section 8 license application.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_DSC",
+        "REQ_DIN",
+        "REQ_NAME_RESERVATION",
+        "PROC_OBTAIN_DSC_DIN",
+        "PROC_APPLY_NAME_APPROVAL",
+        "PROC_FILE_INCORPORATION"
+      ],
+      "uncertainty": "None"
+    },
+    {
+      "sourceCode": "SRC_MCA_FEE_SCHEDULE",
+      "url": "https://www.mca.gov.in/content/mca/global/en/acts-rules/fee-schedule.html",
+      "title": "MCA Fee Schedule for Company Registration",
+      "publisher": "Ministry of Corporate Affairs",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-10-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 8 companies are exempt from payment of stamp duty and registration fees. The filing fee for SPICe+ form is based on the authorized capital of the company.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_FILING_FEE",
+        "PROC_FILE_INCORPORATION"
+      ],
+      "uncertainty": "Fee amounts may be revised periodically by MCA notifications."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_IS_NONPROFIT_OBJECTIVE",
+      "field": "company.hasNonProfitObjective",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Company must have a non-profit objective such as promoting commerce, art, science, sports, education, research, social welfare, religion, charity, or protection of environment",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_NO_DIVIDEND_CLAUSE",
+      "field": "company.prohibitsDividendToMembers",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "The company's MOA must prohibit payment of any dividend to its members",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_MIN_DIRECTORS",
+      "field": "company.directorCount",
+      "operator": "GREATER_THAN",
+      "value": "2",
+      "label": "At least 2 directors are required for a Section 8 Company (Private); 3 for Public",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_MIN_MEMBERS",
+      "field": "company.memberCount",
+      "operator": "GREATER_THAN",
+      "value": "2",
+      "label": "Minimum 2 members for Private Section 8 Company; 7 for Public Section 8 Company",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_IS_PRIVATE_SEC8",
+      "field": "workflow.selectedCompanyType",
+      "operator": "EQUALS",
+      "value": "PRIVATE",
+      "label": "Applicant is registering a Private Section 8 Company",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_IS_PUBLIC_SEC8",
+      "field": "workflow.selectedCompanyType",
+      "operator": "EQUALS",
+      "value": "PUBLIC",
+      "label": "Applicant is registering a Public Section 8 Company",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_HAS_REGISTERED_OFFICE",
+      "field": "company.hasRegisteredOfficeAddress",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Company must have a registered office address in India",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_DSC",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "All proposed directors must obtain a Digital Signature Certificate (DSC) from a Certifying Authority recognized by the Controller of Certifying Authorities (CCA).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_DIN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "All proposed directors must have a valid Director Identification Number (DIN). First-time directors can apply via SPICe+ form.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_NAME_RESERVATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "The proposed name must be reserved through the RUN (Reserve Unique Name) service or Part A of SPICe+ form. The name shall include 'Foundation', 'Forum', 'Association', 'Federation', 'Chambers', 'Confederation', 'Council', 'Electoral Trust' or similar words as the last word.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE",
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_MOA_AOA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE",
+          "COND_NO_DIVIDEND_CLAUSE"
+        ]
+      },
+      "claim": "Draft Memorandum of Association (MOA) and Articles of Association (AOA) must be prepared. The MOA must specify the non-profit objects and include a clause that profits shall be applied solely for promoting the objects of the company.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_SEC8_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_SEC8_OBJECTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "The objects of the company must be restricted to promoting commerce, art, science, sports, education, research, social welfare, religion, charity, protection of environment, or any other similar object as specified in Section 8(1) of the Companies Act, 2013.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_SEC8_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_NO_PROFIT_DISTRIBUTION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE",
+          "COND_NO_DIVIDEND_CLAUSE"
+        ]
+      },
+      "claim": "The company must intend to apply its profits, if any, or other income in promoting its objects, and must prohibit the payment of any dividend to its members.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_SEC8_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_INC12_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "An application for license under Section 8 must be filed in e-Form INC-12 along with the prescribed documents.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_CA_CS_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "A declaration in Form INC-14 must be obtained from a practicing Chartered Accountant (CA) or Company Secretary (CS) or Cost Accountant (CMA) that the draft MOA and AOA have been drawn up in conformity with the provisions of Section 8.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_SUBSCRIBER_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "Each subscriber to the MOA must submit a declaration in Form INC-15 stating that they shall comply with the requirements of Section 8.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_FILING_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "The prescribed filing fee for SPICe+ form must be paid based on the authorized capital. Section 8 companies are exempt from stamp duty and certain registration fees.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_MCA_FEE_SCHEDULE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_REGISTERED_OFFICE_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_HAS_REGISTERED_OFFICE"
+        ]
+      },
+      "claim": "Proof of registered office address must be submitted, including a utility bill not older than 2 months, a NOC from the property owner, and a rent/lease agreement if the premises are rented.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_ID_PROOF_DIRECTORS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_IS_NONPROFIT_OBJECTIVE"
+        ]
+      },
+      "claim": "Identity proof (PAN, Aadhaar, Passport) and address proof (bank statement, utility bill) of all proposed directors must be submitted.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_OBTAIN_DSC_DIN",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 1,
+      "claim": "Step 1: All proposed directors must obtain a Digital Signature Certificate (DSC) from a recognized Certifying Authority and apply for Director Identification Number (DIN) if not already held. DIN can be applied through the SPICe+ form for first-time directors.",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE"
+      ]
+    },
+    {
+      "processCode": "PROC_APPLY_NAME_APPROVAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 2,
+      "claim": "Step 2: Apply for name reservation through the RUN (Reserve Unique Name) web service or Part A of SPICe+ form on the MCA portal. Up to 2 proposed names can be submitted. The name must end with 'Foundation', 'Forum', 'Association', 'Federation', 'Chambers', 'Confederation', 'Council', or 'Electoral Trust'.",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE",
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_DRAFT_MOA_AOA",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 3,
+      "claim": "Step 3: Draft the Memorandum of Association (MOA) and Articles of Association (AOA). The MOA must state the non-profit objects and include a clause prohibiting dividend payments. Obtain a declaration in Form INC-14 from a practicing CA/CS/CMA and Form INC-15 declarations from each subscriber.",
+      "sourceRefs": [
+        "SRC_MCA_SEC8_ACT",
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_APPLY_LICENSE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 4,
+      "claim": "Step 4: File the application for license in e-Form INC-12 on the MCA portal along with the draft MOA and AOA, estimated income and expenditure for the next 3 years, declarations in Form INC-14 and INC-15, and other supporting documents.",
+      "sourceRefs": [
+        "SRC_MCA_INCORP_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_FILE_INCORPORATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 5,
+      "claim": "Step 5: After the Section 8 license is granted, file the SPICe+ (INC-32) form for incorporation along with e-MOA (INC-33) and e-AOA (INC-34). Pay the prescribed filing fee. Upon successful processing, the Registrar will issue the Certificate of Incorporation and the company is registered.",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE",
+        "SRC_MCA_FEE_SCHEDULE",
+        "SRC_MCA_SEC8_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_POST_INCORPORATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "ALL",
+      "stepOrder": 6,
+      "claim": "Step 6: After incorporation, complete post-incorporation compliances including opening a bank account in the company name, applying for PAN and TAN, filing INC-20A (commencement of business declaration within 180 days), and registering under Section 12A/80G of the Income Tax Act if applicable.",
+      "sourceRefs": [
+        "SRC_MCA_PORTAL_GUIDE"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_SPICE_FILING",
+      "description": "SPICe+ form filing fee — based on authorized capital of the company",
+      "amount": null,
+      "currency": "INR",
+      "note": "Fee depends on authorized capital; Section 8 companies are exempt from stamp duty."
+    },
+    {
+      "feeCode": "FEE_NAME_RESERVATION",
+      "description": "Name reservation fee via RUN service",
+      "amount": 1000,
+      "currency": "INR",
+      "note": "Non-refundable fee for name reservation application."
+    }
+  ],
+  "processingTime": {
+    "minimum": "15 days",
+    "maximum": "45 days",
+    "note": "Processing time depends on the ROC office workload. The Section 8 license approval typically takes 15-30 days, and incorporation after license grant takes an additional 7-15 days.",
+    "timelineCode": "NGO_SECTION8_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2026-10-28T00:00:00Z",
+    "updatedAt": "2026-10-28T00:00:00Z",
+    "createdBy": "GovGuide Content Team"
+  }
+}

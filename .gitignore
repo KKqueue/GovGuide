@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+frontend-react/node_modules/
+frontend/node_modules/
+
+# Build output
+backend/target/
+frontend-react/dist/
+frontend/dist/
+
+# IDE
+.idea/
+*.iml
+
+# Logs
+*.log
+debug.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local

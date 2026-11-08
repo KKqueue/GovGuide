@@ -1,0 +1,102 @@
+package com.govguide.config;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.govguide.exception.ApiError;
+import java.io.IOException;
+import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    InMemoryUserDetailsManager userDetailsService(@Value("${app.auth.users:}") String configuredUsers,
+            PasswordEncoder encoder) {
+        List<UserDetails> users = new ArrayList<>();
+        if (configuredUsers != null && !configuredUsers.isBlank()) {
+            for (String entry : configuredUsers.split(",")) {
+                String[] parts = entry.trim().split(":", 2);
+                if (parts.length != 2 || parts[0].isBlank() || parts[1].isBlank()
+                        || !parts[1].startsWith("{bcrypt}")) {
+                    throw new IllegalStateException("APP_AUTH_USERS must contain username:{bcrypt}hash entries");
+                }
+                String encodedPassword = parts[1].trim().substring("{bcrypt}".length());
+                users.add(User.withUsername(parts[0].trim())
+                        .password(encodedPassword)
+                        .roles("USER")
+                        .build());
+            }
+        }
+        return new InMemoryUserDetailsManager(users);
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> { })
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .headers(headers -> headers
+                        .contentTypeOptions(cto -> { })
+                        .frameOptions(fo -> fo.deny())
+                        .httpStrictTransportSecurity(hsts -> hsts
+                                .includeSubDomains(true)
+                                .maxAgeInSeconds(31536000))
+                        .referrerPolicy(rp -> rp.policy(
+                                org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter
+                                        .ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
+                        .permissionsPolicy(pp -> pp.policy(
+                                "geolocation=(self), camera=(), microphone=()")))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/health", "/api/v1/services", "/api/v1/services/**", "/api/v1/services/_reload", "/api/v1/offices", "/api/v1/offices/**", "/api/v1/auth/register").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/tasks/**", "/api/v1/applications/**").authenticated()
+                        .anyRequest().authenticated())
+                .httpBasic(basic -> basic.authenticationEntryPoint(apiErrorEntryPoint(objectMapper)))
+                .exceptionHandling(errors -> errors
+                        .authenticationEntryPoint(apiErrorEntryPoint(objectMapper))
+                        .accessDeniedHandler(apiErrorAccessDeniedHandler(objectMapper)));
+        return http.build();
+    }
+
+    private AuthenticationEntryPoint apiErrorEntryPoint(ObjectMapper objectMapper) {
+        return (request, response, exception) -> writeError(objectMapper, request.getRequestURI(), response,
+                HttpStatus.UNAUTHORIZED, "Authentication required");
+    }
+
+    private AccessDeniedHandler apiErrorAccessDeniedHandler(ObjectMapper objectMapper) {
+        return (request, response, exception) -> writeError(objectMapper, request.getRequestURI(), response,
+                HttpStatus.FORBIDDEN, "Access denied");
+    }
+
+    private void writeError(ObjectMapper objectMapper, String path, jakarta.servlet.http.HttpServletResponse response,
+            HttpStatus status, String message) throws IOException {
+        response.setStatus(status.value());
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        objectMapper.writeValue(response.getOutputStream(), new ApiError(
+                OffsetDateTime.now(), status.value(), status.getReasonPhrase(), message, path));
+    }
+}

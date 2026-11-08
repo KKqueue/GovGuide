@@ -1,0 +1,377 @@
+{
+  "serviceCode": "POWER_OF_ATTORNEY",
+  "version": 1,
+  "slug": "power-of-attorney",
+  "category": "POWER_OF_ATTORNEY",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "STATE",
+  "title": "Registration of Power of Attorney",
+  "purpose": "To register a Power of Attorney (General or Special) under the Registration Act, 1908, granting legal authority to an agent to act on behalf of the principal in specified or general matters.",
+  "shortDescription": "Registration of General or Special Power of Attorney under the Registration Act, 1908, at the office of the Sub-Registrar of Assurances.",
+  "authority": {
+    "name": "Sub-Registrar of Assurances",
+    "department": "Department of Registration and Stamps / Inspector General of Registration",
+    "level": "STATE"
+  },
+  "legalBasis": [
+    {
+      "law": "Registration Act, 1908",
+      "sections": [
+        "Section 17 - Documents of which registration is compulsory",
+        "Section 18 - Documents of which registration is optional",
+        "Section 32 - Persons to present documents for registration",
+        "Section 33 - Power of Attorney"
+      ],
+      "description": "Governs the registration of documents including Power of Attorney. Registration of certain POAs involving immovable property is compulsory."
+    },
+    {
+      "law": "Indian Stamp Act, 1899 / State Stamp Acts",
+      "sections": [
+        "Article 48 - Power of Attorney"
+      ],
+      "description": "Prescribes the stamp duty payable on Power of Attorney documents, which varies by state and by whether the POA is general or special."
+    },
+    {
+      "law": "Powers of Attorney Act, 1882",
+      "sections": [
+        "Section 1A - Power of Attorney defined",
+        "Section 2 - Execution of instruments by donee"
+      ],
+      "description": "Defines Power of Attorney and provides that actions done by the donee within the scope of the power shall be as effectual as if done by the donor."
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_POA_REGISTRATION_ACT",
+      "url": "https://legislative.gov.in/sites/default/files/A1908-16.pdf",
+      "title": "The Registration Act, 1908",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-18T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-18T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "A power of attorney authorizing an agent to present a document for registration may be authenticated by a notary public, or any court, magistrate, or representative of the Central Government as specified under section 33.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_POA_REGISTRATION",
+        "REQ_POA_AUTHENTICATION",
+        "PROC_POA_PRESENT"
+      ],
+      "uncertainty": "Registration requirements vary between states due to amendments to the Registration Act."
+    },
+    {
+      "sourceCode": "SRC_POA_STAMP_ACT",
+      "url": "https://legislative.gov.in/sites/default/files/A1899-02.pdf",
+      "title": "Indian Stamp Act, 1899 - Article 48",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Power of attorney as defined by Section 1A of the Powers of Attorney Act, 1882, when executed for consideration and authorizing the attorney to sell immovable property, shall be chargeable with stamp duty as conveyance on the market value of the property.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_POA_STAMP_DUTY",
+        "REQ_POA_STAMP_DUTY_GPA_PROPERTY"
+      ],
+      "uncertainty": "Stamp duty rates vary significantly across states; some states treat GPA for property as conveyance."
+    },
+    {
+      "sourceCode": "SRC_POA_SUBREGISTRAR_GUIDE",
+      "url": "https://registration.gov.in/power-of-attorney-guidelines",
+      "title": "Guidelines for Registration of Power of Attorney",
+      "publisher": "Inspector General of Registration",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-20T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-20T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The principal (executant) must appear in person before the Sub-Registrar with two witnesses for execution and registration of the Power of Attorney. If the principal cannot appear, the document must be authenticated as per Section 33 of the Registration Act.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_POA_PERSONAL_APPEARANCE",
+        "REQ_POA_WITNESSES",
+        "REQ_POA_PHOTOS",
+        "PROC_POA_EXECUTION"
+      ],
+      "uncertainty": "Specific procedural requirements vary by state Sub-Registrar office."
+    },
+    {
+      "sourceCode": "SRC_POA_NRI_PROCEDURE",
+      "url": "https://mea.gov.in/consular-services-poa.htm",
+      "title": "Power of Attorney for NRIs - Consular Services",
+      "publisher": "Ministry of External Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-12T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-12T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "NRIs may execute a Power of Attorney before the Indian Embassy or Consulate abroad. The document must be attested by the Embassy/Consulate official and then adjudicated for stamp duty within three months of receipt in India.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_POA_NRI_ATTESTATION",
+        "PROC_POA_NRI"
+      ],
+      "uncertainty": "Consular procedures may vary by country and embassy."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_POA_GENERAL",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "GENERAL_POWER_OF_ATTORNEY",
+      "label": "Applicant is executing a General Power of Attorney",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_POA_SPECIAL",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "SPECIAL_POWER_OF_ATTORNEY",
+      "label": "Applicant is executing a Special Power of Attorney",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_POA_INVOLVES_PROPERTY",
+      "field": "transaction.involvesImmovableProperty",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Power of Attorney involves dealing with immovable property",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_POA_PRINCIPAL_IN_INDIA",
+      "field": "applicant.isResidentInIndia",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Principal (executant) is currently residing in India",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_POA_PRINCIPAL_NRI",
+      "field": "applicant.isResidentInIndia",
+      "operator": "EQUALS",
+      "value": "false",
+      "label": "Principal (executant) is a Non-Resident Indian residing abroad",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_POA_COMPETENT_PRINCIPAL",
+      "field": "applicant.isCompetentToContract",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Principal is a person competent to contract (of sound mind and above 18 years of age)",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_POA_REGISTRATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "The Power of Attorney document must be drafted on non-judicial stamp paper of the value prescribed by the applicable state Stamp Act and presented for registration at the office of the Sub-Registrar within whose jurisdiction the principal resides or the property is situated.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_REGISTRATION_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_STAMP_DUTY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "Stamp duty must be paid as prescribed under Article 48 of the Indian Stamp Act or the applicable state Stamp Act. For a Special POA, a nominal stamp duty applies; for a General POA, the duty is higher and varies by state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_STAMP_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_STAMP_DUTY_GPA_PROPERTY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_GENERAL",
+          "COND_POA_INVOLVES_PROPERTY"
+        ]
+      },
+      "claim": "A General Power of Attorney authorizing sale of immovable property for consideration may attract stamp duty equivalent to conveyance duty on the market value of the property in certain states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_STAMP_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_PERSONAL_APPEARANCE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_PRINCIPAL_IN_INDIA",
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "The principal (executant) must appear in person before the Sub-Registrar for execution and admission of the document. The agent (donee) should also be present for identification.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_WITNESSES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "Two witnesses with valid identity proof must be present at the time of execution and registration of the Power of Attorney. Witnesses must sign the document in the presence of the Sub-Registrar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_PHOTOS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the principal, the agent, and both witnesses are required for affixing on the document and the registration record.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_AUTHENTICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "Identity proof (Aadhaar, Passport, PAN card, or Voter ID) and address proof of the principal, the agent, and both witnesses must be submitted at the time of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_REGISTRATION_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_NRI_ATTESTATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_PRINCIPAL_NRI"
+        ]
+      },
+      "claim": "NRIs must execute the Power of Attorney before the Indian Embassy or Consulate in the country of residence. The document must be attested by the consular officer and then adjudicated for stamp duty within three months of arrival in India.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_NRI_PROCEDURE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_PROPERTY_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_INVOLVES_PROPERTY"
+        ]
+      },
+      "claim": "When the POA involves immovable property, complete property details including survey number, area, boundaries, location, and encumbrance certificate must be included in the document.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_POA_REGISTRATION_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_POA_COMPETENT_PRINCIPAL"
+        ]
+      },
+      "claim": "Registration fee as prescribed by the state government must be paid at the Sub-Registrar's office at the time of presenting the document for registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_POA_DRAFTING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal (executant) of the Power of Attorney",
+      "claim": "Draft the Power of Attorney document specifying the powers being granted, the identity of the principal and agent, the scope and duration of authority, and any specific conditions or limitations. The document should be drafted on non-judicial stamp paper of the requisite value.",
+      "sourceRefs": [
+        "SRC_POA_REGISTRATION_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_POA_EXECUTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal, agent, and witnesses",
+      "claim": "The principal signs or affixes thumb impression on the Power of Attorney in the presence of two witnesses before the Sub-Registrar. The agent and witnesses also sign the document. Photographs are affixed and biometric data may be captured.",
+      "sourceRefs": [
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "processCode": "PROC_POA_PRESENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Principal or authorized person",
+      "claim": "Present the executed Power of Attorney along with all supporting documents (identity proofs, photographs, property documents if applicable) and the registration fee at the Sub-Registrar's office. The document must be presented within four months of execution.",
+      "sourceRefs": [
+        "SRC_POA_REGISTRATION_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_POA_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Sub-Registrar of Assurances",
+      "claim": "The Sub-Registrar verifies the identities, examines the document for compliance with stamp duty and legal requirements, records the admission of execution by the principal, and registers the document. A registration number is assigned and the document is returned after copying into the registration records.",
+      "sourceRefs": [
+        "SRC_POA_REGISTRATION_ACT",
+        "SRC_POA_SUBREGISTRAR_GUIDE"
+      ]
+    },
+    {
+      "processCode": "PROC_POA_NRI",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Non-Resident Indian principal",
+      "claim": "NRI principals must execute the POA before the Indian Embassy or Consulate, get it attested by the consular officer, and send the original to India. Upon receipt, the document must be adjudicated for stamp duty by the Collector within three months and then presented for registration at the Sub-Registrar's office.",
+      "sourceRefs": [
+        "SRC_POA_NRI_PROCEDURE"
+      ]
+    }
+  ]
+}

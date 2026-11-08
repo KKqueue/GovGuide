@@ -1,0 +1,333 @@
+{
+  "serviceCode": "COOPERATIVE_SOCIETY",
+  "version": 1,
+  "slug": "cooperative-society-registration",
+  "category": "COOPERATIVE_SOCIETY",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "STATE",
+  "title": "Registration of Co-operative Society",
+  "purpose": "To register a new co-operative society under the state Co-operative Societies Act, enabling members to collectively carry out economic or social activities with legal recognition and limited liability protection.",
+  "shortDescription": "Registration of a co-operative society under the state Co-operative Societies Act for collective economic or social benefit.",
+  "authority": {
+    "name": "Registrar of Co-operative Societies",
+    "department": "Department of Co-operation",
+    "level": "STATE"
+  },
+  "legalBasis": [
+    {
+      "law": "State Co-operative Societies Act",
+      "sections": [
+        "Section 9 - Application for Registration",
+        "Section 10 - Registration",
+        "Section 11 - Evidence of Registration"
+      ],
+      "description": "Governs the formation, registration, governance, and dissolution of co-operative societies at the state level."
+    },
+    {
+      "law": "Multi-State Co-operative Societies Act, 2002",
+      "sections": [
+        "Section 7 - Registration"
+      ],
+      "description": "Applicable for co-operative societies operating in more than one state, registered with the Central Registrar."
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_COOP_STATE_ACT",
+      "url": "https://legislative.gov.in/actsofparliamentfromtheyear/cooperative-societies-act",
+      "title": "State Co-operative Societies Act - Model Provisions",
+      "publisher": "State Department of Co-operation",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-15T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-15T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "An application for the registration of a co-operative society shall be made to the Registrar, signed by at least ten persons who are competent to contract and who are residents of the area of operation of the proposed society.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_COOP_MIN_MEMBERS",
+        "REQ_COOP_APPLICATION_FORM",
+        "REQ_COOP_BYLAWS",
+        "PROC_COOP_APPLY"
+      ],
+      "uncertainty": "Specific member thresholds and forms vary by state."
+    },
+    {
+      "sourceCode": "SRC_COOP_REGISTRATION_GUIDE",
+      "url": "https://cooperation.gov.in/registration-guidelines",
+      "title": "Guidelines for Registration of Co-operative Societies",
+      "publisher": "Ministry of Co-operation, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-20T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-20T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The proposed society must submit its bylaws, a list of members with their details, proof of address of the registered office, and the minutes of the formation meeting along with the application.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_COOP_MEMBER_LIST",
+        "REQ_COOP_ADDRESS_PROOF",
+        "REQ_COOP_MEETING_MINUTES",
+        "PROC_COOP_VERIFICATION"
+      ],
+      "uncertainty": "State-level variations in documentation requirements may apply."
+    },
+    {
+      "sourceCode": "SRC_COOP_FEE_SCHEDULE",
+      "url": "https://cooperation.gov.in/fee-schedule",
+      "title": "Fee Schedule for Registration of Co-operative Societies",
+      "publisher": "State Registrar of Co-operative Societies",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-09-10T00:00:00Z",
+      "sourceLastReviewedAt": "2026-09-10T00:00:00Z",
+      "accessStatus": "PUBLIC",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The registration fee for a new co-operative society ranges from Rs. 500 to Rs. 5,000 depending on the type and class of the society.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "REQ_COOP_FEE_PAYMENT"
+      ],
+      "uncertainty": "Fee amounts vary significantly across states and are subject to periodic revision."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "COND_COOP_INDIAN_RESIDENT",
+      "field": "applicant.isIndianResident",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Applicant is a resident of India",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_COOP_MIN_AGE",
+      "field": "applicant.age",
+      "operator": "GREATER_THAN",
+      "value": "18",
+      "label": "Applicant is at least 18 years of age",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_COOP_MEMBER_COUNT",
+      "field": "company.memberCount",
+      "operator": "GREATER_THAN",
+      "value": "10",
+      "label": "Society has at least 10 proposed members",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "COND_COOP_COMMON_OBJECTIVE",
+      "field": "company.hasCommonObjective",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Members share a common economic or social objective",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_COOP_AREA_OF_OPERATION",
+      "field": "company.operatesWithinState",
+      "operator": "EQUALS",
+      "value": "true",
+      "label": "Proposed area of operation is within a single state",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "COND_COOP_SERVICE_ROUTE_NEW",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NEW_REGISTRATION",
+      "label": "Applicant is applying for new registration",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_COOP_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "Application in the prescribed form signed by all proposed members must be submitted to the Registrar of Co-operative Societies.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_STATE_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_MIN_MEMBERS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "A minimum of 10 persons (or 25 in some states) who are competent to contract are required to form a co-operative society.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_STATE_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_BYLAWS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "Proposed bylaws of the society covering objectives, membership criteria, governance structure, profit distribution, and dissolution procedure must be submitted in four copies.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_STATE_ACT"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_MEMBER_LIST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW",
+          "COND_COOP_MEMBER_COUNT"
+        ]
+      },
+      "claim": "List of all proposed members with full name, address, occupation, age, and share capital contribution must be submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_MEETING_MINUTES",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "Minutes of the formation meeting signed by all members present, including resolutions to form the society, adopt bylaws, and elect office bearers.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "Proof of address of the registered office of the proposed society, such as a lease deed, ownership document, or NOC from the premises owner.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_FEE_PAYMENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "Registration fee as prescribed by the state government must be paid at the time of application submission.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_FEE_SCHEDULE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW",
+          "COND_COOP_INDIAN_RESIDENT"
+        ]
+      },
+      "claim": "Identity proof (Aadhaar, Voter ID, Passport, or PAN card) and address proof for all proposed members.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "requirementCode": "REQ_COOP_ECONOMIC_SURVEY",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "COND_COOP_SERVICE_ROUTE_NEW"
+        ]
+      },
+      "claim": "An economic survey or feasibility report demonstrating viability of the proposed society may be required by the Registrar in some states.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_COOP_FORMATION_MEETING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Proposed members of the co-operative society",
+      "claim": "Convene a formation meeting with all proposed members. Pass resolutions to form the society, adopt bylaws, fix the share capital, and elect a provisional managing committee. Record minutes signed by all members present.",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "processCode": "PROC_COOP_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Chief Promoter or authorized signatory",
+      "claim": "Submit the application in the prescribed form along with four copies of the proposed bylaws, member list, formation meeting minutes, address proof, identity documents, and the registration fee to the office of the Registrar of Co-operative Societies.",
+      "sourceRefs": [
+        "SRC_COOP_STATE_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_COOP_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registrar of Co-operative Societies",
+      "claim": "The Registrar examines the application and bylaws for compliance with the Co-operative Societies Act. The Registrar may conduct an inquiry or seek additional information from the applicants before proceeding.",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    },
+    {
+      "processCode": "PROC_COOP_CERTIFICATE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registrar of Co-operative Societies",
+      "claim": "Upon satisfaction, the Registrar registers the society, assigns a registration number, and issues a Certificate of Registration. The society becomes a body corporate from the date of registration.",
+      "sourceRefs": [
+        "SRC_COOP_STATE_ACT"
+      ]
+    },
+    {
+      "processCode": "PROC_COOP_POST_REGISTRATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registered co-operative society",
+      "claim": "After registration, the society must open a bank account, commence operations within the prescribed period, hold the first general body meeting, and file annual returns with the Registrar.",
+      "sourceRefs": [
+        "SRC_COOP_REGISTRATION_GUIDE"
+      ]
+    }
+  ]
+}

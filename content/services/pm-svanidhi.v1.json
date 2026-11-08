@@ -1,0 +1,307 @@
+{
+  "serviceCode": "PM_SVANIDHI",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi)"
+  },
+  "authority": "Ministry of Housing and Urban Affairs",
+  "jurisdiction": "CENTRAL",
+  "category": "PM_SVANIDHI",
+  "description": {
+    "en": "PM Street Vendor's AtmaNirbhar Nidhi (PM SVANidhi) is a micro-credit scheme launched by the Ministry of Housing and Urban Affairs to provide affordable working capital loans to street vendors affected by the COVID-19 pandemic and to support their livelihoods. The scheme provides a collateral-free working capital loan of up to Rs. 10,000 in the first tranche, Rs. 20,000 in the second tranche, and Rs. 50,000 in the third tranche. The scheme offers an interest subsidy of 7% per annum, incentives for digital transactions, and helps build the credit profile of street vendors through formal banking channels."
+  },
+  "officialLinks": {
+    "application": "https://pmsvanidhi.mohua.gov.in/",
+    "informationPortal": "https://mohua.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "SVANIDHI_VENDOR_STATUS",
+        "field": "applicant.isStreetVendor",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Street vendors in urban areas with valid vending certificate or Letter of Recommendation",
+        "claim": "The applicant must be a street vendor engaged in vending in urban areas, possessing a valid Certificate of Vending (CoV) or a Letter of Recommendation (LoR) issued by the Urban Local Body (ULB) or Town Vending Committee (TVC).",
+        "sourceRefs": [
+          "SRC-SVANIDHI-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "SVANIDHI_VENDING_CERTIFICATE",
+        "field": "applicant.hasVendingCertificate",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All PM SVANidhi applicants",
+        "claim": "The vendor must possess a Certificate of Vending (CoV) issued under the Street Vendors (Protection of Livelihood and Regulation of Street Vending) Act, 2014, or a Letter of Recommendation (LoR) from the ULB/TVC for those identified in the ULB survey but not yet issued a CoV.",
+        "sourceRefs": [
+          "SRC-SVANIDHI-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Vendors who have been identified in the ULB survey but have not yet received their CoV can obtain a Letter of Recommendation from the ULB/TVC.",
+      "Vendors not covered under any of the above categories can also be recommended by the ULB/TVC based on verification.",
+      "For the second and third tranches, timely repayment of the previous tranche loan is required."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "SVANIDHI_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "PM_SVANIDHI",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "SVANIDHI_URBAN_AREA",
+      "field": "applicant.isInUrbanArea",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "SVANIDHI_TRANCHE_LEVEL",
+      "field": "applicant.currentTranche",
+      "operator": "IN_SET",
+      "value": ["FIRST", "SECOND", "THIRD"],
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "SVANIDHI_REQ_VENDING_CERT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVANIDHI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Certificate of Vending (CoV) issued under the Street Vendors Act 2014, or a Letter of Recommendation (LoR) from the ULB/TVC certifying the applicant as a street vendor.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SVANIDHI_REQ_IDENTITY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVANIDHI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid Aadhaar card of the applicant. Aadhaar is used for identity verification and for linking the bank account for loan disbursement and subsidy transfer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SVANIDHI_REQ_BANK_ACCOUNT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVANIDHI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Active bank account for loan disbursement and repayment. The vendor can open a new bank account if one does not exist. The bank account should be Aadhaar-linked for interest subsidy transfer.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SVANIDHI_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVANIDHI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photograph of the applicant for the loan application form.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "SVANIDHI_REQ_MOBILE_NUMBER",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SVANIDHI_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Active mobile number linked with Aadhaar for OTP-based verification, digital transaction incentives, and scheme-related communications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "SVANIDHI_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All eligible street vendors",
+      "claim": "Apply online through the PM SVANidhi portal (pmsvanidhi.mohua.gov.in) or through the Common Service Centre (CSC). The vendor can also apply through the lending institution directly. The application requires Aadhaar verification, uploading of vending certificate or LoR, and filling the loan application form.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SVANIDHI_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "The ULB verifies the vendor's identity and vending status. The application is then forwarded to the lending institution (bank, NBFC, or MFI) for sanction. The lending institution may conduct its own verification before sanctioning the loan.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SVANIDHI_STEP3_DISBURSEMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Vendors with sanctioned loan applications",
+      "claim": "The loan amount of up to Rs. 10,000 (first tranche) is disbursed directly into the vendor's bank account. The loan is to be repaid in monthly instalments over a period of 12 months. On timely repayment, vendors become eligible for enhanced loans in subsequent tranches.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28",
+        "SRC-MOHUA-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "SVANIDHI_STEP4_SUBSIDY_INCENTIVE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Vendors who have received and are repaying the loan",
+      "claim": "An interest subsidy of 7% per annum is credited to the vendor's bank account quarterly. Additionally, vendors performing digital transactions through prescribed modes receive cashback incentives of up to Rs. 1,200 per year to encourage digital adoption.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "SVANIDHI_LOAN_SANCTION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon approval, the vendor receives a collateral-free working capital loan of up to Rs. 10,000 (first tranche), Rs. 20,000 (second tranche), or Rs. 50,000 (third tranche) disbursed to their bank account. The vendor also receives interest subsidy of 7% per annum and digital transaction cashback incentives. The scheme helps build the vendor's formal credit history.",
+    "sourceRefs": [
+      "SRC-SVANIDHI-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "SVANIDHI_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "PM SVANidhi loan application",
+      "status": "VERIFIED",
+      "claim": "There is no application fee or processing charge for PM SVANidhi loans. The scheme is designed to be completely cost-free for the vendor at the application stage. Lending institutions are not permitted to charge any processing fee for SVANidhi loans.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "SVANIDHI_INTEREST_COST",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Effective interest cost after subsidy",
+      "status": "VERIFIED",
+      "claim": "The lending institution charges interest at its prevailing rate. However, the Government provides an interest subsidy of 7% per annum which is directly credited to the vendor's bank account on a quarterly basis, effectively reducing the interest burden. The net interest cost to the vendor depends on the lending institution's rate minus the 7% subsidy.",
+      "sourceRefs": [
+        "SRC-SVANIDHI-PORTAL-2026-10-28",
+        "SRC-MOHUA-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "SVANIDHI_PROCESSING_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Loan application to disbursement",
+    "status": "VERIFIED",
+    "claim": "The loan application is typically processed and disbursed within 15-30 days from submission, subject to verification by the ULB and sanction by the lending institution. The turnaround time may vary depending on the lending institution and the completeness of the application.",
+    "sourceRefs": [
+      "SRC-SVANIDHI-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-SVANIDHI-PORTAL-2026-10-28",
+      "url": "https://pmsvanidhi.mohua.gov.in/",
+      "title": "PM SVANidhi Portal — PM Street Vendor's AtmaNirbhar Nidhi Official Website",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "PM SVANidhi provides collateral-free working capital loans to street vendors. First tranche up to Rs. 10,000, second up to Rs. 20,000, and third up to Rs. 50,000 with 7% interest subsidy. Vendors must have a Certificate of Vending or Letter of Recommendation from ULB/TVC. Digital transaction cashback incentives are provided.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Working capital loan of up to Rs. 10,000 in first tranche.",
+        "7% interest subsidy per annum credited quarterly.",
+        "Certificate of Vending or Letter of Recommendation required.",
+        "No application or processing fee.",
+        "Digital transaction incentives up to Rs. 1,200 per year."
+      ],
+      "uncertainty": "Scheme continuation and tranche limits may be revised by the Government."
+    },
+    {
+      "sourceCode": "SRC-MOHUA-2026-10-28",
+      "url": "https://mohua.gov.in/",
+      "title": "Ministry of Housing and Urban Affairs — PM SVANidhi Scheme Guidelines",
+      "publisher": "Ministry of Housing and Urban Affairs, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MoHUA is the nodal ministry for PM SVANidhi. The scheme is implemented through SIDBI as the implementation agency and lending is carried out by scheduled commercial banks, regional rural banks, small finance banks, cooperative banks, NBFCs, and MFIs.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "SIDBI is the implementation agency.",
+        "Multiple lending institutions participate including banks and MFIs.",
+        "Scheme provides credit guarantee through Credit Guarantee Fund Trust for Micro and Small Enterprises."
+      ],
+      "uncertainty": "The number of participating lending institutions and their coverage varies across cities."
+    }
+  ],
+  "limitations": [
+    "The scheme is applicable only to street vendors in urban areas as defined under the Street Vendors Act 2014.",
+    "The availability and speed of loan disbursement depends on the participating lending institution in the vendor's area.",
+    "Vendors without a Certificate of Vending or Letter of Recommendation must first get one from the ULB/TVC.",
+    "The interest subsidy is subject to timely repayment; defaulting on EMIs may affect subsidy eligibility.",
+    "Digital transaction incentives require the vendor to adopt and regularly use digital payment modes.",
+    "This record does not cover the detailed credit guarantee mechanism operated through CGTMSE."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core scheme features verified via PM SVANidhi portal. Interest subsidy rates, tranche limits, and digital incentive amounts need monitoring for policy revisions.",
+    "nextReviewTrigger": [
+      "Changes to loan tranche amounts or repayment terms.",
+      "Revision of interest subsidy rate or digital transaction incentive amounts.",
+      "Extension or conclusion of the scheme.",
+      "Changes in eligibility criteria or vendor identification process.",
+      "Policy changes regarding credit guarantee coverage."
+    ]
+  }
+}

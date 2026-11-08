@@ -1,0 +1,253 @@
+{
+  "serviceCode": "DIGILOCKER_ACCOUNT",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "DigiLocker Account"
+  },
+  "authority": "Ministry of Electronics and Information Technology (MeitY) / National e-Governance Division (NeGD), Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "DIGILOCKER_ACCOUNT",
+  "description": {
+    "en": "DigiLocker is a cloud-based platform under the Digital India initiative that enables citizens to securely store, share, and verify documents and certificates digitally. Linked to Aadhaar, DigiLocker provides access to URI-linked authentic documents issued by government departments and agencies. Documents available on DigiLocker are legally at par with original physical documents as per the IT Act amendment. The platform is free for citizens and supports over 500 document types from more than 2000 issuers."
+  },
+  "officialLinks": {
+    "application": "https://digilocker.gov.in/",
+    "informationPortal": "https://www.digitalindia.gov.in/",
+    "mobileApp": "https://play.google.com/store/apps/details?id=com.digilocker.android",
+    "issuerOnboarding": "https://partners.digilocker.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DL_AADHAAR_HOLDER",
+        "field": "applicant.hasAadhaar",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for DigiLocker account creation",
+        "claim": "An Aadhaar number is mandatory for creating a DigiLocker account. The account is linked to the Aadhaar number, and OTP-based authentication using the Aadhaar-linked mobile number is used for account creation and login.",
+        "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28", "SRC-MEITY-DIGILOCKER-2026-10-28"]
+      },
+      {
+        "conditionCode": "DL_INDIAN_RESIDENT",
+        "field": "applicant.isIndianResident",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for DigiLocker account creation",
+        "claim": "DigiLocker is available to all Indian residents with a valid Aadhaar number. There is no restriction based on age, income, or employment status.",
+        "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Organizations and enterprises may have separate DigiLocker access provisions through the DigiLocker for Organisations feature; this record covers individual citizen accounts only.",
+      "Minors may create DigiLocker accounts with parental Aadhaar linkage; the specific process may vary."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DL_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DIGILOCKER_ACCOUNT",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DL_WEB_MODE",
+      "field": "workflow.registrationMode",
+      "operator": "EQUALS",
+      "value": "WEB_PORTAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DL_APP_MODE",
+      "field": "workflow.registrationMode",
+      "operator": "EQUALS",
+      "value": "MOBILE_APP",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DL_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "A valid Aadhaar number with a linked mobile number is required for DigiLocker account creation. Aadhaar-based OTP verification is the primary authentication method for account creation and subsequent logins.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28", "SRC-MEITY-DIGILOCKER-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_REQ_MOBILE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "A valid mobile number is required for account creation and OTP-based verification. The Aadhaar-linked mobile number receives the authentication OTP. A separate mobile number can also be registered for account notifications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_REQ_USERNAME_PIN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_ROUTE_SELECTED"]
+      },
+      "claim": "During account creation, the user must set a username and a 6-digit security PIN for subsequent logins and document access. The username must be unique across the DigiLocker platform.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DL_SIGNUP_WEB",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Users creating DigiLocker account via web portal",
+      "claim": "Visit digilocker.gov.in and click 'Sign Up'. Enter the Aadhaar number, verify via OTP sent to the Aadhaar-linked mobile number, set a username and 6-digit security PIN, and the account is created. Users can then browse and fetch issued documents from various government departments.",
+      "doesNotEstablish": [
+        "This record does not store any Aadhaar numbers or personal identity data.",
+        "Document availability depends on the respective issuing department's integration with DigiLocker."
+      ],
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "DL_SIGNUP_APP",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Users creating DigiLocker account via mobile app",
+      "claim": "Download the DigiLocker app from Google Play Store or Apple App Store. Open the app, select 'Sign Up', enter the Aadhaar number, verify via OTP, set a username and security PIN, and the account is created. The app provides the same document access and storage features as the web portal.",
+      "doesNotEstablish": [
+        "This record does not cover app-specific features or version differences."
+      ],
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    },
+    {
+      "processCode": "DL_FETCH_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registered DigiLocker users fetching issued documents",
+      "claim": "After account creation, users can browse the 'Issued Documents' section to fetch authentic URI-linked certificates from government issuers. Documents are fetched using identifiers such as Aadhaar, driving license number, or registration number. Over 500 document types from 2000+ issuers are available, including driving license, vehicle RC, PAN, academic certificates, and more.",
+      "doesNotEstablish": [
+        "This record does not guarantee availability of all document types from all issuers.",
+        "Document availability depends on the issuing department's DigiLocker integration status."
+      ],
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28", "SRC-MEITY-DIGILOCKER-2026-10-28"]
+    },
+    {
+      "processCode": "DL_UPLOAD_DOCUMENTS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Registered DigiLocker users uploading personal documents",
+      "claim": "Users can upload scanned copies of personal documents to their DigiLocker storage space. Each account gets 1 GB of free cloud storage for uploaded documents. Uploaded documents can be shared with requestors but are distinct from URI-linked issued documents which carry issuer-verified authenticity.",
+      "doesNotEstablish": [
+        "Uploaded documents do not carry the same legal validity as URI-linked issued documents unless separately verified."
+      ],
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "DL_ACCOUNT_OUTPUT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Upon successful registration, the user receives a DigiLocker account linked to their Aadhaar, with a unique username and access to fetch URI-linked authentic documents from government issuers. The account provides 1 GB free cloud storage for uploaded documents. Documents stored in DigiLocker are legally valid under the IT Act 2000 (amended) and can be shared electronically with verifiers and requestors.",
+    "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28", "SRC-MEITY-DIGILOCKER-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "DL_ACCOUNT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "DigiLocker account creation, document fetching, storage, and sharing",
+      "status": "VERIFIED",
+      "claim": "DigiLocker account creation and usage is completely free for all Indian citizens. There are no charges for creating an account, fetching issued documents, uploading documents (up to 1 GB), or sharing documents with verifiers.",
+      "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DL_ACCOUNT_CREATION_TIMELINE",
+    "minimumDuration": 2,
+    "maximumDuration": 10,
+    "unit": "MINUTES",
+    "basis": "OFFICIAL_SCHEME_DESCRIPTION",
+    "applicability": "DigiLocker account creation via web portal or mobile app",
+    "status": "VERIFIED",
+    "claim": "DigiLocker account creation is near-instant, typically completed within 2 to 10 minutes including Aadhaar OTP verification, username selection, and PIN setup. Document fetching from issuers is also typically instantaneous once the account is active.",
+    "sourceRefs": ["SRC-DIGILOCKER-PORTAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-DIGILOCKER-PORTAL-2026-10-28",
+      "url": "https://digilocker.gov.in/",
+      "title": "DigiLocker Official Portal",
+      "publisher": "National e-Governance Division (NeGD), Ministry of Electronics and Information Technology (MeitY), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DigiLocker is a Digital India initiative providing a cloud-based platform for issuance, verification, and storage of documents. It enables citizens to access authentic documents digitally, linked to Aadhaar. Account creation requires Aadhaar OTP verification. Documents on DigiLocker are legally at par with originals.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "DigiLocker is free for all citizens.",
+        "Aadhaar is mandatory for account creation.",
+        "OTP-based Aadhaar verification for signup.",
+        "Username and 6-digit PIN required during creation.",
+        "URI-linked documents from government issuers.",
+        "1 GB free cloud storage for uploaded documents.",
+        "Over 500 document types from 2000+ issuers.",
+        "Available via web portal and mobile app.",
+        "Near-instant account creation."
+      ],
+      "uncertainty": "Organization-specific DigiLocker features and issuer-side integration details are not fully covered."
+    },
+    {
+      "sourceCode": "SRC-MEITY-DIGILOCKER-2026-10-28",
+      "url": "https://www.meity.gov.in/",
+      "title": "Ministry of Electronics and Information Technology — DigiLocker Initiative",
+      "publisher": "Ministry of Electronics and Information Technology (MeitY), Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "MeitY oversees DigiLocker as part of the Digital India programme. DigiLocker documents carry legal validity under the IT Act 2000 (Section 9 amendment). The platform is Aadhaar-linked and supports document issuance, verification, and sharing across government and private sector entities.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "DigiLocker is under MeitY/NeGD.",
+        "Documents are legally at par with originals under IT Act.",
+        "Aadhaar-linked platform.",
+        "Supports issuance, verification, and sharing.",
+        "Available to all Indian residents with Aadhaar."
+      ],
+      "uncertainty": "Detailed technical specifications of the DigiLocker API and integration framework are not covered."
+    }
+  ],
+  "limitations": [
+    "This record covers DigiLocker individual citizen account creation and basic usage only; it does not cover DigiLocker for Organizations, issuer integration, or verifier workflows.",
+    "Document availability in DigiLocker depends on the respective issuing department's integration status; not all documents from all states or departments may be available.",
+    "Uploaded documents (user-scanned copies) do not carry the same issuer-verified legal validity as URI-linked issued documents.",
+    "No Aadhaar number, personal identity data, or document content is collected or stored by this content record.",
+    "DigiLocker mobile app features, offline access capabilities, and version-specific functionality are not detailed in this record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core account creation process, eligibility, fee structure, and legal validity verified from official MeitY and DigiLocker sources. Issuer count and document types are growing; exact numbers should be periodically verified.",
+    "nextReviewTrigger": [
+      "MeitY updates the DigiLocker platform or account creation process.",
+      "Changes to Aadhaar authentication requirements for DigiLocker.",
+      "IT Act provisions related to DigiLocker legal validity are amended.",
+      "Storage limits or fee structure changes.",
+      "Major changes to document types or issuer count."
+    ]
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "serviceCode": "BROADBAND_CONNECTION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "BSNL Broadband / Bharat Fibre Connection"
+  },
+  "authority": "Bharat Sanchar Nigam Limited (BSNL) / Department of Telecommunications",
+  "jurisdiction": "CENTRAL",
+  "category": "BROADBAND_CONNECTION",
+  "description": {
+    "en": "BSNL provides broadband internet connectivity through its Bharat Fibre (FTTH) and DSL services across India. As a government-owned telecommunications company, BSNL offers broadband plans at competitive rates with coverage in both urban and rural areas where private ISPs may not operate. New connections can be applied for online or at BSNL Customer Service Centres."
+  },
+  "officialLinks": {
+    "application": "https://www.bsnl.co.in/",
+    "informationPortal": "https://selfcare.bsnl.co.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "BSNL_SERVICE_AREA",
+        "field": "property.isInBSNLServiceArea",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All BSNL broadband applicants",
+        "claim": "The premises must be located within BSNL's broadband service area. BSNL provides broadband through FTTH (Bharat Fibre) and DSL technology depending on infrastructure availability in the area.",
+        "sourceRefs": [
+          "SRC-BSNL-PORTAL-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "FTTH (Bharat Fibre) availability depends on whether fibre infrastructure has been laid in the specific locality.",
+      "DSL connections require proximity to a BSNL telephone exchange.",
+      "Some rural areas may have limited bandwidth availability.",
+      "Applicants may need an existing BSNL landline or can apply for a bundled connection."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "BSNL_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "BROADBAND_CONNECTION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "BSNL_NEW_CONNECTION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "BSNL_REQ_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "BSNL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application form for BSNL broadband connection. Can be submitted online through BSNL's portal or at the nearest BSNL Customer Service Centre.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "BSNL_REQ_IDENTITY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "BSNL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the applicant — Aadhaar card, passport, voter ID, or driving license.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "BSNL_REQ_ADDRESS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "BSNL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Address proof of the installation premises — electricity bill, property tax receipt, or registered rent agreement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "BSNL_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "BSNL_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Passport-size photograph of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "BSNL_STEP1_CHECK_AVAILABILITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All BSNL broadband applicants",
+      "claim": "Check broadband service availability at your location through BSNL's portal or by contacting the nearest BSNL office. Bharat Fibre (FTTH) and DSL availability can be checked online.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "BSNL_STEP2_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All BSNL broadband applicants",
+      "claim": "Submit the application form with documents and select a broadband plan. Online applications can be made through BSNL's portal. Offline applications are accepted at BSNL Customer Service Centres.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "BSNL_STEP3_INSTALLATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved BSNL broadband applications",
+      "claim": "A BSNL technician visits the premises for installation. For FTTH connections, this includes fibre cable routing, ONT (Optical Network Terminal) installation, and Wi-Fi router setup. For DSL, a splitter and modem are installed.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "BSNL_STEP4_ACTIVATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All installed connections",
+      "claim": "The connection is activated after installation and payment of the installation charge and first month's rental. The connection details and login credentials are provided to the subscriber.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "BSNL_BROADBAND_CONNECTION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An active BSNL broadband internet connection with a subscriber ID, Wi-Fi router/modem, and access to the selected broadband plan. Monthly billing is based on the plan chosen.",
+    "sourceRefs": [
+      "SRC-BSNL-PORTAL-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "BSNL_INSTALLATION_CHARGE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 500,
+      "currency": "INR",
+      "applicability": "BSNL broadband installation charge",
+      "status": "VERIFIED",
+      "claim": "Installation charge for new BSNL broadband connection is Rs. 500. This is a one-time charge covering installation, testing, and activation. BSNL periodically offers installation charge waivers during promotional periods.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "BSNL_MONTHLY_PLAN",
+      "category": "SERVICE_CHARGE",
+      "minimumAmount": 449,
+      "maximumAmount": 1499,
+      "currency": "INR",
+      "applicability": "Monthly rental for BSNL Bharat Fibre plans",
+      "status": "VERIFIED",
+      "claim": "BSNL Bharat Fibre monthly plans range from Rs. 449 (Fibre Basic: 30 Mbps, 3300 GB) to Rs. 1,499 (Fibre Ultra: 200 Mbps, 3300 GB) and higher tiers. DSL plans start from lower monthly rentals. Plans and pricing are revised periodically.",
+      "sourceRefs": [
+        "SRC-BSNL-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "BSNL_PROCESSING_TIMELINE",
+    "minimumDuration": 3,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "BSNL broadband connection from application to activation",
+    "status": "VERIFIED",
+    "claim": "BSNL broadband connections are typically installed within 3-7 working days from application. The timeline depends on infrastructure availability, technician scheduling, and local BSNL office workload.",
+    "sourceRefs": [
+      "SRC-BSNL-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-BSNL-PORTAL-2026-10-28",
+      "url": "https://www.bsnl.co.in/",
+      "title": "Bharat Sanchar Nigam Limited — Official Portal",
+      "publisher": "Bharat Sanchar Nigam Limited (BSNL), Government of India Enterprise",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "BSNL's official portal provides broadband plan details, installation charges, service availability checker, and online application facility for new connections. Bharat Fibre (FTTH) plans and DSL plans are listed with current pricing.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "BSNL provides FTTH and DSL broadband services.",
+        "Installation charge is Rs. 500.",
+        "Plans start from Rs. 449 per month.",
+        "Online application is available."
+      ],
+      "uncertainty": "Plan pricing and speeds are revised periodically. Installation timelines may vary by location and infrastructure availability."
+    }
+  ],
+  "limitations": [
+    "This record covers BSNL broadband specifically. Private ISPs have different plans and processes.",
+    "Plan pricing and speeds are revised periodically by BSNL and may be outdated.",
+    "FTTH availability is limited to areas where fibre infrastructure has been deployed.",
+    "Installation timelines can be longer in remote or newly developed areas.",
+    "The record does not cover BSNL mobile broadband or 4G/5G data plans.",
+    "Enterprise and leased-line plans have separate processes and pricing."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "BSNL plan pricing and speeds change frequently. Current plans and availability need verification.",
+    "nextReviewTrigger": [
+      "BSNL revising broadband plan pricing or speeds.",
+      "Expansion of Bharat Fibre FTTH coverage to new areas.",
+      "Changes in BSNL's application or installation process.",
+      "Government directives affecting BSNL's broadband services."
+    ]
+  }
+}

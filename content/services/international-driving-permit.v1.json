@@ -1,0 +1,293 @@
+{
+  "serviceCode": "INTERNATIONAL_DRIVING_PERMIT",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "International Driving Permit"
+  },
+  "authority": "Regional Transport Office (RTO)",
+  "jurisdiction": "STATE",
+  "category": "DRIVING_LICENSE",
+  "description": {
+    "en": "Application for an International Driving Permit (IDP) that allows Indian driving license holders to drive in foreign countries that are signatories to the Geneva Convention on Road Traffic, 1949. The IDP is issued by the RTO and is valid for one year from the date of issue."
+  },
+  "officialLinks": {
+    "application": "https://sarathi.parivahan.gov.in/",
+    "informationPortal": "https://parivahan.gov.in/parivahan/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "IDP_VALID_DL",
+        "field": "applicant.hasValidDrivingLicense",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All IDP applicants",
+        "claim": "The applicant must hold a valid Indian Driving License. The DL must not be expired, suspended, or revoked at the time of IDP application.",
+        "sourceRefs": [
+          "SRC-PARIVAHAN-PORTAL-IDP",
+          "SRC-MOTOR-VEHICLE-ACT-1988-IDP"
+        ]
+      },
+      {
+        "conditionCode": "IDP_AGE_REQUIREMENT",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "All IDP applicants",
+        "claim": "The applicant must be at least 18 years of age. Since a valid DL is required, and the minimum age for a DL is 18, IDP applicants must meet this age criterion.",
+        "sourceRefs": [
+          "SRC-MOTOR-VEHICLE-ACT-1988-IDP"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Some destination countries may impose additional age requirements beyond the IDP minimum.",
+      "The IDP is valid only in countries that are signatories to the Geneva Convention on Road Traffic, 1949 or recognize Indian IDPs through bilateral agreements."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "IDP_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "INTERNATIONAL_DRIVING_PERMIT",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "IDP_REQ_VALID_DL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid Indian Driving License (original and photocopy) must be submitted. The DL must cover the vehicle classes for which the IDP is being sought.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    },
+    {
+      "requirementCode": "IDP_REQ_PASSPORT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid passport (original and photocopy) is required as proof of identity and for recording passport details on the IDP.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    },
+    {
+      "requirementCode": "IDP_REQ_VISA_COPY",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A copy of the valid visa for the destination country is required. Some RTOs may accept a confirmed travel itinerary or ticket in lieu of visa for visa-on-arrival countries.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    },
+    {
+      "requirementCode": "IDP_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Recent passport-size photographs (typically 4-5 copies) are required for the IDP application and booklet.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    },
+    {
+      "requirementCode": "IDP_REQ_MEDICAL_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 1A (Medical Certificate) from a registered medical practitioner is required certifying that the applicant is medically fit to drive.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988-IDP",
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    },
+    {
+      "requirementCode": "IDP_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "IDP_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application form for IDP must be submitted at the RTO. Some states allow online application through the Sarathi portal, while others require physical submission.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "IDP_APPLICATION_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All IDP applicants",
+      "claim": "Process to obtain an IDP: (1) Visit the Sarathi portal or the RTO to submit the application, (2) Fill the IDP application form, (3) Submit all required documents including valid DL, passport, visa copy, photographs, and medical certificate, (4) Pay the prescribed fee, (5) The RTO processes the application and issues the IDP booklet. Some RTOs issue on the same day; others may take up to 30 days.",
+      "doesNotEstablish": [
+        "Processing time varies significantly by RTO and state.",
+        "The IDP is a booklet (not a card) that must be carried along with the original Indian DL.",
+        "The IDP does not replace the requirement to know local driving laws of the destination country."
+      ],
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "IDP_BOOKLET",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An International Driving Permit booklet is issued, valid for 1 year from the date of issue or until the expiry of the Indian DL, whichever is earlier. The IDP must be carried along with the original Indian Driving License while driving abroad.",
+    "sourceRefs": [
+      "SRC-MOTOR-VEHICLE-ACT-1988-IDP",
+      "SRC-GENEVA-CONVENTION"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "IDP_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 1000,
+      "currency": "INR",
+      "applicability": "IDP application and issuance fee",
+      "status": "VERIFIED",
+      "claim": "The fee for an International Driving Permit is approximately Rs. 1,000. The exact amount may vary slightly by state, and some states charge additional service or processing fees.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL-IDP"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "IDP_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Time for IDP issuance from application submission",
+    "status": "VERIFIED",
+    "claim": "The IDP is typically issued within 7-30 days from submission of a complete application. Some RTOs issue the IDP on the same day or within a few days, while others may take up to 30 days. Applicants should apply well in advance of their travel date.",
+    "sourceRefs": [
+      "SRC-PARIVAHAN-PORTAL-IDP"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PARIVAHAN-PORTAL-IDP",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Parivahan - International Driving Permit Services",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Parivahan portal provides information on IDP application requirements, document checklist, fee structure, and the application process through Sarathi.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "IDP application process and requirements.",
+        "Document checklist for IDP.",
+        "Fee for IDP issuance.",
+        "Processing timeline."
+      ],
+      "uncertainty": "State-specific processing times and additional fees may vary."
+    },
+    {
+      "sourceCode": "SRC-MOTOR-VEHICLE-ACT-1988-IDP",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1798",
+      "title": "The Motor Vehicles Act, 1988 - Section 8 (International Driving Permit)",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 8 of the Motor Vehicles Act, 1988 provides for the issue of International Driving Permits. The IDP is issued to holders of valid Indian driving licenses for driving in convention countries.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Legal basis for IDP issuance.",
+        "Requirement of valid Indian DL.",
+        "Age requirements.",
+        "Medical fitness requirement.",
+        "IDP validity provisions."
+      ],
+      "uncertainty": "Act is amended periodically; latest amendments should be verified."
+    },
+    {
+      "sourceCode": "SRC-GENEVA-CONVENTION",
+      "url": "https://treaties.un.org/Pages/ViewDetailsV.aspx?src=TREATY&mtdsg_no=XI-B-1&chapter=11&clang=_en",
+      "title": "Convention on Road Traffic, Geneva, 19 September 1949",
+      "publisher": "United Nations",
+      "jurisdiction": "INTERNATIONAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Geneva Convention on Road Traffic (1949) provides the international framework for mutual recognition of driving permits. India is a signatory, and the IDP issued under this convention is recognized in other signatory countries.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "International framework for IDP recognition.",
+        "IDP validity of 1 year.",
+        "List of signatory countries."
+      ],
+      "uncertainty": "Some countries recognize IDPs under the 1968 Vienna Convention instead; Indian IDP is issued under the 1949 Geneva Convention."
+    }
+  ],
+  "limitations": [
+    "The IDP is valid only in countries that recognize the Geneva Convention on Road Traffic, 1949. Some countries follow the Vienna Convention (1968) and may not accept Indian IDPs.",
+    "Processing times vary significantly between states and RTOs.",
+    "The IDP must always be accompanied by the original Indian Driving License while driving abroad.",
+    "State-specific additional fees or charges are not fully listed.",
+    "Some countries may require additional local permits or endorsements despite a valid IDP.",
+    "Renewal of IDP requires a fresh application with all documents."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "IDP requirements, legal framework, and process verified against Motor Vehicles Act 1988, Parivahan portal, and Geneva Convention. Processing time variation noted as a limitation.",
+    "nextReviewTrigger": [
+      "Amendments to Motor Vehicles Act regarding IDP provisions.",
+      "Changes to IDP fee structure.",
+      "India's potential accession to the 1968 Vienna Convention.",
+      "Updates to the Sarathi portal for online IDP application.",
+      "Changes in convention countries' recognition policies."
+    ]
+  }
+}

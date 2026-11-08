@@ -1,0 +1,305 @@
+{
+  "serviceCode": "PMKVY_TRAINING",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": "Skill India / PMKVY (Pradhan Mantri Kaushal Vikas Yojana) Training",
+  "authority": "Ministry of Skill Development and Entrepreneurship (MSDE) / National Skill Development Corporation (NSDC)",
+  "jurisdiction": "CENTRAL",
+  "category": "PMKVY_TRAINING",
+  "description": "Pradhan Mantri Kaushal Vikas Yojana (PMKVY) is the flagship skill development scheme of the Government of India providing free short-term skill training and certification to Indian youth. The scheme covers 300+ job roles across 37 sectors with training delivered through empaneled training centres. It includes Short Term Training (STT) for fresh candidates, Recognition of Prior Learning (RPL) for existing workers, and Special Projects for specific groups. Successful candidates receive NSDC/SSC certification and placement assistance.",
+  "officialLinks": [
+    {
+      "name": "PMKVY Official Portal",
+      "url": "https://pmkvyofficial.org",
+      "description": "Official portal for PMKVY scheme information, training centre locator, and candidate registration"
+    },
+    {
+      "name": "Skill India Portal",
+      "url": "https://skillindia.gov.in",
+      "description": "Skill India Digital portal with information on all skill development initiatives"
+    },
+    {
+      "name": "NSDC Official Website",
+      "url": "https://nsdcindia.org",
+      "description": "National Skill Development Corporation website with sector-wise training information"
+    },
+    {
+      "name": "Ministry of Skill Development and Entrepreneurship",
+      "url": "https://msde.gov.in",
+      "description": "Parent ministry overseeing the PMKVY scheme and Skill India mission"
+    }
+  ],
+  "eligibility": {
+    "verifiedConditions": [
+      {
+        "field": "applicant.nationality",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "description": "Applicant must be an Indian citizen",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "applicant.age",
+        "operator": "GREATER_THAN",
+        "value": "14",
+        "description": "Applicant must be above 14 years of age (minimum age varies by job role and sector)",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "applicant.aadhaarLinked",
+        "operator": "EQUALS",
+        "value": "true",
+        "description": "Applicant must have an Aadhaar card for identity verification and enrolment",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "applicant.employmentStatus",
+        "operator": "IN_SET",
+        "value": [
+          "UNEMPLOYED",
+          "SCHOOL_DROPOUT",
+          "COLLEGE_DROPOUT",
+          "UNDEREMPLOYED",
+          "EMPLOYED_SEEKING_UPSKILL"
+        ],
+        "description": "Scheme primarily targets unemployed youth, school/college dropouts, and those seeking to upgrade their skills",
+        "evidenceStatus": "NEEDS_REVIEW"
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "name": "Training Component Selection",
+      "field": "applicant.trainingComponent",
+      "operator": "IN_SET",
+      "value": [
+        "SHORT_TERM_TRAINING",
+        "RECOGNITION_OF_PRIOR_LEARNING",
+        "SPECIAL_PROJECTS"
+      ],
+      "description": "Applicant must select the appropriate training component — STT for fresh candidates, RPL for existing workers, or Special Projects",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "PMKVY_TRAINING_COND_0"
+    },
+    {
+      "name": "RPL Eligibility Route",
+      "field": "applicant.priorWorkExperience",
+      "operator": "EQUALS",
+      "value": "true",
+      "description": "For Recognition of Prior Learning, the applicant must have prior work experience or skills in the chosen domain",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "PMKVY_TRAINING_COND_1"
+    },
+    {
+      "name": "Sector and Job Role Selection",
+      "field": "applicant.selectedSector",
+      "operator": "NOT_EQUALS",
+      "value": "null",
+      "description": "Applicant must choose a sector and job role from the NSDC-approved list of 300+ job roles across 37 sectors",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "PMKVY_TRAINING_COND_2"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "Aadhaar Card",
+      "description": "Valid Aadhaar card for identity verification and biometric authentication during enrolment and assessment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "requirementCode": "PMKVY_TRAINING_REQ_0"
+    },
+    {
+      "name": "Identity Proof",
+      "description": "Government-issued identity proof such as Aadhaar, Voter ID, or PAN card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "requirementCode": "PMKVY_TRAINING_REQ_1"
+    },
+    {
+      "name": "Address Proof",
+      "description": "Valid address proof document such as Aadhaar card, utility bill, or ration card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "requirementCode": "PMKVY_TRAINING_REQ_2"
+    },
+    {
+      "name": "Educational Certificates",
+      "description": "Relevant educational certificates as applicable for the chosen job role (some roles may have minimum education requirements).",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "requirementCode": "PMKVY_TRAINING_REQ_3"
+    },
+    {
+      "name": "Passport-size Photographs",
+      "description": "Recent passport-size photographs for enrolment and certification purposes.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "requirementCode": "PMKVY_TRAINING_REQ_4"
+    },
+    {
+      "name": "Bank Account Details",
+      "description": "Active bank account details for disbursement of any applicable rewards or stipends upon successful certification.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "requirementCode": "PMKVY_TRAINING_REQ_5"
+    }
+  ],
+  "processInformation": [
+    {
+      "stepNumber": 1,
+      "name": "Find a Training Centre",
+      "description": "Use the PMKVY portal or Skill India portal to locate an empaneled training centre near your area offering training in your preferred sector and job role.",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_0"
+    },
+    {
+      "stepNumber": 2,
+      "name": "Enrolment at Training Centre",
+      "description": "Visit the selected training centre with required documents. Complete the registration and enrolment process with Aadhaar-based biometric verification.",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_1"
+    },
+    {
+      "stepNumber": 3,
+      "name": "Skill Development Training",
+      "description": "Attend the skill training program at the training centre. Short-term training duration ranges from 200 to 600 hours depending on the job role. Training includes domain-specific skills, soft skills, entrepreneurship, and digital literacy.",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_2"
+    },
+    {
+      "stepNumber": 4,
+      "name": "Assessment",
+      "description": "Upon completion of training, candidates undergo assessment by SSC-empaneled assessment agencies. Assessment includes theory and practical components.",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_3"
+    },
+    {
+      "stepNumber": 5,
+      "name": "Certification",
+      "description": "Candidates who pass the assessment receive an NSDC/Sector Skill Council (SSC) certification recognized under the National Skills Qualifications Framework (NSQF).",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_4"
+    },
+    {
+      "stepNumber": 6,
+      "name": "Placement Assistance",
+      "description": "Certified candidates receive placement assistance from the training centre. Placement drives and industry connects are organized to help candidates find employment.",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "processCode": "PMKVY_TRAINING_STEP_5"
+    }
+  ],
+  "output": {
+    "name": "NSDC/SSC Skill Certification",
+    "description": "NSDC and Sector Skill Council (SSC) certified skill certificate recognized under the National Skills Qualifications Framework (NSQF). The certification validates the candidate's competency in the chosen job role and is recognized by industry employers across India.",
+    "validityPeriod": "Valid as per NSQF norms; typically valid for 3 years with options for higher-level certification",
+    "sourceRefs": [
+      "PMKVY_OFFICIAL_PORTAL"
+    ],
+    "outputCode": "PMKVY_TRAINING_OUTPUT"
+  },
+  "fees": [
+    {
+      "amount": 0,
+      "currency": "INR",
+      "description": "Training, assessment, and certification under PMKVY is completely free for candidates. The entire cost is borne by the Government of India.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "PMKVY_OFFICIAL_PORTAL"
+      ],
+      "feeCode": "PMKVY_TRAINING_FEE_0"
+    }
+  ],
+  "processingTime": {
+    "minimum": "2 months",
+    "maximum": "6 months",
+    "description": "Short-term training duration ranges from 2 to 6 months depending on the job role (200 to 600 hours of training). RPL certification can be completed in 12 to 80 hours. Certification is issued within 30 days of successful assessment.",
+    "evidenceStatus": "NEEDS_REVIEW",
+    "sourceRefs": [
+      "PMKVY_OFFICIAL_PORTAL"
+    ],
+    "timelineCode": "PMKVY_TRAINING_TIMELINE"
+  },
+  "sources": [
+    {
+      "sourceCode": "PMKVY_OFFICIAL_PORTAL",
+      "url": "https://pmkvyofficial.org",
+      "title": "PMKVY Official Portal",
+      "publisher": "Official PMKVY portal with scheme guidelines, training centre information, and candidate registration details",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Official PMKVY portal with scheme guidelines, training centre information, and candidate registration details",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    },
+    {
+      "sourceCode": "SKILL_INDIA_PORTAL",
+      "url": "https://skillindia.gov.in",
+      "title": "Skill India Digital Portal",
+      "publisher": "Skill India Digital platform with comprehensive information on skill development schemes and training opportunities",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Skill India Digital platform with comprehensive information on skill development schemes and training opportunities",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    },
+    {
+      "sourceCode": "MSDE_OFFICIAL",
+      "url": "https://msde.gov.in",
+      "title": "Ministry of Skill Development and Entrepreneurship",
+      "publisher": "Ministry website with PMKVY scheme guidelines, notifications, and policy documents",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Ministry website with PMKVY scheme guidelines, notifications, and policy documents",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    }
+  ],
+  "limitations": [
+    "Training is available only at NSDC-empaneled training centres; availability of specific job roles may vary by location.",
+    "Candidates must complete the full training duration and pass the assessment to receive certification.",
+    "Aadhaar-based biometric verification is mandatory for enrolment; candidates without Aadhaar may face difficulties.",
+    "Placement assistance is provided but employment is not guaranteed under the scheme.",
+    "Some job roles may have specific minimum education qualifications that candidates must meet.",
+    "RPL component is available only for candidates with demonstrable prior work experience in the chosen domain.",
+    "Training centre quality and infrastructure may vary across locations despite standardized curriculum."
+  ],
+  "review": {
+    "reviewedBy": "GovGuide Content Team",
+    "reviewDate": "2026-10-28",
+    "notes": "Service information compiled from PMKVY official portal and Skill India portal. Eligibility conditions, training durations, and available job roles are subject to change with each PMKVY phase. The current information reflects the general framework. Specific sector and job role requirements should be verified with the respective Sector Skill Council."
+  }
+}

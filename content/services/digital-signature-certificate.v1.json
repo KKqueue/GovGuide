@@ -1,0 +1,256 @@
+{
+  "serviceCode": "DIGITAL_SIGNATURE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Digital Signature Certificate (DSC)"
+  },
+  "authority": "Controller of Certifying Authorities (CCA), Ministry of Electronics and Information Technology",
+  "jurisdiction": "CENTRAL",
+  "category": "DIGITAL_SIGNATURE",
+  "description": {
+    "en": "A Digital Signature Certificate (DSC) is the electronic equivalent of a physical signature, used to authenticate the identity of the sender of an electronic document. DSCs are issued by licensed Certifying Authorities (CAs) under the Controller of Certifying Authorities (CCA). They are required for e-filing of income tax returns, company filings on MCA portal, e-tendering, GST registration, patent and trademark filings, and other government and business transactions."
+  },
+  "officialLinks": {
+    "application": "https://cca.gov.in/licensed-ca.html",
+    "informationPortal": "https://cca.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DSC_IDENTITY_VERIFIED",
+        "field": "applicant.identityVerified",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All DSC applicants",
+        "claim": "The applicant must be able to verify their identity through valid government-issued identity documents. For individuals, Aadhaar-based e-KYC or video-based verification is accepted. For organizations, authorized signatories must provide identity verification along with organization documents.",
+        "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Different classes of DSC (Class 2, Class 3) have different verification requirements.",
+      "Organization DSCs require additional authorization documentation from the entity.",
+      "Foreign nationals may need to provide passport and visa details instead of Aadhaar.",
+      "Some Certifying Authorities may have additional verification steps beyond the minimum mandated by CCA."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DSC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DIGITAL_SIGNATURE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DSC_TYPE_INDIVIDUAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "INDIVIDUAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DSC_TYPE_ORGANIZATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "ORGANIZATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DSC_REQ_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DSC_ROUTE_SELECTED"]
+      },
+      "claim": "Application must be submitted to a licensed Certifying Authority (CA). The list of licensed CAs is published on the CCA website. Applications can typically be submitted online through the CA's portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DSC_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DSC_ROUTE_SELECTED"]
+      },
+      "claim": "Government-issued photo identity proof — Aadhaar card, passport, PAN card, voter ID, or driving license. For Aadhaar-based e-KYC, the applicant's mobile number must be linked to Aadhaar.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28", "SRC-DSC-ITA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DSC_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DSC_ROUTE_SELECTED"]
+      },
+      "claim": "Proof of address — Aadhaar card, passport, utility bill, bank statement, or voter ID. The address on the DSC will correspond to the address proof submitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DSC_REQ_ORG_DOCUMENTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DSC_TYPE_ORGANIZATION"]
+      },
+      "claim": "For organization DSC: Certificate of Incorporation / Registration, authorization letter on company letterhead authorizing the person to obtain DSC on behalf of the organization, and GST certificate or PAN of the organization.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "requirementCode": "DSC_REQ_PHOTOGRAPH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DSC_ROUTE_SELECTED"]
+      },
+      "claim": "Recent passport-size photograph of the applicant. For video-based verification, a live video session with the Certifying Authority's verification agent may be required.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DSC_STEP1_CHOOSE_CA",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DSC applicants",
+      "claim": "Select a licensed Certifying Authority (CA) from the list published on CCA's website. Licensed CAs include eMudhra, Sify Technologies, NSDL e-Governance, IDRBT, CDAC, and others. Compare fees and services offered.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "processCode": "DSC_STEP2_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DSC applicants",
+      "claim": "Submit the application online through the selected CA's portal. Upload the required identity and address proof documents. Pay the applicable fee online.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "processCode": "DSC_STEP3_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DSC applicants",
+      "claim": "Identity verification is conducted through Aadhaar-based e-KYC (OTP verification), video-based verification, or in-person verification at the CA's office or authorized agent. The verification method depends on the CA and the class of DSC.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "processCode": "DSC_STEP4_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All verified applications",
+      "claim": "Upon successful verification, the DSC is issued electronically. The certificate can be downloaded from the CA's portal or is provided on a USB crypto token. The DSC contains the holder's name, public key, CA's name, validity period, and serial number.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28", "SRC-DSC-ITA-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "DSC_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Digital Signature Certificate containing the subscriber's name, public key, serial number, validity period (1-3 years), issuing Certifying Authority details, and certificate class. The DSC is stored on a USB crypto token or can be downloaded as a software certificate (.pfx file).",
+    "sourceRefs": ["SRC-DSC-CCA-2026-10-28", "SRC-DSC-ITA-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "DSC_INDIVIDUAL_FEE",
+      "category": "SERVICE_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 2000,
+      "currency": "INR",
+      "applicability": "Individual DSC issuance fee (1-year validity)",
+      "status": "VERIFIED",
+      "claim": "Individual DSC fees range from Rs. 500 to Rs. 2,000 per year depending on the Certifying Authority and class of certificate. Class 3 certificates with USB token typically cost more. Multi-year certificates offer discounted rates.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    },
+    {
+      "feeCode": "DSC_ORG_FEE",
+      "category": "SERVICE_FEE",
+      "minimumAmount": 1000,
+      "maximumAmount": 3000,
+      "currency": "INR",
+      "applicability": "Organization DSC issuance fee (1-year validity)",
+      "status": "VERIFIED",
+      "claim": "Organization DSC fees range from Rs. 1,000 to Rs. 3,000 per year depending on the CA and certificate class. Additional fees may apply for USB crypto token if not already owned by the applicant.",
+      "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DSC_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "DSC from application to issuance",
+    "status": "VERIFIED",
+    "claim": "DSC issuance typically takes 1-7 days from application submission. Aadhaar-based e-KYC verification enables same-day or next-day issuance in many cases. Video-based or in-person verification may take 3-7 days. Processing time also depends on the Certifying Authority's internal processes.",
+    "sourceRefs": ["SRC-DSC-CCA-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-DSC-CCA-2026-10-28",
+      "url": "https://cca.gov.in/",
+      "title": "Controller of Certifying Authorities — Official Website",
+      "publisher": "Controller of Certifying Authorities, Ministry of Electronics and Information Technology, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "CCA is the statutory authority under the Information Technology Act, 2000 that licenses and regulates Certifying Authorities in India. The CCA website lists all licensed CAs, their contact details, and the types of DSCs they issue.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "CCA licenses Certifying Authorities to issue DSCs.",
+        "Licensed CAs are listed on the CCA website.",
+        "DSCs are required for various government e-filings.",
+        "Identity verification through Aadhaar e-KYC or video verification is accepted."
+      ],
+      "uncertainty": "Fee structures are set by individual CAs and may change. Specific verification procedures vary by CA."
+    },
+    {
+      "sourceCode": "SRC-DSC-ITA-2026-10-28",
+      "url": "https://www.meity.gov.in/content/information-technology-act",
+      "title": "Information Technology Act, 2000 — Digital Signature Provisions",
+      "publisher": "Ministry of Electronics and Information Technology, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Information Technology Act, 2000 (as amended) provides the legal framework for digital signatures and electronic authentication in India. Section 3 defines digital signatures, Section 5 provides for legal recognition of electronic signatures, and Sections 17-34 deal with Certifying Authorities.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Digital signatures have legal validity under IT Act 2000.",
+        "CCA is established under the IT Act to regulate CAs.",
+        "DSC contents include subscriber name, public key, CA details, and validity."
+      ],
+      "uncertainty": "IT Act amendments may modify digital signature requirements or introduce new electronic authentication mechanisms."
+    }
+  ],
+  "limitations": [
+    "Fee structures are set by individual Certifying Authorities and are not regulated by CCA. The ranges provided are indicative.",
+    "The record does not exhaustively list all licensed CAs or compare their services.",
+    "Class 1 DSCs have been phased out. The record covers Class 2 and Class 3 DSCs.",
+    "Specific technical requirements for USB crypto tokens are not covered.",
+    "Renewal and revocation procedures are not detailed.",
+    "eSign (Aadhaar-based electronic signature) is a different service not covered in this record."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "CCA regulatory framework is reviewed, but individual CA fee structures and verification processes need periodic verification.",
+    "nextReviewTrigger": [
+      "Amendments to the IT Act affecting digital signatures.",
+      "Changes to CCA guidelines for Certifying Authorities.",
+      "Addition or removal of licensed CAs.",
+      "Introduction of new verification methods or DSC classes."
+    ]
+  }
+}

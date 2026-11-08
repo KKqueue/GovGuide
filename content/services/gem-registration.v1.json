@@ -1,0 +1,328 @@
+{
+  "serviceCode": "GEM_SELLER_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": "Government e-Marketplace (GeM) Seller Registration",
+  "authority": "Government e-Marketplace (GeM) / Ministry of Commerce and Industry",
+  "jurisdiction": "CENTRAL",
+  "category": "GEM_SELLER_REGISTRATION",
+  "description": "Online registration portal for sellers and service providers to register on the Government e-Marketplace (GeM) platform to supply goods and services to central and state government departments, PSUs, and autonomous bodies. GeM is a mandatory procurement platform for government purchases above certain thresholds, ensuring transparent pricing, competitive bidding, and a direct order system. Sellers can register under goods, services, or works categories.",
+  "officialLinks": [
+    {
+      "name": "GeM Portal",
+      "url": "https://gem.gov.in",
+      "description": "Official Government e-Marketplace portal for seller registration and procurement"
+    },
+    {
+      "name": "GeM Seller Registration Guide",
+      "url": "https://gem.gov.in/sellerRegistration",
+      "description": "Step-by-step guide for seller registration on GeM"
+    },
+    {
+      "name": "Ministry of Commerce and Industry",
+      "url": "https://commerce.gov.in",
+      "description": "Parent ministry overseeing the GeM platform"
+    }
+  ],
+  "eligibility": {
+    "verifiedConditions": [
+      {
+        "field": "business.gstRegistration",
+        "operator": "EQUALS",
+        "value": "true",
+        "description": "Seller must have a valid GST registration to register on GeM portal",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "business.panNumber",
+        "operator": "NOT_EQUALS",
+        "value": "null",
+        "description": "Seller must have a valid PAN (Permanent Account Number)",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "business.bankAccount",
+        "operator": "EQUALS",
+        "value": "true",
+        "description": "Seller must have an active bank account linked for payment processing",
+        "evidenceStatus": "NEEDS_REVIEW"
+      },
+      {
+        "field": "business.type",
+        "operator": "IN_SET",
+        "value": [
+          "PROPRIETORSHIP",
+          "PARTNERSHIP",
+          "LLP",
+          "PRIVATE_LIMITED",
+          "PUBLIC_LIMITED",
+          "SOCIETY",
+          "TRUST",
+          "COOPERATIVE",
+          "OEM",
+          "RESELLER",
+          "SERVICE_PROVIDER"
+        ],
+        "description": "Business must be a recognized entity type eligible for GeM registration",
+        "evidenceStatus": "NEEDS_REVIEW"
+      }
+    ]
+  },
+  "conditions": [
+    {
+      "name": "Seller Category Selection",
+      "field": "business.sellerCategory",
+      "operator": "IN_SET",
+      "value": [
+        "GOODS",
+        "SERVICES",
+        "WORKS"
+      ],
+      "description": "Seller must select the category under which they wish to register — goods, services, or works",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "GEM_SELLER_REGISTRATION_COND_0"
+    },
+    {
+      "name": "MSE Status Check",
+      "field": "business.mseStatus",
+      "operator": "EQUALS",
+      "value": "true",
+      "description": "If the seller is a Micro/Small Enterprise, additional benefits under procurement policy apply",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "GEM_SELLER_REGISTRATION_COND_1"
+    },
+    {
+      "name": "Startup Recognition",
+      "field": "business.startupRecognition",
+      "operator": "EQUALS",
+      "value": "true",
+      "description": "DPIIT-recognized startups get relaxation in prior experience and turnover criteria",
+      "evidenceStatus": "INTERNAL_WORKFLOW",
+      "conditionCode": "GEM_SELLER_REGISTRATION_COND_2"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "GST Registration Certificate",
+      "description": "Valid GST registration certificate issued by GSTN. GSTIN is mandatory for seller registration on GeM.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_0"
+    },
+    {
+      "name": "PAN Card",
+      "description": "Permanent Account Number (PAN) card of the business entity or proprietor.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_1"
+    },
+    {
+      "name": "Bank Account Details",
+      "description": "Active bank account details including account number, IFSC code, and cancelled cheque for payment processing.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_2"
+    },
+    {
+      "name": "Business Registration Documents",
+      "description": "Relevant business registration documents such as Certificate of Incorporation, Partnership Deed, or Udyam Registration as applicable.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_3"
+    },
+    {
+      "name": "Authorized Signatory Details",
+      "description": "Aadhaar number and details of the authorized signatory who will operate the GeM seller account.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_4"
+    },
+    {
+      "name": "Product/Service Catalogue",
+      "description": "Details of goods or services to be listed on GeM including specifications, pricing, and relevant certifications.",
+      "evidenceStatus": "NEEDS_REVIEW",
+      "requirementCode": "GEM_SELLER_REGISTRATION_REQ_5"
+    }
+  ],
+  "processInformation": [
+    {
+      "stepNumber": 1,
+      "name": "Visit GeM Portal",
+      "description": "Navigate to gem.gov.in and click on 'Sign Up' to begin the seller registration process.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_0"
+    },
+    {
+      "stepNumber": 2,
+      "name": "Select Registration Type",
+      "description": "Choose 'Seller' registration and select the appropriate category — goods, services, or works.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_1"
+    },
+    {
+      "stepNumber": 3,
+      "name": "Aadhaar Verification",
+      "description": "Enter Aadhaar number of the authorized signatory and complete OTP-based verification.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_2"
+    },
+    {
+      "stepNumber": 4,
+      "name": "PAN Verification",
+      "description": "Enter PAN details for automatic verification against the Income Tax database.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_3"
+    },
+    {
+      "stepNumber": 5,
+      "name": "GST Verification",
+      "description": "Enter GSTIN for automatic verification against the GST Network (GSTN) database.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_4"
+    },
+    {
+      "stepNumber": 6,
+      "name": "Fill Business Details",
+      "description": "Provide complete business details including entity type, address, contact information, and bank account details.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_5"
+    },
+    {
+      "stepNumber": 7,
+      "name": "Upload Documents",
+      "description": "Upload required supporting documents including business registration certificates and cancelled cheque.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_6"
+    },
+    {
+      "stepNumber": 8,
+      "name": "Product/Service Listing",
+      "description": "Add products or services to the catalogue with specifications, pricing, and relevant quality certifications.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_7"
+    },
+    {
+      "stepNumber": 9,
+      "name": "Review and Submit",
+      "description": "Review all entered information and submit the registration application for processing.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_8"
+    },
+    {
+      "stepNumber": 10,
+      "name": "Registration Approval",
+      "description": "Upon successful verification of all documents and details, the seller account is activated on GeM portal.",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "processCode": "GEM_SELLER_REGISTRATION_STEP_9"
+    }
+  ],
+  "output": {
+    "name": "GeM Seller Registration Certificate",
+    "description": "Active seller account on the Government e-Marketplace with a unique Seller ID enabling participation in government procurement through bids, reverse auctions, and direct purchase orders.",
+    "validityPeriod": "As long as the seller maintains valid GST registration and complies with GeM terms",
+    "sourceRefs": [
+      "GEM_PORTAL_OFFICIAL"
+    ],
+    "outputCode": "GEM_SELLER_REGISTRATION_OUTPUT"
+  },
+  "fees": [
+    {
+      "amount": 0,
+      "currency": "INR",
+      "description": "Registration on GeM portal is free of charge. No registration fee is levied on sellers.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "GEM_PORTAL_OFFICIAL"
+      ],
+      "feeCode": "GEM_SELLER_REGISTRATION_FEE_0"
+    }
+  ],
+  "processingTime": {
+    "minimum": "1 day",
+    "maximum": "7 days",
+    "description": "Registration is typically completed within 1 to 7 working days after successful document verification. Real-time verification of Aadhaar, PAN, and GST may enable faster processing.",
+    "evidenceStatus": "NEEDS_REVIEW",
+    "sourceRefs": [
+      "GEM_PORTAL_OFFICIAL"
+    ],
+    "timelineCode": "GEM_SELLER_REGISTRATION_TIMELINE"
+  },
+  "sources": [
+    {
+      "sourceCode": "GEM_PORTAL_OFFICIAL",
+      "url": "https://gem.gov.in",
+      "title": "Government e-Marketplace Official Portal",
+      "publisher": "Official GeM portal providing seller registration guidelines, requirements, and procedures",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Official GeM portal providing seller registration guidelines, requirements, and procedures",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    },
+    {
+      "sourceCode": "COMMERCE_MINISTRY",
+      "url": "https://commerce.gov.in",
+      "title": "Ministry of Commerce and Industry",
+      "publisher": "Parent ministry website with policy directives and notifications related to GeM",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Parent ministry website with policy directives and notifications related to GeM",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [],
+      "uncertainty": "State-level implementations may vary."
+    }
+  ],
+  "limitations": [
+    "Registration requires valid GST registration; businesses without GST cannot register directly on GeM.",
+    "Sellers must maintain active GST compliance to continue listing on GeM.",
+    "Product and service listings must conform to GeM catalogue specifications and quality standards.",
+    "Sellers found in violation of GeM terms may be suspended or debarred from the platform.",
+    "Certain product categories may require additional quality certifications or BIS standards compliance.",
+    "GeM registration does not guarantee procurement orders — orders depend on government buyer requirements."
+  ],
+  "review": {
+    "reviewedBy": "GovGuide Content Team",
+    "reviewDate": "2026-10-28",
+    "notes": "Service information compiled from the official GeM portal. Eligibility conditions and process steps need periodic review as GeM regularly updates its registration procedures and requirements. Fee structure and processing times should be verified against the latest portal updates."
+  }
+}

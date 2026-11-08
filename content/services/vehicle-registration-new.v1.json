@@ -1,0 +1,356 @@
+{
+  "serviceCode": "VEHICLE_REGISTRATION_NEW",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "New Vehicle Registration"
+  },
+  "authority": "Regional Transport Office (RTO), Ministry of Road Transport and Highways",
+  "jurisdiction": "STATE",
+  "category": "VEHICLE_REGISTRATION",
+  "description": {
+    "en": "Registration of a newly purchased vehicle with the Regional Transport Office (RTO). Every motor vehicle in India must be registered under the Motor Vehicles Act, 1988 before it can be driven on public roads. The process is facilitated through the VAHAN portal and state RTOs."
+  },
+  "officialLinks": {
+    "application": "https://vahan.parivahan.gov.in/vahan/",
+    "informationPortal": "https://parivahan.gov.in/parivahan/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "VR_NEW_VEHICLE_PURCHASED",
+        "field": "vehicle.purchaseType",
+        "operator": "EQUALS",
+        "value": "NEW",
+        "classification": "MANDATORY",
+        "appliesTo": "Any person who has purchased a new motor vehicle",
+        "claim": "Any person who has purchased a new motor vehicle from an authorized dealer is eligible to register the vehicle. The vehicle must be registered within a period as prescribed by the state, typically before the temporary registration expires.",
+        "sourceRefs": [
+          "SRC-MOTOR-VEHICLE-ACT-1988"
+        ]
+      },
+      {
+        "conditionCode": "VR_APPLICANT_AGE",
+        "field": "applicant.age",
+        "operator": "GREATER_THAN_OR_EQUALS",
+        "value": 18,
+        "classification": "MANDATORY",
+        "appliesTo": "Individual owners of motor vehicles",
+        "claim": "The applicant must be at least 18 years of age to own and register a motor vehicle. For motorcycles with engine capacity not exceeding 50cc, the minimum age is 16 years with guardian consent.",
+        "sourceRefs": [
+          "SRC-MOTOR-VEHICLE-ACT-1988"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Companies and organizations can register vehicles in the entity's name with appropriate authorization documents.",
+      "Diplomatic vehicles follow a separate registration process under specific series."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "VR_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "VEHICLE_REGISTRATION_NEW",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "VR_REQ_SALE_INVOICE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Original sale invoice or certificate of sale from the authorized dealer is required. The invoice must contain the vehicle's chassis number, engine number, make, model, and sale price.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_INSURANCE_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid motor vehicle insurance certificate is mandatory. Third-party insurance is the minimum legal requirement under the Motor Vehicles Act. The policy must be active at the time of registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988",
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_FORM_20_21",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Form 20 (Application for Registration of Motor Vehicle) and Form 21 (Sale Certificate from the manufacturer/dealer) must be submitted. Form 22 (Roadworthiness Certificate from manufacturer) is also required for new vehicles.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988",
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of address of the vehicle owner is required. Accepted documents include Aadhaar card, passport, utility bill (not older than 3 months), voter ID, or ration card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of identity of the vehicle owner is required. Accepted documents include Aadhaar card, passport, PAN card, voter ID, or any government-issued photo ID.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_PAN_CARD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "PAN card or Form 60 is mandatory if the value of the vehicle exceeds Rs. 10,00,000 (ten lakh). This is required under Income Tax rules for high-value transactions.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988",
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_ROAD_TAX_RECEIPT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Road tax must be paid as per the applicable state motor vehicle taxation rules. The road tax receipt or proof of payment must be submitted. Road tax amount varies by vehicle type, engine capacity, and state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_POLLUTION_CERTIFICATE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Pollution Under Control (PUC) certificate is required. For new vehicles, the manufacturer's emission compliance certificate is generally accepted at the time of initial registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988"
+      ]
+    },
+    {
+      "requirementCode": "VR_REQ_TEMPORARY_REGISTRATION",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "VR_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Temporary registration (valid for 1 month) is issued by the dealer at the time of sale. The vehicle must be permanently registered before the temporary registration expires. Temporary registration allows the vehicle to be driven to the RTO for permanent registration.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MOTOR-VEHICLE-ACT-1988",
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "VR_DEALER_ASSISTED_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "New vehicle purchases from authorized dealers",
+      "claim": "Most authorized dealers assist with the registration process: (1) Dealer collects all documents from the buyer, (2) Dealer applies for temporary registration, (3) Dealer submits application for permanent registration to the RTO through VAHAN portal, (4) RTO verifies documents and vehicle details, (5) Registration number is assigned and RC (Registration Certificate) is issued. The smart card RC is dispatched via post.",
+      "doesNotEstablish": [
+        "Dealer charges for registration assistance are separate from government fees.",
+        "Owner can also apply directly at the RTO without dealer assistance.",
+        "High-security registration plates (HSRP) are fitted at authorized centers."
+      ],
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "processCode": "VR_VAHAN_ONLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Owners applying directly through the VAHAN portal",
+      "claim": "Vehicle owners can also apply directly through the VAHAN portal: (1) Visit vahan.parivahan.gov.in, (2) Fill in Form 20 online with vehicle and owner details, (3) Upload required documents, (4) Pay registration fee and road tax online, (5) Book appointment at RTO if physical inspection is required, (6) RTO assigns registration number and issues RC.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "VR_REGISTRATION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Registration Certificate (RC) in smart card format is issued. The RC contains vehicle details, owner information, and the registration number. The registration is valid for 15 years for non-transport vehicles and 5 years for transport vehicles, renewable thereafter.",
+    "sourceRefs": [
+      "SRC-MOTOR-VEHICLE-ACT-1988"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "VR_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "Registration fee varies by vehicle type and state",
+      "status": "VERIFIED",
+      "claim": "Registration fee varies by vehicle type (two-wheeler, four-wheeler, commercial) and state. For two-wheelers it typically ranges from Rs. 300-600, and for four-wheelers from Rs. 600-1500 as the base central fee. States may charge additional amounts.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "VR_ROAD_TAX",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "One-time road tax for non-transport vehicles; annual for transport vehicles",
+      "status": "VERIFIED",
+      "claim": "Road tax is levied by the state government and varies significantly. It is typically calculated as a percentage of the vehicle's ex-showroom price, ranging from 2% to 15% depending on the state, vehicle type, engine capacity, and fuel type. Some states offer lifetime road tax options for personal vehicles.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL"
+      ]
+    },
+    {
+      "feeCode": "VR_HSRP_FEE",
+      "category": "SERVICE_CHARGE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "High Security Registration Plate fee",
+      "status": "VERIFIED",
+      "claim": "High Security Registration Plates (HSRP) are mandatory for all new vehicles. The fee varies by vehicle type: approximately Rs. 400-1100 for cars and Rs. 300-500 for two-wheelers.",
+      "sourceRefs": [
+        "SRC-PARIVAHAN-PORTAL",
+        "SRC-MOTOR-VEHICLE-ACT-1988"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "VR_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Time for permanent RC issuance from application submission",
+    "status": "VERIFIED",
+    "claim": "Permanent Registration Certificate is typically issued within 7-15 days from submission of complete application and documents. Temporary registration is issued on the spot by the dealer. Smart card RC dispatch via post may take additional 7-10 days.",
+    "sourceRefs": [
+      "SRC-PARIVAHAN-PORTAL",
+      "SRC-MOTOR-VEHICLE-ACT-1988"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PARIVAHAN-PORTAL",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Parivahan - National Transport Portal",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Parivahan is the official portal for vehicle registration services including VAHAN (vehicle registration) and Sarathi (driving license). It provides information on registration process, document requirements, and fee structures.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Vehicle registration process and requirements.",
+        "Document requirements for new vehicle registration.",
+        "Fee structure for registration and road tax.",
+        "VAHAN portal for online registration services.",
+        "HSRP requirements."
+      ],
+      "uncertainty": "State-specific fees and road tax rates vary and are updated by respective state transport departments."
+    },
+    {
+      "sourceCode": "SRC-MOTOR-VEHICLE-ACT-1988",
+      "url": "https://www.indiacode.nic.in/handle/123456789/1798",
+      "title": "The Motor Vehicles Act, 1988",
+      "publisher": "Government of India, Ministry of Law and Justice",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Chapter IV of the Motor Vehicles Act, 1988 deals with Registration of Motor Vehicles. Section 39 mandates that no person shall drive any motor vehicle in any public place unless the vehicle is registered. Section 40 specifies the registration process and requirements.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mandatory registration of all motor vehicles.",
+        "Registration validity periods (15 years non-transport, 5 years transport).",
+        "Temporary registration provisions.",
+        "PAN requirement for high-value vehicles.",
+        "Insurance mandate.",
+        "Emission compliance requirements."
+      ],
+      "uncertainty": "Act is amended periodically; latest amendments and rules should be verified for current fee schedules."
+    }
+  ],
+  "limitations": [
+    "Road tax amounts vary significantly by state and vehicle type; specific state rates are not listed here.",
+    "Registration fees shown are indicative central rates; state-specific surcharges apply.",
+    "This record covers new vehicle registration only. Transfer of ownership, re-registration, and duplicate RC are separate processes.",
+    "Electric vehicle registration may have different fee structures and incentives depending on the state.",
+    "Commercial/transport vehicle registration has additional requirements including fitness certificate and permit.",
+    "BH-series (Bharat Series) registration for transferable employees follows a different fee structure."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core registration requirements, process, and legal framework verified against Motor Vehicles Act 1988 and Parivahan portal. State-specific fee variations documented as limitations.",
+    "nextReviewTrigger": [
+      "Amendments to Motor Vehicles Act or Central Motor Vehicles Rules.",
+      "Changes to VAHAN portal registration workflow.",
+      "Introduction of new vehicle categories (e.g., electric vehicle-specific rules).",
+      "Changes to HSRP requirements or fees.",
+      "BH-series registration rule updates."
+    ]
+  }
+}

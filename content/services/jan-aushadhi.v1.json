@@ -1,0 +1,340 @@
+{
+  "serviceCode": "JAN_AUSHADHI_STORE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBJP) — Jan Aushadhi Kendra Opening"
+  },
+  "authority": "Bureau of Pharma PSUs of India (BPPI) / Department of Pharmaceuticals, Ministry of Chemicals and Fertilizers, Government of India",
+  "jurisdiction": "CENTRAL",
+  "category": "JAN_AUSHADHI_STORE",
+  "description": {
+    "en": "The Pradhan Mantri Bhartiya Janaushadhi Pariyojana (PMBJP) enables individuals, organizations, and institutions to open Jan Aushadhi Kendras (generic medicine stores) that sell quality generic medicines, surgical items, and other healthcare products at affordable prices — typically 50% to 90% less than branded equivalents. The scheme is implemented by the Bureau of Pharma PSUs of India (BPPI) under the Department of Pharmaceuticals. Eligible applicants include pharmacists, doctors, registered medical practitioners, NGOs, trusts, charitable organizations, private hospitals, and state government nominees. BPPI provides one-time financial assistance of up to Rs. 2.50 lakh and supplies medicines from its central warehouse network."
+  },
+  "officialLinks": {
+    "application": "https://janaushadhi.gov.in/OnlineApplication.aspx",
+    "informationPortal": "https://janaushadhi.gov.in/",
+    "productList": "https://janaushadhi.gov.in/ProductList.aspx"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "JAK_PHARMACIST_LICENSE",
+        "field": "applicant.hasPharmacyDegree",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Individual applicants (pharmacists, doctors, registered medical practitioners)",
+        "claim": "The applicant or the person employed at the Jan Aushadhi Kendra must be a registered pharmacist (B.Pharm or D.Pharm) as per the Pharmacy Act, 1948. A valid drug license is required to operate the store. Individual applicants must be pharmacists, doctors, or registered medical practitioners.",
+        "sourceRefs": [
+          "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "JAK_ADEQUATE_SPACE",
+        "field": "premises.areaInSqFt",
+        "operator": "GREATER_THAN",
+        "value": 119,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants for Jan Aushadhi Kendra",
+        "claim": "The applicant must have access to a suitable retail space of at least 120 square feet for setting up the Jan Aushadhi Kendra. The store must be located in a prominent area with adequate footfall.",
+        "sourceRefs": [
+          "SRC-JANAUSHADHI-PORTAL-2026-10-28",
+          "SRC-BPPI-GUIDELINES-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "JAK_INVESTMENT_CAPABILITY",
+        "field": "applicant.canInvestMinimum",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants",
+        "claim": "The applicant must be willing to invest Rs. 1.50 lakh to Rs. 2.00 lakh towards initial purchase of generic medicines and store setup. BPPI provides up to Rs. 2.50 lakh as one-time financial assistance, but the applicant must arrange initial working capital.",
+        "sourceRefs": [
+          "SRC-BPPI-GUIDELINES-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "NGOs, trusts, private hospitals, cooperative societies, and charitable organizations are eligible to apply, provided they employ a registered pharmacist.",
+      "State government or its nominated agencies can also open Jan Aushadhi Kendras.",
+      "SC/ST/women/divyang entrepreneurs may receive additional incentives as per BPPI guidelines.",
+      "Existing retail medical shops can convert to Jan Aushadhi Kendras while continuing to sell branded medicines alongside generic ones.",
+      "Government hospitals and medical colleges are encouraged to open in-house Jan Aushadhi Kendras."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "JAK_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "JAN_AUSHADHI_STORE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "JAK_INDIVIDUAL_APPLICANT",
+      "field": "workflow.applicantType",
+      "operator": "EQUALS",
+      "value": "INDIVIDUAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "JAK_ORGANIZATION_APPLICANT",
+      "field": "workflow.applicantType",
+      "operator": "EQUALS",
+      "value": "ORGANIZATION",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "JAK_GOVERNMENT_NOMINEE",
+      "field": "workflow.applicantType",
+      "operator": "EQUALS",
+      "value": "GOVERNMENT_NOMINEE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "JAK_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "JAK_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Online application form submitted through the Jan Aushadhi portal (janaushadhi.gov.in). The application includes personal details, proposed location, pharmacy registration details, and the category of applicant (individual/organization/government).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "JAK_REQ_PHARMACY_LICENSE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "JAK_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Valid drug license (retail) from the State Drug Controller, or proof of application for drug license. The registered pharmacist's registration certificate under the Pharmacy Act, 1948 must also be provided.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28",
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "JAK_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "JAK_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar card and PAN card of the applicant. For organizations: registration certificate (society registration, trust deed, company incorporation), PAN of the organization, and identity proof of the authorized signatory.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "JAK_REQ_PREMISES_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "JAK_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of premises: ownership documents or registered rent/lease agreement for the proposed store location. The premises must be at least 120 sq. ft. with proper storage and display facilities for medicines.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "JAK_REQ_BANK_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "JAK_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Bank account details (cancelled cheque or passbook copy) for receiving the one-time financial assistance from BPPI and for transaction settlements related to medicine procurement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "JAK_STEP1_ONLINE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants",
+      "claim": "Submit the online application form on the Jan Aushadhi portal (janaushadhi.gov.in) with all required documents. Select the preferred district and location for the proposed Jan Aushadhi Kendra. The portal verifies if the selected area is eligible based on existing store density.",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "JAK_STEP2_SCREENING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All submitted applications",
+      "claim": "BPPI screens the application for completeness and eligibility. A district-level committee or BPPI regional office may verify the proposed location. Applications are evaluated based on the applicant's credentials, location suitability, and population served.",
+      "sourceRefs": [
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "JAK_STEP3_APPROVAL_AND_AGREEMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Approved applicants",
+      "claim": "Upon approval, the applicant signs an agreement with BPPI. The agreement specifies the terms and conditions including maintaining minimum stock of Jan Aushadhi medicines, displaying the Jan Aushadhi logo, and selling only at the MRP printed on the products.",
+      "sourceRefs": [
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "JAK_STEP4_SETUP_AND_LAUNCH",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved Kendra operators",
+      "claim": "Set up the store with the Jan Aushadhi branding, furniture, and IT infrastructure (computer with internet for order placement). Place initial medicine orders through the BPPI ordering system. BPPI supplies medicines from its central warehouses or through distributors. Medicines are sold at the MRP fixed by BPPI.",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28",
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "JAK_STEP5_FINANCIAL_ASSISTANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved Kendra operators",
+      "claim": "BPPI provides one-time financial assistance of up to Rs. 2.50 lakh, disbursed in installments linked to monthly purchases. Additionally, a trade margin of up to 20% on medicines and 15% on surgical items is provided to the Kendra operator on all sales.",
+      "sourceRefs": [
+        "SRC-BPPI-GUIDELINES-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "JAK_OPERATIONAL_KENDRA",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An approved and operational Jan Aushadhi Kendra authorized to sell BPPI-listed generic medicines (over 1,900 medicines and 290 surgical items) at prices 50% to 90% less than branded equivalents. The operator receives one-time financial assistance of up to Rs. 2.50 lakh, ongoing trade margins, and access to BPPI's medicine supply chain.",
+    "sourceRefs": [
+      "SRC-JANAUSHADHI-PORTAL-2026-10-28",
+      "SRC-BPPI-GUIDELINES-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "JAK_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "No application fee for applying to open a Jan Aushadhi Kendra",
+      "status": "VERIFIED",
+      "claim": "There is no application fee charged by BPPI for applying to open a Jan Aushadhi Kendra. However, the applicant must invest in initial medicine stock (approximately Rs. 1.50 lakh to Rs. 2.00 lakh) and store setup costs.",
+      "sourceRefs": [
+        "SRC-JANAUSHADHI-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "JAK_DRUG_LICENSE_FEE",
+      "category": "STATE_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 5000,
+      "currency": "INR",
+      "applicability": "Drug license fee payable to State Drug Controller (varies by state)",
+      "status": "NEEDS_REVIEW",
+      "claim": "The drug license fee for retail pharmacy varies by state and is payable to the respective State Drug Controller. This is a separate regulatory requirement independent of the PMBJP application."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "JAK_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 90,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "From application submission to approval and agreement signing",
+    "status": "NEEDS_REVIEW",
+    "claim": "The processing time from application submission to approval typically ranges from 30 to 90 days, depending on the completeness of the application, verification process, and BPPI's review cycle. Actual store setup and launch may take additional time for obtaining drug license and preparing the premises."
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-JANAUSHADHI-PORTAL-2026-10-28",
+      "url": "https://janaushadhi.gov.in/",
+      "title": "Pradhan Mantri Bhartiya Janaushadhi Pariyojana — Official Portal",
+      "publisher": "Bureau of Pharma PSUs of India (BPPI), Department of Pharmaceuticals, Ministry of Chemicals and Fertilizers, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Jan Aushadhi portal provides the online application process for opening a Jan Aushadhi Kendra, the product list with prices, store locator, eligibility criteria, and scheme guidelines. It lists over 1,900 medicines and 290 surgical items available through the scheme.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for opening Jan Aushadhi Kendra.",
+        "Over 1,900 medicines and 290 surgical items in the product list.",
+        "Medicines available at 50-90% less than branded equivalents.",
+        "Registered pharmacist required for store operation.",
+        "No application fee for PMBJP application."
+      ],
+      "uncertainty": "Product list and medicine availability may be updated periodically by BPPI. Store density policies may affect approval in certain locations."
+    },
+    {
+      "sourceCode": "SRC-BPPI-GUIDELINES-2026-10-28",
+      "url": "https://janaushadhi.gov.in/Guidelines.aspx",
+      "title": "PMBJP Scheme Guidelines — BPPI",
+      "publisher": "Bureau of Pharma PSUs of India (BPPI), Department of Pharmaceuticals, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "BPPI guidelines specify: one-time financial assistance of Rs. 2.50 lakh, trade margin of 20% on medicines and 15% on surgical items, minimum 120 sq. ft. premises, eligibility for pharmacists/doctors/NGOs/trusts/hospitals, drug license requirement, and the agreement terms between BPPI and Kendra operators.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "One-time financial assistance of Rs. 2.50 lakh from BPPI.",
+        "Trade margin: 20% on medicines, 15% on surgical items.",
+        "Minimum store area: 120 sq. ft.",
+        "Eligible: pharmacists, doctors, NGOs, trusts, hospitals, cooperatives.",
+        "Drug license and registered pharmacist mandatory.",
+        "Initial investment of Rs. 1.50-2.00 lakh required."
+      ],
+      "uncertainty": "Financial assistance amount and trade margin percentages may be revised by BPPI. SC/ST/women/divyang incentives may have additional conditions."
+    }
+  ],
+  "limitations": [
+    "The Jan Aushadhi Kendra must sell medicines only at the MRP printed by BPPI and cannot charge higher prices.",
+    "Medicine availability depends on BPPI's manufacturing and distribution capacity; some items may be out of stock at certain warehouses.",
+    "The one-time financial assistance of Rs. 2.50 lakh is disbursed in installments linked to purchase milestones, not as a lump sum at the start.",
+    "A valid drug license from the State Drug Controller is mandatory before commencing operations, which involves a separate application process and inspection.",
+    "The Kendra operator must maintain minimum stock levels and monthly purchase commitments as per the BPPI agreement.",
+    "Existing pharmacies converting to Jan Aushadhi Kendras must maintain separate accounting for Jan Aushadhi medicines.",
+    "BPPI may revise the product list, prices, or trade margins, which directly affects the Kendra's business viability."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core PMBJP scheme details and eligibility criteria verified from BPPI portal and guidelines. Financial assistance amounts, trade margins, and product list need periodic verification as BPPI may revise these.",
+    "nextReviewTrigger": [
+      "Changes to the one-time financial assistance amount or disbursement structure.",
+      "Revision of trade margin percentages for medicines or surgical items.",
+      "Updates to eligibility criteria or minimum premises requirements.",
+      "Significant expansion or revision of the BPPI product list.",
+      "Changes to the online application process or approval workflow."
+    ]
+  }
+}

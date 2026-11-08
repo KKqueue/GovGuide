@@ -1,0 +1,325 @@
+{
+  "serviceCode": "MINING_LICENSE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Mining License / Mining Lease"
+  },
+  "authority": "State Mining Department (minor minerals); Ministry of Mines / Indian Bureau of Mines (major minerals)",
+  "jurisdiction": "STATE",
+  "category": "MINING_LICENSE",
+  "description": {
+    "en": "A Mining License or Mining Lease grants the holder the right to extract minerals from a specified area of land. India's mining sector is governed by the Mines and Minerals (Development and Regulation) Act, 1957 (MMDR Act). Minor minerals (sand, gravel, building stone, brick earth, etc.) are regulated by state governments, while major minerals (coal, iron ore, bauxite, limestone, etc.) are regulated by the central government through the Indian Bureau of Mines. Mining leases for major minerals are granted through competitive bidding (auction) since the 2015 MMDR Amendment."
+  },
+  "officialLinks": {
+    "application": "https://mines.gov.in/",
+    "informationPortal": "https://ibm.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "MINE_INDIAN_ENTITY",
+        "field": "applicant.isIndianEntityOrCitizen",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All mining license/lease applicants",
+        "claim": "The applicant must be an Indian citizen, a company registered in India under the Companies Act, or a cooperative society registered under the applicable state law. Foreign companies can participate through Indian subsidiaries.",
+        "sourceRefs": [
+          "SRC-MINE-MMDR-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "MINE_FINANCIAL_CAPABILITY",
+        "field": "company.meetsFinancialCriteria",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Major mineral mining lease applicants",
+        "claim": "For major minerals granted through auction, the bidder must meet the financial and technical eligibility criteria specified in the auction notice, including minimum net worth requirements.",
+        "sourceRefs": [
+          "SRC-MINE-MMDR-2026-10-28",
+          "SRC-MINE-IBM-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "State-specific eligibility criteria for minor minerals may include land ownership or lease, local residency requirements, or membership in specified cooperative societies.",
+      "Some mineral blocks may be reserved for public sector undertakings.",
+      "Reconaissance permit and prospecting license holders may have preferential rights for mining leases in certain cases.",
+      "Scheduled Tribe members may have preferential rights in Scheduled Areas."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "MINE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "MINING_LICENSE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MINE_MINOR_MINERALS",
+      "field": "workflow.mineralCategory",
+      "operator": "EQUALS",
+      "value": "MINOR",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "MINE_MAJOR_MINERALS",
+      "field": "workflow.mineralCategory",
+      "operator": "EQUALS",
+      "value": "MAJOR",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "MINE_REQ_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Application form prescribed by the state mining department (for minor minerals) or participation in the online auction process through the MSTC portal (for major minerals). The application must specify the mineral, area, survey numbers, and proposed extraction plan.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MINE_REQ_MINING_PLAN",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A mining plan prepared by a qualified person (Recognised Qualified Person — RQP registered with IBM) and approved by the Indian Bureau of Mines. The mining plan must include geological details, extraction methodology, environmental management plan, and mine closure plan.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-IBM-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MINE_REQ_ENVIRONMENT_CLEARANCE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Environmental Clearance (EC) from the Ministry of Environment, Forest and Climate Change (MoEFCC) for major projects, or from the State Environment Impact Assessment Authority (SEIAA) for smaller projects. An Environmental Impact Assessment (EIA) study is required as per the EIA Notification, 2006.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28",
+        "SRC-MINE-IBM-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MINE_REQ_FOREST_CLEARANCE",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Forest Clearance under the Forest (Conservation) Act, 1980 if the mining area involves forest land. Application through the PARIVESH portal of MoEFCC.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MINE_REQ_LAND_RIGHTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of land ownership, lease, or consent from the landowner for the proposed mining area. For government land, permission from the revenue authority. Land documents including survey map, property documents, and mutation records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "MINE_REQ_POLLUTION_CONSENT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "MINE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Consent to Establish (CTE) and Consent to Operate (CTO) from the respective State Pollution Control Board under the Water (Prevention and Control of Pollution) Act, 1974 and the Air (Prevention and Control of Pollution) Act, 1981.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "MINE_STEP1_APPLY_OR_BID",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All mining license/lease applicants",
+      "claim": "For minor minerals: apply to the state mining department/district mining officer with required documents. For major minerals: participate in the online auction conducted by the state government through the MSTC portal. The auction notice specifies eligibility, mineral block details, and bidding process.",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MINE_STEP2_CLEARANCES",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All mining license/lease applicants",
+      "claim": "Obtain required clearances: Environmental Clearance (EC/CRZ), Forest Clearance (if forest land), Pollution Control Board consent, mining plan approval from IBM. These can be pursued in parallel but all must be obtained before operations begin.",
+      "sourceRefs": [
+        "SRC-MINE-IBM-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MINE_STEP3_LEASE_EXECUTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Successful applicants/bidders",
+      "claim": "After winning the auction (major minerals) or receiving approval (minor minerals), the mining lease deed is executed between the leaseholder and the state government. The lease specifies the area, duration, royalty rates, and conditions.",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "MINE_STEP4_OPERATIONS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All lease holders",
+      "claim": "Mining operations may begin after all clearances are obtained, the lease deed is executed, and consent to operate is received from the Pollution Control Board. Regular compliance reporting to IBM, state mining department, and pollution control authorities is mandatory.",
+      "sourceRefs": [
+        "SRC-MINE-IBM-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "MINING_LICENSE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Mining Lease deed / Mining License / Quarry Permit issued by the state government granting the right to extract specified minerals from the designated area for a specified period. The lease period for major minerals is 50 years (as per 2015 MMDR Amendment). Minor mineral lease periods vary by state, typically 5-20 years.",
+    "sourceRefs": [
+      "SRC-MINE-MMDR-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "MINE_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 5000,
+      "currency": "INR",
+      "applicability": "Application fee for mining license/lease",
+      "status": "REVIEW",
+      "claim": "Application fee for mining license ranges from Rs. 500 to Rs. 5,000 depending on the state and mineral type. Auction participation may require an Earnest Money Deposit (EMD) which is significantly higher.",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "MINE_ROYALTY",
+      "category": "RECURRING_FEE",
+      "minimumAmount": 0,
+      "maximumAmount": 0,
+      "currency": "INR",
+      "applicability": "Royalty on minerals extracted (rate varies by mineral type)",
+      "status": "REVIEW",
+      "claim": "Royalty is payable on minerals extracted as per the rates notified in the Second Schedule of the MMDR Act. Rates vary by mineral — for example, iron ore royalty is 15% of sale price, coal is Rs. 400-500 per tonne (depending on grade), minor minerals have state-specific royalty rates.",
+      "sourceRefs": [
+        "SRC-MINE-MMDR-2026-10-28",
+        "SRC-MINE-IBM-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "MINE_PROCESSING_TIMELINE",
+    "minimumDuration": 60,
+    "maximumDuration": 365,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Mining license from application/auction to lease execution",
+    "status": "REVIEW",
+    "claim": "For minor minerals with existing clearances, the process may take 60-120 days. For major minerals through auction, the process from auction notification to lease execution can take 6-12 months. Obtaining environmental and forest clearances can add additional months to the timeline.",
+    "sourceRefs": [
+      "SRC-MINE-MMDR-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-MINE-MMDR-2026-10-28",
+      "url": "https://mines.gov.in/",
+      "title": "Ministry of Mines — Government of India",
+      "publisher": "Ministry of Mines, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Ministry of Mines website provides the MMDR Act, rules, notifications, and policy framework for mining in India. The 2015 and 2021 amendments introduced auction-based allocation for major minerals and other reforms.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mining leases for major minerals are granted through competitive bidding (auction).",
+        "Mining lease period for major minerals is 50 years.",
+        "Minor minerals are regulated by state governments.",
+        "Environmental and forest clearances are mandatory."
+      ],
+      "uncertainty": "Mining policies are evolving with frequent amendments. State-specific minor mineral rules vary significantly."
+    },
+    {
+      "sourceCode": "SRC-MINE-IBM-2026-10-28",
+      "url": "https://ibm.gov.in/",
+      "title": "Indian Bureau of Mines — Official Portal",
+      "publisher": "Indian Bureau of Mines, Ministry of Mines, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "IBM is responsible for conservation of minerals, approval of mining plans, inspection of mines, and scientific and technical advice on mining. The portal provides mining plan formats, RQP registration, and compliance requirements.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Mining plans must be approved by IBM.",
+        "Recognised Qualified Persons (RQPs) prepare mining plans.",
+        "Regular compliance reporting to IBM is mandatory.",
+        "Consent from Pollution Control Board is required."
+      ],
+      "uncertainty": "IBM processes and timelines may vary based on workload and type of mineral."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview of the mining license framework. State-specific rules for minor minerals differ significantly.",
+    "Auction-based allocation for major minerals involves complex bidding processes not covered in detail.",
+    "Environmental and forest clearance processes are separate regulatory streams with their own timelines and requirements.",
+    "The record does not cover specific mineral categories, royalty rates, or state-wise fee schedules in detail.",
+    "Offshore mineral rights and atomic minerals have separate regulatory frameworks not covered here.",
+    "District Mineral Foundation (DMF) and National Mineral Exploration Trust (NMET) contributions are not detailed."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central framework is well-established under MMDR Act. State-specific minor mineral rules and latest amendments need detailed verification.",
+    "nextReviewTrigger": [
+      "Amendments to the MMDR Act or rules.",
+      "Changes in royalty rates (Second Schedule revision).",
+      "New mineral auction notifications.",
+      "Changes in environmental clearance requirements for mining."
+    ]
+  }
+}

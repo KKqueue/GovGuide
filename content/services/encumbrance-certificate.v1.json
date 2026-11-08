@@ -1,0 +1,250 @@
+{
+  "serviceCode": "ENCUMBRANCE_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Encumbrance Certificate (EC)"
+  },
+  "authority": "Sub-Registrar Office / Department of Registration and Stamps (State Government)",
+  "jurisdiction": "STATE",
+  "category": "ENCUMBRANCE",
+  "description": {
+    "en": "An Encumbrance Certificate (EC) is an official document that certifies whether a particular immovable property is free from any legal or monetary liability such as mortgages, liens, or pending litigation. It is issued by the Sub-Registrar's Office for a specified period and is essential for property transactions, home loans, and title verification."
+  },
+  "officialLinks": {
+    "application": "https://igrs.ap.gov.in/",
+    "informationPortal": "https://tnreginet.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "EC_PROPERTY_REGISTERED",
+        "field": "property.isRegisteredProperty",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Any person seeking an Encumbrance Certificate",
+        "claim": "An Encumbrance Certificate can only be obtained for properties that have been registered with the Sub-Registrar's Office. Unregistered properties or those with no recorded transactions may result in a Nil EC.",
+        "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+      },
+      {
+        "conditionCode": "EC_APPLICANT_HAS_PROPERTY_DETAILS",
+        "field": "applicant.hasPropertyDetails",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All EC applicants",
+        "claim": "The applicant must provide accurate property details including survey number, door number, village/locality, and sub-registrar office jurisdiction to obtain an Encumbrance Certificate.",
+        "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Any person can apply for an Encumbrance Certificate for any property; there is no ownership requirement for applying.",
+      "The period for which EC is issued may be limited to the available records (typically 13-30 years depending on the state).",
+      "Some states allow only the property owner or authorized representative to apply for EC."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "EC_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "ENCUMBRANCE_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EC_ONLINE_APPLICATION",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "ONLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "EC_OFFLINE_APPLICATION",
+      "field": "workflow.applicationMode",
+      "operator": "EQUALS",
+      "value": "OFFLINE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "EC_REQ_PROPERTY_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EC_ROUTE_SELECTED"]
+      },
+      "claim": "Property details are mandatory including survey number or door number, village or locality name, sub-registrar office jurisdiction, and the exact address of the property.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+    },
+    {
+      "requirementCode": "EC_REQ_PERIOD_SPECIFICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EC_ROUTE_SELECTED"]
+      },
+      "claim": "The applicant must specify the period (start date and end date) for which the Encumbrance Certificate is required. The period determines the transactions searched in the registration records.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    },
+    {
+      "requirementCode": "EC_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EC_ROUTE_SELECTED"]
+      },
+      "claim": "Identity proof of the applicant is required, such as Aadhaar card, Voter ID, or PAN card.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    },
+    {
+      "requirementCode": "EC_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["EC_ROUTE_SELECTED", "EC_OFFLINE_APPLICATION"]
+      },
+      "claim": "For offline applications, Form 22 (prescribed application form) must be filled and submitted at the Sub-Registrar's Office.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "EC_STEP1_IDENTIFY_SRO",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EC applicants",
+      "claim": "Identify the Sub-Registrar Office (SRO) under whose jurisdiction the property falls. This is typically the SRO where the property was originally registered.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    },
+    {
+      "processCode": "EC_STEP2_ONLINE_PORTAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Online applicants",
+      "claim": "Visit the state's IGRS (Inspector General of Registration and Stamps) online portal. Register or log in, select 'Encumbrance Certificate' option, and enter the property details including survey number, village, and the period for which EC is needed.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+    },
+    {
+      "processCode": "EC_STEP3_FEE_PAYMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EC applicants",
+      "claim": "Pay the prescribed fee online (for online applications) or at the SRO counter (for offline applications). Fee varies by state and the period covered.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    },
+    {
+      "processCode": "EC_STEP4_PROCESSING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EC applicants",
+      "claim": "The Sub-Registrar's Office searches registration records for the specified property and period to identify any encumbrances (mortgages, sales, liens, attachments). In many states, the online system provides instant or same-day results.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+    },
+    {
+      "processCode": "EC_STEP5_CERTIFICATE_ISSUED",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All EC applicants",
+      "claim": "The Encumbrance Certificate is issued showing all registered transactions during the specified period. If no encumbrances exist, a Nil Encumbrance Certificate is issued. Online certificates can be downloaded directly from the portal.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "EC_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An Encumbrance Certificate (Form 15 or Form 16) is issued listing all registered transactions on the property during the specified period. Form 15 (EC) lists transactions; Form 16 (Nil EC) certifies no encumbrances. The certificate is accepted by banks, courts, and government offices for property verification.",
+    "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "EC_GOVERNMENT_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 50,
+      "maximumAmount": 200,
+      "currency": "INR",
+      "applicability": "Encumbrance Certificate application fee varies by state and the period covered",
+      "status": "VERIFIED",
+      "claim": "The government fee for an Encumbrance Certificate typically ranges from Rs. 50 to Rs. 200 depending on the state and the number of years for which EC is sought. Some states charge per year of the EC period.",
+      "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "EC_PROCESSING_TIMELINE",
+    "minimumDuration": 1,
+    "maximumDuration": 7,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Encumbrance Certificate processing time from the Sub-Registrar's Office",
+    "status": "VERIFIED",
+    "claim": "Online EC applications are processed instantly or within 1-2 days in states with digitized records. Offline applications may take up to 7 working days depending on the Sub-Registrar's Office workload and the period requested.",
+    "sourceRefs": ["SRC-IGRS-AP-2026-10-28", "SRC-TNREGINET-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-IGRS-AP-2026-10-28",
+      "url": "https://igrs.ap.gov.in/",
+      "title": "IGRS Andhra Pradesh — Encumbrance Certificate Services",
+      "publisher": "Inspector General of Registration and Stamps, Government of Andhra Pradesh",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The IGRS AP portal provides online Encumbrance Certificate services, allowing citizens to search property records and obtain EC digitally by entering property details and the period required.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "EC can be obtained online through the IGRS portal.",
+        "Property details including survey number, village, and period are required.",
+        "Fee is prescribed by state government.",
+        "Form 15 (EC) and Form 16 (Nil EC) are the output documents.",
+        "Identity proof is required for application."
+      ],
+      "uncertainty": "The IGRS AP portal represents Andhra Pradesh state procedures; other states may have different processes and fee structures."
+    },
+    {
+      "sourceCode": "SRC-TNREGINET-2026-10-28",
+      "url": "https://tnreginet.gov.in/",
+      "title": "TNREGINET — Tamil Nadu Registration Department",
+      "publisher": "Department of Registration, Government of Tamil Nadu",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "TNREGINET provides online EC search and issuance facility for properties within Tamil Nadu. EC can be obtained instantly for digitized records.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online EC is available through TNREGINET.",
+        "Instant EC issuance for digitized records.",
+        "Property details and period are required inputs."
+      ],
+      "uncertainty": "Coverage of digitized records varies by district and period; older records may not be available online."
+    }
+  ],
+  "limitations": [
+    "EC procedures and fees vary significantly across Indian states; this record uses Andhra Pradesh and Tamil Nadu as reference states.",
+    "Online EC availability depends on the state having digitized registration records for the requested period.",
+    "An EC only reflects transactions registered with the Sub-Registrar's Office; unregistered agreements, oral agreements, or encumbrances not registered are not captured.",
+    "The accuracy of EC depends on the completeness of indexing in the Sub-Registrar's records.",
+    "Some states may require additional documents such as property tax receipts or previous sale deeds."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core EC process is reviewed using AP and TN reference states, but state-specific variations across all 28 states and 8 UTs are not fully modeled.",
+    "nextReviewTrigger": [
+      "Changes to state registration department online portal processes.",
+      "Changes to EC fee structure in any state.",
+      "New central guidelines for standardizing EC processes across states.",
+      "Digitization of additional state registration records."
+    ]
+  }
+}

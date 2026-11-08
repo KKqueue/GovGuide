@@ -1,0 +1,313 @@
+{
+  "serviceCode": "INCOME_CERTIFICATE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Income Certificate"
+  },
+  "authority": "Tehsildar / Revenue Department (State Government)",
+  "jurisdiction": "STATE",
+  "category": "INCOME_CERTIFICATE",
+  "description": {
+    "en": "Issuance of an income certificate by the state revenue authority certifying the annual income of the applicant or the applicant's family from all sources. The certificate is required for availing scholarships, fee waivers, government welfare schemes, subsidised housing, and various benefits targeted at economically weaker sections (EWS) and lower income groups (LIG)."
+  },
+  "officialLinks": {
+    "application": "https://serviceonline.gov.in/",
+    "informationPortal": "https://www.india.gov.in/"
+  },
+  "eligibility": {
+    "status": "VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "INCOME_CERT_RESIDENT",
+        "field": "applicant.residenceState",
+        "operator": "EQUALS",
+        "value": "APPLICABLE_STATE",
+        "classification": "MANDATORY",
+        "appliesTo": "All income certificate applicants",
+        "claim": "The applicant must be a resident of the state from which the income certificate is being sought. The certificate is issued based on the income earned within the jurisdiction of the state.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-INCOME",
+          "SRC-STATE-REVENUE-INCOME"
+        ]
+      },
+      {
+        "conditionCode": "INCOME_CERT_PURPOSE",
+        "field": "applicant.purpose",
+        "operator": "EXISTS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All applicants",
+        "claim": "The applicant must have a valid purpose for obtaining the income certificate such as scholarship application, fee waiver, government scheme enrollment, or other official purposes requiring proof of income.",
+        "sourceRefs": [
+          "SRC-INDIA-GOV-INCOME"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Self-employed individuals and those without formal salary slips may need to provide additional documentation or a self-declaration.",
+      "Agricultural income may be treated differently in some states for the purpose of income certification."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "INCOME_CERT_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "INCOME_CERTIFICATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "INCOME_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A duly filled application form in the prescribed format of the respective state government for issuance of income certificate. The form can be obtained from the Tehsildar office or downloaded from the state e-District portal.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_IDENTITY_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Identity proof of the applicant such as Aadhaar card, voter ID, passport, driving license, PAN card, or any government-issued photo identity document.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of address such as Aadhaar card, voter ID, ration card, utility bill, or any government-issued document establishing the applicant's residence in the state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_SALARY_SLIP",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Salary slip or pay certificate from the employer for salaried individuals, covering the last 3-6 months. For government employees, the salary certificate must be issued by the Drawing and Disbursing Officer (DDO).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME",
+        "SRC-STATE-REVENUE-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_SELF_DECLARATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "For self-employed individuals, farmers, daily wage earners, or those without formal salary documentation, a self-declaration or affidavit on stamp paper declaring the annual income from all sources is required. Some states also accept a declaration from the village sarpanch or ward councillor.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME",
+        "SRC-STATE-REVENUE-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_RATION_CARD",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Ration card of the family may be required as supporting document to verify family details and economic status. BPL (Below Poverty Line) ration card holders may get expedited processing.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    },
+    {
+      "requirementCode": "INCOME_REQ_IT_RETURN",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "INCOME_CERT_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Income tax return acknowledgment or Form 16 may be requested as additional evidence of income, particularly for applicants with higher incomes or those applying for EWS certificates.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-STATE-REVENUE-INCOME"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "INCOME_CERT_OFFLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying at Tehsil/Revenue office",
+      "claim": "Offline application process: (1) Obtain the application form from the Tehsildar or Revenue office, (2) Fill the form and attach all required documents (identity proof, address proof, salary slip or self-declaration, ration card if available), (3) Submit the application at the Tehsil/Revenue office, (4) The revenue officer (Patwari/Lekhpal) may conduct a field inquiry to verify the income claim, (5) Upon verification, the Tehsildar issues the income certificate.",
+      "doesNotEstablish": [
+        "Field verification procedures may vary by state and district.",
+        "Some states may waive field verification for salaried individuals with formal documentation."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME",
+        "SRC-STATE-REVENUE-INCOME"
+      ]
+    },
+    {
+      "processCode": "INCOME_CERT_ONLINE_PROCESS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants applying through state e-District or online portal",
+      "claim": "Online application process: (1) Visit the state e-District portal or Common Service Centre (CSC), (2) Register or log in using credentials, (3) Select 'Income Certificate' from the services menu, (4) Fill the online application form specifying the income details and purpose, (5) Upload scanned copies of required documents, (6) Pay the applicable fee online (if any), (7) The application is forwarded to the concerned Tehsildar for verification, (8) After verification, the certificate is issued digitally and can be downloaded from the portal.",
+      "doesNotEstablish": [
+        "Not all states have online portals for income certificate issuance.",
+        "Digital verification and processing time may vary significantly."
+      ],
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "INCOME_CERTIFICATE_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An income certificate issued by the Tehsildar or Revenue Department certifying the annual income of the applicant or the applicant's family from all sources. The certificate is accepted as proof of income for scholarship applications, fee waivers, government welfare scheme enrollment, subsidised housing allotment, and other purposes requiring income verification.",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-INCOME"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "INCOME_CERT_FREE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 0,
+      "currency": "INR",
+      "applicability": "Many states issue income certificates free of charge",
+      "status": "VERIFIED",
+      "claim": "Several states issue income certificates free of cost. Where no fee is charged, the applicant bears no cost other than any stamp paper required for the affidavit/self-declaration.",
+      "sourceRefs": [
+        "SRC-INDIA-GOV-INCOME"
+      ]
+    },
+    {
+      "feeCode": "INCOME_CERT_NOMINAL_FEE",
+      "category": "GOVERNMENT_FEE",
+      "amount": null,
+      "currency": "INR",
+      "applicability": "States that charge a nominal fee",
+      "status": "UNVERIFIED",
+      "claim": "Some states charge a nominal fee of up to Rs. 25 for issuance of the income certificate. Online applications may attract a small additional processing or service charge."
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "INCOME_CERT_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 15,
+    "unit": "DAYS",
+    "basis": "PROCESS_REQUIREMENT",
+    "applicability": "Standard application with complete documents",
+    "status": "VERIFIED",
+    "claim": "The processing time for an income certificate typically ranges from 7 to 15 working days depending on the state and verification requirements. States with efficient e-District systems may process applications within 7 days. Applications requiring field inquiry may take up to 15 days.",
+    "estimatedCompletionDatePolicy": "Most states aim to process income certificate applications within 7-10 working days from the date of complete submission.",
+    "fallbackThresholdMentionedBySource": "If not received within 15 days, applicant should follow up at the Tehsil office or check application status on the state portal",
+    "sourceRefs": [
+      "SRC-INDIA-GOV-INCOME",
+      "SRC-STATE-REVENUE-INCOME"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-INDIA-GOV-INCOME",
+      "url": "https://www.india.gov.in/",
+      "title": "National Portal of India - Income Certificate Information",
+      "publisher": "National Informatics Centre, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "India.gov.in provides consolidated information on income certificate application process, required documents, and links to state e-District portals. The income certificate is one of the most commonly issued revenue certificates across all states.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "General document requirements for income certificate.",
+        "Application process overview.",
+        "Purpose and uses of income certificate.",
+        "Links to state-specific e-District portals."
+      ],
+      "uncertainty": "Information is aggregated and may not reflect the latest state-specific changes. Income thresholds for various schemes are updated periodically."
+    },
+    {
+      "sourceCode": "SRC-STATE-REVENUE-INCOME",
+      "url": "https://serviceonline.gov.in/",
+      "title": "State Revenue Department Portals - Service Online",
+      "publisher": "National Informatics Centre / State Revenue Departments",
+      "jurisdiction": "STATE",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "State revenue department portals provide state-specific forms, document requirements, fee structures, and processing timelines for income certificate issuance through the Tehsildar or Revenue Department.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "State-specific application forms.",
+        "Fee structure by state.",
+        "Processing timeline by state.",
+        "Document requirements for salaried and self-employed applicants.",
+        "Self-declaration format for non-salaried applicants."
+      ],
+      "uncertainty": "Portal availability and features vary across states. Not all states have integrated their services on serviceonline.gov.in."
+    }
+  ],
+  "limitations": [
+    "Income certificate requirements, processes, and fees are state-specific; this record provides a general overview.",
+    "The validity of income certificates varies by state, typically 6 months to 1 year from the date of issue.",
+    "Income thresholds for various government schemes (EWS, BPL, etc.) are updated periodically and are not listed here.",
+    "Agricultural income treatment varies across states for the purpose of income certification.",
+    "Fee amounts are indicative and vary by state.",
+    "The certificate reflects the income at the time of application and may not be accepted if the income has changed significantly.",
+    "Some schemes require the income certificate to be issued by a specific authority level (e.g., Tehsildar vs. SDM) which varies by state."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "EVIDENCE_REVIEWED",
+    "reviewReason": "Core eligibility, document requirements, and process verified against india.gov.in and state revenue portal information. State-specific variations in fees and processing time noted as limitations.",
+    "nextReviewTrigger": [
+      "Changes to income thresholds for government schemes (EWS, BPL).",
+      "Updates to the e-District portal or online application process.",
+      "Policy changes regarding income certification for self-employed or agricultural income.",
+      "Introduction of Aadhaar-based income verification systems."
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "serviceCode": "BOILER_REGISTRATION",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Boiler Registration / Certificate"
+  },
+  "authority": "Chief Inspector of Boilers / Directorate of Steam Boilers (State)",
+  "jurisdiction": "STATE",
+  "category": "BOILER_REGISTRATION",
+  "description": {
+    "en": "Boiler Registration and Certification is mandatory for any person or establishment operating a steam boiler or steam pipe in India. Under the Indian Boilers Act 1923, every boiler must be registered with the state's Chief Inspector of Boilers and must obtain a certificate of fitness before operation. The registration ensures safety standards for boiler operation, preventing accidents from high-pressure steam equipment."
+  },
+  "officialLinks": {
+    "informationPortal": "https://dipp.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "BOILER_MANUFACTURED_TO_STANDARD",
+        "field": "establishment.boilerMeetsManufacturingStandard",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All boiler registration applicants",
+        "claim": "The boiler must be manufactured in accordance with the Indian Boiler Regulations (IBR) 1950 or equivalent recognised standards. The manufacturer must provide a manufacturer's data report and material certificates.",
+        "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+      },
+      {
+        "conditionCode": "BOILER_PREMISES_SUITABLE",
+        "field": "premises.meetsBoilerInstallationNorms",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All boiler registration applicants",
+        "claim": "The installation site must meet prescribed safety norms including adequate clearances from buildings and boundaries, proper foundation, ventilation, water supply, and safety equipment.",
+        "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Specific IBR compliance requirements may vary by boiler type (water tube, fire tube, etc.) and capacity.",
+      "Small boilers below certain pressure/capacity thresholds may be exempt from full IBR registration in some states.",
+      "Imported boilers must have documentation equivalent to IBR standards."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "BOILER_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "BOILER_REGISTRATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "BOILER_NEW_REGISTRATION",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "NEW",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "BOILER_RENEWAL",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "BOILER_REQ_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Prescribed application form for boiler registration submitted to the Chief Inspector of Boilers of the concerned state.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "requirementCode": "BOILER_REQ_MANUFACTURER_DATA",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Manufacturer's data report containing design details, material specifications, welding procedures, and test results as per Indian Boiler Regulations.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "requirementCode": "BOILER_REQ_MATERIAL_CERTS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Material test certificates for boiler plates, tubes, and fittings from approved testing laboratories, confirming compliance with IBR specifications.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "requirementCode": "BOILER_REQ_HYDRO_TEST",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Hydrostatic test results conducted in the presence of a Boiler Inspector, at a pressure 1.5 times the maximum working pressure, confirming no leaks or deformations.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "requirementCode": "BOILER_REQ_DRAWINGS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Engineering drawings and specifications of the boiler including general arrangement, sectional views, mountings and fittings, and installation layout.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "requirementCode": "BOILER_REQ_COMPETENT_PERSON",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["BOILER_ROUTE_SELECTED"]
+      },
+      "claim": "Certificate of competency of the boiler attendant/operator who will operate the boiler, as prescribed under the Indian Boilers Act.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "BOILER_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All boiler registration applicants",
+      "claim": "Submit the application form with all required documents and prescribed fee to the office of the Chief Inspector of Boilers in the state where the boiler is installed.",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "processCode": "BOILER_STEP2_INSPECTION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All applicants after submission",
+      "claim": "A Boiler Inspector deputed by the Chief Inspector visits the installation site to inspect the boiler, verify compliance with IBR standards, witness the hydrostatic test (if not already done), and check safety equipment and fittings.",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    },
+    {
+      "processCode": "BOILER_STEP3_CERTIFICATE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All inspected boilers",
+      "claim": "If the boiler passes inspection, the Chief Inspector of Boilers issues a Registration Certificate (Form VI) and a Certificate of Fitness (Form X) for the boiler. The fitness certificate must be renewed annually through inspection.",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "BOILER_REGISTRATION_CERTIFICATE",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A Boiler Registration Certificate (Form VI) is issued containing the boiler identification number, owner details, location, type, capacity, maximum working pressure, and manufacturing details. A separate Certificate of Fitness (Form X) authorises the boiler's operation for one year.",
+    "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "BOILER_REGISTRATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 1000,
+      "maximumAmount": 10000,
+      "currency": "INR",
+      "applicability": "Boiler registration and inspection fee",
+      "status": "VERIFIED",
+      "claim": "Registration and inspection fees range from Rs. 1,000 to Rs. 10,000 depending on the state, boiler capacity (evaporation rate or heating surface area), and type. Annual fitness certificate renewal involves a separate inspection fee. Some states charge based on the boiler's heating surface area per square metre.",
+      "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "BOILER_PROCESSING_TIMELINE",
+    "minimumDuration": 30,
+    "maximumDuration": 60,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Boiler registration from application to certificate issuance",
+    "status": "VERIFIED",
+    "claim": "Processing typically takes 30-60 days from application to certificate issuance, including scheduling and conducting the inspection. Delays may occur due to inspector availability or if modifications are required after initial inspection.",
+    "sourceRefs": ["SRC-BOILERS-ACT-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-BOILERS-ACT-2026-10-28",
+      "url": "https://dipp.gov.in/",
+      "title": "Indian Boilers Act 1923 and Indian Boiler Regulations 1950",
+      "publisher": "Department for Promotion of Industry and Internal Trade, Ministry of Commerce and Industry / State Chief Inspectors of Boilers",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Indian Boilers Act 1923 mandates the registration and periodic inspection of all steam boilers. The Indian Boiler Regulations 1950 prescribe detailed technical standards for boiler design, manufacture, installation, and operation. Section 7 requires registration before use, Section 8 prescribes inspection, and Section 9 provides for the certificate of fitness.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Boiler registration is mandatory under Indian Boilers Act 1923.",
+        "Manufacturer's data report and hydrostatic test are required.",
+        "Certificate of fitness is issued annually after inspection.",
+        "Fees vary by state and boiler capacity.",
+        "Boiler operator must have certificate of competency."
+      ],
+      "uncertainty": "Some states have adopted amendments or additional rules beyond the central act. IBR standards are periodically updated."
+    }
+  ],
+  "limitations": [
+    "This record provides a general overview based on central legislation. State-specific inspection fee schedules and process timelines may differ.",
+    "The record does not detail the separate process for obtaining a Boiler Operator Certificate of Competency.",
+    "Different categories of boilers (miniature, economiser, steam pipe) may have different registration requirements.",
+    "The record does not cover the process for imported boilers or second-hand boiler registration.",
+    "Pollution Control Board consent may also be required for boiler operation, which is a separate process not covered here.",
+    "IBR standard amendments and their impact on existing registrations are not tracked."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Central act and IBR provisions are reviewed, but state-specific fee structures and inspection scheduling processes need verification.",
+    "nextReviewTrigger": [
+      "Amendments to the Indian Boilers Act 1923 or Indian Boiler Regulations 1950.",
+      "Changes to state-level inspection fee schedules.",
+      "Introduction of online boiler registration portals by states.",
+      "Updates to IBR technical standards."
+    ]
+  }
+}

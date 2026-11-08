@@ -1,0 +1,297 @@
+{
+  "serviceCode": "NAME_CHANGE_GAZETTE",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Name Change Gazette Notification"
+  },
+  "authority": "Department of Publication (Central Gazette) / State Gazette Office",
+  "jurisdiction": "STATE",
+  "category": "NAME_CHANGE_GAZETTE",
+  "description": {
+    "en": "A Name Change Gazette Notification is the legal process of changing one's name through publication in the Official Gazette (state or central). This is commonly required for changing name after marriage, divorce, personal preference, or religious conversion. The gazette notification serves as legal proof of the name change and is required to update government records like Aadhaar, passport, PAN, voter ID, and property documents."
+  },
+  "officialLinks": {
+    "application": "https://egazette.gov.in/",
+    "informationPortal": "https://egazette.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NAME_CHANGE_INDIAN_CITIZEN",
+        "field": "applicant.citizenship",
+        "operator": "EQUALS",
+        "value": "INDIAN",
+        "classification": "MANDATORY",
+        "appliesTo": "All name change gazette applicants",
+        "claim": "The applicant must be an Indian citizen to publish a name change in the Official Gazette.",
+        "sourceRefs": [
+          "SRC-EGAZETTE-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NAME_CHANGE_ADULT",
+        "field": "applicant.isAdult",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Individual applicants",
+        "claim": "The applicant must be 18 years or older. For minors, the application must be made by a parent or legal guardian.",
+        "sourceRefs": [
+          "SRC-EGAZETTE-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Persons with pending criminal cases may face scrutiny or delays in gazette notification.",
+      "Name changes for the purpose of fraud or to evade legal obligations are not permitted.",
+      "Some states require a minimum period of residency before accepting name change applications.",
+      "Name changes involving change of surname after divorce may require additional court orders."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NAME_CHANGE_ROUTE",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NAME_CHANGE_GAZETTE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NAME_CHANGE_CENTRAL_GAZETTE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "CENTRAL_GAZETTE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NAME_CHANGE_STATE_GAZETTE",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "STATE_GAZETTE",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NAME_CHANGE_REQ_AFFIDAVIT",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "A sworn affidavit on stamp paper (Rs. 10-100 depending on state) declaring the name change, executed before a notary public or magistrate. The affidavit must contain both old and new names, reason for change, and a declaration that the change is not for fraudulent purposes.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NAME_CHANGE_REQ_NEWSPAPER_AD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "Publication of the name change in at least two newspapers — one in English and one in the regional language of the state — before or simultaneously with the gazette application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NAME_CHANGE_REQ_ID_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "Identity proof with old name — Aadhaar card, PAN card, passport, voter ID, or driving license.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NAME_CHANGE_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "Proof of current address — utility bill, bank statement, Aadhaar card, or rental agreement.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NAME_CHANGE_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "Recent passport-size photographs of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NAME_CHANGE_REQ_GAZETTE_APPLICATION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NAME_CHANGE_ROUTE"
+        ]
+      },
+      "claim": "Application to the Department of Publication (for Central Gazette) or the state gazette office (for State Gazette) along with the prescribed fee, affidavit, and newspaper clippings.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NAME_CHANGE_STEP1_AFFIDAVIT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All name change applicants",
+      "claim": "Draft and execute a sworn affidavit on stamp paper before a notary public, declaring the old name, new name, reason for change, and that the change is being made voluntarily and not for fraudulent purposes.",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NAME_CHANGE_STEP2_NEWSPAPER",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All name change applicants",
+      "claim": "Publish the name change advertisement in two newspapers — one English daily and one local language daily. Keep the original newspaper copies and obtain a clipping of the published advertisement.",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NAME_CHANGE_STEP3_GAZETTE_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All name change applicants",
+      "claim": "Apply to the gazette office (Central or State) with the affidavit, newspaper clippings, identity proof, address proof, photographs, and the prescribed fee. Applications can be submitted online through egazette.gov.in for the Central Gazette.",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NAME_CHANGE_STEP4_PUBLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "The gazette office reviews the application and publishes the name change notification in the Official Gazette. The notification is assigned a gazette number and date.",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NAME_CHANGE_STEP5_UPDATE_RECORDS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "After gazette publication",
+      "claim": "After receiving the gazette notification, use it along with the affidavit and newspaper clippings to update all government records — Aadhaar, PAN, passport, voter ID, bank accounts, property documents, and educational certificates.",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NAME_CHANGE_GAZETTE_NOTIFICATION",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "An Official Gazette Notification bearing the gazette number and publication date, legally notifying the name change. This serves as the primary legal document for updating all government and private records. The gazette is publicly accessible and searchable through egazette.gov.in.",
+    "sourceRefs": [
+      "SRC-EGAZETTE-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NAME_CHANGE_GAZETTE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 500,
+      "maximumAmount": 2000,
+      "currency": "INR",
+      "applicability": "Gazette publication fee (varies by Central/State gazette and state)",
+      "status": "VERIFIED",
+      "claim": "Gazette publication fee ranges from Rs. 500 to Rs. 2,000 depending on whether it is the Central Gazette or a State Gazette. Newspaper advertisement costs are additional (approximately Rs. 500-2,000 per newspaper depending on the publication).",
+      "sourceRefs": [
+        "SRC-EGAZETTE-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NAME_CHANGE_PROCESSING",
+    "minimumDuration": 15,
+    "maximumDuration": 45,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Name change from gazette application to publication",
+    "status": "VERIFIED",
+    "claim": "The gazette notification typically takes 15 to 45 days from the date of application, depending on the gazette office workload and publication schedule. The Central Gazette is published weekly, while State Gazettes may have different schedules.",
+    "sourceRefs": [
+      "SRC-EGAZETTE-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-EGAZETTE-2026-10-28",
+      "url": "https://egazette.gov.in/",
+      "title": "e-Gazette of India — Official Portal",
+      "publisher": "Department of Publication, Ministry of Urban Development, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The e-Gazette portal provides access to the Official Gazette of India including name change notifications. Online submission of gazette notifications is available for individuals and organizations.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online application for gazette notification is available.",
+        "Affidavit and newspaper advertisement are prerequisites.",
+        "Gazette notification serves as legal proof of name change.",
+        "Published gazette notifications are publicly searchable."
+      ],
+      "uncertainty": "State gazette portals may have different procedures and timelines. The process for Central vs. State gazette varies."
+    }
+  ],
+  "limitations": [
+    "This record covers the general process for name change gazette notification. Specific procedures may vary by state.",
+    "The record does not cover name change for corporations, trusts, or other legal entities.",
+    "Newspaper advertisement costs vary widely by publication and city.",
+    "Some states have additional requirements or different processes not captured here.",
+    "The record does not cover the process of updating all downstream government records after gazette publication.",
+    "Name changes after marriage or divorce may have simplified procedures in some states that are not modeled here."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core gazette notification process verified from egazette.gov.in. State-specific gazette processes and fees need verification.",
+    "nextReviewTrigger": [
+      "Changes to the gazette notification process or fee structure.",
+      "Digitization of state gazette offices.",
+      "Changes to requirements for gazette-based name change.",
+      "New simplified procedures for specific categories of name change."
+    ]
+  }
+}

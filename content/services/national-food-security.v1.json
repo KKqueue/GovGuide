@@ -1,0 +1,313 @@
+{
+  "serviceCode": "NATIONAL_FOOD_SECURITY",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "National Food Security Act — Subsidized Food Grains under PDS"
+  },
+  "authority": "Department of Food and Public Distribution, Ministry of Consumer Affairs, Food and Public Distribution",
+  "jurisdiction": "CENTRAL",
+  "category": "NATIONAL_FOOD_SECURITY",
+  "description": {
+    "en": "The National Food Security Act (NFSA) 2013, operationalized through PM Garib Kalyan Anna Yojana (PMGKAY), entitles up to 81.35 crore beneficiaries to receive subsidized food grains through the Public Distribution System (PDS). Eligible households are categorized as Antyodaya Anna Yojana (AAY) families — the poorest of the poor — or Priority Households (PHH). PHH members receive 5 kg of food grains per person per month at highly subsidized prices (rice at Rs. 3/kg, wheat at Rs. 2/kg, coarse grains at Rs. 1/kg), while AAY families receive 35 kg per household per month. Distribution is managed through a network of Fair Price Shops (FPS) using ration cards linked to Aadhaar-based biometric authentication."
+  },
+  "officialLinks": {
+    "application": "https://nfsa.gov.in/",
+    "informationPortal": "https://dfpd.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "NFSA_BPL_STATUS",
+        "field": "applicant.isBelowPovertyLine",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Households identified as below poverty line or vulnerable by the State Government",
+        "claim": "Beneficiaries must belong to households identified by the respective State Government under NFSA coverage. Identification criteria include socio-economic caste census data and state-specific inclusion/exclusion parameters.",
+        "sourceRefs": [
+          "SRC-NFSA-PORTAL-2026-10-28"
+        ]
+      },
+      {
+        "conditionCode": "NFSA_VALID_RATION_CARD",
+        "field": "applicant.hasValidRationCard",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All NFSA beneficiaries",
+        "claim": "The applicant must possess a valid ration card (AAY or PHH category) issued by the State/UT Food and Civil Supplies Department to draw food grains from Fair Price Shops.",
+        "sourceRefs": [
+          "SRC-NFSA-PORTAL-2026-10-28",
+          "SRC-DFPD-2026-10-28"
+        ]
+      }
+    ],
+    "unverifiedEligibility": [
+      "State Governments have the authority to identify eligible households based on locally defined criteria, which may vary across states.",
+      "Households with all members who are income tax payees or hold certain government positions may be excluded.",
+      "Migrant workers may access entitlements through the One Nation One Ration Card (ONORC) portability scheme at any FPS in the country."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "NFSA_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "NATIONAL_FOOD_SECURITY",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "NFSA_HOUSEHOLD_CATEGORY",
+      "field": "beneficiary.rationCardCategory",
+      "operator": "IN_SET",
+      "value": ["AAY", "PHH"],
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "NFSA_AADHAAR_LINKED",
+      "field": "applicant.isAadhaarLinkedToRationCard",
+      "operator": "EQUALS",
+      "value": true,
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "NFSA_REQ_RATION_CARD",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NFSA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "A valid ration card issued by the State/UT Government under AAY (Antyodaya Anna Yojana) or PHH (Priority Household) category. The ration card must be active and not cancelled or suspended.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NFSA_REQ_AADHAAR",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NFSA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Aadhaar number of the beneficiary linked (seeded) to the ration card for biometric authentication at the Fair Price Shop through ePoS (electronic Point of Sale) device.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28",
+        "SRC-DFPD-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NFSA_REQ_HOUSEHOLD_ID",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NFSA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Proof of residence or household identification as required by the State Government for inclusion in the NFSA beneficiary list. This may include voter ID, electricity bill, or other state-prescribed documents.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NFSA_REQ_FAMILY_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "NFSA_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Complete family member details including names, ages, and Aadhaar numbers of all household members to be listed on the ration card for entitlement calculation.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "requirementCode": "NFSA_REQ_BIOMETRIC_AUTH",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "NFSA_ROUTE_SELECTED",
+          "NFSA_AADHAAR_LINKED"
+        ]
+      },
+      "claim": "Biometric authentication (fingerprint or iris scan) via Aadhaar at the Fair Price Shop ePoS device at the time of food grain collection. In case of biometric failure, OTP-based authentication via Aadhaar-linked mobile number is permitted.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28",
+        "SRC-DFPD-2026-10-28"
+      ]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "NFSA_STEP1_APPLY_RATION_CARD",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Households without a ration card seeking NFSA coverage",
+      "claim": "Apply for a new ration card through the State Food and Civil Supplies Department portal or at the designated office (Tehsildar, Block Development Office, or Municipal Office depending on the state). Submit application form with household details, identity proof, address proof, and income certificate.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NFSA_STEP2_VERIFICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All ration card applicants",
+      "claim": "The designated authority verifies the application, conducts field verification of household details, and checks eligibility against state-defined NFSA criteria. The household is classified as AAY or PHH based on socio-economic parameters.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NFSA_STEP3_AADHAAR_SEEDING",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved ration card holders",
+      "claim": "Link Aadhaar numbers of all family members to the ration card through the state PDS portal or at the FPS/designated centre. This enables biometric authentication for food grain collection under the One Nation One Ration Card (ONORC) initiative.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28",
+        "SRC-DFPD-2026-10-28"
+      ]
+    },
+    {
+      "processCode": "NFSA_STEP4_COLLECT_GRAINS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All NFSA beneficiaries with active ration cards",
+      "claim": "Visit the assigned Fair Price Shop (FPS) during the designated distribution period (usually the first two weeks of each month). Authenticate identity via Aadhaar biometric or OTP at the ePoS device. Collect the entitled quantity of food grains — PHH: 5 kg per person per month; AAY: 35 kg per household per month.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    }
+  ],
+  "output": {
+    "outputCode": "NFSA_FOOD_GRAIN_ENTITLEMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "Subsidized food grains distributed monthly through the Fair Price Shop: rice at Rs. 3 per kg, wheat at Rs. 2 per kg, and coarse grains at Rs. 1 per kg. PHH beneficiaries receive 5 kg per person per month; AAY families receive 35 kg per household per month. Under PMGKAY extensions, free food grains (5 kg per person per month) may also be provided in addition to NFSA entitlements.",
+    "sourceRefs": [
+      "SRC-NFSA-PORTAL-2026-10-28",
+      "SRC-DFPD-2026-10-28"
+    ]
+  },
+  "fees": [
+    {
+      "feeCode": "NFSA_FEE_PHH_RICE",
+      "category": "GOVERNMENT_FEE",
+      "amount": 3,
+      "currency": "INR",
+      "applicability": "Per kg of rice for Priority Household (PHH) beneficiaries",
+      "status": "VERIFIED",
+      "claim": "PHH beneficiaries pay Rs. 3 per kg of rice under NFSA. The Central Issue Price has remained unchanged since the enactment of NFSA in 2013. States may further subsidize or provide grains free of cost from their own funds.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28"
+      ]
+    },
+    {
+      "feeCode": "NFSA_FEE_PHH_WHEAT",
+      "category": "GOVERNMENT_FEE",
+      "amount": 2,
+      "currency": "INR",
+      "applicability": "Per kg of wheat for Priority Household (PHH) beneficiaries",
+      "status": "VERIFIED",
+      "claim": "PHH beneficiaries pay Rs. 2 per kg of wheat under NFSA. AAY families also receive food grains at the same subsidized rates. The Central Government bears the difference between economic cost and the issue price as food subsidy.",
+      "sourceRefs": [
+        "SRC-NFSA-PORTAL-2026-10-28",
+        "SRC-DFPD-2026-10-28"
+      ]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "NFSA_RATION_CARD_TIMELINE",
+    "minimumDuration": 15,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "New ration card application processing under NFSA",
+    "status": "VERIFIED",
+    "claim": "New ration card applications are typically processed within 15-30 days from the date of submission with all required documents. Once issued, food grain entitlements commence from the next distribution cycle. Existing ration card holders can collect grains monthly from their assigned FPS.",
+    "sourceRefs": [
+      "SRC-NFSA-PORTAL-2026-10-28"
+    ]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-NFSA-PORTAL-2026-10-28",
+      "url": "https://nfsa.gov.in/",
+      "title": "National Food Security Act Portal — Department of Food and Public Distribution",
+      "publisher": "Department of Food and Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The National Food Security Act 2013 provides for food and nutritional security by ensuring access to adequate quantity of quality food at affordable prices. Under NFSA, eligible persons are entitled to receive 5 kg of food grains per person per month at subsidized prices: rice Rs. 3/kg, wheat Rs. 2/kg, coarse grains Rs. 1/kg. AAY households receive 35 kg per household per month.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "NFSA covers up to 75% rural and 50% urban population.",
+        "PHH beneficiaries receive 5 kg per person per month.",
+        "AAY families receive 35 kg per household per month.",
+        "Subsidized prices: rice Rs. 3, wheat Rs. 2, coarse grains Rs. 1 per kg.",
+        "Ration cards issued by State Governments under AAY and PHH categories."
+      ],
+      "uncertainty": "State-level beneficiary identification criteria and portability implementation may vary."
+    },
+    {
+      "sourceCode": "SRC-DFPD-2026-10-28",
+      "url": "https://dfpd.gov.in/",
+      "title": "Department of Food and Public Distribution — PDS and PMGKAY Information",
+      "publisher": "Department of Food and Public Distribution, Ministry of Consumer Affairs, Food and Public Distribution, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "DFPD manages the Public Distribution System and implements NFSA and PMGKAY. The One Nation One Ration Card scheme enables portability of food grain entitlements across states. Aadhaar-based biometric authentication at ePoS devices is mandatory at Fair Price Shops for transparent distribution.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "One Nation One Ration Card enables inter-state portability.",
+        "Aadhaar-based biometric authentication is mandatory at FPS.",
+        "ePoS devices track real-time distribution data.",
+        "PMGKAY provides additional free food grain entitlements."
+      ],
+      "uncertainty": "PMGKAY extension beyond current tenure is subject to government policy decisions."
+    }
+  ],
+  "limitations": [
+    "Beneficiary identification and ration card issuance criteria vary by state and are determined by State Governments.",
+    "This record covers the Central Government NFSA entitlement framework. State-specific additional schemes and subsidies are not covered.",
+    "The One Nation One Ration Card portability may have implementation gaps in certain states or FPS locations.",
+    "Biometric authentication failures due to worn fingerprints (common among manual labourers) may cause access issues despite provisions for OTP-based alternatives.",
+    "PMGKAY free food grain provisions are time-bound and subject to extension by the Central Government.",
+    "The record does not cover maternity benefit or mid-day meal provisions under NFSA."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core NFSA entitlements are verified but PMGKAY extension status, state-level implementation variations, and ONORC coverage need periodic monitoring.",
+    "nextReviewTrigger": [
+      "Changes to NFSA food grain prices or entitlement quantities.",
+      "PMGKAY extension or termination announcements.",
+      "Updates to Aadhaar authentication requirements at FPS.",
+      "Changes in state-level beneficiary identification criteria.",
+      "Expansion or changes to the One Nation One Ration Card scheme."
+    ]
+  }
+}

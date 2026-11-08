@@ -1,0 +1,275 @@
+{
+  "serviceCode": "DRIVING_LICENSE_RENEWAL",
+  "version": 1,
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "name": {
+    "en": "Driving License Renewal"
+  },
+  "authority": "Regional Transport Office (RTO) / State Transport Department",
+  "jurisdiction": "STATE",
+  "category": "DRIVING_LICENSE_RENEWAL",
+  "description": {
+    "en": "Driving license renewal is required when an existing license expires or is about to expire. Under the Motor Vehicles Act, a driving license can be renewed up to one year before and one year after expiry without additional penalty. Applications can be submitted online through the Parivahan Sarathi portal or at the local RTO."
+  },
+  "officialLinks": {
+    "application": "https://parivahan.gov.in/parivahan/",
+    "informationPortal": "https://sarathi.parivahan.gov.in/"
+  },
+  "eligibility": {
+    "status": "PARTIALLY_VERIFIED",
+    "verifiedConditions": [
+      {
+        "conditionCode": "DL_RENEWAL_EXISTING_LICENSE",
+        "field": "applicant.hasExistingDrivingLicense",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "All driving license renewal applicants",
+        "claim": "The applicant must hold a valid or recently expired (within one year) driving license issued by any RTO in India.",
+        "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+      },
+      {
+        "conditionCode": "DL_RENEWAL_MEDICAL_FIT",
+        "field": "applicant.isMedicallyFit",
+        "operator": "EQUALS",
+        "value": true,
+        "classification": "MANDATORY",
+        "appliesTo": "Applicants aged 40 and above",
+        "claim": "A medical certificate in Form 1A is mandatory for renewal if the applicant is aged 40 years or above, or if the license includes transport vehicle categories.",
+        "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28", "SRC-MVA-1988-2026-10-28"]
+      }
+    ],
+    "unverifiedEligibility": [
+      "Licenses expired for more than one year may require a fresh driving test in some states.",
+      "Applicants with pending traffic violations or court cases may face delays.",
+      "Some states allow online renewal without visiting the RTO for non-transport licenses."
+    ]
+  },
+  "conditions": [
+    {
+      "conditionCode": "DL_RENEWAL_ROUTE",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "DRIVING_LICENSE_RENEWAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DL_RENEWAL_STANDARD",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "STANDARD_RENEWAL",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "DL_RENEWAL_EXPIRED_OVER_ONE_YEAR",
+      "field": "workflow.applicationType",
+      "operator": "EQUALS",
+      "value": "EXPIRED_OVER_ONE_YEAR",
+      "classification": "PROCESS_STATE",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "DL_RENEWAL_REQ_FORM9",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Application in Form 9 (Application for Renewal of Driving License) submitted online through the Sarathi portal or physically at the RTO.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_RENEWAL_REQ_OLD_DL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Original driving license (current or expired). If the original is lost, an FIR and duplicate license application may be required first.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_RENEWAL_REQ_MEDICAL_CERT",
+      "kind": "CONDITIONAL",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Medical certificate in Form 1A from a registered medical practitioner is required for applicants aged 40 years and above, or for renewal of transport vehicle license categories (LMV-T, HMV, etc.).",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-MVA-1988-2026-10-28", "SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_RENEWAL_REQ_ADDRESS_PROOF",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Proof of address — Aadhaar card, voter ID, passport, utility bill, or bank passbook with current address.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_RENEWAL_REQ_PHOTOGRAPHS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Recent passport-size photographs of the applicant.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "requirementCode": "DL_RENEWAL_REQ_FEE",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": ["DL_RENEWAL_ROUTE"]
+      },
+      "claim": "Application fee paid online or at the RTO counter. Fee varies by state and vehicle class.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    }
+  ],
+  "processInformation": [
+    {
+      "processCode": "DL_RENEWAL_STEP1_APPLY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DL renewal applicants",
+      "claim": "Submit the renewal application online through the Sarathi portal (sarathi.parivahan.gov.in) by selecting the state, RTO, and filling Form 9. Alternatively, apply in person at the RTO with the physical form.",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "processCode": "DL_RENEWAL_STEP2_FEE_PAYMENT",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All DL renewal applicants",
+      "claim": "Pay the renewal fee online through net banking, credit/debit card, or at the RTO counter. The payment receipt should be saved for reference.",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "processCode": "DL_RENEWAL_STEP3_BIOMETRICS",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "Applicants visiting the RTO",
+      "claim": "Visit the RTO on the appointment date for biometric capture (photograph and fingerprints) and document verification. Some states now accept Aadhaar-based e-KYC for online processing without RTO visit.",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "processCode": "DL_RENEWAL_STEP4_ISSUANCE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "All approved applications",
+      "claim": "The renewed smart-card driving license is printed and dispatched to the applicant's address via Speed Post, or can be collected at the RTO. Online applications may receive the DL at the registered address.",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    }
+  ],
+  "output": {
+    "outputCode": "DL_RENEWAL_DOCUMENT",
+    "classification": "SERVICE_OUTPUT",
+    "claim": "A renewed smart-card driving license with updated validity. For non-transport vehicles, the renewed license is typically valid for 20 years from the date of issue or until the holder turns 50, whichever is earlier. After age 50, it is renewed for 5 years at a time.",
+    "sourceRefs": ["SRC-MVA-1988-2026-10-28", "SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+  },
+  "fees": [
+    {
+      "feeCode": "DL_RENEWAL_APPLICATION_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 200,
+      "maximumAmount": 500,
+      "currency": "INR",
+      "applicability": "Driving license renewal fee (varies by state and vehicle class)",
+      "status": "VERIFIED",
+      "claim": "Renewal fee ranges from Rs. 200 to Rs. 500 depending on the state and the vehicle class endorsed on the license. Transport vehicle license renewal may attract higher fees.",
+      "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+    },
+    {
+      "feeCode": "DL_RENEWAL_LATE_FEE",
+      "category": "GOVERNMENT_FEE",
+      "minimumAmount": 200,
+      "maximumAmount": 1000,
+      "currency": "INR",
+      "applicability": "Late fee for renewal after expiry grace period (varies by state)",
+      "status": "VERIFIED",
+      "claim": "If the driving license has expired beyond the one-year grace period, an additional late fee or penalty may be charged. The amount varies by state.",
+      "sourceRefs": ["SRC-MVA-1988-2026-10-28"]
+    }
+  ],
+  "processingTime": {
+    "timelineCode": "DL_RENEWAL_PROCESSING",
+    "minimumDuration": 7,
+    "maximumDuration": 30,
+    "unit": "DAYS",
+    "basis": "OFFICIAL_SERVICE_DESCRIPTION",
+    "applicability": "Driving license renewal from application to issuance",
+    "status": "VERIFIED",
+    "claim": "Standard driving license renewal takes 7 to 30 days from the date of application. Online applications in some states are processed faster, while transport vehicle renewals may require additional verification time.",
+    "sourceRefs": ["SRC-PARIVAHAN-DL-RENEWAL-2026-10-28"]
+  },
+  "sources": [
+    {
+      "sourceCode": "SRC-PARIVAHAN-DL-RENEWAL-2026-10-28",
+      "url": "https://parivahan.gov.in/parivahan/",
+      "title": "Parivahan — Official Transport Services Portal",
+      "publisher": "Ministry of Road Transport and Highways, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "The Parivahan portal provides online services for driving license renewal, fee payment, appointment booking, and application status tracking. The Sarathi module handles all DL-related services.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "Online renewal through Sarathi portal is available.",
+        "Form 9 is used for driving license renewal.",
+        "Biometric capture is required at the RTO.",
+        "Smart-card DL is dispatched via Speed Post."
+      ],
+      "uncertainty": "Fee structure and processing timelines vary by state. Some states may have additional state-specific requirements."
+    },
+    {
+      "sourceCode": "SRC-MVA-1988-2026-10-28",
+      "url": "https://legislative.gov.in/actsofparliamentfromtheyear/motor-vehicles-act-1988",
+      "title": "Motor Vehicles Act, 1988 — Sections 14 and 15 (Renewal of Driving License)",
+      "publisher": "Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2026-10-28",
+      "sourceLastReviewedAt": "2026-10-28",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 14 provides for the validity of driving licenses and Section 15 provides for renewal including the one-year grace period for renewal without penalty, medical fitness requirements for age 40+, and transport vehicle renewal rules.",
+      "reusePolicy": "LINK_AND_SUMMARIZE",
+      "claimsSupported": [
+        "License can be renewed up to one year before and after expiry.",
+        "Medical certificate required for age 40 and above.",
+        "Transport vehicle license has additional renewal requirements."
+      ],
+      "uncertainty": "The Motor Vehicles (Amendment) Act 2019 introduced changes that states are implementing at different paces."
+    }
+  ],
+  "limitations": [
+    "Fee structure varies significantly by state and is subject to revision.",
+    "Some states have fully digitized the renewal process while others still require RTO visits.",
+    "The record does not cover international driving license renewal or conversion of foreign licenses.",
+    "Transport vehicle license renewal involves additional requirements (badge, medical, etc.) not fully modeled.",
+    "Late renewal beyond the grace period may require a driving test re-examination in some states."
+  ],
+  "review": {
+    "lastVerifiedDate": "2026-10-28",
+    "reviewStatus": "REVIEW_REQUIRED",
+    "reviewReason": "Core process verified from Parivahan portal. State-specific fee structures and digital processing availability need state-by-state verification.",
+    "nextReviewTrigger": [
+      "Changes to the Motor Vehicles Act renewal provisions.",
+      "Nationwide fee revision or standardization.",
+      "Full rollout of faceless DL renewal across all states.",
+      "Changes to medical fitness requirements."
+    ]
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "serviceCode": "RTI_APPLICATION",
+  "version": 1,
+  "locale": "en-IN",
+  "title": "Right to Information (RTI) Application",
+  "shortDescription": "File an RTI application under the Right to Information Act, 2005 to seek information from any public authority at the Central or State level.",
+  "category": "RTI_APPLICATION",
+  "status": "REVIEW",
+  "publicationReadiness": "EVIDENCE_REVIEWED",
+  "jurisdiction": "CENTRAL",
+  "authority": {
+    "name": "Central Public Information Officer (CPIO) / State Public Information Officer (SPIO)",
+    "department": "Department of Personnel and Training (DoPT) / Respective State Government Departments",
+    "level": "CENTRAL_AND_STATE"
+  },
+  "legalBasis": [
+    {
+      "law": "Right to Information Act, 2005",
+      "sections": [
+        "Section 6",
+        "Section 7",
+        "Section 8",
+        "Section 19"
+      ],
+      "description": "Provides citizens the right to request information from any public authority, which is obliged to reply within 30 days."
+    }
+  ],
+  "conditions": [
+    {
+      "conditionCode": "SERVICE_ROUTE_SELECTED",
+      "field": "workflow.selectedServiceRoute",
+      "operator": "EQUALS",
+      "value": "RTI_APPLICATION",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "IS_INDIAN_CITIZEN",
+      "field": "applicant.isIndianCitizen",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "RTI_FILING_MODE_ONLINE",
+      "field": "workflow.filingMode",
+      "operator": "EQUALS",
+      "value": "ONLINE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "RTI_FILING_MODE_OFFLINE",
+      "field": "workflow.filingMode",
+      "operator": "EQUALS",
+      "value": "OFFLINE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "IS_BPL_APPLICANT",
+      "field": "applicant.isBelowPovertyLine",
+      "operator": "EQUALS",
+      "value": "true",
+      "classification": "ELIGIBILITY",
+      "evidenceStatus": "NEEDS_REVIEW"
+    },
+    {
+      "conditionCode": "CENTRAL_GOVERNMENT_AUTHORITY",
+      "field": "workflow.authorityLevel",
+      "operator": "EQUALS",
+      "value": "CENTRAL",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    },
+    {
+      "conditionCode": "STATE_GOVERNMENT_AUTHORITY",
+      "field": "workflow.authorityLevel",
+      "operator": "EQUALS",
+      "value": "STATE",
+      "classification": "ROUTE_SELECTION",
+      "evidenceStatus": "INTERNAL_WORKFLOW"
+    }
+  ],
+  "sources": [
+    {
+      "sourceCode": "SRC_RTI_ONLINE_PORTAL",
+      "url": "https://rtionline.gov.in",
+      "title": "RTI Online Portal - Government of India",
+      "publisher": "Department of Personnel and Training, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-04-15T00:00:00Z",
+      "sourceLastReviewedAt": "2025-04-15T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "RTI Online portal allows Indian citizens to file RTI applications to Central Government Ministries/Departments/Public Authorities online with a fee of Rs. 10.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "RTI applications can be filed online for Central Government bodies",
+        "Application fee is Rs. 10 for Central Government RTI",
+        "BPL applicants are exempt from fee payment"
+      ],
+      "uncertainty": "State-level RTI applications have varying fees and separate portals."
+    },
+    {
+      "sourceCode": "SRC_RTI_ACT_2005",
+      "url": "https://legislative.gov.in/sites/default/files/A2005-22.pdf",
+      "title": "The Right to Information Act, 2005",
+      "publisher": "Legislative Department, Ministry of Law and Justice, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-03-20T00:00:00Z",
+      "sourceLastReviewedAt": "2025-03-20T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Section 6(1): A person who desires to obtain any information shall make a request in writing or through electronic means to the Central Public Information Officer or State Public Information Officer. Section 7(1): The CPIO/SPIO shall supply information within 30 days of receipt of request.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "RTI requests must be made in writing or electronically",
+        "Response must be provided within 30 days",
+        "Citizens of India have the right to seek information from public authorities",
+        "BPL applicants are exempt from fees under Section 7(5)"
+      ],
+      "uncertainty": "Certain exemptions under Section 8 and Section 24 may restrict information disclosure."
+    },
+    {
+      "sourceCode": "SRC_DOPT_RTI_RULES",
+      "url": "https://dopt.gov.in/sites/default/files/RTI_Rules_2012.pdf",
+      "title": "Right to Information Rules, 2012",
+      "publisher": "Department of Personnel and Training, Government of India",
+      "jurisdiction": "CENTRAL",
+      "sourceCategory": "OFFICIAL_GOVERNMENT",
+      "checkedAt": "2025-03-20T00:00:00Z",
+      "sourceLastReviewedAt": "2025-03-20T00:00:00Z",
+      "accessStatus": "ACCESSIBLE",
+      "verificationStatus": "VERIFIED",
+      "evidenceExcerpt": "Rule 4: Fees and mode of payment - The fee prescribed under sub-section (1) of section 6 shall be Rs. 10. The fee may be paid by cash, demand draft, banker's cheque, or Indian Postal Order payable to the Accounts Officer of the public authority.",
+      "reusePolicy": "GOVERNMENT_OPEN_DATA",
+      "claimsSupported": [
+        "Application fee is Rs. 10",
+        "Fee can be paid by cash, demand draft, banker's cheque, or IPO",
+        "Online payment modes are accepted on the RTI Online portal"
+      ],
+      "uncertainty": "State governments may prescribe different fee amounts and payment modes."
+    }
+  ],
+  "requirements": [
+    {
+      "requirementCode": "REQ_RTI_APPLICATION_FORM",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "Applicant must submit an RTI application in writing or through electronic means addressed to the Central/State Public Information Officer of the concerned public authority.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RTI_APPLICATION_FEE_CENTRAL",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "CENTRAL_GOVERNMENT_AUTHORITY"
+        ]
+      },
+      "claim": "An application fee of Rs. 10 must be paid when filing an RTI application to Central Government public authorities. The fee can be paid by cash, demand draft, banker's cheque, Indian Postal Order, or online payment.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ONLINE_PORTAL",
+        "SRC_DOPT_RTI_RULES"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RTI_BPL_FEE_EXEMPTION",
+      "kind": "OPTIONAL",
+      "blocking": false,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "IS_BPL_APPLICANT"
+        ]
+      },
+      "claim": "Applicants belonging to Below Poverty Line (BPL) category are exempt from paying the application fee. They must provide a copy of their BPL certificate as proof.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RTI_APPLICANT_DETAILS",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "Applicant must provide their full name, address, and contact details (email and/or phone number) in the RTI application.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ONLINE_PORTAL"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RTI_INFORMATION_DESCRIPTION",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED",
+          "IS_INDIAN_CITIZEN"
+        ]
+      },
+      "claim": "The RTI application must contain a clear and specific description of the information sought from the public authority.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "requirementCode": "REQ_RTI_CITIZENSHIP",
+      "kind": "MANDATORY",
+      "blocking": true,
+      "appliesWhen": {
+        "all": [
+          "SERVICE_ROUTE_SELECTED"
+        ]
+      },
+      "claim": "Only citizens of India are eligible to file RTI applications under the RTI Act, 2005. Foreign nationals cannot use this provision.",
+      "evidenceStatus": "VERIFIED",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    }
+  ],
+  "process": [
+    {
+      "processCode": "PROC_RTI_IDENTIFY_AUTHORITY",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Identify the public authority from which information is sought. For Central Government ministries and departments, the RTI Online portal (rtionline.gov.in) lists all available authorities.",
+      "sourceRefs": [
+        "SRC_RTI_ONLINE_PORTAL"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_DRAFT_APPLICATION",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "Draft the RTI application with applicant details (name, address, contact information), the name and address of the public authority, and a clear description of the information sought.",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_SUBMIT_ONLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "For online filing: Visit rtionline.gov.in, register or login, select the public authority, fill in the RTI request form, pay the Rs. 10 fee online, and submit. A registration number is generated for tracking.",
+      "sourceRefs": [
+        "SRC_RTI_ONLINE_PORTAL"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_SUBMIT_OFFLINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "For offline filing: Submit the written application along with the fee (via IPO, demand draft, banker's cheque, or cash) to the CPIO/SPIO of the concerned public authority by post or in person.",
+      "sourceRefs": [
+        "SRC_DOPT_RTI_RULES"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_RESPONSE_TIMELINE",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "The CPIO/SPIO must provide the requested information or a rejection (with reasons) within 30 days of receiving the application. For matters involving life or liberty, the response time is 48 hours.",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_FIRST_APPEAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "If not satisfied with the response or if no response is received within 30 days, the applicant may file a first appeal to the First Appellate Authority within 30 days from the expiry of the response period.",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    },
+    {
+      "processCode": "PROC_RTI_SECOND_APPEAL",
+      "classification": "PROCESS_INFORMATION",
+      "appliesTo": "applicant",
+      "claim": "If the first appeal is unsatisfactory, a second appeal may be filed with the Central Information Commission (CIC) or the State Information Commission (SIC) within 90 days.",
+      "sourceRefs": [
+        "SRC_RTI_ACT_2005"
+      ]
+    }
+  ],
+  "fees": [
+    {
+      "feeCode": "FEE_RTI_APPLICATION_CENTRAL",
+      "description": "Application fee for RTI request to Central Government public authority",
+      "amount": 10,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "CENTRAL_GOVERNMENT_AUTHORITY"
+        ]
+      }
+    },
+    {
+      "feeCode": "FEE_RTI_APPLICATION_STATE",
+      "description": "Application fee for RTI request to State Government public authority (varies by state)",
+      "amount": null,
+      "currency": "INR",
+      "appliesWhen": {
+        "all": [
+          "STATE_GOVERNMENT_AUTHORITY"
+        ]
+      },
+      "note": "State RTI application fees vary. Most states charge between Rs. 10 and Rs. 50."
+    }
+  ],
+  "processingTime": {
+    "standard": "30 days",
+    "expedited": "48 hours (matters involving life or liberty)",
+    "notes": "If the CPIO/SPIO transfers the application to another authority, the 30-day period starts from the date of receipt by the transferee authority.",
+    "timelineCode": "RTI_APPLICATION_TIMELINE"
+  },
+  "metadata": {
+    "createdAt": "2025-05-01T00:00:00Z",
+    "updatedAt": "2025-05-01T00:00:00Z",
+    "reviewedBy": "GovGuide Content Team"
+  }
+}
