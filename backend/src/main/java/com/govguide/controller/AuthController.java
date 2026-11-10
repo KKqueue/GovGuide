@@ -5,10 +5,10 @@ import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
+import com.govguide.persistence.FileBackedUserDetailsManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,10 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final InMemoryUserDetailsManager userDetailsManager;
+    private final FileBackedUserDetailsManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(InMemoryUserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
+    public AuthController(FileBackedUserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }

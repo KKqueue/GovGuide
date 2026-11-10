@@ -11,11 +11,16 @@ import com.govguide.dto.CreateChildTaskRequest;
 import com.govguide.dto.CreateTaskRequest;
 import com.govguide.dto.TaskResponse;
 import com.govguide.persistence.InMemoryTaskPersistence;
+import java.nio.file.Path;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
 
 class ChecklistTaskServiceTest {
+
+    @TempDir
+    Path tempDir;
 
     private final ObjectMapper mapper = new ObjectMapper();
 
@@ -26,7 +31,7 @@ class ChecklistTaskServiceTest {
         JsonNode child = mapper.readTree(childJson(false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
         Mockito.when(catalogue.getService("CHILD")).thenReturn(child);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse root = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "test-user");
         TaskResponse nested = tasks.createChildTask(root.taskId(), new CreateChildTaskRequest("REQ", null), "test-user");
@@ -52,7 +57,7 @@ class ChecklistTaskServiceTest {
         JsonNode child = mapper.readTree(childJson(true));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
         Mockito.when(catalogue.getService("CHILD")).thenReturn(child);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse root = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "test-user");
         TaskResponse first = tasks.createChildTask(root.taskId(), new CreateChildTaskRequest("REQ", null), "test-user");
@@ -69,7 +74,7 @@ class ChecklistTaskServiceTest {
         JsonNode child = mapper.readTree(childJson(false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
         Mockito.when(catalogue.getService("CHILD")).thenReturn(child);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse root = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "test-user");
         TaskResponse nested = tasks.createChildTask(root.taskId(), new CreateChildTaskRequest("REQ", null), "test-user");
@@ -108,7 +113,7 @@ class ChecklistTaskServiceTest {
         }
         Mockito.when(catalogue.getService(Mockito.anyString())).thenAnswer(invocation ->
                 services.get(invocation.getArgument(0)));
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse current = tasks.createTask(new CreateTaskRequest("CHAIN_0", Map.of()), "test-user");
         for (int index = 0; index < 16; index++) {
@@ -133,7 +138,7 @@ class ChecklistTaskServiceTest {
         JsonNode child = mapper.readTree(childJson(false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(conditional);
         Mockito.when(catalogue.getService("CHILD")).thenReturn(child);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse noContext = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "test-user");
         assertThrows(java.util.NoSuchElementException.class,
@@ -150,7 +155,7 @@ class ChecklistTaskServiceTest {
         JsonNode child = mapper.readTree(childJson(false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
         Mockito.when(catalogue.getService("CHILD")).thenReturn(child);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
         TaskResponse root = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "test-user");
         assertThrows(IllegalArgumentException.class,
                 () -> tasks.createChildTask(root.taskId(), new CreateChildTaskRequest("REQ", null), "test-user"));
@@ -161,7 +166,7 @@ class ChecklistTaskServiceTest {
         ServiceCatalogueService catalogue = Mockito.mock(ServiceCatalogueService.class);
         JsonNode parent = mapper.readTree(parentJson("REQUIRED", "VERIFIED", false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse aliceTask = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "alice");
         assertThrows(java.util.NoSuchElementException.class, () -> tasks.getTask(aliceTask.taskId(), "bob"));
@@ -174,7 +179,7 @@ class ChecklistTaskServiceTest {
         ServiceCatalogueService catalogue = Mockito.mock(ServiceCatalogueService.class);
         JsonNode parent = mapper.readTree(parentJson("REQUIRED", "VERIFIED", false));
         Mockito.when(catalogue.getService("PARENT")).thenReturn(parent);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse first = tasks.createTask(new CreateTaskRequest("PARENT", Map.of()), "alice");
         TaskResponse second = tasks.createTask(new CreateTaskRequest("PARENT", Map.of("case", "second")), "alice");
@@ -189,7 +194,7 @@ class ChecklistTaskServiceTest {
         ServiceCatalogueService catalogue = Mockito.mock(ServiceCatalogueService.class);
         JsonNode service = mapper.readTree(twoRequirementJson("VERIFIED"));
         Mockito.when(catalogue.getService("TRACKED")).thenReturn(service);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse initial = tasks.createTask(new CreateTaskRequest("TRACKED", Map.of()), "test-user");
         assertEquals(0, initial.completedItems());
@@ -217,7 +222,7 @@ class ChecklistTaskServiceTest {
         ServiceCatalogueService catalogue = Mockito.mock(ServiceCatalogueService.class);
         JsonNode service = mapper.readTree(twoRequirementJson("UNVERIFIED"));
         Mockito.when(catalogue.getService("TRACKED")).thenReturn(service);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse task = tasks.createTask(new CreateTaskRequest("TRACKED", Map.of()), "test-user");
         TaskResponse updated = tasks.updateChecklist(task.taskId(), "REQ_1",
@@ -232,7 +237,7 @@ class ChecklistTaskServiceTest {
         ServiceCatalogueService catalogue = Mockito.mock(ServiceCatalogueService.class);
         JsonNode service = mapper.readTree("{\"serviceCode\":\"EMPTY\",\"status\":\"REVIEW\",\"publicationReadiness\":\"LIMITED_ROUTE_CANDIDATE\",\"requirements\":[],\"processingTime\":{\"status\":\"UNAVAILABLE\"}}");
         Mockito.when(catalogue.getService("EMPTY")).thenReturn(service);
-        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence());
+        ChecklistTaskService tasks = new ChecklistTaskService(catalogue, new InMemoryTaskPersistence(tempDir.toString()));
 
         TaskResponse task = tasks.createTask(new CreateTaskRequest("EMPTY", Map.of()), "test-user");
         assertEquals(0, task.totalItems());

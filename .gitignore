@@ -5,6 +5,9 @@ frontend/node_modules/
 
 # Build output
 backend/target/
+
+# Runtime data
+backend/data/
 frontend-react/dist/
 frontend/dist/
 

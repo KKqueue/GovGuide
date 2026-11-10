@@ -8,14 +8,19 @@ import com.govguide.dto.CreateApplicationTrackingRequest;
 import com.govguide.dto.TaskResponse;
 import com.govguide.dto.UpdateApplicationTrackingRequest;
 import com.govguide.persistence.InMemoryTrackingPersistence;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 import org.mockito.Mockito;
 
 class ApplicationTrackingServiceTest {
+    @TempDir
+    Path tempDir;
+
     private ChecklistTaskService tasks;
     private ApplicationTrackingService tracking;
 
@@ -28,7 +33,7 @@ class ApplicationTrackingServiceTest {
         Mockito.when(tasks.getTask("task-1", "bob"))
                 .thenReturn(new TaskResponse("task-1", "PAN_INSTANT_EPAN", "REVIEW", "LIMITED_ROUTE_CANDIDATE",
                         "PREPARING_DOCUMENTS", 0, 1, Map.of(), "IN_MEMORY_PROTOTYPE"));
-        tracking = new ApplicationTrackingService(tasks, new InMemoryTrackingPersistence());
+        tracking = new ApplicationTrackingService(tasks, new InMemoryTrackingPersistence(tempDir.toString()));
     }
 
     @Test
@@ -38,7 +43,7 @@ class ApplicationTrackingServiceTest {
                 "alice");
         assertEquals("task-1", created.taskId());
         assertEquals("USER_PROVIDED_UNVERIFIED", created.trackingLinkProvenance());
-        assertEquals("IN_MEMORY_PROTOTYPE", created.persistence());
+        assertEquals("FILE_BACKED", created.persistence());
 
         tracking.update(created.applicationId(),
                 new UpdateApplicationTrackingRequest("PREPARING_DOCUMENTS", null, null, null,

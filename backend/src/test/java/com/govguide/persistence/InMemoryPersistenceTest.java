@@ -3,15 +3,17 @@ package com.govguide.persistence;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.ConcurrentModificationException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class InMemoryPersistenceTest {
 
     @Test
-    void taskWritesAreOwnerScopedAndRejectStaleRevisions() {
-        InMemoryTaskPersistence persistence = new InMemoryTaskPersistence();
+    void taskWritesAreOwnerScopedAndRejectStaleRevisions(@TempDir Path tempDir) {
+        InMemoryTaskPersistence persistence = new InMemoryTaskPersistence(tempDir.toString());
         TaskRecord original = new TaskRecord("task-1", "alice", "PAN_INSTANT_EPAN", 1,
                 null, null, "task-1", null, 0, "PREPARING_DOCUMENTS", Map.of(), Map.of(), Map.of(), 0);
 
@@ -29,8 +31,8 @@ class InMemoryPersistenceTest {
     }
 
     @Test
-    void trackingWritesRejectStaleRevisions() {
-        InMemoryTrackingPersistence persistence = new InMemoryTrackingPersistence();
+    void trackingWritesRejectStaleRevisions(@TempDir Path tempDir) {
+        InMemoryTrackingPersistence persistence = new InMemoryTrackingPersistence(tempDir.toString());
         TrackingRecord original = new TrackingRecord("application-1", "task-1", "PAN_INSTANT_EPAN", "alice",
                 "PLANNING", null, null, null, null, null, 0);
         TrackingRecord saved = persistence.save(original);

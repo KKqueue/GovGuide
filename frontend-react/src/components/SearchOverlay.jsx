@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { fetchServices } from "../api/services";
 import { codeToName } from "../utils/serviceNames";
@@ -110,24 +111,31 @@ export default function SearchOverlay({ open, onClose }) {
 
   if (!open) return null;
 
-  return (
+  return createPortal(
     <div className="search-overlay" onClick={onClose}>
       <div className="search-dialog" ref={dialogRef} onClick={e => e.stopPropagation()} role="dialog" aria-label="Search services" aria-modal="true">
         <div className="search-dialog-input-wrap">
           <svg className="search-dialog-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          <input
-            ref={inputRef}
-            type="search"
-            placeholder="Search services..."
-            aria-label="Search services"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            autoComplete="off"
-          />
-          <kbd className="search-dialog-kbd">Esc</kbd>
+          <div className="search-dialog-input-field">
+            <input
+              ref={inputRef}
+              type="search"
+              placeholder="Search government services..."
+              aria-label="Search services"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+              autoComplete="off"
+            />
+            <div className="search-dialog-underline" />
+          </div>
+          <button className="search-dialog-close" onClick={onClose} aria-label="Close search" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
         </div>
         {query.trim() && (
           <ul className="search-dialog-results" ref={listRef} role="listbox">
@@ -158,7 +166,13 @@ export default function SearchOverlay({ open, onClose }) {
               : `Type to search across ${services.length}+ government services`}
           </div>
         )}
+        <div className="search-dialog-footer">
+          <span><kbd>&uarr;</kbd> <kbd>&darr;</kbd> Navigate</span>
+          <span><kbd>&#9166;</kbd> Open</span>
+          <span><kbd>Esc</kbd> Close</span>
+        </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

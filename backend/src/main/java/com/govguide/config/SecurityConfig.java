@@ -3,6 +3,8 @@ package com.govguide.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.govguide.exception.ApiError;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +23,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import com.govguide.persistence.FileBackedUserDetailsManager;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,7 +41,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    InMemoryUserDetailsManager userDetailsService(@Value("${app.auth.users:}") String configuredUsers,
+    FileBackedUserDetailsManager userDetailsService(
+            @Value("${app.auth.users:}") String configuredUsers,
+            @Value("${app.data.dir:data}") String dataDir,
             PasswordEncoder encoder) {
         List<UserDetails> users = new ArrayList<>();
         if (configuredUsers != null && !configuredUsers.isBlank()) {
@@ -55,7 +60,8 @@ public class SecurityConfig {
                         .build());
             }
         }
-        return new InMemoryUserDetailsManager(users);
+        Path usersFile = Paths.get(dataDir, "users.json");
+        return new FileBackedUserDetailsManager(usersFile, users);
     }
 
     @Bean
