@@ -5,8 +5,12 @@ import com.govguide.exception.ApiError;
 import java.io.IOException;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -55,13 +59,13 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper, RateLimitingFilter rateLimitingFilter) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
-                .cors(cors -> { })
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .headers(headers -> headers
-                        .contentTypeOptions(cto -> { })
+                .headers(headers -> {
+                    headers.contentTypeOptions(cto -> { })
                         .frameOptions(fo -> fo.deny())
                         .httpStrictTransportSecurity(hsts -> hsts
                                 .includeSubDomains(true)
@@ -70,16 +74,41 @@ public class SecurityConfig {
                                 org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter
                                         .ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
                         .permissionsPolicy(pp -> pp.policy(
-                                "geolocation=(self), camera=(), microphone=()")))
+                                "geolocation=(self), camera=(), microphone=()"));
+                    headers.contentSecurityPolicy(csp -> csp.policyDirectives(
+                                "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'"));
+                })
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/health", "/api/v1/services", "/api/v1/services/**", "/api/v1/services/_reload", "/api/v1/offices", "/api/v1/offices/**", "/api/v1/auth/register").permitAll()
+                        .requestMatchers("/api/v1/services/_reload").authenticated()
+                        .requestMatchers("/api/v1/health", "/api/v1/services", "/api/v1/services/**", "/api/v1/offices", "/api/v1/offices/**", "/api/v1/auth/register").permitAll()
                         .requestMatchers("/api/v1/auth/**", "/api/v1/tasks/**", "/api/v1/applications/**").authenticated()
                         .anyRequest().authenticated())
                 .httpBasic(basic -> basic.authenticationEntryPoint(apiErrorEntryPoint(objectMapper)))
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint(apiErrorEntryPoint(objectMapper))
-                        .accessDeniedHandler(apiErrorAccessDeniedHandler(objectMapper)));
+                        .accessDeniedHandler(apiErrorAccessDeniedHandler(objectMapper)))
+                .addFilterBefore(rateLimitingFilter, org.springframework.security.web.authentication.www.BasicAuthenticationFilter.class);
         return http.build();
+    }
+
+    @Bean
+    org.springframework.boot.web.servlet.FilterRegistrationBean<RateLimitingFilter> disableAutoRegistration(RateLimitingFilter filter) {
+        var reg = new org.springframework.boot.web.servlet.FilterRegistrationBean<>(filter);
+        reg.setEnabled(false);
+        return reg;
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:8081"));
+        config.setAllowedMethods(List.of("GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/api/**", config);
+        return source;
     }
 
     private AuthenticationEntryPoint apiErrorEntryPoint(ObjectMapper objectMapper) {

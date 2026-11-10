@@ -1,5 +1,7 @@
 package com.govguide.controller;
 
+import com.govguide.dto.RegisterRequest;
+import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -32,22 +34,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public Map<String, Object> register(@RequestBody Map<String, String> body) {
-        String username = body.get("username");
-        String password = body.get("password");
-        if (username == null || username.isBlank() || password == null || password.length() < 8) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Username and password (min 8 characters) are required");
-        }
+    public Map<String, Object> register(@Valid @RequestBody RegisterRequest body) {
+        String password = body.password();
         if (!password.matches(".*[a-zA-Z].*") || !password.matches(".*[0-9].*")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "Password must contain at least one letter and one number");
         }
-        username = username.trim().toLowerCase();
-        if (username.length() > 64 || !username.matches("^[a-zA-Z0-9._-]+$")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "Username must be alphanumeric (dots, hyphens, underscores allowed)");
-        }
+        String username = body.username().trim().toLowerCase();
         if (userDetailsManager.userExists(username)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Username already taken");
         }

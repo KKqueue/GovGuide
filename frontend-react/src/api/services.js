@@ -1,14 +1,14 @@
 const API_BASE = "/api/v1";
 
 export async function fetchServices() {
-  const res = await fetch(`${API_BASE}/services`, { cache: "no-store" });
+  const res = await fetch(`${API_BASE}/services`);
   if (!res.ok) throw new Error(`Failed to load services: ${res.status}`);
   const json = await res.json();
   return json.data || json;
 }
 
 export async function fetchService(serviceCode) {
-  const res = await fetch(`${API_BASE}/services/${serviceCode}`, { cache: "no-store" });
+  const res = await fetch(`${API_BASE}/services/${serviceCode}`);
   if (!res.ok) throw new Error(`Failed to load service: ${res.status}`);
   const json = await res.json();
   return json.data || json;

@@ -11,7 +11,7 @@ export default function Footer() {
         </div>
         <div className="footer-links">
           <p>Always confirm current details on the official source before applying.</p>
-          <p className="footer-meta">All information sourced from official government portals. Last updated: October 2026.</p>
+          <p className="footer-meta">All information sourced from official government portals. Last updated: November 2026.</p>
         </div>
       </div>
     </footer>

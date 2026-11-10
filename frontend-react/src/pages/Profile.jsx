@@ -2,28 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { fetchTask, getSavedTaskIds } from "../api/services";
-
-const KEEP_UPPER = new Set([
-  "RTI", "GST", "PAN", "ITR", "EPF", "ESI", "GEM", "NGO", "PMKVY",
-  "MSME", "FSSAI", "LLP", "NRI", "NEET", "JEE", "UDYAM",
-]);
-const TITLE_LOWER = new Set(["of", "and", "the", "for", "in", "to", "at", "by", "an", "a", "or"]);
-const CODE_OVERRIDES = {
-  NGO_SECTION8: "NGO (Section 8) Registration",
-  UDYAM_ASSIST: "Udyam Assist Registration",
-  NON_CREAMY_LAYER: "Non-Creamy Layer Certificate",
-};
-function codeToName(code) {
-  if (CODE_OVERRIDES[code]) return CODE_OVERRIDES[code];
-  return (code || "").replace(/_/g, " ").split(" ")
-    .map((w, i) => {
-      if (KEEP_UPPER.has(w.toUpperCase())) return w.toUpperCase();
-      const lower = w.toLowerCase();
-      if (i > 0 && TITLE_LOWER.has(lower)) return lower;
-      return lower.replace(/^\w/, c => c.toUpperCase());
-    })
-    .join(" ");
-}
+import { codeToName } from "../utils/serviceNames";
 
 export default function Profile() {
   const { user, authHeader, signOut } = useAuth();

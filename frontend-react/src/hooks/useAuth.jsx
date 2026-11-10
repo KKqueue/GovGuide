@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
   const signOut = useCallback(() => {
     setUser(null);
     setAuthHeader(null);
-    try { localStorage.removeItem("govguide-user"); localStorage.removeItem("govguide-auth"); localStorage.removeItem("govguide-tasks"); } catch {}
+    try { localStorage.removeItem("govguide-user"); localStorage.removeItem("govguide-auth"); } catch {}
   }, []);
 
   return (

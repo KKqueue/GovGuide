@@ -103,6 +103,7 @@ export default function CategoryFilter({ categories, active, onChange }) {
           key={cat}
           className={`category-chip ${active === cat ? "is-active" : ""}`}
           type="button"
+          aria-pressed={active === cat}
           onClick={() => onChange(cat)}
         >
           {cat}

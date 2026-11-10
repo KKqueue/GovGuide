@@ -82,8 +82,8 @@ export default function Header() {
         </button>
 
         <nav className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
-          <Link to="/#services-section" className={isHome ? "is-active" : ""} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("services-section")?.scrollIntoView({ behavior: "smooth" }); } }}>Services</Link>
-          <Link to="/#about" className={isAbout ? "is-active" : ""} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); } }}>About</Link>
+          <Link to="/#services-section" className={isHome ? "is-active" : ""} aria-current={isHome ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("services-section")?.scrollIntoView({ behavior: "smooth" }); } }}>Services</Link>
+          <Link to="/#about" className={isAbout ? "is-active" : ""} aria-current={isAbout ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); } }}>About</Link>
           <button
             className="nav-search-btn"
             type="button"
