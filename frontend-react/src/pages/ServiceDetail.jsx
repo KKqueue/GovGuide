@@ -65,7 +65,7 @@ function timeSummary(pt) {
   if (typeof pt === "string") return pt;
   if (pt.summary) return pt.summary;
   const max = pt.maximumDuration;
-  const unit = (pt.unit || "DAYS").toLowerCase();
+  const unit = (pt.unit || "DAYS").toLowerCase().replace(/_/g, " ");
   if (max) return `Up to ${max} ${unit}`;
   return pt.claim ? pt.claim.substring(0, 80) : "Unavailable";
 }
