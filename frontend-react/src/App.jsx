@@ -12,6 +12,7 @@ const Home = lazy(() => import("./pages/Home"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Profile = lazy(() => import("./pages/Profile"));
+const Admin = lazy(() => import("./pages/Admin.jsx"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 function PageFallback() {
@@ -35,6 +36,7 @@ export default function App() {
               <Route path="/signin" element={<Auth tab="signin" />} />
               <Route path="/signup" element={<Auth tab="signup" />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

@@ -107,3 +107,68 @@ export async function updateChecklistItem(taskId, requirementCode, state, authHe
   const json = await res.json();
   return json.data || json;
 }
+
+export async function submitFeedback(serviceCode, type, message, authHeader) {
+  const res = await fetch(`${API_BASE}/feedback`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: authHeader },
+    body: JSON.stringify({ serviceCode, type, message }),
+  });
+  if (!res.ok) throw new Error(`Failed to submit feedback: ${res.status}`);
+  return res.json();
+}
+
+export async function submitReview(serviceCode, taskId, rating, message, authHeader) {
+  const res = await fetch(`${API_BASE}/reviews`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: authHeader },
+    body: JSON.stringify({ serviceCode, taskId, rating, message }),
+  });
+  if (!res.ok) throw new Error(`Failed to submit review: ${res.status}`);
+  return res.json();
+}
+
+export async function checkReview(taskId, authHeader) {
+  const res = await fetch(`${API_BASE}/reviews/check/${taskId}`, {
+    headers: { Authorization: authHeader },
+  });
+  if (!res.ok) return { reviewed: false };
+  const json = await res.json();
+  return json.data || json;
+}
+
+export async function fetchAdminStats(authHeader) {
+  const res = await fetch(`${API_BASE}/admin/stats`, {
+    headers: { Authorization: authHeader },
+  });
+  if (!res.ok) throw new Error(`Failed to load stats: ${res.status}`);
+  const json = await res.json();
+  return json.data || json;
+}
+
+export async function fetchAdminUsers(authHeader) {
+  const res = await fetch(`${API_BASE}/admin/users`, {
+    headers: { Authorization: authHeader },
+  });
+  if (!res.ok) throw new Error(`Failed to load users: ${res.status}`);
+  const json = await res.json();
+  return json.data || json;
+}
+
+export async function fetchAdminFeedback(authHeader) {
+  const res = await fetch(`${API_BASE}/admin/feedback`, {
+    headers: { Authorization: authHeader },
+  });
+  if (!res.ok) throw new Error(`Failed to load feedback: ${res.status}`);
+  const json = await res.json();
+  return json.data || json;
+}
+
+export async function fetchAdminReviews(authHeader) {
+  const res = await fetch(`${API_BASE}/admin/reviews`, {
+    headers: { Authorization: authHeader },
+  });
+  if (!res.ok) throw new Error(`Failed to load reviews: ${res.status}`);
+  const json = await res.json();
+  return json.data || json;
+}

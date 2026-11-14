@@ -90,7 +90,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/services/_reload").authenticated()
                         .requestMatchers("/api/v1/health", "/api/v1/services", "/api/v1/services/**", "/api/v1/offices", "/api/v1/offices/**", "/api/v1/auth/register").permitAll()
-                        .requestMatchers("/api/v1/auth/**", "/api/v1/tasks/**", "/api/v1/applications/**").authenticated()
+                        .requestMatchers("/api/v1/feedback/service/**", "/api/v1/reviews/service/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**", "/api/v1/tasks/**", "/api/v1/applications/**",
+                                "/api/v1/feedback/**", "/api/v1/reviews/**", "/api/v1/admin/**").authenticated()
                         .anyRequest().authenticated())
                 .httpBasic(basic -> basic.authenticationEntryPoint(apiErrorEntryPoint(objectMapper)))
                 .exceptionHandling(errors -> errors

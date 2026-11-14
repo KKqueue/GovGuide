@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
-import { fetchService, createTask, fetchTask, fetchTaskApplication, updateChecklistItem, saveTaskId, getSavedTaskIds } from "../api/services";
+import { fetchService, createTask, fetchTask, fetchTaskApplication, updateChecklistItem, saveTaskId, getSavedTaskIds, checkReview } from "../api/services";
 import { useAuth } from "../hooks/useAuth";
 import { useToast } from "../components/Toast";
 import { ServiceDetailSkeleton } from "../components/LoadingSpinner";
 import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
+import FeedbackButton from "../components/FeedbackButton";
+import ReviewModal from "../components/ReviewModal";
 
 function t(val) {
   if (val == null) return "";
@@ -83,6 +85,8 @@ export default function ServiceDetail() {
   const [application, setApplication] = useState(null);
   const [checklistLoading, setChecklistLoading] = useState(false);
   const [checklistError, setChecklistError] = useState(null);
+  const [showReview, setShowReview] = useState(false);
+  const [reviewDone, setReviewDone] = useState(false);
 
   const loadService = useCallback(async () => {
     setLoading(true);
@@ -145,7 +149,15 @@ export default function ServiceDetail() {
     if (!task) return;
     try {
       const updated = await updateChecklistItem(task.taskId, requirementCode, state, authHeader);
-      if (updated) setTask(updated);
+      if (updated) {
+        setTask(updated);
+        if (updated.progressPercentage === 100 && !reviewDone) {
+          checkReview(updated.taskId, authHeader).then(r => {
+            if (!r.reviewed) setShowReview(true);
+            else setReviewDone(true);
+          }).catch(() => {});
+        }
+      }
     } catch {}
   }
 
@@ -355,6 +367,14 @@ export default function ServiceDetail() {
           </aside>
         </div>
       </div>
+      <FeedbackButton serviceCode={record.serviceCode} />
+      {showReview && task && (
+        <ReviewModal
+          serviceCode={record.serviceCode}
+          taskId={task.taskId}
+          onDone={() => { setShowReview(false); setReviewDone(true); }}
+        />
+      )}
     </div>
   );
 }

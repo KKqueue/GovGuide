@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,9 @@ public class InMemoryTaskPersistence implements TaskPersistence {
 
     @Override
     public String persistenceLabel() { return "FILE_BACKED"; }
+
+    @Override
+    public List<TaskRecord> findAllRecords() { return List.copyOf(records.values()); }
 
     @Override
     public Optional<TaskRecord> find(String taskId, String ownerId) {

@@ -133,6 +133,10 @@ export default function Profile() {
             </div>
           </div>
 
+          <Link to="/admin" className="button button-primary" style={{ marginBottom: "1rem", display: "inline-block" }}>
+            Admin Dashboard
+          </Link>
+
           <button
             className="button button-secondary profile-signout"
             type="button"

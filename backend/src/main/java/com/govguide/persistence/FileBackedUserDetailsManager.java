@@ -110,5 +110,13 @@ public class FileBackedUserDetailsManager extends InMemoryUserDetailsManager {
         }
     }
 
+    public long getUserCount() {
+        return readFile().size();
+    }
+
+    public List<String> getAllUsernames() {
+        return readFile().stream().map(StoredUser::username).toList();
+    }
+
     record StoredUser(String username, String encodedPassword, List<String> roles) {}
 }

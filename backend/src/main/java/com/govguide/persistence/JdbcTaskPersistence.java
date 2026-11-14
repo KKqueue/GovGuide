@@ -32,6 +32,15 @@ public class JdbcTaskPersistence implements TaskPersistence {
     public String persistenceLabel() { return "MYSQL_DURABLE"; }
 
     @Override
+    public List<TaskRecord> findAllRecords() {
+        return jdbc.query("""
+                SELECT t.task_id, u.username, t.service_code, t.service_version, t.parent_task_id,
+                       t.parent_requirement_code, t.root_task_id, t.dependency_code, t.depth,
+                       t.status, t.context_json, t.revision
+                  FROM user_service_task t JOIN app_user u ON u.user_id = t.user_id""", this::mapTask);
+    }
+
+    @Override
     public Optional<TaskRecord> find(String taskId, String ownerId) {
         List<TaskRecord> rows = jdbc.query("""
                 SELECT t.task_id, u.username, t.service_code, t.service_version, t.parent_task_id,

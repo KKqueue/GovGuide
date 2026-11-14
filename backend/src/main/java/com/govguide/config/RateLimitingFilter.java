@@ -19,7 +19,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Component
 public class RateLimitingFilter extends OncePerRequestFilter {
 
-    private static final int MAX_ATTEMPTS_PER_MINUTE = 10;
+    private final int maxAttemptsPerMinute;
+
+    public RateLimitingFilter(@org.springframework.beans.factory.annotation.Value("${app.rate-limit.max-per-minute:10}") int max) {
+        this.maxAttemptsPerMinute = max;
+    }
     private static final String RETRY_AFTER_SECONDS = "60";
     private final ConcurrentHashMap<String, AtomicInteger> attempts = new ConcurrentHashMap<>();
 
@@ -35,9 +39,9 @@ public class RateLimitingFilter extends OncePerRequestFilter {
                     ? forwarded.split(",")[0].trim() : request.getRemoteAddr();
             AtomicInteger count = attempts.computeIfAbsent(ip, k -> new AtomicInteger(0));
             int current = count.incrementAndGet();
-            response.setHeader("X-RateLimit-Limit", String.valueOf(MAX_ATTEMPTS_PER_MINUTE));
-            response.setHeader("X-RateLimit-Remaining", String.valueOf(Math.max(0, MAX_ATTEMPTS_PER_MINUTE - current)));
-            if (current > MAX_ATTEMPTS_PER_MINUTE) {
+            response.setHeader("X-RateLimit-Limit", String.valueOf(maxAttemptsPerMinute));
+            response.setHeader("X-RateLimit-Remaining", String.valueOf(Math.max(0, maxAttemptsPerMinute - current)));
+            if (current > maxAttemptsPerMinute) {
                 response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
                 response.setHeader("Retry-After", RETRY_AFTER_SECONDS);
                 response.setContentType("application/json");
