@@ -1688,12 +1688,25 @@ a.catalogue-card {
 .checklist { margin-top: 16px; }
 .checklist-item {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
   border-bottom: 1px solid var(--border);
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
 }
 .checklist-item:last-of-type { border-bottom: none; }
+.checklist-item--available { border-left-color: #3B82F6; }
+.checklist-item--in_progress { border-left-color: #F59E0B; }
+.checklist-item--completed { border-left-color: #10B981; }
+.checklist-item--missing { border-left-color: #EF4444; }
+.checklist-item--update_required { border-left-color: #F97316; }
+.checklist-item--not_applicable { border-left-color: #9CA3AF; }
+.checklist-item-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 .checklist-item select {
   flex-shrink: 0;
   min-width: 160px;
@@ -1708,6 +1721,15 @@ a.catalogue-card {
 .checklist-label {
   font-size: 0.95rem;
   text-transform: capitalize;
+}
+.checklist-hint {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: var(--surface-hover);
+  border-radius: 6px;
+  line-height: 1.5;
 }
 .checklist-progress {
   margin-top: 16px;

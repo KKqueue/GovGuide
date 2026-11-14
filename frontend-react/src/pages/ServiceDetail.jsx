@@ -288,20 +288,33 @@ export default function ServiceDetail() {
               ) : task ? (
                 <div className="checklist">
                   {task.checklistStates && Object.entries(task.checklistStates).map(([code, state]) => (
-                    <div key={code} className="checklist-item">
-                      <select
-                        value={state || "NOT_REVIEWED"}
-                        onChange={(e) => handleChecklistChange(code, e.target.value)}
-                      >
-                        <option value="NOT_REVIEWED">Not reviewed</option>
-                        <option value="AVAILABLE">Available</option>
-                        <option value="IN_PROGRESS">In progress</option>
-                        <option value="COMPLETED">Completed</option>
-                        <option value="MISSING">Missing</option>
-                        <option value="UPDATE_REQUIRED">Update required</option>
-                        <option value="NOT_APPLICABLE">Not applicable</option>
-                      </select>
-                      <span className="checklist-label">{formatCode(code)}</span>
+                    <div key={code} className={`checklist-item${state && state !== "NOT_REVIEWED" ? " checklist-item--" + state.toLowerCase() : ""}`}>
+                      <div className="checklist-item-top">
+                        <select
+                          value={state || "NOT_REVIEWED"}
+                          onChange={(e) => handleChecklistChange(code, e.target.value)}
+                        >
+                          <option value="NOT_REVIEWED">Not reviewed</option>
+                          <option value="AVAILABLE">Available</option>
+                          <option value="IN_PROGRESS">In progress</option>
+                          <option value="COMPLETED">Completed</option>
+                          <option value="MISSING">Missing</option>
+                          <option value="UPDATE_REQUIRED">Update required</option>
+                          <option value="NOT_APPLICABLE">Not applicable</option>
+                        </select>
+                        <span className="checklist-label">{formatCode(code)}</span>
+                      </div>
+                      {state && state !== "NOT_REVIEWED" && (
+                        <p className="checklist-hint">{
+                          { AVAILABLE: "You have this document ready. No action needed.",
+                            IN_PROGRESS: "You're working on obtaining this. Track your progress and update when ready.",
+                            COMPLETED: "This requirement is fulfilled.",
+                            MISSING: "You need to obtain this document. Check the official links above for where to apply.",
+                            UPDATE_REQUIRED: "Your current document is outdated. Visit the issuing authority to get an updated version.",
+                            NOT_APPLICABLE: "This requirement does not apply to your case."
+                          }[state]
+                        }</p>
+                      )}
                     </div>
                   ))}
                   {application?.checklist && application.checklist.map((item) => (
