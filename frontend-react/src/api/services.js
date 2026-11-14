@@ -22,7 +22,7 @@ export async function registerUser(username, password) {
   });
   if (!res.ok) {
     const text = await res.text();
-    let message = `Registration failed: ${res.status}`;
+    let message = res.status === 409 ? "Username already taken" : `Registration failed (${res.status}). Please try again.`;
     try {
       const json = JSON.parse(text);
       if (json.message) message = json.message;

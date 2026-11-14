@@ -37,6 +37,7 @@ export default function Header() {
         e.preventDefault();
         setSearchOpen(true);
       }
+      if (e.key === "Escape") setMenuOpen(false);
     }
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
