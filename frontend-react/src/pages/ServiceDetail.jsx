@@ -305,15 +305,18 @@ export default function ServiceDetail() {
                         <span className="checklist-label">{formatCode(code)}</span>
                       </div>
                       {state && state !== "NOT_REVIEWED" && (
-                        <p className="checklist-hint">{
-                          { AVAILABLE: "You have this document ready. No action needed.",
+                        <p className="checklist-hint">
+                          {{ AVAILABLE: "You have this document ready. No action needed.",
                             IN_PROGRESS: "You're working on obtaining this. Track your progress and update when ready.",
                             COMPLETED: "This requirement is fulfilled.",
-                            MISSING: "You need to obtain this document. Check the official links above for where to apply.",
-                            UPDATE_REQUIRED: "Your current document is outdated. Visit the issuing authority to get an updated version.",
+                            MISSING: "You need to obtain this document.",
+                            UPDATE_REQUIRED: "Your current document needs updating.",
                             NOT_APPLICABLE: "This requirement does not apply to your case."
-                          }[state]
-                        }</p>
+                          }[state]}
+                          {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS") && (
+                            <>{" "}<Link to={`/?search=${encodeURIComponent(formatCode(code))}`}>Find related service →</Link></>
+                          )}
+                        </p>
                       )}
                     </div>
                   ))}

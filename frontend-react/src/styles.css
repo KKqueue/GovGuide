@@ -114,7 +114,7 @@ html {
 
 body {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: clamp(14px, 1.5vw, 16px);
   line-height: 1.6;
   color: var(--text);
   background: var(--paper);
@@ -1069,7 +1069,8 @@ a.catalogue-card {
 }
 .checklist-item {
   display: flex;
-  gap: 12px;
+  flex-direction: column;
+  gap: 8px;
   padding: 14px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -1079,19 +1080,19 @@ a.catalogue-card {
 .checklist-item:hover { border-color: var(--border-strong); }
 .checklist-item select {
   min-height: 36px;
-  min-width: 160px;
-  padding: 8px 12px;
+  flex: 0 0 auto;
+  max-width: 150px;
+  padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--paper);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  flex-shrink: 0;
+  font-size: 0.8rem;
   cursor: pointer;
 }
-.checklist-item strong { font-size: 0.9rem; }
-.checklist-item p { font-size: 0.9rem; color: var(--text-secondary); margin-top: 2px; }
+.checklist-item strong { font-size: 0.85rem; }
+.checklist-item p { font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
 
 /* Sidebar */
 .service-sidebar {
@@ -1706,30 +1707,46 @@ a.catalogue-card {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 .checklist-item select {
-  flex-shrink: 0;
-  min-width: 160px;
-  padding: 8px 12px;
+  flex: 0 0 auto;
+  max-width: 150px;
+  padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--surface);
   color: var(--text);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   cursor: pointer;
 }
 .checklist-label {
-  font-size: 0.95rem;
+  flex: 1 1 0;
+  font-size: 0.875rem;
   text-transform: capitalize;
 }
 .checklist-hint {
   margin: 0;
   padding: 8px 12px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   background: var(--surface-hover);
   border-radius: 6px;
   line-height: 1.5;
+}
+.checklist-hint a {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: 600;
+}
+.checklist-hint a:hover { text-decoration: underline; }
+@media (min-width: 641px) {
+  .checklist-item select { width: 170px; font-size: 0.85rem; }
+  .checklist-label { font-size: 0.95rem; }
+  .checklist-hint { font-size: 0.85rem; }
+}
+@media (min-width: 961px) {
+  .checklist-item select { width: 180px; }
 }
 .checklist-progress {
   margin-top: 16px;
