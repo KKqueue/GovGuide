@@ -1079,14 +1079,16 @@ a.catalogue-card {
 .checklist-item:hover { border-color: var(--border-strong); }
 .checklist-item select {
   min-height: 36px;
-  padding: 4px 8px;
+  min-width: 160px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--paper);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
+  cursor: pointer;
 }
 .checklist-item strong { font-size: 0.9rem; }
 .checklist-item p { font-size: 0.9rem; color: var(--text-secondary); margin-top: 2px; }
@@ -1694,12 +1696,14 @@ a.catalogue-card {
 .checklist-item:last-of-type { border-bottom: none; }
 .checklist-item select {
   flex-shrink: 0;
-  padding: 6px 8px;
+  min-width: 160px;
+  padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
   background: var(--surface);
   color: var(--text);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  cursor: pointer;
 }
 .checklist-label {
   font-size: 0.95rem;
