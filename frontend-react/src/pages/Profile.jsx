@@ -140,7 +140,7 @@ export default function Profile() {
           <button
             className="button button-secondary profile-signout"
             type="button"
-            onClick={() => { signOut(); navigate("/"); }}
+            onClick={() => { if (window.confirm("Are you sure you want to sign out?")) { signOut(); navigate("/"); } }}
           >
             Sign out
           </button>
