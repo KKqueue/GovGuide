@@ -15,7 +15,7 @@ class SecurityConfigTest {
     void configuredBcryptPrefixIsRemovedBeforeAuthentication(@TempDir Path tempDir) {
         String rawPassword = "temporary-password";
         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
-        UserDetailsService service = new SecurityConfig().userDetailsService(
+        UserDetailsService service = new SecurityConfig().fileBackedUserDetailsService(
                 "alice:{bcrypt}" + encodedPassword, tempDir.toString(), new BCryptPasswordEncoder());
 
         UserDetails user = service.loadUserByUsername("alice");

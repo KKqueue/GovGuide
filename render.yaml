@@ -1,11 +1,13 @@
 services:
   - type: web
-    name: govguide-api
+    name: govguide
     runtime: docker
     dockerfilePath: ./Dockerfile
     plan: free
     envVars:
-      - key: APP_CORS_ALLOWED_ORIGINS
-        value: https://govguide.vercel.app,https://govguide.in
-      - key: GOVGUIDE_CONTENT_ROOT
-        value: /app/content/services
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

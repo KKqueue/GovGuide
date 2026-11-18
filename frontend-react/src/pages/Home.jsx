@@ -97,7 +97,7 @@ export default function Home() {
       <section className="hero" aria-labelledby="page-title">
         <div className="shell hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Your guide to Indian government services</p>
+            <p className="section-label">Your guide to Indian government services</p>
             <h1 id="page-title">Know exactly what you need before you apply.</h1>
             <p className="hero-lede">
               Requirements, fees, processing times, and official sources for {services.length || "120"}+ government
@@ -127,13 +127,51 @@ export default function Home() {
               Explore services <span aria-hidden="true">&#8595;</span>
             </Link>
           </div>
-          <aside className="hero-note" aria-label="Independent service notice">
-            <span className="note-icon" aria-hidden="true">i</span>
-            <div>
-              <strong>Independent guide</strong>
-              <p>This is an informational companion, not an official government portal. Applications must be completed through official channels.</p>
+          <div className="hero-visual" aria-hidden="true">
+            <div className="hero-card hero-card--1">
+              <div className="hero-card-icon hero-card-icon--check">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div className="hero-card-text">
+                <span className="hero-card-title">Identity proof</span>
+                <span className="hero-card-status hero-card-status--done">Verified</span>
+              </div>
             </div>
-          </aside>
+            <div className="hero-card hero-card--2">
+              <div className="hero-card-icon hero-card-icon--check">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              </div>
+              <div className="hero-card-text">
+                <span className="hero-card-title">Address proof</span>
+                <span className="hero-card-status hero-card-status--done">Verified</span>
+              </div>
+            </div>
+            <div className="hero-card hero-card--3">
+              <div className="hero-card-icon hero-card-icon--pending">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div className="hero-card-text">
+                <span className="hero-card-title">Passport photo</span>
+                <span className="hero-card-status hero-card-status--pending">Pending</span>
+              </div>
+            </div>
+            <div className="hero-card hero-card--4">
+              <div className="hero-card-icon hero-card-icon--info">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <div className="hero-card-text">
+                <span className="hero-card-title">Fee: ₹1,500</span>
+                <span className="hero-card-status hero-card-status--info">Official source</span>
+              </div>
+            </div>
+            <aside className="hero-note">
+              <span className="note-icon">i</span>
+              <div>
+                <strong>Independent guide</strong>
+                <p>Not an official government portal. Applications must be completed through official channels.</p>
+              </div>
+            </aside>
+          </div>
         </div>
       </section>
 
@@ -141,7 +179,7 @@ export default function Home() {
         <div className="shell">
           <div className="section-heading">
             <div>
-              <p className="eyebrow">Start here</p>
+              <p className="section-label">Start here</p>
               <h2 id="services-title">Choose a service</h2>
             </div>
             <p className="section-intro">
@@ -152,7 +190,7 @@ export default function Home() {
           <section className="catalogue-panel" aria-labelledby="catalogue-title">
             <div className="catalogue-heading">
               <div>
-                <p className="eyebrow">Service catalogue</p>
+                <p className="section-label">Service catalogue</p>
                 <h3 id="catalogue-title">Find the right starting point</h3>
                 <span className="services-count" aria-live="polite">
                   {!loading && `${filtered.length} services available`}
@@ -221,14 +259,42 @@ export default function Home() {
       <section id="about" className="about-section" aria-labelledby="about-title">
         <div className="shell about-grid">
           <div>
-            <p className="eyebrow">How to use this guide</p>
+            <p className="section-label">How to use this guide</p>
             <h2 id="about-title">Clarity before commitment.</h2>
+            <div className="about-features" aria-hidden="true">
+              <div className="about-feature">
+                <div className="about-feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+                <div>
+                  <strong>Source-verified</strong>
+                  <p>Every fact traced to its official government source</p>
+                </div>
+              </div>
+              <div className="about-feature">
+                <div className="about-feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </div>
+                <div>
+                  <strong>Privacy-first</strong>
+                  <p>No Aadhaar, OTPs, passwords or biometrics collected</p>
+                </div>
+              </div>
+              <div className="about-feature">
+                <div className="about-feature-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div>
+                  <strong>Transparent</strong>
+                  <p>Unverified information clearly labelled as such</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="about-copy">
             <p>Government rules can vary by applicant, route, and circumstance. This guide separates verified information from questions that still need confirmation.</p>
             <p>Every requirement, fee, and processing time is traced to its official government source. When information comes from non-government sources, it is clearly labelled.</p>
             <p>Covers identity documents, business registrations, social welfare schemes, property services, insurance, pensions, intellectual property, utilities, and more — with new services added regularly.</p>
-            <p>It does not collect Aadhaar numbers, OTPs, passwords, biometrics, or complete identity-document images.</p>
           </div>
         </div>
       </section>

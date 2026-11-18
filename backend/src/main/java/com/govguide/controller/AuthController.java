@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import java.security.Principal;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
-import com.govguide.persistence.FileBackedUserDetailsManager;
+import com.govguide.persistence.GovGuideUserManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,10 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private final FileBackedUserDetailsManager userDetailsManager;
+    private final GovGuideUserManager userDetailsManager;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthController(FileBackedUserDetailsManager userDetailsManager, PasswordEncoder passwordEncoder) {
+    public AuthController(GovGuideUserManager userDetailsManager, PasswordEncoder passwordEncoder) {
         this.userDetailsManager = userDetailsManager;
         this.passwordEncoder = passwordEncoder;
     }

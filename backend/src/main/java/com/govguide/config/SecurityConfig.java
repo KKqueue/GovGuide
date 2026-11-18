@@ -22,9 +22,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import com.govguide.persistence.FileBackedUserDetailsManager;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import com.govguide.persistence.GovGuideUserManager;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -44,7 +44,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    FileBackedUserDetailsManager userDetailsService(
+    @Profile("!db")
+    GovGuideUserManager fileBackedUserDetailsService(
             @Value("${app.auth.users:}") String configuredUsers,
             @Value("${app.data.dir:data}") String dataDir,
             PasswordEncoder encoder) {
@@ -68,7 +69,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper, RateLimitingFilter rateLimitingFilter) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http, ObjectMapper objectMapper, RateLimitingFilter rateLimitingFilter, GovGuideUserManager userManager) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -88,12 +89,14 @@ public class SecurityConfig {
                                 "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'"));
                 })
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(request -> !request.getRequestURI().startsWith("/api/")).permitAll()
                         .requestMatchers("/api/v1/services/_reload").authenticated()
                         .requestMatchers("/api/v1/health", "/api/v1/services", "/api/v1/services/**", "/api/v1/offices", "/api/v1/offices/**", "/api/v1/auth/register").permitAll()
                         .requestMatchers("/api/v1/feedback/service/**", "/api/v1/reviews/service/**").permitAll()
                         .requestMatchers("/api/v1/auth/**", "/api/v1/tasks/**", "/api/v1/applications/**",
                                 "/api/v1/feedback/**", "/api/v1/reviews/**", "/api/v1/admin/**").authenticated()
                         .anyRequest().authenticated())
+                .userDetailsService(userManager)
                 .httpBasic(basic -> basic.authenticationEntryPoint(apiErrorEntryPoint(objectMapper)))
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint(apiErrorEntryPoint(objectMapper))

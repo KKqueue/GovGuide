@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-public class FileBackedUserDetailsManager extends InMemoryUserDetailsManager {
+public class FileBackedUserDetailsManager extends InMemoryUserDetailsManager implements GovGuideUserManager {
 
     private static final Logger log = LoggerFactory.getLogger(FileBackedUserDetailsManager.class);
     private final Path usersFile;

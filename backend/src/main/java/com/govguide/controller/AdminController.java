@@ -3,7 +3,7 @@ package com.govguide.controller;
 import com.govguide.dto.ApiResponse;
 import com.govguide.persistence.FeedbackPersistence;
 import com.govguide.persistence.FeedbackRecord;
-import com.govguide.persistence.FileBackedUserDetailsManager;
+import com.govguide.persistence.GovGuideUserManager;
 import com.govguide.persistence.ReviewPersistence;
 import com.govguide.persistence.ReviewRecord;
 import com.govguide.persistence.TaskPersistence;
@@ -23,12 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/admin")
 public class AdminController {
 
-    private final FileBackedUserDetailsManager userManager;
+    private final GovGuideUserManager userManager;
     private final TaskPersistence taskPersistence;
     private final FeedbackPersistence feedbackPersistence;
     private final ReviewPersistence reviewPersistence;
 
-    public AdminController(FileBackedUserDetailsManager userManager,
+    public AdminController(GovGuideUserManager userManager,
                            TaskPersistence taskPersistence,
                            FeedbackPersistence feedbackPersistence,
                            ReviewPersistence reviewPersistence) {

@@ -1,0 +1,14 @@
+frontend-react/node_modules
+frontend-react/dist
+frontend
+backend/target
+backend/data
+.git
+.idea
+*.log
+*.xlsx
+*.pdf
+*.bat
+load-test.js
+plan.md
+query
