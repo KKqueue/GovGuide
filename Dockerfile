@@ -24,4 +24,4 @@ COPY content/services content/services
 RUN mkdir -p /app/data
 ENV GOVGUIDE_CONTENT_ROOT=/app/content/services
 EXPOSE 8080
-CMD java -Xmx384m -jar app.jar --server.port=${PORT:-8080} --app.data.dir=/app/data --spring.profiles.active=db --app.frontend.dir=/app/frontend
+CMD java -Xmx384m -jar app.jar --server.port=${PORT:-8080} --app.data.dir=/app/data --spring.profiles.active=db --app.frontend.dir=/app/frontend --spring.web.resources.static-locations=file:/app/frontend/
