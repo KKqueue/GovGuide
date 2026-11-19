@@ -16,6 +16,7 @@ export default function Home() {
   const [activeCategory, setActiveCategory] = useState("All");
   const servicesRef = useRef(null);
   const location = useLocation();
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     loadServices();
@@ -93,8 +94,6 @@ export default function Home() {
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
   }, [activeCategory, search]);
-
-  const { lang, t } = useLanguage();
 
   useEffect(() => {
     document.title = "Government Guide Companion — Indian Government Services";
