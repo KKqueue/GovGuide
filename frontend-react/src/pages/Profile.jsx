@@ -4,6 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 import { useLanguage } from "../hooks/useLanguage";
 import { fetchTask, getSavedTaskIds } from "../api/services";
 import { codeToName } from "../utils/serviceNames";
+import { getServiceNameHi } from "../i18n/serviceNames";
 
 export default function Profile() {
   const { user, authHeader, signOut } = useAuth();
@@ -16,8 +17,8 @@ export default function Profile() {
       navigate("/auth");
       return;
     }
-    document.title = `${user} — Government Guide`;
-    return () => { document.title = "Government Guide Companion"; };
+    document.title = `${user} — ${t("app_name")}`;
+    return () => { document.title = t("app_name"); };
   }, [user, navigate]);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function Profile() {
     });
   }, [authHeader]);
 
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   if (!user) return null;
 
@@ -70,7 +71,7 @@ export default function Profile() {
             {user.charAt(0).toUpperCase()}
           </div>
           <h2>{user}</h2>
-          <p className="profile-role">Registered user</p>
+          <p className="profile-role">{t("registered_user")}</p>
 
           <div className="profile-overview" role="region" aria-label="Your progress overview">
             <div className="profile-overview-card">
@@ -122,7 +123,7 @@ export default function Profile() {
                       className="profile-task"
                     >
                       <div className="profile-task-info">
-                        <span className="profile-task-name">{codeToName(task.serviceCode)}</span>
+                        <span className="profile-task-name">{lang === "hi" ? (getServiceNameHi(task.serviceCode) || codeToName(task.serviceCode)) : codeToName(task.serviceCode)}</span>
                         <span className={`profile-task-status ${st.cls}`}>{st.label}</span>
                         <span className="profile-task-progress">{task.progressPercentage || 0}%</span>
                       </div>
@@ -171,7 +172,7 @@ export default function Profile() {
           <button
             className="button button-secondary profile-signout"
             type="button"
-            onClick={() => { if (window.confirm("Are you sure you want to sign out?")) { signOut(); navigate("/"); } }}
+            onClick={() => { if (window.confirm(t("confirm_sign_out"))) { signOut(); navigate("/"); } }}
           >
             {t("sign_out")}
           </button>

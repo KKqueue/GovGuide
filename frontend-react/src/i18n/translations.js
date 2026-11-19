@@ -33,6 +33,8 @@ export const translations = {
     sign_in_prompt: "Sign in to save your checklist progress.",
     sign_up_prompt: "Create a new account to get started.",
     signing_in: "Signing in...",
+    sign_up_link: "Sign up",
+    sign_in_link: "Sign in",
     creating_account: "Creating account...",
     pw_weak: "Weak",
     pw_fair: "Fair",
@@ -194,6 +196,69 @@ export const translations = {
     show_more: "Show more services",
     remaining: "remaining",
     admin_dashboard: "Admin Dashboard",
+
+    // Service detail - additional
+    error_load_details: "We couldn't load these details.",
+    error_check_connection: "Check your connection and try again.",
+    source_official: "OFFICIAL",
+    source_confirms: "What the source confirms",
+    still_unresolved: "Still unresolved",
+    checklist_started_toast: "Checklist started — track your progress below.",
+    checklist_error_toast: "Could not start checklist. Please try again.",
+    up_to: "Up to",
+    of_total: "of",
+
+    // Action guidance
+    obtain_check_online: "Check if this can be obtained online through your state's e-District or service portal.",
+    obtain_what_needed: "What you need:",
+    obtain_visit_office: "Visit the nearest government office if online isn't available.",
+    obtain_once_done: "Once obtained, update this item to 'Available' or 'Completed'.",
+    update_expired: "Your document may be expired or contain outdated information.",
+    update_check_validity: "Check the validity/expiry date on your existing document.",
+    update_apply_renewal: "Apply for renewal or re-issuance through the official portal.",
+    update_once_done: "Once renewed, update this item to 'Available' or 'Completed'.",
+    wait_track: "If you've applied, track your application status on the official portal.",
+    wait_keep_receipt: "Keep your application receipt or acknowledgment number safe.",
+    wait_once_received: "Once received, update this item to 'Available' or 'Completed'.",
+
+    // Auth - additional
+    hide_password: "Hide password",
+    show_password: "Show password",
+    signed_in_toast: "Signed in successfully!",
+    account_created_toast: "Account created! Welcome to GovGuide.",
+    session_expired_msg: "Your session has expired. Please sign in again.",
+    username_invalid_msg: "Username can only contain letters, numbers, dots, hyphens, and underscores.",
+    password_requirements_msg: "Password must be at least 8 characters with at least one letter and one number.",
+    passwords_no_match: "Passwords do not match.",
+    auth_hint_username: "Letters, numbers, dots, hyphens, underscores only.",
+    auth_hint_password: "Min 8 characters, one letter and one number.",
+
+    // Profile - additional
+    registered_user: "Registered user",
+    confirm_sign_out: "Are you sure you want to sign out?",
+
+    // Feedback
+    feedback: "Feedback",
+    service_feedback: "Service Feedback",
+    issue_type: "Issue type",
+    your_message: "Your message",
+    feedback_placeholder: "Describe the issue or suggestion...",
+    cancel: "Cancel",
+    submit_feedback: "Submit feedback",
+    sending: "Sending...",
+    feedback_sent_toast: "Feedback submitted. Thank you!",
+    feedback_error_toast: "Could not submit feedback. Please try again.",
+    feedback_bug: "Something is broken",
+    feedback_incorrect: "Incorrect information",
+    feedback_missing: "Missing information",
+    feedback_suggestion: "Suggestion",
+    feedback_other: "Other",
+    send_feedback_aria: "Send feedback about this service",
+    close: "Close",
+
+    // Common - additional
+    govt_guide: "Government Guide",
+    publication_ready: "Ready for publication",
   },
 
   hi: {
@@ -230,6 +295,8 @@ export const translations = {
     sign_in_prompt: "अपनी चेकलिस्ट प्रगति सहेजने के लिए लॉग इन करें।",
     sign_up_prompt: "शुरू करने के लिए नया खाता बनाएं।",
     signing_in: "लॉग इन हो रहा है...",
+    sign_up_link: "खाता बनाएं",
+    sign_in_link: "लॉग इन करें",
     creating_account: "खाता बन रहा है...",
     pw_weak: "कमज़ोर",
     pw_fair: "ठीक",
@@ -391,6 +458,69 @@ export const translations = {
     show_more: "और सेवाएं दिखाएं",
     remaining: "शेष",
     admin_dashboard: "व्यवस्थापक डैशबोर्ड",
+
+    // Service detail - additional
+    error_load_details: "विवरण लोड नहीं हो सके।",
+    error_check_connection: "अपना कनेक्शन जांचें और पुनः प्रयास करें।",
+    source_official: "आधिकारिक",
+    source_confirms: "स्रोत क्या पुष्टि करता है",
+    still_unresolved: "अभी भी अनसुलझा",
+    checklist_started_toast: "चेकलिस्ट शुरू — नीचे अपनी प्रगति ट्रैक करें।",
+    checklist_error_toast: "चेकलिस्ट शुरू नहीं हो सकी। कृपया पुनः प्रयास करें।",
+    up_to: "अधिकतम",
+    of_total: "में से",
+
+    // Action guidance
+    obtain_check_online: "जांचें कि क्या यह आपके राज्य के ई-डिस्ट्रिक्ट या सेवा पोर्टल से ऑनलाइन प्राप्त किया जा सकता है।",
+    obtain_what_needed: "आपको चाहिए:",
+    obtain_visit_office: "यदि ऑनलाइन उपलब्ध नहीं है तो निकटतम सरकारी कार्यालय जाएं।",
+    obtain_once_done: "प्राप्त होने के बाद, इस आइटम को 'उपलब्ध' या 'पूर्ण' में अपडेट करें।",
+    update_expired: "आपका दस्तावेज़ एक्सपायर्ड या पुराना हो सकता है।",
+    update_check_validity: "अपने मौजूदा दस्तावेज़ की वैधता/समाप्ति तिथि जांचें।",
+    update_apply_renewal: "आधिकारिक पोर्टल से नवीनीकरण या पुनः जारी करने के लिए आवेदन करें।",
+    update_once_done: "नवीनीकरण के बाद, इस आइटम को 'उपलब्ध' या 'पूर्ण' में अपडेट करें।",
+    wait_track: "यदि आपने आवेदन किया है, तो आधिकारिक पोर्टल पर अपने आवेदन की स्थिति ट्रैक करें।",
+    wait_keep_receipt: "अपनी आवेदन रसीद या पावती संख्या सुरक्षित रखें।",
+    wait_once_received: "प्राप्त होने के बाद, इस आइटम को 'उपलब्ध' या 'पूर्ण' में अपडेट करें।",
+
+    // Auth - additional
+    hide_password: "पासवर्ड छुपाएं",
+    show_password: "पासवर्ड दिखाएं",
+    signed_in_toast: "सफलतापूर्वक लॉग इन हुआ!",
+    account_created_toast: "खाता बन गया! GovGuide में आपका स्वागत है।",
+    session_expired_msg: "आपका सत्र समाप्त हो गया है। कृपया पुनः लॉग इन करें।",
+    username_invalid_msg: "उपयोगकर्ता नाम में केवल अक्षर, अंक, बिंदु, हाइफन और अंडरस्कोर हो सकते हैं।",
+    password_requirements_msg: "पासवर्ड कम से कम 8 अक्षर का होना चाहिए, जिसमें एक अक्षर और एक अंक हो।",
+    passwords_no_match: "पासवर्ड मेल नहीं खाते।",
+    auth_hint_username: "केवल अक्षर, अंक, बिंदु, हाइफन, अंडरस्कोर।",
+    auth_hint_password: "कम से कम 8 अक्षर, एक अक्षर और एक अंक।",
+
+    // Profile - additional
+    registered_user: "पंजीकृत उपयोगकर्ता",
+    confirm_sign_out: "क्या आप लॉग आउट करना चाहते हैं?",
+
+    // Feedback
+    feedback: "प्रतिक्रिया",
+    service_feedback: "सेवा प्रतिक्रिया",
+    issue_type: "समस्या का प्रकार",
+    your_message: "आपका संदेश",
+    feedback_placeholder: "समस्या या सुझाव का वर्णन करें...",
+    cancel: "रद्द करें",
+    submit_feedback: "प्रतिक्रिया भेजें",
+    sending: "भेजा जा रहा है...",
+    feedback_sent_toast: "प्रतिक्रिया भेज दी गई। धन्यवाद!",
+    feedback_error_toast: "प्रतिक्रिया नहीं भेजी जा सकी। कृपया पुनः प्रयास करें।",
+    feedback_bug: "कुछ टूटा हुआ है",
+    feedback_incorrect: "गलत जानकारी",
+    feedback_missing: "अनुपलब्ध जानकारी",
+    feedback_suggestion: "सुझाव",
+    feedback_other: "अन्य",
+    send_feedback_aria: "इस सेवा के बारे में प्रतिक्रिया भेजें",
+    close: "बंद करें",
+
+    // Common - additional
+    govt_guide: "सरकारी सेवा मार्गदर्शक",
+    publication_ready: "प्रकाशन के लिए तैयार",
   },
 };
 
