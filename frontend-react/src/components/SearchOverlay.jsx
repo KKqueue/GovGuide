@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { fetchServices } from "../api/services";
 import { codeToName } from "../utils/serviceNames";
+import { useLanguage } from "../hooks/useLanguage";
+import { getServiceNameHi } from "../i18n/serviceNames";
 
 let cachedServices = null;
 
@@ -14,6 +16,7 @@ export default function SearchOverlay({ open, onClose }) {
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const navigate = useNavigate();
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     if (!cachedServices) {
@@ -71,6 +74,10 @@ export default function SearchOverlay({ open, onClose }) {
           else if (wordBoundary.test(code) || wordStart.test(code)) score = 50;
           else if (code.includes(q)) score = 30;
           else if (cat.includes(q)) score = 20;
+          if (score === 0 && lang === "hi") {
+            const hi = getServiceNameHi(s.serviceCode);
+            if (hi && hi.toLowerCase().includes(q)) score = 40;
+          }
           return { ...s, _score: score };
         })
         .filter(s => s._score > 0)
@@ -122,8 +129,8 @@ export default function SearchOverlay({ open, onClose }) {
             <input
               ref={inputRef}
               type="search"
-              placeholder="Search government services..."
-              aria-label="Search services"
+              placeholder={t("search_govt_services")}
+              aria-label={t("search_services")}
               value={query}
               onChange={e => setQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -140,7 +147,7 @@ export default function SearchOverlay({ open, onClose }) {
         {query.trim() && (
           <ul className="search-dialog-results" ref={listRef} role="listbox">
             {results.length === 0 ? (
-              <li className="search-dialog-empty">No services found for &ldquo;{query}&rdquo;</li>
+              <li className="search-dialog-empty">{t("no_services_found")} &ldquo;{query}&rdquo;</li>
             ) : (
               results.map((s, i) => (
                 <li
@@ -152,7 +159,7 @@ export default function SearchOverlay({ open, onClose }) {
                   onClick={() => handleSelect(s)}
                   onMouseEnter={() => setActiveIndex(i)}
                 >
-                  <span className="search-result-name">{s.name || codeToName(s.serviceCode)}</span>
+                  <span className="search-result-name">{lang === "hi" ? (getServiceNameHi(s.serviceCode) || s.name || codeToName(s.serviceCode)) : (s.name || codeToName(s.serviceCode))}</span>
                   <span className="search-result-category">{(s.category || "").replace(/_/g, " ")}</span>
                 </li>
               ))
@@ -162,14 +169,14 @@ export default function SearchOverlay({ open, onClose }) {
         {!query.trim() && (
           <div className="search-dialog-hint">
             {fetchError
-              ? "Could not load services. Try again later."
-              : `Type to search across ${services.length}+ government services`}
+              ? t("search_load_error")
+              : `${t("search_hint")} ${services.length}+ ${t("search_hint_suffix")}`}
           </div>
         )}
         <div className="search-dialog-footer">
-          <span><kbd>&uarr;</kbd> <kbd>&darr;</kbd> Navigate</span>
-          <span><kbd>&#9166;</kbd> Open</span>
-          <span><kbd>Esc</kbd> Close</span>
+          <span><kbd>&uarr;</kbd> <kbd>&darr;</kbd> {t("search_navigate")}</span>
+          <span><kbd>&#9166;</kbd> {t("search_open")}</span>
+          <span><kbd>Esc</kbd> {t("search_close")}</span>
         </div>
       </div>
     </div>,

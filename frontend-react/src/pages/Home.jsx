@@ -6,6 +6,7 @@ import CategoryFilter, { extractCategories, getDisplayCategory } from "../compon
 import { SkeletonGrid } from "../components/LoadingSpinner";
 import { codeToName } from "../utils/serviceNames";
 import { useLanguage } from "../hooks/useLanguage";
+import { getServiceNameHi } from "../i18n/serviceNames";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -77,18 +78,23 @@ export default function Home() {
     if (search.trim()) {
       const q = search.toLowerCase();
       list = list.filter((s) => {
-        const displayName = s.name || codeToName(s.serviceCode);
-        return displayName.toLowerCase().includes(q);
+        const enName = (s.name || codeToName(s.serviceCode)).toLowerCase();
+        if (enName.includes(q)) return true;
+        if (lang === "hi") {
+          const hiName = getServiceNameHi(s.serviceCode);
+          if (hiName && hiName.toLowerCase().includes(q)) return true;
+        }
+        return false;
       });
     }
     return list;
-  }, [sorted, activeCategory, search]);
+  }, [sorted, activeCategory, search, lang]);
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
   }, [activeCategory, search]);
 
-  const { t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     document.title = "Government Guide Companion — Indian Government Services";
@@ -135,8 +141,8 @@ export default function Home() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
               <div className="hero-card-text">
-                <span className="hero-card-title">Identity proof</span>
-                <span className="hero-card-status hero-card-status--done">Verified</span>
+                <span className="hero-card-title">{t("hero_identity")}</span>
+                <span className="hero-card-status hero-card-status--done">{t("hero_verified")}</span>
               </div>
             </div>
             <div className="hero-card hero-card--2">
@@ -144,8 +150,8 @@ export default function Home() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
               <div className="hero-card-text">
-                <span className="hero-card-title">Address proof</span>
-                <span className="hero-card-status hero-card-status--done">Verified</span>
+                <span className="hero-card-title">{t("hero_address")}</span>
+                <span className="hero-card-status hero-card-status--done">{t("hero_verified")}</span>
               </div>
             </div>
             <div className="hero-card hero-card--3">
@@ -153,8 +159,8 @@ export default function Home() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
               <div className="hero-card-text">
-                <span className="hero-card-title">Passport photo</span>
-                <span className="hero-card-status hero-card-status--pending">Pending</span>
+                <span className="hero-card-title">{t("hero_photo")}</span>
+                <span className="hero-card-status hero-card-status--pending">{t("hero_pending")}</span>
               </div>
             </div>
             <div className="hero-card hero-card--4">
@@ -162,15 +168,15 @@ export default function Home() {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
               </div>
               <div className="hero-card-text">
-                <span className="hero-card-title">Fee: ₹1,500</span>
-                <span className="hero-card-status hero-card-status--info">Official source</span>
+                <span className="hero-card-title">{t("hero_fee")}</span>
+                <span className="hero-card-status hero-card-status--info">{t("hero_official")}</span>
               </div>
             </div>
             <aside className="hero-note">
               <span className="note-icon">i</span>
               <div>
-                <strong>Independent guide</strong>
-                <p>Not an official government portal. Applications must be completed through official channels.</p>
+                <strong>{t("independent_guide")}</strong>
+                <p>{t("not_official")}</p>
               </div>
             </aside>
           </div>
@@ -185,7 +191,7 @@ export default function Home() {
               <h2 id="services-title">{t("choose_service")}</h2>
             </div>
             <p className="section-intro">
-              Browse the services currently covered by this independent guide. New services appear only after their evidence has been reviewed.
+              {t("services_intro")}
             </p>
           </div>
 
@@ -219,8 +225,8 @@ export default function Home() {
 
             {error && (
               <div className="state-panel state-error" role="alert">
-                <strong>We couldn't load the services right now.</strong>
-                <p>Check your connection and try again.</p>
+                <strong>{t("error_load_title")}</strong>
+                <p>{t("error_load_msg")}</p>
                 <button className="button button-secondary" type="button" onClick={loadServices}>
                   {t("try_again")}
                 </button>
@@ -294,9 +300,9 @@ export default function Home() {
             </div>
           </div>
           <div className="about-copy">
-            <p>Government rules can vary by applicant, route, and circumstance. This guide separates verified information from questions that still need confirmation.</p>
-            <p>Every requirement, fee, and processing time is traced to its official government source. When information comes from non-government sources, it is clearly labelled.</p>
-            <p>Covers identity documents, business registrations, social welfare schemes, property services, insurance, pensions, intellectual property, utilities, and more — with new services added regularly.</p>
+            <p>{t("about_p1")}</p>
+            <p>{t("about_p2")}</p>
+            <p>{t("about_p3")}</p>
           </div>
         </div>
       </section>

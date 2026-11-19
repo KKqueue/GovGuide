@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { translate } from "../i18n/translations";
 
 export default class ErrorBoundary extends Component {
   state = { hasError: false };
@@ -13,17 +14,18 @@ export default class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
+      const lang = localStorage.getItem("govguide-lang") || "en";
       return (
         <div className="shell" style={{ padding: "80px 0" }}>
           <div className="state-panel state-error" role="alert">
-            <strong>Something went wrong</strong>
-            <p>An unexpected error occurred. Please refresh the page.</p>
+            <strong>{translate(lang, "something_wrong")}</strong>
+            <p>{translate(lang, "unexpected_error")}</p>
             <button
               className="button button-primary"
               type="button"
               onClick={() => window.location.reload()}
             >
-              Refresh page
+              {translate(lang, "refresh_page")}
             </button>
           </div>
         </div>

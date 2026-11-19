@@ -109,6 +109,11 @@ export const translations = {
     about_transparent: "Transparent",
     about_transparent_desc: "Unverified information clearly labelled as such",
 
+    // Header
+    profile: "Profile",
+    dark_mode: "Dark mode",
+    light_mode: "Light mode",
+
     // Common
     free: "Free",
     varies: "Varies",
@@ -137,6 +142,43 @@ export const translations = {
     // Cold start
     cold_start_title: "Waking up the server...",
     cold_start_msg: "Free-tier servers sleep after inactivity. This usually takes 30–60 seconds.",
+
+    // Search overlay
+    search_govt_services: "Search government services...",
+    no_services_found: "No services found for",
+    search_load_error: "Could not load services. Try again later.",
+    search_hint: "Type to search across",
+    search_hint_suffix: "government services",
+    search_navigate: "Navigate",
+    search_open: "Open",
+    search_close: "Close",
+
+    // Hero visual
+    hero_identity: "Identity proof",
+    hero_address: "Address proof",
+    hero_photo: "Passport photo",
+    hero_fee: "Fee: ₹1,500",
+    hero_verified: "Verified",
+    hero_pending: "Pending",
+    hero_official: "Official source",
+
+    // Services intro
+    services_intro: "Browse the services currently covered by this independent guide. New services appear only after their evidence has been reviewed.",
+    error_load_title: "We couldn't load the services right now.",
+    error_load_msg: "Check your connection and try again.",
+
+    // About paragraphs
+    about_p1: "Government rules can vary by applicant, route, and circumstance. This guide separates verified information from questions that still need confirmation.",
+    about_p2: "Every requirement, fee, and processing time is traced to its official government source. When information comes from non-government sources, it is clearly labelled.",
+    about_p3: "Covers identity documents, business registrations, social welfare schemes, property services, insurance, pensions, intellectual property, utilities, and more — with new services added regularly.",
+
+    // Not Found / Error
+    page_not_found: "Page not found",
+    page_not_found_msg: "The page you're looking for doesn't exist or has been moved.",
+    back_home: "Back to home",
+    something_wrong: "Something went wrong",
+    unexpected_error: "An unexpected error occurred. Please refresh the page.",
+    refresh_page: "Refresh page",
 
     // Misc
     independent_guide: "Independent guide",
@@ -264,6 +306,11 @@ export const translations = {
     about_transparent: "पारदर्शी",
     about_transparent_desc: "असत्यापित जानकारी स्पष्ट रूप से चिह्नित",
 
+    // Header
+    profile: "प्रोफ़ाइल",
+    dark_mode: "डार्क मोड",
+    light_mode: "लाइट मोड",
+
     // Common
     free: "निःशुल्क",
     varies: "भिन्न",
@@ -292,6 +339,43 @@ export const translations = {
     // Cold start
     cold_start_title: "सर्वर जाग रहा है...",
     cold_start_msg: "फ्री-टियर सर्वर निष्क्रियता के बाद सो जाते हैं। इसमें आमतौर पर 30–60 सेकंड लगते हैं।",
+
+    // Search overlay
+    search_govt_services: "सरकारी सेवाएं खोजें...",
+    no_services_found: "कोई सेवा नहीं मिली —",
+    search_load_error: "सेवाएं लोड नहीं हो सकीं। बाद में पुनः प्रयास करें।",
+    search_hint: "खोजें —",
+    search_hint_suffix: "सरकारी सेवाएं",
+    search_navigate: "नेविगेट",
+    search_open: "खोलें",
+    search_close: "बंद करें",
+
+    // Hero visual
+    hero_identity: "पहचान प्रमाण",
+    hero_address: "पता प्रमाण",
+    hero_photo: "पासपोर्ट फोटो",
+    hero_fee: "शुल्क: ₹1,500",
+    hero_verified: "सत्यापित",
+    hero_pending: "लंबित",
+    hero_official: "आधिकारिक स्रोत",
+
+    // Services intro
+    services_intro: "इस स्वतंत्र मार्गदर्शक में वर्तमान में उपलब्ध सेवाओं को ब्राउज़ करें। नई सेवाएं केवल साक्ष्य समीक्षा के बाद जोड़ी जाती हैं।",
+    error_load_title: "सेवाएं अभी लोड नहीं हो सकीं।",
+    error_load_msg: "अपना कनेक्शन जांचें और पुनः प्रयास करें।",
+
+    // About paragraphs
+    about_p1: "सरकारी नियम आवेदक, मार्ग और परिस्थिति के अनुसार भिन्न हो सकते हैं। यह गाइड सत्यापित जानकारी को उन प्रश्नों से अलग करता है जिनकी अभी पुष्टि होनी बाकी है।",
+    about_p2: "प्रत्येक आवश्यकता, शुल्क और प्रसंस्करण समय का स्रोत आधिकारिक सरकारी पोर्टल है। जब जानकारी गैर-सरकारी स्रोतों से आती है, तो इसे स्पष्ट रूप से चिह्नित किया जाता है।",
+    about_p3: "पहचान दस्तावेज़, व्यापार पंजीकरण, सामाजिक कल्याण योजनाएं, संपत्ति सेवाएं, बीमा, पेंशन, बौद्धिक संपदा, उपयोगिताएं और बहुत कुछ — नई सेवाएं नियमित रूप से जोड़ी जाती हैं।",
+
+    // Not Found / Error
+    page_not_found: "पृष्ठ नहीं मिला",
+    page_not_found_msg: "जो पृष्ठ आप खोज रहे हैं वह मौजूद नहीं है या स्थानांतरित कर दिया गया है।",
+    back_home: "होम पर वापस जाएं",
+    something_wrong: "कुछ गलत हो गया",
+    unexpected_error: "एक अप्रत्याशित त्रुटि हुई। कृपया पृष्ठ को रीफ़्रेश करें।",
+    refresh_page: "पृष्ठ रीफ़्रेश करें",
 
     // Misc
     independent_guide: "स्वतंत्र मार्गदर्शक",

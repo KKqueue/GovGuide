@@ -108,11 +108,11 @@ export default function Header() {
             <Link
               to="/profile"
               className="nav-avatar"
-              aria-label={`${user} — Profile`}
+              aria-label={`${user} — ${t("profile")}`}
               onClick={() => setMenuOpen(false)}
             >
               <span className="nav-avatar-letter" aria-hidden="true">{user.charAt(0).toUpperCase()}</span>
-              <span className="nav-link-label">Profile</span>
+              <span className="nav-link-label">{t("profile")}</span>
             </Link>
           ) : (
             <button
@@ -142,7 +142,7 @@ export default function Header() {
                 <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
               </svg>
             )}
-            <span className="nav-link-label">{isDark ? "Dark mode" : "Light mode"}</span>
+            <span className="nav-link-label">{isDark ? t("dark_mode") : t("light_mode")}</span>
           </button>
         </nav>
       </div>
