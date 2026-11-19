@@ -87,6 +87,7 @@ export default function ServiceDetail() {
   const [checklistError, setChecklistError] = useState(null);
   const [showReview, setShowReview] = useState(false);
   const [reviewDone, setReviewDone] = useState(false);
+  const [expandedItems, setExpandedItems] = useState(new Set());
 
   const loadService = useCallback(async () => {
     setLoading(true);
@@ -273,8 +274,8 @@ export default function ServiceDetail() {
             )}
 
             <div className="service-checklist-section">
-              <h3>Checklist prototype</h3>
-              <p>Start a local prototype task to review the published requirement states. This does not submit an application or confirm eligibility.</p>
+              <h3>Your document checklist</h3>
+              <p>Track which documents you have and which you still need. Update the status of each item as you gather your documents.</p>
               {checklistError && (
                 <div className="checklist-error" role="alert">
                   <p>Could not start checklist. {checklistError}</p>
@@ -287,56 +288,100 @@ export default function ServiceDetail() {
                 </button>
               ) : task ? (
                 <div className="checklist">
-                  {task.checklistStates && Object.entries(task.checklistStates).map(([code, state]) => (
-                    <div key={code} className={`checklist-item${state && state !== "NOT_REVIEWED" ? " checklist-item--" + state.toLowerCase() : ""}`}>
-                      <div className="checklist-item-top">
-                        <select
-                          value={state || "NOT_REVIEWED"}
-                          onChange={(e) => handleChecklistChange(code, e.target.value)}
-                        >
-                          <option value="NOT_REVIEWED">Not reviewed</option>
-                          <option value="AVAILABLE">Available</option>
-                          <option value="IN_PROGRESS">In progress</option>
-                          <option value="COMPLETED">Completed</option>
-                          <option value="MISSING">Missing</option>
-                          <option value="UPDATE_REQUIRED">Update required</option>
-                          <option value="NOT_APPLICABLE">Not applicable</option>
-                        </select>
-                        <span className="checklist-label">{formatCode(code)}</span>
-                      </div>
-                      {state && state !== "NOT_REVIEWED" && (
-                        <p className="checklist-hint">
-                          {{ AVAILABLE: "You have this document ready. No action needed.",
-                            IN_PROGRESS: "You're working on obtaining this. Track your progress and update when ready.",
-                            COMPLETED: "This requirement is fulfilled.",
-                            MISSING: "You need to obtain this document.",
-                            UPDATE_REQUIRED: "Your current document needs updating.",
-                            NOT_APPLICABLE: "This requirement does not apply to your case."
-                          }[state]}
-                          {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS") && (
-                            <>{" "}<Link to={`/?search=${encodeURIComponent(formatCode(code))}`}>Find related service →</Link></>
-                          )}
-                        </p>
-                      )}
+                  <div className="checklist-legend">
+                    <h4>Status guide</h4>
+                    <div className="checklist-legend-grid">
+                      <div className="legend-item"><span className="legend-dot legend-dot--not-reviewed" />Not reviewed — You haven't checked this yet</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--available" />Available — You have this document ready</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--in-progress" />In progress — You're working on getting this</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--completed" />Completed — Document submitted or verified</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--missing" />Missing — You don't have this yet and need to get it</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--update-required" />Update required — You have it but it's expired or needs renewal</div>
+                      <div className="legend-item"><span className="legend-dot legend-dot--not-applicable" />Not applicable — This doesn't apply to your case</div>
                     </div>
-                  ))}
-                  {application?.checklist && application.checklist.map((item) => (
-                    <div key={item.requirementCode} className="checklist-item">
-                      <select
-                        value={item.state || "NOT_STARTED"}
-                        onChange={(e) => handleChecklistChange(item.requirementCode, e.target.value)}
-                      >
-                        <option value="NOT_STARTED">Not started</option>
-                        <option value="IN_PROGRESS">In progress</option>
-                        <option value="READY">Ready</option>
-                        <option value="NOT_APPLICABLE">Not applicable</option>
-                      </select>
-                      <div>
-                        <strong>{t(item.label) || item.requirementCode.replace(/_/g, " ")}</strong>
-                        {(item.description || item.claim) && <p>{t(item.description || item.claim)}</p>}
+                  </div>
+                  {task.checklistStates && (() => {
+                    const reqMap = {};
+                    (requirements || []).forEach(r => { reqMap[r.requirementCode] = r; });
+                    const statusPriority = { MISSING: 0, UPDATE_REQUIRED: 1, IN_PROGRESS: 2, NOT_REVIEWED: 3, AVAILABLE: 4, COMPLETED: 5, NOT_APPLICABLE: 6 };
+                    const sorted = Object.entries(task.checklistStates).sort((a, b) => {
+                      const pa = statusPriority[a[1]] ?? 3;
+                      const pb = statusPriority[b[1]] ?? 3;
+                      return pa - pb;
+                    });
+                    const needsAction = sorted.filter(([, s]) => s === "MISSING" || s === "UPDATE_REQUIRED" || s === "IN_PROGRESS");
+                    const notReviewed = sorted.filter(([, s]) => !s || s === "NOT_REVIEWED");
+                    const done = sorted.filter(([, s]) => s === "AVAILABLE" || s === "COMPLETED" || s === "NOT_APPLICABLE");
+                    const groups = [];
+                    if (needsAction.length > 0) groups.push({ label: "Needs your attention", items: needsAction, className: "checklist-group--action" });
+                    if (notReviewed.length > 0) groups.push({ label: "Not yet reviewed", items: notReviewed, className: "checklist-group--pending" });
+                    if (done.length > 0) groups.push({ label: "Ready", items: done, className: "checklist-group--done" });
+                    return groups.map(group => (
+                      <div key={group.label} className={`checklist-group ${group.className}`}>
+                        <h4 className="checklist-group-label">{group.label} <span className="checklist-group-count">{group.items.length}</span></h4>
+                        {group.items.map(([code, state]) => {
+                          const req = reqMap[code];
+                          const isExpanded = expandedItems.has(code);
+                          return (
+                            <div key={code} className={`checklist-item${state && state !== "NOT_REVIEWED" ? " checklist-item--" + state.toLowerCase() : ""}`}>
+                              <div className="checklist-item-top">
+                                <select
+                                  value={state || "NOT_REVIEWED"}
+                                  onChange={(e) => handleChecklistChange(code, e.target.value)}
+                                >
+                                  <option value="NOT_REVIEWED">Not reviewed</option>
+                                  <option value="AVAILABLE">Available</option>
+                                  <option value="IN_PROGRESS">In progress</option>
+                                  <option value="COMPLETED">Completed</option>
+                                  <option value="MISSING">Missing</option>
+                                  <option value="UPDATE_REQUIRED">Update required</option>
+                                  <option value="NOT_APPLICABLE">Not applicable</option>
+                                </select>
+                                <div className="checklist-item-info">
+                                  <span className="checklist-label">{formatCode(code)}</span>
+                                  {req && <span className={`checklist-badge checklist-badge--${(req.kind || "").toLowerCase()}`}>{req.kind === "MANDATORY" ? "Required" : "Optional"}</span>}
+                                </div>
+                                <button
+                                  type="button"
+                                  className={`checklist-expand${isExpanded ? " checklist-expand--open" : ""}`}
+                                  onClick={() => setExpandedItems(prev => {
+                                    const next = new Set(prev);
+                                    if (next.has(code)) next.delete(code); else next.add(code);
+                                    return next;
+                                  })}
+                                  aria-label={isExpanded ? "Hide details" : "Show details"}
+                                >
+                                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                                </button>
+                              </div>
+                              {isExpanded && req?.claim && (
+                                <div className="checklist-details">
+                                  <p className="checklist-description">{req.claim}</p>
+                                  {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS" || !state || state === "NOT_REVIEWED") && (
+                                    <Link to={`/?search=${encodeURIComponent(formatCode(code))}`} className="checklist-find-link">
+                                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                      Find related service on GovGuide
+                                    </Link>
+                                  )}
+                                </div>
+                              )}
+                              {!isExpanded && state && state !== "NOT_REVIEWED" && (
+                                <p className="checklist-hint">
+                                  {{ AVAILABLE: "You have this document ready.",
+                                    IN_PROGRESS: "You're working on obtaining this.",
+                                    COMPLETED: "This requirement is fulfilled.",
+                                    MISSING: "You need to obtain this document.",
+                                    UPDATE_REQUIRED: "Your current document needs updating.",
+                                    NOT_APPLICABLE: "This requirement does not apply to your case."
+                                  }[state]}
+                                </p>
+                              )}
+                            </div>
+                          );
+                        })}
                       </div>
-                    </div>
-                  ))}
+                    ));
+                  })()}
                   <p className="checklist-progress">
                     {task.completedItems || 0} of {task.totalItems || 0} items completed ({task.progressPercentage || 0}%)
                   </p>

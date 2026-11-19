@@ -1905,6 +1905,166 @@ a.catalogue-card {
 }
 .checklist-error p { color: var(--text-secondary); margin: 0 0 12px; font-size: 0.95rem; }
 
+/* Checklist Legend */
+.checklist-legend {
+  padding: 16px;
+  background: var(--surface-hover);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+.checklist-legend h4 {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.checklist-legend-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+@media (min-width: 641px) {
+  .checklist-legend-grid { grid-template-columns: 1fr 1fr; }
+}
+.legend-item {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.4;
+}
+.legend-dot {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+.legend-dot--not-reviewed { background: var(--border); }
+.legend-dot--available { background: #3B82F6; }
+.legend-dot--in-progress { background: #F59E0B; }
+.legend-dot--completed { background: #10B981; }
+.legend-dot--missing { background: #EF4444; }
+.legend-dot--update-required { background: #F97316; }
+.legend-dot--not-applicable { background: #9CA3AF; }
+
+/* Checklist Groups */
+.checklist-group {
+  margin-bottom: 20px;
+}
+.checklist-group:last-of-type { margin-bottom: 0; }
+.checklist-group-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 8px;
+  padding: 0 4px;
+}
+.checklist-group-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  font-size: 0.72rem;
+  background: var(--border);
+  color: var(--text-secondary);
+}
+.checklist-group--action .checklist-group-label { color: #EF4444; }
+.checklist-group--action .checklist-group-count { background: #FEE2E2; color: #991B1B; }
+.checklist-group--done .checklist-group-label { color: #10B981; }
+.checklist-group--done .checklist-group-count { background: #D1FAE5; color: #065F46; }
+
+/* Checklist Item Info */
+.checklist-item-info {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.checklist-badge {
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.checklist-badge--mandatory {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.checklist-badge--optional {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+/* Expand Button */
+.checklist-expand {
+  flex: 0 0 auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: transform 0.2s, color 0.2s;
+}
+.checklist-expand:hover { color: var(--text); }
+.checklist-expand:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.checklist-expand--open { transform: rotate(180deg); }
+
+/* Checklist Details (expanded) */
+.checklist-details {
+  padding: 12px 16px;
+  background: var(--surface-hover);
+  border-radius: 8px;
+  animation: slideDown 0.2s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.checklist-description {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.checklist-find-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  text-decoration: none;
+}
+.checklist-find-link:hover { text-decoration: underline; }
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes slideDown { from, to { opacity: 1; transform: none; } }
+}
+
 /* --- Header Search Button --- */
 .nav-search-btn {
   display: flex;
@@ -2706,6 +2866,9 @@ a.catalogue-card {
 :root[data-theme="dark"] .admin-feed-badge--missing_info { background: #422006; color: #FDE68A; }
 :root[data-theme="dark"] .admin-feed-badge--suggestion { background: #052E16; color: #86EFAC; }
 :root[data-theme="dark"] .admin-feed-badge--other { background: #0C4A6E; color: #7DD3FC; }
+:root[data-theme="dark"] .checklist-badge--mandatory { background: #422006; color: #FDE68A; }
+:root[data-theme="dark"] .checklist-group--action .checklist-group-count { background: #451A1A; color: #FCA5A5; }
+:root[data-theme="dark"] .checklist-group--done .checklist-group-count { background: #052E16; color: #86EFAC; }
 
 /* Responsive */
 @media (max-width: 640px) {
