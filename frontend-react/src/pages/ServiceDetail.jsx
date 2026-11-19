@@ -107,13 +107,15 @@ function feesSummary(fees, tl) {
   return `₹${primary.amount.toLocaleString("en-IN")}${currency}`;
 }
 
-function timeSummary(pt, tl) {
+const TIME_UNITS_HI = { days: "दिन", weeks: "सप्ताह", months: "महीने", years: "वर्ष", hours: "घंटे", minutes: "मिनट", business_days: "कार्य दिवस" };
+function timeSummary(pt, tl, lang) {
   if (!pt) return tl("unavailable");
   if (typeof pt === "string") return pt;
   if (pt.summary) return pt.summary;
   const max = pt.maximumDuration;
   const unit = (pt.unit || "DAYS").toLowerCase().replace(/_/g, " ");
-  if (max) return `${tl("up_to")} ${max} ${unit}`;
+  const displayUnit = lang === "hi" ? (TIME_UNITS_HI[unit] || unit) : unit;
+  if (max) return `${tl("up_to")} ${max} ${displayUnit}`;
   return pt.claim ? pt.claim.substring(0, 80) : tl("unavailable");
 }
 
@@ -310,7 +312,7 @@ export default function ServiceDetail() {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     {tl("processing")}
                   </span>
-                  <span className="glance-value">{timeSummary(record.processingTime, tl)}</span>
+                  <span className="glance-value">{timeSummary(record.processingTime, tl, lang)}</span>
                 </div>
                 <div className="glance-item">
                   <span className="glance-label">
