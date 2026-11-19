@@ -2061,6 +2061,138 @@ a.catalogue-card {
 }
 .checklist-find-link:hover { text-decoration: underline; }
 
+.checklist-action-box {
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.checklist-action-box--missing {
+  border-color: #FECACA;
+  background: #FEF2F2;
+}
+.checklist-action-box--update_required {
+  border-color: #FED7AA;
+  background: #FFF7ED;
+}
+.checklist-action-box--in_progress {
+  border-color: #FDE68A;
+  background: #FFFBEB;
+}
+.checklist-action-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+.checklist-action-box--missing .checklist-action-title { color: #991B1B; }
+.checklist-action-box--update_required .checklist-action-title { color: #9A3412; }
+.checklist-action-box--in_progress .checklist-action-title { color: #92400E; }
+.checklist-action-steps {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.checklist-action-steps li { margin-bottom: 4px; }
+.checklist-action-steps li:last-child { margin-bottom: 0; }
+
+.checklist-complete-banner {
+  margin-top: 20px;
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 2px solid #10B981;
+  background: linear-gradient(135deg, #ECFDF5, #F0FDF4);
+  text-align: center;
+}
+.checklist-complete-icon {
+  margin-bottom: 12px;
+  color: #10B981;
+}
+.checklist-complete-icon svg { display: inline-block; }
+.checklist-complete-banner h4 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: #065F46;
+}
+.checklist-complete-banner > p {
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+  color: #047857;
+  line-height: 1.5;
+}
+.checklist-complete-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.checklist-complete-next {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: #047857;
+  text-decoration: none;
+}
+.checklist-complete-next:hover { text-decoration: underline; }
+
+:root[data-theme="dark"] .checklist-action-box--missing {
+  border-color: #451A1A;
+  background: #1C0A0A;
+}
+:root[data-theme="dark"] .checklist-action-box--update_required {
+  border-color: #431407;
+  background: #1C0F05;
+}
+:root[data-theme="dark"] .checklist-action-box--in_progress {
+  border-color: #422006;
+  background: #1C1005;
+}
+:root[data-theme="dark"] .checklist-action-box--missing .checklist-action-title { color: #FCA5A5; }
+:root[data-theme="dark"] .checklist-action-box--update_required .checklist-action-title { color: #FDBA74; }
+:root[data-theme="dark"] .checklist-action-box--in_progress .checklist-action-title { color: #FCD34D; }
+:root[data-theme="dark"] .checklist-action-steps { color: var(--text-secondary); }
+
+:root[data-theme="dark"] .checklist-complete-banner {
+  border-color: #065F46;
+  background: linear-gradient(135deg, #052E16, #042F2E);
+}
+:root[data-theme="dark"] .checklist-complete-banner h4 { color: #86EFAC; }
+:root[data-theme="dark"] .checklist-complete-banner > p { color: #6EE7B7; }
+:root[data-theme="dark"] .checklist-complete-next { color: #6EE7B7; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .checklist-action-box--missing {
+    border-color: #451A1A;
+    background: #1C0A0A;
+  }
+  :root:not([data-theme="light"]) .checklist-action-box--update_required {
+    border-color: #431407;
+    background: #1C0F05;
+  }
+  :root:not([data-theme="light"]) .checklist-action-box--in_progress {
+    border-color: #422006;
+    background: #1C1005;
+  }
+  :root:not([data-theme="light"]) .checklist-action-box--missing .checklist-action-title { color: #FCA5A5; }
+  :root:not([data-theme="light"]) .checklist-action-box--update_required .checklist-action-title { color: #FDBA74; }
+  :root:not([data-theme="light"]) .checklist-action-box--in_progress .checklist-action-title { color: #FCD34D; }
+  :root:not([data-theme="light"]) .checklist-action-steps { color: var(--text-secondary); }
+  :root:not([data-theme="light"]) .checklist-complete-banner {
+    border-color: #065F46;
+    background: linear-gradient(135deg, #052E16, #042F2E);
+  }
+  :root:not([data-theme="light"]) .checklist-complete-banner h4 { color: #86EFAC; }
+  :root:not([data-theme="light"]) .checklist-complete-banner > p { color: #6EE7B7; }
+  :root:not([data-theme="light"]) .checklist-complete-next { color: #6EE7B7; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   @keyframes slideDown { from, to { opacity: 1; transform: none; } }
 }

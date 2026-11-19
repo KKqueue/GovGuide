@@ -53,6 +53,46 @@ function serviceName(record) {
   return t(record.name) || codeToName(record.serviceCode);
 }
 
+function getActionGuidance(state, code, claim) {
+  const docName = formatCode(code);
+  if (state === "MISSING") {
+    return {
+      icon: "alert",
+      title: "How to obtain this document",
+      steps: [
+        `Check if "${docName}" can be obtained online through your state's e-District or service portal.`,
+        claim ? `What you need: ${claim.split(".")[0]}.` : null,
+        "Visit the nearest government office (Tehsildar, Municipal, Sub-Registrar) if online isn't available.",
+        "Once obtained, update this item to 'Available' or 'Completed'.",
+      ].filter(Boolean),
+    };
+  }
+  if (state === "UPDATE_REQUIRED") {
+    return {
+      icon: "refresh",
+      title: "Steps to update this document",
+      steps: [
+        `Your "${docName}" may be expired or contain outdated information.`,
+        "Check the validity/expiry date on your existing document.",
+        "Apply for renewal or re-issuance through the official portal or the issuing office.",
+        "Once renewed, update this item to 'Available' or 'Completed'.",
+      ],
+    };
+  }
+  if (state === "IN_PROGRESS") {
+    return {
+      icon: "clock",
+      title: "While you wait",
+      steps: [
+        "If you've applied, track your application status on the official portal.",
+        "Keep your application receipt or acknowledgment number safe.",
+        "Once received, update this item to 'Available' or 'Completed'.",
+      ],
+    };
+  }
+  return null;
+}
+
 function feesSummary(fees) {
   if (!fees || !Array.isArray(fees) || fees.length === 0) return "Varies";
   const primary = fees.find(f => f.amount === 0) || fees[0];
@@ -88,6 +128,7 @@ export default function ServiceDetail() {
   const [showReview, setShowReview] = useState(false);
   const [reviewDone, setReviewDone] = useState(false);
   const [expandedItems, setExpandedItems] = useState(new Set());
+  const [showCompletion, setShowCompletion] = useState(false);
 
   const loadService = useCallback(async () => {
     setLoading(true);
@@ -354,9 +395,26 @@ export default function ServiceDetail() {
                                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                                 </button>
                               </div>
-                              {isExpanded && req?.claim && (
+                              {isExpanded && (
                                 <div className="checklist-details">
-                                  <p className="checklist-description">{req.claim}</p>
+                                  {req?.claim && <p className="checklist-description">{req.claim}</p>}
+                                  {(() => {
+                                    const guidance = getActionGuidance(state, code, req?.claim);
+                                    if (!guidance) return null;
+                                    return (
+                                      <div className={`checklist-action-box checklist-action-box--${state.toLowerCase()}`}>
+                                        <h5 className="checklist-action-title">
+                                          {guidance.icon === "alert" && <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>}
+                                          {guidance.icon === "refresh" && <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>}
+                                          {guidance.icon === "clock" && <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>}
+                                          {guidance.title}
+                                        </h5>
+                                        <ol className="checklist-action-steps">
+                                          {guidance.steps.map((step, i) => <li key={i}>{step}</li>)}
+                                        </ol>
+                                      </div>
+                                    );
+                                  })()}
                                   {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS" || !state || state === "NOT_REVIEWED") && (
                                     <Link to={`/?search=${encodeURIComponent(formatCode(code))}`} className="checklist-find-link">
                                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -385,11 +443,40 @@ export default function ServiceDetail() {
                   <p className="checklist-progress">
                     {task.completedItems || 0} of {task.totalItems || 0} items completed ({task.progressPercentage || 0}%)
                   </p>
+                  {(task.progressPercentage === 100 || (() => {
+                    if (!task.checklistStates) return false;
+                    const vals = Object.values(task.checklistStates);
+                    return vals.length > 0 && vals.every(s => s === "COMPLETED" || s === "AVAILABLE" || s === "NOT_APPLICABLE");
+                  })()) && (
+                    <div className="checklist-complete-banner">
+                      <div className="checklist-complete-icon">
+                        <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                      </div>
+                      <h4>All documents ready for {serviceName(record)}!</h4>
+                      <p>You've completed your checklist. You can now proceed to the official service portal to submit your application.</p>
+                      {record.officialLinks?.application && (
+                        <a className="button button-primary checklist-complete-cta" href={record.officialLinks.application} target="_blank" rel="noopener noreferrer">
+                          Go to official service page
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" /><polyline points="15 3 21 3 21 9" /><line x1="10" y1="14" x2="21" y2="3" />
+                          </svg>
+                        </a>
+                      )}
+                      <Link to="/#services-section" className="checklist-complete-next">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        Explore more services
+                      </Link>
+                    </div>
+                  )}
                 </div>
               ) : null}
             </div>
 
-            {record.officialLinks?.application && (
+            {record.officialLinks?.application && !(task && (task.progressPercentage === 100 || (() => {
+              if (!task?.checklistStates) return false;
+              const vals = Object.values(task.checklistStates);
+              return vals.length > 0 && vals.every(s => s === "COMPLETED" || s === "AVAILABLE" || s === "NOT_APPLICABLE");
+            })())) && (
               <a className="button button-primary button--official" href={record.officialLinks.application} target="_blank" rel="noopener noreferrer">
                 Open official service page
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
