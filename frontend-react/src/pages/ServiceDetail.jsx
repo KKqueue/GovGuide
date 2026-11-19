@@ -6,7 +6,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { useToast } from "../components/Toast";
 import { ServiceDetailSkeleton } from "../components/LoadingSpinner";
 import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
-import { getServiceNameHi, getCategoryNameHi } from "../i18n/serviceNames";
+import { getServiceNameHi, getCategoryNameHi, getServiceDescHi } from "../i18n/serviceNames";
 import FeedbackButton from "../components/FeedbackButton";
 import ReviewModal from "../components/ReviewModal";
 
@@ -286,7 +286,7 @@ export default function ServiceDetail() {
               </div>
             </div>
 
-            <p className="service-description">{extractEn(record.description) || DESC_FALLBACKS[record.serviceCode] || ""}</p>
+            <p className="service-description">{lang === "hi" ? (getServiceDescHi(record.serviceCode) || extractEn(record.description) || DESC_FALLBACKS[record.serviceCode] || "") : (extractEn(record.description) || DESC_FALLBACKS[record.serviceCode] || "")}</p>
 
             <div className="service-glance">
               <h3>{tl("verified_glance")}</h3>
@@ -296,7 +296,7 @@ export default function ServiceDetail() {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                     {tl("jurisdiction")}
                   </span>
-                  <span className="glance-value">{extractEn(record.jurisdiction) || "—"}</span>
+                  <span className="glance-value">{lang === "hi" ? ({CENTRAL: "केन्द्र", STATE: "राज्य", BOTH: "केन्द्र और राज्य"}[extractEn(record.jurisdiction)] || extractEn(record.jurisdiction) || "—") : (extractEn(record.jurisdiction) || "—")}</span>
                 </div>
                 <div className="glance-item">
                   <span className="glance-label">
