@@ -95,7 +95,11 @@ export function extractCategories(services) {
   return ["All", ...Array.from(groups).sort()];
 }
 
+import { useLanguage } from "../hooks/useLanguage";
+import { getCategoryNameHi } from "../i18n/serviceNames";
+
 export default function CategoryFilter({ categories, active, onChange }) {
+  const { lang } = useLanguage();
   return (
     <div className="category-filters" role="group" aria-label="Filter by category">
       {categories.map((cat) => (
@@ -106,7 +110,7 @@ export default function CategoryFilter({ categories, active, onChange }) {
           aria-pressed={active === cat}
           onClick={() => onChange(cat)}
         >
-          {cat}
+          {lang === "hi" ? getCategoryNameHi(cat) : cat}
         </button>
       ))}
     </div>

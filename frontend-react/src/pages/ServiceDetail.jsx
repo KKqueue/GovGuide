@@ -2,9 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { fetchService, createTask, fetchTask, fetchTaskApplication, updateChecklistItem, saveTaskId, getSavedTaskIds, checkReview } from "../api/services";
 import { useAuth } from "../hooks/useAuth";
+import { useLanguage } from "../hooks/useLanguage";
 import { useToast } from "../components/Toast";
 import { ServiceDetailSkeleton } from "../components/LoadingSpinner";
 import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
+import { getServiceNameHi } from "../i18n/serviceNames";
 import FeedbackButton from "../components/FeedbackButton";
 import ReviewModal from "../components/ReviewModal";
 
@@ -49,7 +51,11 @@ function formatCode(code) {
     .join(" ");
 }
 
-function serviceName(record) {
+function serviceName(record, lang) {
+  if (lang === "hi") {
+    const hi = getServiceNameHi(record.serviceCode);
+    if (hi) return hi;
+  }
   return t(record.name) || codeToName(record.serviceCode);
 }
 
@@ -117,6 +123,7 @@ export default function ServiceDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, authHeader, signOut } = useAuth();
+  const { lang, t: tl } = useLanguage();
   const { showToast } = useToast();
   const [record, setRecord] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -205,7 +212,7 @@ export default function ServiceDetail() {
 
   useEffect(() => {
     if (record) {
-      const name = serviceName(record);
+      const name = serviceName(record, lang);
       document.title = `${name} — Government Guide`;
       const desc = t(record.description) || `Complete requirements, fees, and documents needed for ${name}. Source-verified guide.`;
       let metaDesc = document.querySelector('meta[name="description"]');
@@ -258,14 +265,14 @@ export default function ServiceDetail() {
           <ol>
             <li><Link to="/">Home</Link></li>
             <li><Link to="/#services-section">Services</Link></li>
-            <li aria-current="page">{serviceName(record)}</li>
+            <li aria-current="page">{serviceName(record, lang)}</li>
           </ol>
         </nav>
 
         <div className="service-detail-layout">
           <div className="service-main">
             <div className="service-header">
-              <h1>{serviceName(record)}</h1>
+              <h1>{serviceName(record, lang)}</h1>
               <div className="service-meta-badges">
                 <span className="badge badge--category">{(record.category || "").replace(/_/g, " ")}</span>
                 {record.publicationReadiness && (
@@ -469,7 +476,7 @@ export default function ServiceDetail() {
                       <div className="checklist-complete-icon">
                         <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
                       </div>
-                      <h4>All documents ready for {serviceName(record)}!</h4>
+                      <h4>{tl("all_docs_ready")} {serviceName(record, lang)}!</h4>
                       <p>You've completed your checklist. You can now proceed to the official service portal to submit your application.</p>
                       {record.officialLinks?.application && (
                         <a className="button button-primary checklist-complete-cta" href={record.officialLinks.application} target="_blank" rel="noopener noreferrer">

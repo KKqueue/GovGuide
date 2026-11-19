@@ -1,0 +1,196 @@
+export const SERVICE_NAMES_HI = {
+  // Identity & Certificates
+  AADHAAR_NEW_ENROLLMENT: "आधार नया नामांकन",
+  AADHAAR_UPDATE: "आधार अपडेट",
+  PAN_INSTANT_EPAN: "इंस्टेंट ई-पैन",
+  PAN_CARD_APPLICATION: "पैन कार्ड आवेदन",
+  PAN_CORRECTION: "पैन कार्ड सुधार",
+  VOTER_ID_NEW_REGISTRATION: "मतदाता पहचान पत्र नया पंजीकरण",
+  VOTER_ID_CORRECTION: "मतदाता पहचान पत्र सुधार",
+  BIRTH_CERTIFICATE_REGISTRATION: "जन्म प्रमाणपत्र पंजीकरण",
+  DEATH_CERTIFICATE_REGISTRATION: "मृत्यु प्रमाणपत्र पंजीकरण",
+  CASTE_CERTIFICATE: "जाति प्रमाणपत्र",
+  OBC_CERTIFICATE: "ओबीसी प्रमाणपत्र",
+  SC_ST_CERTIFICATE: "अनुसूचित जाति/जनजाति प्रमाणपत्र",
+  EWS_CERTIFICATE: "आर्थिक रूप से कमज़ोर वर्ग प्रमाणपत्र",
+  INCOME_CERTIFICATE: "आय प्रमाणपत्र",
+  DOMICILE_CERTIFICATE: "अधिवास प्रमाणपत्र",
+  CHARACTER_CERTIFICATE: "चरित्र प्रमाणपत्र",
+  NON_CREAMY_LAYER: "नॉन-क्रीमी लेयर प्रमाणपत्र",
+  DISABILITY_CERTIFICATE: "विकलांगता प्रमाणपत्र",
+  SENIOR_CITIZEN_CARD: "वरिष्ठ नागरिक कार्ड",
+  NAME_CHANGE_GAZETTE: "नाम परिवर्तन राजपत्र",
+  DIGILOCKER_ACCOUNT: "डिजिलॉकर खाता",
+  DIGITAL_SIGNATURE: "डिजिटल हस्ताक्षर",
+  LEGAL_HEIR: "कानूनी उत्तराधिकारी प्रमाणपत्र",
+  SUCCESSION_CERTIFICATE: "उत्तराधिकार प्रमाणपत्र",
+  JEEVAN_PRAMAAN: "जीवन प्रमाण (डिजिटल जीवन प्रमाणपत्र)",
+
+  // Travel & Immigration
+  PASSPORT_FRESH_ORDINARY: "नया पासपोर्ट (सामान्य)",
+  PASSPORT_RENEWAL: "पासपोर्ट नवीनीकरण",
+  PASSPORT_TATKAL: "तत्काल पासपोर्ट",
+  OCI_CARD_APPLICATION: "ओसीआई कार्ड आवेदन",
+  EMIGRATION_CLEARANCE: "उत्प्रवास मंजूरी",
+  POLICE_CLEARANCE_CERTIFICATE: "पुलिस क्लीयरेंस प्रमाणपत्र",
+
+  // Transport & Driving
+  DRIVING_LICENSE_FRESH: "नया ड्राइविंग लाइसेंस",
+  DRIVING_LICENSE_RENEWAL: "ड्राइविंग लाइसेंस नवीनीकरण",
+  VEHICLE_REGISTRATION_NEW: "नया वाहन पंजीकरण",
+  RC_TRANSFER: "आरसी स्थानांतरण",
+  VEHICLE_FITNESS_CERTIFICATE: "वाहन फिटनेस प्रमाणपत्र",
+  VEHICLE_HP_REMOVAL: "वाहन हाइपोथीकेशन हटाना",
+  PUC_CERTIFICATE: "प्रदूषण जांच प्रमाणपत्र",
+  MOTOR_INSURANCE_THIRD_PARTY: "मोटर बीमा (तृतीय पक्ष)",
+
+  // Business & Commerce
+  COMPANY_REGISTRATION_PVT_LTD: "प्राइवेट लिमिटेड कंपनी पंजीकरण",
+  LLP_REGISTRATION: "एलएलपी पंजीकरण",
+  MSME_UDYAM_REGISTRATION: "MSME उद्यम पंजीकरण",
+  STARTUP_INDIA_REGISTRATION: "स्टार्टअप इंडिया पंजीकरण",
+  TRADE_LICENSE: "व्यापार लाइसेंस",
+  SHOP_ESTABLISHMENT_LICENSE: "दुकान एवं स्थापना लाइसेंस",
+  TRADEMARK_REGISTRATION: "ट्रेडमार्क पंजीकरण",
+  PATENT_FILING: "पेटेंट दाखिल करना",
+  COPYRIGHT_REGISTRATION: "कॉपीराइट पंजीकरण",
+  FACTORY_LICENSE: "फैक्ट्री लाइसेंस",
+  LABOUR_LICENSE: "श्रम लाइसेंस",
+  SOCIETY_REGISTRATION: "सोसाइटी पंजीकरण",
+  TRUST_REGISTRATION: "ट्रस्ट पंजीकरण",
+  NGO_SECTION8: "एनजीओ (धारा 8) पंजीकरण",
+  FCRA_REGISTRATION: "FCRA पंजीकरण",
+  GEM_SELLER_REGISTRATION: "GeM विक्रेता पंजीकरण",
+  UDYAM_ASSIST: "उद्यम सहायक पंजीकरण",
+  COOPERATIVE_SOCIETY: "सहकारी समिति पंजीकरण",
+  BOILER_REGISTRATION: "बॉयलर पंजीकरण",
+  TRADE_UNION: "ट्रेड यूनियन पंजीकरण",
+  CINEMA_LICENSE: "सिनेमा लाइसेंस",
+  BAR_LICENSE: "बार लाइसेंस",
+  MINING_LICENSE: "खनन लाइसेंस",
+  ELECTRICAL_CONTRACTOR: "विद्युत ठेकेदार लाइसेंस",
+
+  // Tax & Finance
+  GST_REGISTRATION: "GST पंजीकरण",
+  INCOME_TAX_RETURN_FILING: "आयकर रिटर्न दाखिल",
+  TAN_APPLICATION: "TAN आवेदन",
+  PROFESSIONAL_TAX_REGISTRATION: "व्यावसायिक कर पंजीकरण",
+  STAMP_DUTY_PAYMENT: "स्टाम्प शुल्क भुगतान",
+  E_WAY_BILL: "ई-वे बिल",
+  IEC_REGISTRATION: "IEC पंजीकरण",
+
+  // Employment & Education
+  E_SHRAM_CARD: "ई-श्रम कार्ड",
+  EMPLOYMENT_EXCHANGE_REGISTRATION: "रोज़गार कार्यालय पंजीकरण",
+  EPF_REGISTRATION: "ईपीएफ पंजीकरण",
+  EPF_WITHDRAWAL: "ईपीएफ निकासी",
+  ESI_REGISTRATION: "ईएसआई पंजीकरण",
+  APPRENTICESHIP_REGISTRATION: "शिक्षुता पंजीकरण",
+  NEET_UG_REGISTRATION: "NEET UG पंजीकरण",
+  JEE_MAIN_REGISTRATION: "JEE Main पंजीकरण",
+  SCHOLARSHIP_NATIONAL_PORTAL: "राष्ट्रीय छात्रवृत्ति पोर्टल",
+  PMKVY_TRAINING: "PMKVY प्रशिक्षण",
+
+  // Health & Food Safety
+  FSSAI_BASIC_REGISTRATION: "FSSAI बुनियादी पंजीकरण",
+  FSSAI_STATE_LICENSE: "FSSAI राज्य लाइसेंस",
+  FSSAI_CENTRAL_LICENSE: "FSSAI केंद्रीय लाइसेंस",
+  FSSAI_ANNUAL_RETURN: "FSSAI वार्षिक रिटर्न",
+  FOSTAC_CERTIFICATION: "FOSTAC प्रमाणन",
+  DRUG_LICENSE: "दवा लाइसेंस",
+  PESTICIDE_LICENSE: "कीटनाशक लाइसेंस",
+  SEED_LICENSE: "बीज लाइसेंस",
+  ABHA_HEALTH_ID: "ABHA स्वास्थ्य आईडी",
+  AYUSHMAN_BHARAT_PMJAY: "आयुष्मान भारत (PMJAY)",
+  JAN_AUSHADHI_STORE: "जन औषधि स्टोर",
+  FOOD_SAFETY_TRAINING: "खाद्य सुरक्षा प्रशिक्षण",
+
+  // Property & Land
+  PROPERTY_REGISTRATION: "संपत्ति पंजीकरण",
+  LAND_REGISTRATION_SALE_DEED: "भूमि पंजीकरण (बिक्री विलेख)",
+  LAND_CONVERSION_NA: "भूमि रूपांतरण (NA)",
+  ENCUMBRANCE_CERTIFICATE: "भारमुक्ति प्रमाणपत्र",
+  OCCUPANCY_CERTIFICATE: "अधिभोग प्रमाणपत्र",
+  BUILDING_PLAN_APPROVAL: "भवन योजना अनुमोदन",
+  RERA_REGISTRATION: "RERA पंजीकरण",
+  SVAMITVA_PROPERTY_CARD: "स्वामित्व संपत्ति कार्ड",
+  POWER_OF_ATTORNEY: "पावर ऑफ अटॉर्नी",
+  WILL_REGISTRATION: "वसीयत पंजीकरण",
+  SOIL_CONSERVATION_MEASURES: "मृदा संरक्षण",
+  SOIL_HEALTH_CARD: "मृदा स्वास्थ्य कार्ड",
+  AGRICULTURAL_LAND_CONVERSION: "कृषि भूमि रूपांतरण",
+
+  // Social Welfare
+  PM_KISAN_REGISTRATION: "पीएम किसान पंजीकरण",
+  PM_AWAS_YOJANA: "प्रधानमंत्री आवास योजना",
+  PM_UJJWALA_YOJANA: "प्रधानमंत्री उज्ज्वला योजना",
+  PM_SVANIDHI_LOAN: "पीएम स्वनिधि",
+  PM_VISHWAKARMA_YOJANA: "पीएम विश्वकर्मा योजना",
+  PM_MATRU_VANDANA_YOJANA: "प्रधानमंत्री मातृ वंदना योजना",
+  PM_LAGHU_VYAPARI_PENSION: "पीएम लघु व्यापारी पेंशन",
+  NREGA_JOB_CARD: "नरेगा जॉब कार्ड",
+  NATIONAL_FOOD_SECURITY_CARD: "राष्ट्रीय खाद्य सुरक्षा कार्ड",
+  ONORC_PORTABILITY: "एक राष्ट्र एक राशन कार्ड",
+  RATION_CARD_NEW_APPLICATION: "नया राशन कार्ड आवेदन",
+  IGNOAPS_OLD_AGE_PENSION: "वृद्धावस्था पेंशन (IGNOAPS)",
+  RTI_APPLICATION: "सूचना का अधिकार (RTI) आवेदन",
+  LEGAL_AID_SERVICES: "कानूनी सहायता सेवाएं",
+
+  // Insurance & Pension
+  PMJJBY_LIFE_INSURANCE: "प्रधानमंत्री जीवन ज्योति बीमा",
+  PMSBY_ACCIDENT_INSURANCE: "प्रधानमंत्री सुरक्षा बीमा",
+  ATAL_PENSION_YOJANA: "अटल पेंशन योजना",
+  NPS_REGISTRATION: "राष्ट्रीय पेंशन प्रणाली (NPS)",
+  PPF_ACCOUNT_OPENING: "लोक भविष्य निधि (PPF) खाता",
+  SUKANYA_SAMRIDDHI_YOJANA: "सुकन्या समृद्धि योजना",
+  KISAN_VIKAS_PATRA: "किसान विकास पत्र",
+  KCC_APPLICATION: "किसान क्रेडिट कार्ड",
+  JAN_DHAN_ACCOUNT: "जन धन खाता",
+  PMFBY_CROP_INSURANCE: "फसल बीमा (PMFBY)",
+
+  // Loans & Schemes
+  MUDRA_LOAN: "मुद्रा ऋण",
+  PMEGP_LOAN: "PMEGP ऋण",
+  STAND_UP_INDIA_LOAN: "स्टैंड अप इंडिया ऋण",
+
+  // Utilities & Housing
+  ELECTRICITY_NEW_CONNECTION: "बिजली नया कनेक्शन",
+  WATER_SUPPLY_CONNECTION: "जल आपूर्ति कनेक्शन",
+  LPG_GAS_CONNECTION: "एलपीजी गैस कनेक्शन",
+  PNG_CONNECTION: "पीएनजी कनेक्शन",
+  BROADBAND_CONNECTION: "ब्रॉडबैंड कनेक्शन",
+  FIRE_NOC: "अग्निशमन एनओसी",
+  ENVIRONMENT_CLEARANCE: "पर्यावरण मंजूरी",
+  NOC_POLLUTION_CONTROL: "प्रदूषण नियंत्रण एनओसी",
+  ARMS_LICENSE: "शस्त्र लाइसेंस",
+
+  // Legal & Personal
+  MARRIAGE_CERTIFICATE_REGISTRATION: "विवाह प्रमाणपत्र पंजीकरण",
+  COURT_MARRIAGE_REGISTRATION: "कोर्ट मैरिज पंजीकरण",
+};
+
+export const CATEGORY_NAMES_HI = {
+  All: "सभी",
+  "Identity & Certificates": "पहचान और प्रमाणपत्र",
+  "Travel & Immigration": "यात्रा और आव्रजन",
+  "Transport & Driving": "परिवहन और ड्राइविंग",
+  "Tax & Finance": "कर और वित्त",
+  "Property & Land": "संपत्ति और भूमि",
+  "Business & Commerce": "व्यापार और वाणिज्य",
+  "Employment & Education": "रोज़गार और शिक्षा",
+  "Health & Food Safety": "स्वास्थ्य और खाद्य सुरक्षा",
+  "Social Welfare": "सामाजिक कल्याण",
+  "Insurance & Pension": "बीमा और पेंशन",
+  "Loans & Schemes": "ऋण और योजनाएं",
+  "Utilities & Housing": "उपयोगिताएं और आवास",
+  "Legal & Personal": "कानूनी और व्यक्तिगत",
+  Other: "अन्य",
+};
+
+export function getServiceNameHi(serviceCode) {
+  return SERVICE_NAMES_HI[serviceCode] || null;
+}
+
+export function getCategoryNameHi(categoryEn) {
+  return CATEGORY_NAMES_HI[categoryEn] || categoryEn;
+}

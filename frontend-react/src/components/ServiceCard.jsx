@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import useScrollReveal from "../hooks/useScrollReveal";
+import { useLanguage } from "../hooks/useLanguage";
+import { getServiceNameHi } from "../i18n/serviceNames";
 
 const CATEGORY_ICONS = {
   AADHAAR_SERVICES: { icon: "ID", css: "identity" },
@@ -40,8 +42,12 @@ import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
 
 export default function ServiceCard({ service }) {
   const [ref, visible] = useScrollReveal();
+  const { lang } = useLanguage();
   const info = getCategoryInfo(service.category);
   const status = STATUS_LABELS[service.publicationReadiness] || "In Review";
+  const displayName = lang === "hi"
+    ? (getServiceNameHi(service.serviceCode) || service.name || codeToName(service.serviceCode))
+    : (service.name || codeToName(service.serviceCode));
 
   return (
     <Link
@@ -55,7 +61,7 @@ export default function ServiceCard({ service }) {
         </span>
         <span className="badge">{status}</span>
       </div>
-      <h4>{service.name || codeToName(service.serviceCode)}</h4>
+      <h4>{displayName}</h4>
       <p>{service.description || DESC_FALLBACKS[service.serviceCode] || "Service guidance available."}</p>
       <span className="card-arrow" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
