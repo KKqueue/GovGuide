@@ -187,10 +187,185 @@ export const CATEGORY_NAMES_HI = {
   Other: "अन्य",
 };
 
+const SERVICE_DESCS_HI = {
+  // Identity & Certificates
+  AADHAAR_NEW_ENROLLMENT: "भारतीय निवासियों के लिए नया आधार नामांकन जो 12 अंकों की विशिष्ट पहचान संख्या प्राप्त करना चाहते हैं।",
+  AADHAAR_UPDATE: "आधार कार्ड में नाम, पता, जन्म तिथि या बायोमेट्रिक जानकारी को अपडेट या सही करना।",
+  PAN_INSTANT_EPAN: "आयकर विभाग से तुरंत ई-पैन कार्ड प्राप्त करना।",
+  PAN_CARD_APPLICATION: "भारतीय करदाताओं के लिए नया स्थायी खाता संख्या (PAN) कार्ड आवेदन।",
+  PAN_CORRECTION: "PAN कार्ड में नाम, पता या अन्य विवरण को सही या अपडेट करना।",
+  VOTER_ID_NEW_REGISTRATION: "नए मतदाता पहचान पत्र (EPC) के लिए पंजीकरण।",
+  VOTER_ID_CORRECTION: "मतदाता पहचान पत्र में सुधार या अपडेट करना।",
+  BIRTH_CERTIFICATE_REGISTRATION: "नवजात शिशु का जन्म प्रमाण पत्र पंजीकरण।",
+  DEATH_CERTIFICATE_REGISTRATION: "मृत्यु प्रमाण पत्र का पंजीकरण।",
+  CASTE_CERTIFICATE: "जाति प्रमाण पत्र के लिए आवेदन।",
+  OBC_CERTIFICATE: "अन्य पिछड़ा वर्ग (OBC) प्रमाण पत्र के लिए आवेदन।",
+  SC_ST_CERTIFICATE: "अनुसूचित जाति/जनजाति प्रमाण पत्र के लिए आवेदन।",
+  EWS_CERTIFICATE: "आर्थिक रूप से कमज़ोर वर्ग (EWS) प्रमाण पत्र के लिए आवेदन।",
+  INCOME_CERTIFICATE: "आय प्रमाण पत्र के लिए आवेदन।",
+  DOMICILE_CERTIFICATE: "अधिवास प्रमाण पत्र के लिए आवेदन।",
+  CHARACTER_CERTIFICATE: "चरित्र प्रमाण पत्र के लिए आवेदन।",
+  NON_CREAMY_LAYER: "OBC उम्मीदवारों के लिए नॉन-क्रीमी लेयर प्रमाण पत्र।",
+  DISABILITY_CERTIFICATE: "विकलांगता प्रमाण पत्र के लिए आवेदन।",
+  SENIOR_CITIZEN_CARD: "वरिष्ठ नागरिक कार्ड के लिए आवेदन।",
+  NAME_CHANGE_GAZETTE: "राजपत्र के माध्यम से नाम परिवर्तन का आवेदन।",
+  DIGILOCKER_ACCOUNT: "डिजिलॉकर खाता बनाना — दस्तावेज़ों का डिजिटल भंडारण।",
+  DIGITAL_SIGNATURE: "डिजिटल हस्ताक्षर प्रमाणपत्र (DSC) प्राप्त करना।",
+  LEGAL_HEIR: "कानूनी उत्तराधिकारी प्रमाण पत्र के लिए आवेदन।",
+  SUCCESSION_CERTIFICATE: "उत्तराधिकार प्रमाण पत्र के लिए आवेदन।",
+  JEEVAN_PRAMAAN: "पेंशनभोगियों के लिए डिजिटल जीवन प्रमाणपत्र।",
+
+  // Travel & Immigration
+  PASSPORT_FRESH_ORDINARY: "पासपोर्ट सेवा केंद्र के माध्यम से नए सामान्य पासपोर्ट के लिए आवेदन।",
+  PASSPORT_RENEWAL: "मौजूदा पासपोर्ट का नवीनीकरण या पुनः जारी करना।",
+  PASSPORT_TATKAL: "तत्काल योजना के तहत त्वरित पासपोर्ट जारी करना।",
+  OCI_CARD_APPLICATION: "भारतीय मूल के विदेशी नागरिकों के लिए OCI कार्ड आवेदन।",
+  EMIGRATION_CLEARANCE: "विदेश में काम के लिए उत्प्रवास मंजूरी प्राप्त करना।",
+  POLICE_CLEARANCE_CERTIFICATE: "पुलिस क्लीयरेंस प्रमाण पत्र के लिए आवेदन।",
+
+  // Transport & Driving
+  DRIVING_LICENSE_FRESH: "नया ड्राइविंग लाइसेंस प्राप्त करने के लिए आवेदन।",
+  DRIVING_LICENSE_RENEWAL: "मौजूदा ड्राइविंग लाइसेंस का नवीनीकरण।",
+  VEHICLE_REGISTRATION_NEW: "नए वाहन का पंजीकरण।",
+  RC_TRANSFER: "वाहन पंजीकरण प्रमाणपत्र (RC) का स्थानांतरण।",
+  VEHICLE_FITNESS_CERTIFICATE: "वाहन फिटनेस प्रमाणपत्र प्राप्त करना।",
+  VEHICLE_HP_REMOVAL: "वाहन से हाइपोथीकेशन हटाना।",
+  PUC_CERTIFICATE: "प्रदूषण नियंत्रण जांच (PUC) प्रमाणपत्र प्राप्त करना।",
+  MOTOR_INSURANCE_THIRD_PARTY: "तृतीय पक्ष मोटर बीमा पॉलिसी प्राप्त करना।",
+
+  // Business & Commerce
+  COMPANY_REGISTRATION_PVT_LTD: "प्राइवेट लिमिटेड कंपनी का पंजीकरण।",
+  LLP_REGISTRATION: "सीमित देयता भागीदारी (LLP) का पंजीकरण।",
+  MSME_UDYAM_REGISTRATION: "MSME उद्यम पंजीकरण।",
+  STARTUP_INDIA_REGISTRATION: "स्टार्टअप इंडिया योजना में पंजीकरण।",
+  TRADE_LICENSE: "व्यापार लाइसेंस के लिए आवेदन।",
+  SHOP_ESTABLISHMENT_LICENSE: "दुकान और प्रतिष्ठान लाइसेंस के लिए आवेदन।",
+  TRADEMARK_REGISTRATION: "ट्रेडमार्क पंजीकरण के लिए आवेदन।",
+  PATENT_FILING: "पेटेंट दाखिल करना।",
+  COPYRIGHT_REGISTRATION: "कॉपीराइट पंजीकरण के लिए आवेदन।",
+  FACTORY_LICENSE: "फैक्ट्री अधिनियम के तहत लाइसेंस के लिए आवेदन।",
+  LABOUR_LICENSE: "श्रम लाइसेंस के लिए आवेदन।",
+  SOCIETY_REGISTRATION: "समाज पंजीकरण अधिनियम के तहत पंजीकरण।",
+  TRUST_REGISTRATION: "ट्रस्ट का पंजीकरण।",
+  NGO_SECTION8: "धारा 8 कंपनी के रूप में गैर-लाभकारी संगठन का निगमन।",
+  FCRA_REGISTRATION: "विदेशी अंशदान विनियमन अधिनियम (FCRA) के तहत पंजीकरण।",
+  GEM_SELLER_REGISTRATION: "सरकारी ई-मार्केटप्लेस (GeM) पर विक्रेता पंजीकरण।",
+  UDYAM_ASSIST: "उद्यम असिस्ट प्लेटफॉर्म पर पंजीकरण।",
+  COOPERATIVE_SOCIETY: "सहकारी समिति का पंजीकरण।",
+  BOILER_REGISTRATION: "बॉयलर पंजीकरण और निरीक्षण।",
+  TRADE_UNION: "ट्रेड यूनियन का पंजीकरण।",
+  CINEMA_LICENSE: "सिनेमा हॉल के लिए लाइसेंस।",
+  BAR_LICENSE: "बार या शराब की दुकान के लिए लाइसेंस।",
+  MINING_LICENSE: "खनन लाइसेंस के लिए आवेदन।",
+  ELECTRICAL_CONTRACTOR: "विद्युत ठेकेदार लाइसेंस के लिए आवेदन।",
+
+  // Tax & Finance
+  GST_REGISTRATION: "नए GST पंजीकरण के लिए आवेदन।",
+  INCOME_TAX_RETURN_FILING: "आयकर रिटर्न दाखिल करना।",
+  TAN_APPLICATION: "कर कटौती खाता संख्या (TAN) के लिए आवेदन।",
+  PROFESSIONAL_TAX_REGISTRATION: "व्यावसायिक कर पंजीकरण।",
+  STAMP_DUTY_PAYMENT: "स्टाम्प शुल्क का भुगतान।",
+  E_WAY_BILL: "ई-वे बिल बनाना।",
+  IEC_REGISTRATION: "आयात-निर्यात कोड (IEC) पंजीकरण।",
+
+  // Employment & Education
+  E_SHRAM_CARD: "ई-श्रम कार्ड पंजीकरण (असंगठित श्रमिक)।",
+  EMPLOYMENT_EXCHANGE_REGISTRATION: "रोज़गार कार्यालय में पंजीकरण।",
+  EPF_REGISTRATION: "कर्मचारी भविष्य निधि (EPF) में नियोक्ता पंजीकरण।",
+  EPF_WITHDRAWAL: "कर्मचारी भविष्य निधि (EPF) खाते से निकासी या अग्रिम।",
+  ESI_REGISTRATION: "कर्मचारी राज्य बीमा (ESI) में पंजीकरण।",
+  APPRENTICESHIP_REGISTRATION: "शिक्षुता प्रशिक्षण में पंजीकरण।",
+  NEET_UG_REGISTRATION: "NEET UG परीक्षा के लिए पंजीकरण।",
+  JEE_MAIN_REGISTRATION: "JEE Main परीक्षा के लिए पंजीकरण।",
+  SCHOLARSHIP_NATIONAL_PORTAL: "राष्ट्रीय छात्रवृत्ति पोर्टल पर आवेदन।",
+  PMKVY_TRAINING: "प्रधानमंत्री कौशल विकास योजना (PMKVY) में नामांकन।",
+
+  // Health & Food Safety
+  FSSAI_BASIC_REGISTRATION: "FSSAI बेसिक पंजीकरण (छोटे खाद्य व्यवसाय)।",
+  FSSAI_STATE_LICENSE: "FSSAI राज्य लाइसेंस (मध्यम खाद्य व्यवसाय)।",
+  FSSAI_CENTRAL_LICENSE: "FSSAI केंद्रीय लाइसेंस (बड़े खाद्य व्यवसाय)।",
+  FSSAI_ANNUAL_RETURN: "FSSAI वार्षिक रिटर्न दाखिल करना।",
+  FOSTAC_CERTIFICATION: "FOSTAC खाद्य सुरक्षा प्रमाणन प्राप्त करना।",
+  DRUG_LICENSE: "दवा लाइसेंस के लिए आवेदन।",
+  PESTICIDE_LICENSE: "कीटनाशक लाइसेंस के लिए आवेदन।",
+  SEED_LICENSE: "बीज लाइसेंस के लिए आवेदन।",
+  ABHA_HEALTH_ID: "ABHA स्वास्थ्य आईडी बनाना।",
+  AYUSHMAN_BHARAT_PMJAY: "आयुष्मान भारत (PMJAY) योजना में पंजीकरण।",
+  JAN_AUSHADHI_STORE: "जन औषधि स्टोर खोलने के लिए आवेदन।",
+  FOOD_SAFETY_TRAINING: "खाद्य सुरक्षा प्रशिक्षण और प्रमाणन।",
+
+  // Property & Land
+  PROPERTY_REGISTRATION: "संपत्ति पंजीकरण और हस्तांतरण।",
+  LAND_REGISTRATION_SALE_DEED: "बिक्री विलेख के माध्यम से भूमि पंजीकरण।",
+  LAND_CONVERSION_NA: "कृषि भूमि का गैर-कृषि (NA) रूपांतरण।",
+  ENCUMBRANCE_CERTIFICATE: "भारमुक्ति प्रमाण पत्र के लिए आवेदन।",
+  OCCUPANCY_CERTIFICATE: "अधिभोग प्रमाणपत्र प्राप्त करना।",
+  BUILDING_PLAN_APPROVAL: "भवन योजना अनुमोदन के लिए आवेदन।",
+  RERA_REGISTRATION: "रियल एस्टेट नियामक प्राधिकरण (RERA) में पंजीकरण।",
+  SVAMITVA_PROPERTY_CARD: "स्वामित्व योजना के तहत संपत्ति कार्ड प्राप्त करना।",
+  POWER_OF_ATTORNEY: "मुख्तारनामा (पावर ऑफ अटॉर्नी) का पंजीकरण।",
+  WILL_REGISTRATION: "वसीयत का पंजीकरण।",
+  SOIL_CONSERVATION_MEASURES: "मृदा संरक्षण उपायों के लिए आवेदन।",
+  SOIL_HEALTH_CARD: "मृदा स्वास्थ्य कार्ड प्राप्त करना।",
+  AGRICULTURAL_LAND_CONVERSION: "कृषि भूमि रूपांतरण के लिए आवेदन।",
+
+  // Social Welfare
+  PM_KISAN_REGISTRATION: "पीएम किसान सम्मान निधि योजना में पंजीकरण।",
+  PM_AWAS_YOJANA: "प्रधानमंत्री आवास योजना में आवेदन।",
+  PM_UJJWALA_YOJANA: "प्रधानमंत्री उज्ज्वला योजना में आवेदन।",
+  PM_SVANIDHI_LOAN: "पीएम स्वनिधि योजना में ऋण के लिए आवेदन।",
+  PM_VISHWAKARMA_YOJANA: "पीएम विश्वकर्मा योजना में पंजीकरण।",
+  PM_MATRU_VANDANA_YOJANA: "प्रधानमंत्री मातृ वंदना योजना में आवेदन।",
+  PM_LAGHU_VYAPARI_PENSION: "पीएम लघु व्यापारी पेंशन योजना में पंजीकरण।",
+  NREGA_JOB_CARD: "नरेगा जॉब कार्ड के लिए आवेदन।",
+  NATIONAL_FOOD_SECURITY_CARD: "राष्ट्रीय खाद्य सुरक्षा कार्ड के लिए आवेदन।",
+  ONORC_PORTABILITY: "एक राष्ट्र एक राशन कार्ड (ONORC) पोर्टेबिलिटी।",
+  RATION_CARD_NEW_APPLICATION: "नए राशन कार्ड के लिए आवेदन।",
+  IGNOAPS_OLD_AGE_PENSION: "वृद्धावस्था पेंशन (IGNOAPS) के लिए आवेदन।",
+  RTI_APPLICATION: "सूचना का अधिकार (RTI) आवेदन दाखिल करना।",
+  LEGAL_AID_SERVICES: "निःशुल्क कानूनी सहायता सेवाओं के लिए आवेदन।",
+
+  // Insurance & Pension
+  PMJJBY_LIFE_INSURANCE: "प्रधानमंत्री जीवन ज्योति बीमा योजना में पंजीकरण।",
+  PMSBY_ACCIDENT_INSURANCE: "प्रधानमंत्री सुरक्षा बीमा योजना में पंजीकरण।",
+  ATAL_PENSION_YOJANA: "अटल पेंशन योजना में पंजीकरण।",
+  NPS_REGISTRATION: "राष्ट्रीय पेंशन प्रणाली (NPS) में पंजीकरण।",
+  PPF_ACCOUNT_OPENING: "लोक भविष्य निधि (PPF) खाता खोलना।",
+  SUKANYA_SAMRIDDHI_YOJANA: "सुकन्या समृद्धि योजना में खाता खोलना।",
+  KISAN_VIKAS_PATRA: "किसान विकास पत्र (KVP) खरीदना।",
+  KCC_APPLICATION: "किसान क्रेडिट कार्ड (KCC) के लिए आवेदन।",
+  JAN_DHAN_ACCOUNT: "प्रधानमंत्री जन धन योजना में खाता खोलना।",
+  PMFBY_CROP_INSURANCE: "प्रधानमंत्री फसल बीमा योजना (PMFBY) में पंजीकरण।",
+
+  // Loans & Schemes
+  MUDRA_LOAN: "मुद्रा ऋण के लिए आवेदन।",
+  PMEGP_LOAN: "PMEGP ऋण के लिए आवेदन।",
+  STAND_UP_INDIA_LOAN: "स्टैंड अप इंडिया ऋण के लिए आवेदन।",
+
+  // Utilities & Housing
+  ELECTRICITY_NEW_CONNECTION: "बिजली का नया कनेक्शन प्राप्त करना।",
+  WATER_SUPPLY_CONNECTION: "जल आपूर्ति कनेक्शन के लिए आवेदन।",
+  LPG_GAS_CONNECTION: "एलपीजी गैस कनेक्शन प्राप्त करना।",
+  PNG_CONNECTION: "पाइप्ड नेचुरल गैस (PNG) कनेक्शन के लिए आवेदन।",
+  BROADBAND_CONNECTION: "ब्रॉडबैंड इंटरनेट कनेक्शन के लिए आवेदन।",
+  FIRE_NOC: "अग्निशमन विभाग से एनओसी प्राप्त करना।",
+  ENVIRONMENT_CLEARANCE: "पर्यावरण मंजूरी के लिए आवेदन।",
+  NOC_POLLUTION_CONTROL: "प्रदूषण नियंत्रण बोर्ड से एनओसी प्राप्त करना।",
+  ARMS_LICENSE: "शस्त्र लाइसेंस के लिए आवेदन।",
+
+  // Legal & Personal
+  MARRIAGE_CERTIFICATE_REGISTRATION: "विवाह प्रमाण पत्र का पंजीकरण।",
+  COURT_MARRIAGE_REGISTRATION: "कोर्ट मैरिज का पंजीकरण।",
+};
+
 export function getServiceNameHi(serviceCode) {
   return SERVICE_NAMES_HI[serviceCode] || null;
 }
 
 export function getCategoryNameHi(categoryEn) {
   return CATEGORY_NAMES_HI[categoryEn] || categoryEn;
+}
+
+export function getServiceDescHi(serviceCode) {
+  return SERVICE_DESCS_HI[serviceCode] || null;
 }

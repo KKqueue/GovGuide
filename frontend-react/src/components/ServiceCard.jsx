@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import useScrollReveal from "../hooks/useScrollReveal";
 import { useLanguage } from "../hooks/useLanguage";
-import { getServiceNameHi } from "../i18n/serviceNames";
+import { getServiceNameHi, getServiceDescHi } from "../i18n/serviceNames";
 
 const CATEGORY_ICONS = {
   AADHAAR_SERVICES: { icon: "ID", css: "identity" },
@@ -30,21 +30,24 @@ function getCategoryInfo(category) {
   return { icon: abbr, css: "identity" };
 }
 
-const STATUS_LABELS = {
-  PUBLISHED: "Published",
-  APPROVED: "Approved",
-  EVIDENCE_REVIEWED: "Evidence Reviewed",
-  DRAFT: "Draft",
-  NEEDS_REVIEW: "Needs Review",
-};
+function getStatusLabel(readiness, t) {
+  const map = {
+    PUBLISHED: t("status_published"),
+    APPROVED: t("status_approved"),
+    EVIDENCE_REVIEWED: t("status_evidence_reviewed"),
+    DRAFT: t("status_draft"),
+    NEEDS_REVIEW: t("status_needs_review"),
+  };
+  return map[readiness] || t("status_in_review");
+}
 
 import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
 
 export default function ServiceCard({ service }) {
   const [ref, visible] = useScrollReveal();
-  const { lang } = useLanguage();
+  const { lang, t } = useLanguage();
   const info = getCategoryInfo(service.category);
-  const status = STATUS_LABELS[service.publicationReadiness] || "In Review";
+  const status = getStatusLabel(service.publicationReadiness, t);
   const displayName = lang === "hi"
     ? (getServiceNameHi(service.serviceCode) || service.name || codeToName(service.serviceCode))
     : (service.name || codeToName(service.serviceCode));
@@ -62,7 +65,7 @@ export default function ServiceCard({ service }) {
         <span className="badge">{status}</span>
       </div>
       <h4>{displayName}</h4>
-      <p>{service.description || DESC_FALLBACKS[service.serviceCode] || "Service guidance available."}</p>
+      <p>{lang === "hi" ? (getServiceDescHi(service.serviceCode) || t("service_guidance_available")) : (service.description || DESC_FALLBACKS[service.serviceCode] || t("service_guidance_available"))}</p>
       <span className="card-arrow" aria-hidden="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="9 18 15 12 9 6" />

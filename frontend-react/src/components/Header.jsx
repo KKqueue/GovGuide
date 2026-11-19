@@ -64,18 +64,18 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="shell header-inner">
-        <Link className="brand" to="/" aria-label="Government Guide Companion home">
+        <Link className="brand" to="/" aria-label={t("app_name")}>
           <span className="brand-mark" aria-hidden="true">GG</span>
           <span>
-            <span className="brand-name">Government Guide</span>
-            <span className="brand-subtitle">Companion</span>
+            <span className="brand-name">{t("brand_name")}</span>
+            <span className="brand-subtitle">{t("brand_subtitle")}</span>
           </span>
         </Link>
 
         <button
           className={`nav-toggle ${menuOpen ? "is-active" : ""}`}
           type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={menuOpen ? t("close_menu") : t("open_menu")}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((o) => !o)}
         >

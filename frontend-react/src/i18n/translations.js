@@ -259,6 +259,21 @@ export const translations = {
     // Common - additional
     govt_guide: "Government Guide",
     publication_ready: "Ready for publication",
+
+    // Brand
+    brand_name: "Government Guide",
+    brand_subtitle: "Companion",
+    close_menu: "Close navigation menu",
+    open_menu: "Open navigation menu",
+
+    // Status labels
+    status_published: "Published",
+    status_approved: "Approved",
+    status_evidence_reviewed: "Evidence Reviewed",
+    status_draft: "Draft",
+    status_needs_review: "Needs Review",
+    status_in_review: "In Review",
+    service_guidance_available: "Service guidance available.",
   },
 
   hi: {
@@ -521,6 +536,21 @@ export const translations = {
     // Common - additional
     govt_guide: "सरकारी सेवा मार्गदर्शक",
     publication_ready: "प्रकाशन के लिए तैयार",
+
+    // Brand
+    brand_name: "सरकारी मार्गदर्शक",
+    brand_subtitle: "सहायक",
+    close_menu: "मेनू बंद करें",
+    open_menu: "मेनू खोलें",
+
+    // Status labels
+    status_published: "प्रकाशित",
+    status_approved: "स्वीकृत",
+    status_evidence_reviewed: "प्रमाण समीक्षित",
+    status_draft: "मसौदा",
+    status_needs_review: "समीक्षा आवश्यक",
+    status_in_review: "समीक्षाधीन",
+    service_guidance_available: "सेवा मार्गदर्शन उपलब्ध है।",
   },
 };
 
