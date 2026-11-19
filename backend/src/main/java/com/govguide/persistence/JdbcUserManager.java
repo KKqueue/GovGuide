@@ -24,7 +24,7 @@ public class JdbcUserManager implements GovGuideUserManager {
                         .roles(rs.getString("role"))
                         .disabled(!rs.getBoolean("enabled"))
                         .build(),
-                username);
+                username.toLowerCase());
         if (users.isEmpty()) throw new UsernameNotFoundException("User not found: " + username);
         return users.get(0);
     }
@@ -40,7 +40,7 @@ public class JdbcUserManager implements GovGuideUserManager {
 
     @Override
     public boolean userExists(String username) {
-        Integer count = jdbc.queryForObject("SELECT COUNT(*) FROM app_user WHERE username = ?", Integer.class, username);
+        Integer count = jdbc.queryForObject("SELECT COUNT(*) FROM app_user WHERE username = ?", Integer.class, username.toLowerCase());
         return count != null && count > 0;
     }
 

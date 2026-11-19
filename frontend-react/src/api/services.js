@@ -33,7 +33,7 @@ export async function registerUser(username, password) {
 }
 
 export async function verifyCredentials(username, password) {
-  const header = "Basic " + btoa(username + ":" + password);
+  const header = "Basic " + btoa(username.toLowerCase() + ":" + password);
   const res = await fetch(`${API_BASE}/auth/verify`, {
     headers: { Authorization: header },
   });

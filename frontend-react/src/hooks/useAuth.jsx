@@ -26,18 +26,21 @@ export function AuthProvider({ children }) {
   const signIn = useCallback(async (username, password) => {
     const header = await verifyCredentials(username, password);
     if (!header) throw new Error("Invalid username or password.");
-    setUser(username);
+    const normalised = username.toLowerCase();
+    setUser(normalised);
     setAuthHeader(header);
-    try { localStorage.setItem("govguide-user", username); localStorage.setItem("govguide-auth", obfuscate(header)); } catch {}
+    try { localStorage.setItem("govguide-user", normalised); localStorage.setItem("govguide-auth", obfuscate(header)); } catch {}
     return header;
   }, []);
 
   const signUp = useCallback(async (username, password) => {
     await registerUser(username, password);
     const header = await verifyCredentials(username, password);
-    setUser(username);
+    if (!header) throw new Error("Registration succeeded but sign-in failed. Please try signing in.");
+    const normalised = username.toLowerCase();
+    setUser(normalised);
     setAuthHeader(header);
-    try { localStorage.setItem("govguide-user", username); localStorage.setItem("govguide-auth", obfuscate(header)); } catch {}
+    try { localStorage.setItem("govguide-user", normalised); localStorage.setItem("govguide-auth", obfuscate(header)); } catch {}
     return header;
   }, []);
 
