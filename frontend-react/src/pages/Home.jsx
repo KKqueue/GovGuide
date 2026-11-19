@@ -5,6 +5,7 @@ import ServiceCard from "../components/ServiceCard";
 import CategoryFilter, { extractCategories, getDisplayCategory } from "../components/CategoryFilter";
 import { SkeletonGrid } from "../components/LoadingSpinner";
 import { codeToName } from "../utils/serviceNames";
+import { useLanguage } from "../hooks/useLanguage";
 
 export default function Home() {
   const [services, setServices] = useState([]);
@@ -87,6 +88,8 @@ export default function Home() {
     setVisibleCount(PAGE_SIZE);
   }, [activeCategory, search]);
 
+  const { t } = useLanguage();
+
   useEffect(() => {
     document.title = "Government Guide Companion — Indian Government Services";
   }, []);
@@ -97,24 +100,23 @@ export default function Home() {
       <section className="hero" aria-labelledby="page-title">
         <div className="shell hero-grid">
           <div className="hero-copy">
-            <p className="section-label">Your guide to Indian government services</p>
-            <h1 id="page-title">Know exactly what you need before you apply.</h1>
+            <p className="section-label">{t("hero_label")}</p>
+            <h1 id="page-title">{t("hero_title")}</h1>
             <p className="hero-lede">
-              Requirements, fees, processing times, and official sources for {services.length || "120"}+ government
-              services — from Aadhaar to GST registration. Every claim traced to its official source.
+              {t("hero_lede_prefix")} {services.length || "120"}+ {t("hero_lede_suffix")}
             </p>
             <div className="hero-stats">
               <div className="hero-stat">
                 <span className="hero-stat-number">{services.length || "137"}</span>
-                <span className="hero-stat-label">Services</span>
+                <span className="hero-stat-label">{t("hero_stat_services")}</span>
               </div>
               <div className="hero-stat">
                 <span className="hero-stat-number">12</span>
-                <span className="hero-stat-label">Categories</span>
+                <span className="hero-stat-label">{t("hero_stat_categories")}</span>
               </div>
               <div className="hero-stat">
                 <span className="hero-stat-number">100%</span>
-                <span className="hero-stat-label">Source-verified</span>
+                <span className="hero-stat-label">{t("hero_stat_verified")}</span>
               </div>
             </div>
             <Link className="button button-primary" to="/#services-section"
@@ -124,7 +126,7 @@ export default function Home() {
                 if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
               }}
             >
-              Explore services <span aria-hidden="true">&#8595;</span>
+              {t("explore_services")} <span aria-hidden="true">&#8595;</span>
             </Link>
           </div>
           <div className="hero-visual" aria-hidden="true">
@@ -179,8 +181,8 @@ export default function Home() {
         <div className="shell">
           <div className="section-heading">
             <div>
-              <p className="section-label">Start here</p>
-              <h2 id="services-title">Choose a service</h2>
+              <p className="section-label">{t("start_here")}</p>
+              <h2 id="services-title">{t("choose_service")}</h2>
             </div>
             <p className="section-intro">
               Browse the services currently covered by this independent guide. New services appear only after their evidence has been reviewed.
@@ -190,18 +192,18 @@ export default function Home() {
           <section className="catalogue-panel" aria-labelledby="catalogue-title">
             <div className="catalogue-heading">
               <div>
-                <p className="section-label">Service catalogue</p>
-                <h3 id="catalogue-title">Find the right starting point</h3>
+                <p className="section-label">{t("service_catalogue")}</p>
+                <h3 id="catalogue-title">{t("find_starting_point")}</h3>
                 <span className="services-count" aria-live="polite">
-                  {!loading && `${filtered.length} services available`}
+                  {!loading && `${filtered.length} ${t("services_available")}`}
                 </span>
               </div>
               <label className="search-control" htmlFor="service-search">
-                <span>Search services</span>
+                <span>{t("search_services")}</span>
                 <input
                   id="service-search"
                   type="search"
-                  placeholder="Search by service name"
+                  placeholder={t("search_placeholder")}
                   autoComplete="off"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
@@ -220,15 +222,15 @@ export default function Home() {
                 <strong>We couldn't load the services right now.</strong>
                 <p>Check your connection and try again.</p>
                 <button className="button button-secondary" type="button" onClick={loadServices}>
-                  Try again
+                  {t("try_again")}
                 </button>
               </div>
             )}
 
             {!loading && !error && filtered.length === 0 && (
               <div className="state-panel">
-                <strong>No matching services.</strong>
-                <p>Try a different search term or return later as reviewed services are added.</p>
+                <strong>{t("no_matching")}</strong>
+                <p>{t("no_matching_hint")}</p>
               </div>
             )}
 
@@ -246,7 +248,7 @@ export default function Home() {
                       type="button"
                       onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
                     >
-                      Show more services ({filtered.length - visibleCount} remaining)
+                      {t("show_more")} ({filtered.length - visibleCount} {t("remaining")})
                     </button>
                   </div>
                 )}
@@ -259,34 +261,34 @@ export default function Home() {
       <section id="about" className="about-section" aria-labelledby="about-title">
         <div className="shell about-grid">
           <div>
-            <p className="section-label">How to use this guide</p>
-            <h2 id="about-title">Clarity before commitment.</h2>
-            <div className="about-features" aria-hidden="true">
+            <p className="section-label">{t("how_to_use")}</p>
+            <h2 id="about-title">{t("clarity_before")}</h2>
+            <div className="about-features">
               <div className="about-feature">
                 <div className="about-feature-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                 </div>
                 <div>
-                  <strong>Source-verified</strong>
-                  <p>Every fact traced to its official government source</p>
+                  <strong>{t("about_verified")}</strong>
+                  <p>{t("about_verified_desc")}</p>
                 </div>
               </div>
               <div className="about-feature">
                 <div className="about-feature-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                 </div>
                 <div>
-                  <strong>Privacy-first</strong>
-                  <p>No Aadhaar, OTPs, passwords or biometrics collected</p>
+                  <strong>{t("about_privacy")}</strong>
+                  <p>{t("about_privacy_desc")}</p>
                 </div>
               </div>
               <div className="about-feature">
                 <div className="about-feature-icon">
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 </div>
                 <div>
-                  <strong>Transparent</strong>
-                  <p>Unverified information clearly labelled as such</p>
+                  <strong>{t("about_transparent")}</strong>
+                  <p>{t("about_transparent_desc")}</p>
                 </div>
               </div>
             </div>

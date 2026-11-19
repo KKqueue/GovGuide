@@ -1,11 +1,13 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { useLanguage } from "../hooks/useLanguage";
 
 const SearchOverlay = lazy(() => import("./SearchOverlay"));
 
 export default function Header() {
   const { user, signOut } = useAuth();
+  const { lang, setLang, t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -83,21 +85,25 @@ export default function Header() {
         </button>
 
         <nav className={menuOpen ? "is-open" : ""} aria-label="Primary navigation">
-          <Link to="/#services-section" className={isHome ? "is-active" : ""} aria-current={isHome ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("services-section")?.scrollIntoView({ behavior: "smooth" }); } }}>Services</Link>
-          <Link to="/#about" className={isAbout ? "is-active" : ""} aria-current={isAbout ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); } }}>About</Link>
+          <Link to="/#services-section" className={isHome ? "is-active" : ""} aria-current={isHome ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("services-section")?.scrollIntoView({ behavior: "smooth" }); } }}>{t("services")}</Link>
+          <Link to="/#about" className={isAbout ? "is-active" : ""} aria-current={isAbout ? "page" : undefined} onClick={() => { setMenuOpen(false); if (location.pathname === "/") { document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }); } }}>{t("about")}</Link>
           <button
             className="nav-search-btn"
             type="button"
-            aria-label="Search services"
+            aria-label={t("search_services")}
             onClick={() => { setSearchOpen(true); setMenuOpen(false); }}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <span className="nav-link-label">Search</span>
+            <span className="nav-link-label">{t("search_services")}</span>
             <kbd className="nav-search-kbd">Ctrl K</kbd>
           </button>
           <hr className="nav-divider" aria-hidden="true" />
+          <div className="lang-toggle" role="group" aria-label="Language">
+            <button type="button" className={lang === "en" ? "is-active" : ""} onClick={() => setLang("en")}>EN</button>
+            <button type="button" className={lang === "hi" ? "is-active" : ""} onClick={() => setLang("hi")}>हि</button>
+          </div>
           {user ? (
             <Link
               to="/profile"
@@ -114,13 +120,13 @@ export default function Header() {
               type="button"
               onClick={() => { navigate("/auth"); setMenuOpen(false); }}
             >
-              Sign in
+              {t("sign_in")}
             </button>
           )}
           <button
             className="theme-toggle"
             type="button"
-            aria-label="Toggle theme"
+            aria-label={t("toggle_theme")}
             onClick={cycleTheme}
           >
             {isDark ? (

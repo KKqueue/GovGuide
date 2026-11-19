@@ -204,8 +204,24 @@ export default function ServiceDetail() {
   }
 
   useEffect(() => {
-    if (record) document.title = `${serviceName(record)} — Government Guide`;
-    return () => { document.title = "Government Guide Companion"; };
+    if (record) {
+      const name = serviceName(record);
+      document.title = `${name} — Government Guide`;
+      const desc = t(record.description) || `Complete requirements, fees, and documents needed for ${name}. Source-verified guide.`;
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute("content", desc);
+      let ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute("content", `${name} — Government Guide`);
+      let ogDesc = document.querySelector('meta[property="og:description"]');
+      if (ogDesc) ogDesc.setAttribute("content", desc);
+    }
+    return () => {
+      document.title = "Government Guide Companion";
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute("content", "Free comprehensive guide to Indian government services — Aadhaar, PAN, passport, driving license, GST, property registration, and 120+ more.");
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      if (ogTitle) ogTitle.setAttribute("content", "Government Guide Companion");
+    };
   }, [record]);
 
   if (loading) return <><div className="loading-bar" aria-hidden="true" /><ServiceDetailSkeleton /></>;
@@ -369,6 +385,7 @@ export default function ServiceDetail() {
                                 <select
                                   value={state || "NOT_REVIEWED"}
                                   onChange={(e) => handleChecklistChange(code, e.target.value)}
+                                  aria-label={`Status for ${formatCode(code)}`}
                                 >
                                   <option value="NOT_REVIEWED">Not reviewed</option>
                                   <option value="AVAILABLE">Available</option>

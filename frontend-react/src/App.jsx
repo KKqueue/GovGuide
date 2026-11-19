@@ -1,12 +1,15 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./hooks/useAuth";
+import { LanguageProvider } from "./hooks/useLanguage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import BackToTop from "./components/BackToTop";
 import ScrollToTop from "./components/ScrollToTop";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ToastProvider } from "./components/Toast";
+import InstallPrompt from "./components/InstallPrompt";
+import OfflineIndicator from "./components/OfflineIndicator";
 
 const Home = lazy(() => import("./pages/Home"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
@@ -19,11 +22,17 @@ function PageFallback() {
   return <div className="loading-bar" aria-hidden="true" />;
 }
 
-export default function App() {
+export default function App({ onReady }) {
+  useEffect(() => {
+    if (onReady) onReady();
+  }, [onReady]);
+
   return (
+    <LanguageProvider>
     <AuthProvider>
       <ToastProvider>
       <a className="skip-link" href="#main-content">Skip to main content</a>
+      <OfflineIndicator />
       <Header />
       <main id="main-content">
         <ErrorBoundary>
@@ -44,7 +53,9 @@ export default function App() {
       </main>
       <Footer />
       <BackToTop />
+      <InstallPrompt />
       </ToastProvider>
     </AuthProvider>
+    </LanguageProvider>
   );
 }

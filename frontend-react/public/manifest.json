@@ -4,14 +4,30 @@
   "description": "Free comprehensive guide to Indian government services — requirements, fees, processing times, and official sources.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFF",
-  "theme_color": "#1E40AF",
+  "background_color": "#FAFAF8",
+  "theme_color": "#1a3a6e",
+  "orientation": "portrait-primary",
+  "categories": ["government", "utilities", "reference"],
+  "lang": "en-IN",
   "icons": [
     {
       "src": "/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Browse Services",
+      "url": "/#services-section",
+      "description": "Browse all government services"
+    },
+    {
+      "name": "My Profile",
+      "url": "/profile",
+      "description": "View your checklist progress"
     }
   ]
 }
