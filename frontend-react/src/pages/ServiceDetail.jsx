@@ -6,7 +6,7 @@ import { useLanguage } from "../hooks/useLanguage";
 import { useToast } from "../components/Toast";
 import { ServiceDetailSkeleton } from "../components/LoadingSpinner";
 import { codeToName, DESC_FALLBACKS } from "../utils/serviceNames";
-import { getServiceNameHi, getCategoryNameHi, getServiceDescHi } from "../i18n/serviceNames";
+import { getServiceNameHi, getCategoryNameHi, getServiceDescHi, getEligibilityVerifiedHi, getEligibilityUnverifiedHi } from "../i18n/serviceNames";
 import FeedbackButton from "../components/FeedbackButton";
 import ReviewModal from "../components/ReviewModal";
 
@@ -524,7 +524,7 @@ export default function ServiceDetail() {
                 <ul className="evidence-list">
                   {eligibility.verifiedConditions.map((c, i) => (
                     <li key={c.conditionCode || i} className="evidence-item">
-                      <p>{extractEn(c.claim)}</p>
+                      <p>{lang === "hi" ? (getEligibilityVerifiedHi(c.conditionCode) || extractEn(c.claim)) : extractEn(c.claim)}</p>
                     </li>
                   ))}
                 </ul>
@@ -537,7 +537,7 @@ export default function ServiceDetail() {
                 <ul className="evidence-list">
                   {eligibility.unverifiedEligibility.map((item, i) => (
                     <li key={i} className="evidence-item evidence-item--unverified">
-                      <p>{extractEn(item)}</p>
+                      <p>{lang === "hi" ? (getEligibilityUnverifiedHi(record.serviceCode, i) || extractEn(item)) : extractEn(item)}</p>
                     </li>
                   ))}
                 </ul>
