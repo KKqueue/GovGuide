@@ -2290,9 +2290,9 @@ a.catalogue-card {
 }
 .subtask-item {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 10px;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
   border-radius: var(--radius-sm);
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -2336,6 +2336,46 @@ a.catalogue-card {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.subtask-item-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+.subtask-item-claim {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+  padding-left: 4px;
+}
+.subtask-nested-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.subtask-nested-btn:hover { background: var(--primary); color: #fff; }
+.subtask-nested-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.subtask-panel--nested {
+  margin-top: 8px;
+  border-width: 1px;
+  font-size: 0.9em;
+}
+.subtask-panel--nested .subtask-header { padding: 8px 10px; }
+.subtask-panel--nested .subtask-header-info h6 { margin: 0; font-size: 0.82rem; font-weight: 600; color: var(--text); }
+.subtask-panel--nested .subtask-progress { padding: 6px 10px; }
+.subtask-panel--nested .subtask-checklist { padding: 4px 10px 8px; }
+.subtask-panel--nested .subtask-item { padding: 4px 8px; }
 
 .subtask-complete-msg {
   display: flex;

@@ -39,8 +39,13 @@ const KEEP_UPPER = new Set([
   "GEM", "TAN", "HP", "PUC", "IGNOAPS", "ONORC",
 ]);
 
-function formatCode(code) {
-  return code.replace(/_/g, " ").replace(/\bREQ\b/i, "").replace(/\s+/g, " ").trim()
+function formatCode(code, stripPrefix) {
+  let cleaned = code;
+  if (stripPrefix) {
+    const prefixPattern = new RegExp("^" + stripPrefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "_REQ_", "i");
+    cleaned = cleaned.replace(prefixPattern, "");
+  }
+  return cleaned.replace(/_/g, " ").replace(/\bREQ\b/i, "").replace(/\s+/g, " ").trim()
     .split(" ")
     .map(word => {
       const upper = word.toUpperCase();
@@ -462,7 +467,7 @@ export default function ServiceDetail() {
                                   <option value="NOT_APPLICABLE">{tl("status_not_applicable")}</option>
                                 </select>
                                 <div className="checklist-item-info">
-                                  <span className="checklist-label">{formatCode(code)}</span>
+                                  <span className="checklist-label">{formatCode(code, record?.serviceCode)}</span>
                                   {req && <span className={`checklist-badge checklist-badge--${(req.kind || "").toLowerCase()}`}>{req.kind === "MANDATORY" ? tl("required") : tl("optional")}</span>}
                                 </div>
                                 <button
@@ -551,25 +556,84 @@ export default function ServiceDetail() {
                                         <div className="subtask-checklist">
                                           {child.checklistStates && Object.entries(child.checklistStates).map(([childCode, childState]) => {
                                             const childReq = childReqMap[childCode];
+                                            const childSubExpanded = expandedSubtasks.has(childCode);
                                             return (
                                               <div key={childCode} className={`subtask-item${childState && childState !== "NOT_REVIEWED" ? " subtask-item--" + childState.toLowerCase() : ""}`}>
-                                                <select
-                                                  value={childState || "NOT_REVIEWED"}
-                                                  onChange={(e) => handleSubtaskChecklistChange(code, child.taskId, childCode, e.target.value)}
-                                                  aria-label={`${tl("status_guide")} ${formatCode(childCode)}`}
-                                                >
-                                                  <option value="NOT_REVIEWED">{tl("status_not_reviewed")}</option>
-                                                  <option value="AVAILABLE">{tl("status_available")}</option>
-                                                  <option value="IN_PROGRESS">{tl("status_in_progress")}</option>
-                                                  <option value="COMPLETED">{tl("status_completed")}</option>
-                                                  <option value="MISSING">{tl("status_missing")}</option>
-                                                  <option value="UPDATE_REQUIRED">{tl("status_update_required")}</option>
-                                                  <option value="NOT_APPLICABLE">{tl("status_not_applicable")}</option>
-                                                </select>
-                                                <div className="subtask-item-info">
-                                                  <span className="subtask-label">{formatCode(childCode)}</span>
-                                                  {childReq && <span className={`checklist-badge checklist-badge--${(childReq.kind || "").toLowerCase()}`}>{childReq.kind === "MANDATORY" ? tl("required") : tl("optional")}</span>}
+                                                <div className="subtask-item-top">
+                                                  <select
+                                                    value={childState || "NOT_REVIEWED"}
+                                                    onChange={(e) => handleSubtaskChecklistChange(code, child.taskId, childCode, e.target.value)}
+                                                    aria-label={`${tl("status_guide")} ${formatCode(childCode, child.serviceCode)}`}
+                                                  >
+                                                    <option value="NOT_REVIEWED">{tl("status_not_reviewed")}</option>
+                                                    <option value="AVAILABLE">{tl("status_available")}</option>
+                                                    <option value="IN_PROGRESS">{tl("status_in_progress")}</option>
+                                                    <option value="COMPLETED">{tl("status_completed")}</option>
+                                                    <option value="MISSING">{tl("status_missing")}</option>
+                                                    <option value="UPDATE_REQUIRED">{tl("status_update_required")}</option>
+                                                    <option value="NOT_APPLICABLE">{tl("status_not_applicable")}</option>
+                                                  </select>
+                                                  <div className="subtask-item-info">
+                                                    <span className="subtask-label">{formatCode(childCode, child.serviceCode)}</span>
+                                                    {childReq && <span className={`checklist-badge checklist-badge--${(childReq.kind || "").toLowerCase()}`}>{childReq.kind === "MANDATORY" ? tl("required") : tl("optional")}</span>}
+                                                  </div>
                                                 </div>
+                                                {childReq?.claim && <p className="subtask-item-claim">{childReq.claim}</p>}
+                                                {(childState === "MISSING" || childState === "UPDATE_REQUIRED") && !childSubExpanded && (
+                                                  <button
+                                                    type="button"
+                                                    className="subtask-nested-btn"
+                                                    onClick={() => handleOpenSubtask(childCode)}
+                                                    disabled={subtaskLoading[childCode]}
+                                                  >
+                                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                                    {subtaskLoading[childCode] ? tl("subtask_loading") : tl("subtask_open")}
+                                                  </button>
+                                                )}
+                                                {subtaskErrors[childCode] && subtaskErrors[childCode] !== "no_prereq" && (
+                                                  <p className="subtask-error" style={{margin: "4px 0 0", fontSize: "0.75rem"}}>{tl("subtask_error")}</p>
+                                                )}
+                                                {childSubExpanded && subtasks[childCode] && (() => {
+                                                  const grandchild = subtasks[childCode];
+                                                  const grandSvc = subtaskServices[grandchild.serviceCode];
+                                                  return (
+                                                    <div className="subtask-panel subtask-panel--nested">
+                                                      <div className="subtask-header">
+                                                        <div className="subtask-header-info">
+                                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                                          <h6>{serviceName(grandSvc || { serviceCode: grandchild.serviceCode }, lang)}</h6>
+                                                        </div>
+                                                        <button type="button" className="subtask-collapse-btn" onClick={() => setExpandedSubtasks(prev => { const next = new Set(prev); next.delete(childCode); return next; })}>
+                                                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                                                        </button>
+                                                      </div>
+                                                      <div className="subtask-progress">
+                                                        <div className="subtask-progress-bar"><div className="subtask-progress-fill" style={{ width: `${grandchild.progressPercentage || 0}%` }} /></div>
+                                                        <span className="subtask-progress-text">{grandchild.completedItems || 0}/{grandchild.totalItems || 0}</span>
+                                                      </div>
+                                                      <div className="subtask-checklist">
+                                                        {grandchild.checklistStates && Object.entries(grandchild.checklistStates).map(([gcCode, gcState]) => (
+                                                          <div key={gcCode} className={`subtask-item${gcState && gcState !== "NOT_REVIEWED" ? " subtask-item--" + gcState.toLowerCase() : ""}`}>
+                                                            <div className="subtask-item-top">
+                                                              <select value={gcState || "NOT_REVIEWED"} onChange={(e) => handleSubtaskChecklistChange(childCode, grandchild.taskId, gcCode, e.target.value)}>
+                                                                <option value="NOT_REVIEWED">{tl("status_not_reviewed")}</option>
+                                                                <option value="AVAILABLE">{tl("status_available")}</option>
+                                                                <option value="IN_PROGRESS">{tl("status_in_progress")}</option>
+                                                                <option value="COMPLETED">{tl("status_completed")}</option>
+                                                                <option value="MISSING">{tl("status_missing")}</option>
+                                                                <option value="UPDATE_REQUIRED">{tl("status_update_required")}</option>
+                                                                <option value="NOT_APPLICABLE">{tl("status_not_applicable")}</option>
+                                                              </select>
+                                                              <div className="subtask-item-info">
+                                                                <span className="subtask-label">{formatCode(gcCode, grandchild.serviceCode)}</span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        ))}
+                                                      </div>
+                                                    </div>
+                                                  );
+                                                })()}
                                               </div>
                                             );
                                           })}
