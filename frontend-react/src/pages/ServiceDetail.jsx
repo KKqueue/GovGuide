@@ -507,23 +507,19 @@ export default function ServiceDetail() {
                                     <div className="subtask-actions">
                                       <button
                                         type="button"
-                                        className="button button-secondary subtask-open-btn"
+                                        className="subtask-link-btn"
                                         onClick={() => handleOpenSubtask(code)}
                                         disabled={subtaskLoading[code]}
                                       >
-                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
                                         {subtaskLoading[code] ? tl("subtask_loading") : tl("subtask_open")}
                                       </button>
-                                      <Link to={`/?search=${encodeURIComponent(formatCode(code))}`} className="checklist-find-link">
-                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                                        {tl("find_related")}
-                                      </Link>
+                                      {subtaskErrors[code] && (
+                                        <span className="subtask-error-inline">
+                                          {subtaskErrors[code] === "no_prereq" ? tl("subtask_no_prereq") : tl("subtask_error")}
+                                        </span>
+                                      )}
                                     </div>
-                                  )}
-                                  {subtaskErrors[code] && (
-                                    <p className="subtask-error">
-                                      {subtaskErrors[code] === "no_prereq" ? tl("subtask_no_prereq") : `${tl("subtask_error")}: ${subtaskErrors[code]}`}
-                                    </p>
                                   )}
                                   {expandedSubtasks.has(code) && subtasks[code] && (() => {
                                     const child = subtasks[code];
@@ -580,18 +576,20 @@ export default function ServiceDetail() {
                                                 </div>
                                                 {childReq?.claim && <p className="subtask-item-claim">{childReq.claim}</p>}
                                                 {(childState === "MISSING" || childState === "UPDATE_REQUIRED") && !childSubExpanded && (
-                                                  <button
-                                                    type="button"
-                                                    className="subtask-nested-btn"
-                                                    onClick={() => handleOpenSubtask(childCode)}
-                                                    disabled={subtaskLoading[childCode]}
-                                                  >
-                                                    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                                                    {subtaskLoading[childCode] ? tl("subtask_loading") : tl("subtask_open")}
-                                                  </button>
-                                                )}
-                                                {subtaskErrors[childCode] && subtaskErrors[childCode] !== "no_prereq" && (
-                                                  <p className="subtask-error" style={{margin: "4px 0 0", fontSize: "0.75rem"}}>{tl("subtask_error")}</p>
+                                                  <div className="subtask-actions subtask-actions--nested">
+                                                    <button
+                                                      type="button"
+                                                      className="subtask-link-btn subtask-link-btn--sm"
+                                                      onClick={() => handleOpenSubtask(childCode)}
+                                                      disabled={subtaskLoading[childCode]}
+                                                    >
+                                                      <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                                      {subtaskLoading[childCode] ? tl("subtask_loading") : tl("subtask_open")}
+                                                    </button>
+                                                    {subtaskErrors[childCode] && subtaskErrors[childCode] !== "no_prereq" && (
+                                                      <span className="subtask-error-inline">{tl("subtask_error")}</span>
+                                                    )}
+                                                  </div>
                                                 )}
                                                 {childSubExpanded && subtasks[childCode] && (() => {
                                                   const grandchild = subtasks[childCode];
