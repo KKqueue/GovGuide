@@ -119,7 +119,14 @@ export async function createChildTask(parentTaskId, checklistItemId, dependencyC
     },
     body: JSON.stringify(body),
   });
-  if (!res.ok) throw new Error(`Failed to create subtask: ${res.status}`);
+  if (!res.ok) {
+    let msg = `Failed to create subtask: ${res.status}`;
+    try {
+      const errJson = await res.json();
+      if (errJson.message) msg = errJson.message;
+    } catch {}
+    throw new Error(msg);
+  }
   const json = await res.json();
   return json.data || json;
 }
