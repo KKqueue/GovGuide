@@ -38,6 +38,9 @@ public class SecurityConfig {
     @Value("${app.cors.allowed-origins}")
     private String corsAllowedOrigins;
 
+    @Value("${app.csp.connect-src:self}")
+    private String cspConnectSrc;
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -85,8 +88,10 @@ public class SecurityConfig {
                                         .ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN))
                         .permissionsPolicy(pp -> pp.policy(
                                 "geolocation=(self), camera=(), microphone=()"));
+                    final String connectSources = (cspConnectSrc != null && !cspConnectSrc.isBlank() && !"self".equals(cspConnectSrc))
+                            ? "'self' " + cspConnectSrc : "'self'";
                     headers.contentSecurityPolicy(csp -> csp.policyDirectives(
-                                "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'"));
+                                "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src " + connectSources));
                 })
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(request -> !request.getRequestURI().startsWith("/api/")).permitAll()
