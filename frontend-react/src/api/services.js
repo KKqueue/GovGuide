@@ -108,6 +108,22 @@ export async function updateChecklistItem(taskId, requirementCode, state, authHe
   return json.data || json;
 }
 
+export async function createChildTask(parentTaskId, checklistItemId, dependencyCode, authHeader) {
+  const body = { checklistItemId };
+  if (dependencyCode) body.dependencyCode = dependencyCode;
+  const res = await fetch(`${API_BASE}/tasks/${parentTaskId}/children`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: authHeader,
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Failed to create subtask: ${res.status}`);
+  const json = await res.json();
+  return json.data || json;
+}
+
 export async function submitFeedback(serviceCode, type, message, authHeader) {
   const res = await fetch(`${API_BASE}/feedback`, {
     method: "POST",

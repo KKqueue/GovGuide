@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
-import { fetchService, createTask, fetchTask, fetchTaskApplication, updateChecklistItem, saveTaskId, getSavedTaskIds, checkReview } from "../api/services";
+import { fetchService, createTask, fetchTask, fetchTaskApplication, updateChecklistItem, createChildTask, saveTaskId, getSavedTaskIds, checkReview } from "../api/services";
 import { useAuth } from "../hooks/useAuth";
 import { useLanguage } from "../hooks/useLanguage";
 import { useToast } from "../components/Toast";
@@ -143,6 +143,11 @@ export default function ServiceDetail() {
   const [reviewDone, setReviewDone] = useState(false);
   const [expandedItems, setExpandedItems] = useState(new Set());
   const [showCompletion, setShowCompletion] = useState(false);
+  const [subtasks, setSubtasks] = useState({});
+  const [subtaskLoading, setSubtaskLoading] = useState({});
+  const [subtaskErrors, setSubtaskErrors] = useState({});
+  const [expandedSubtasks, setExpandedSubtasks] = useState(new Set());
+  const [subtaskServices, setSubtaskServices] = useState({});
 
   const loadService = useCallback(async () => {
     setLoading(true);
@@ -212,6 +217,53 @@ export default function ServiceDetail() {
             if (!r.reviewed) setShowReview(true);
             else setReviewDone(true);
           }).catch(() => {});
+        }
+      }
+    } catch {}
+  }
+
+  async function handleOpenSubtask(requirementCode) {
+    if (!task || !authHeader) return;
+    setSubtaskLoading(prev => ({ ...prev, [requirementCode]: true }));
+    setSubtaskErrors(prev => ({ ...prev, [requirementCode]: null }));
+    try {
+      const existingChildId = task.childTaskIds?.[requirementCode];
+      let childTask;
+      if (existingChildId) {
+        childTask = await fetchTask(existingChildId, authHeader);
+      }
+      if (!childTask) {
+        childTask = await createChildTask(task.taskId, requirementCode, null, authHeader);
+        setTask(prev => ({
+          ...prev,
+          childTaskIds: { ...prev.childTaskIds, [requirementCode]: childTask.taskId },
+        }));
+      }
+      setSubtasks(prev => ({ ...prev, [requirementCode]: childTask }));
+      setExpandedSubtasks(prev => { const next = new Set(prev); next.add(requirementCode); return next; });
+      if (!subtaskServices[childTask.serviceCode]) {
+        const svc = await fetchService(childTask.serviceCode);
+        setSubtaskServices(prev => ({ ...prev, [childTask.serviceCode]: svc }));
+      }
+    } catch (e) {
+      if (e.message.includes("No verified applicable prerequisite")) {
+        setSubtaskErrors(prev => ({ ...prev, [requirementCode]: "no_prereq" }));
+      } else {
+        setSubtaskErrors(prev => ({ ...prev, [requirementCode]: e.message }));
+      }
+    } finally {
+      setSubtaskLoading(prev => ({ ...prev, [requirementCode]: false }));
+    }
+  }
+
+  async function handleSubtaskChecklistChange(parentReqCode, childTaskId, childReqCode, state) {
+    try {
+      const updated = await updateChecklistItem(childTaskId, childReqCode, state, authHeader);
+      if (updated) {
+        setSubtasks(prev => ({ ...prev, [parentReqCode]: updated }));
+        if (updated.progressPercentage === 100) {
+          await handleChecklistChange(parentReqCode, "COMPLETED");
+          showToast(tl("subtask_complete"), "success");
         }
       }
     } catch {}
@@ -446,7 +498,92 @@ export default function ServiceDetail() {
                                       </div>
                                     );
                                   })()}
-                                  {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS" || !state || state === "NOT_REVIEWED") && (
+                                  {(state === "MISSING" || state === "UPDATE_REQUIRED" || state === "IN_PROGRESS") && !expandedSubtasks.has(code) && (
+                                    <div className="subtask-actions">
+                                      <button
+                                        type="button"
+                                        className="button button-secondary subtask-open-btn"
+                                        onClick={() => handleOpenSubtask(code)}
+                                        disabled={subtaskLoading[code]}
+                                      >
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                                        {subtaskLoading[code] ? tl("subtask_loading") : tl("subtask_open")}
+                                      </button>
+                                      <Link to={`/?search=${encodeURIComponent(formatCode(code))}`} className="checklist-find-link">
+                                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                        {tl("find_related")}
+                                      </Link>
+                                    </div>
+                                  )}
+                                  {subtaskErrors[code] && (
+                                    <p className="subtask-error">
+                                      {subtaskErrors[code] === "no_prereq" ? tl("subtask_no_prereq") : `${tl("subtask_error")}: ${subtaskErrors[code]}`}
+                                    </p>
+                                  )}
+                                  {expandedSubtasks.has(code) && subtasks[code] && (() => {
+                                    const child = subtasks[code];
+                                    const childSvc = subtaskServices[child.serviceCode];
+                                    const childReqs = childSvc?.requirements || [];
+                                    const childReqMap = {};
+                                    childReqs.forEach(r => { childReqMap[r.requirementCode] = r; });
+                                    return (
+                                      <div className="subtask-panel">
+                                        <div className="subtask-header">
+                                          <div className="subtask-header-info">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                                            <h5>{tl("subtask_for")} {serviceName(childSvc || { serviceCode: child.serviceCode }, lang)}</h5>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            className="subtask-collapse-btn"
+                                            onClick={() => setExpandedSubtasks(prev => { const next = new Set(prev); next.delete(code); return next; })}
+                                            aria-label={tl("subtask_collapse")}
+                                          >
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                                          </button>
+                                        </div>
+                                        <div className="subtask-progress">
+                                          <div className="subtask-progress-bar">
+                                            <div className="subtask-progress-fill" style={{ width: `${child.progressPercentage || 0}%` }} />
+                                          </div>
+                                          <span className="subtask-progress-text">{child.completedItems || 0}/{child.totalItems || 0}</span>
+                                        </div>
+                                        <div className="subtask-checklist">
+                                          {child.checklistStates && Object.entries(child.checklistStates).map(([childCode, childState]) => {
+                                            const childReq = childReqMap[childCode];
+                                            return (
+                                              <div key={childCode} className={`subtask-item${childState && childState !== "NOT_REVIEWED" ? " subtask-item--" + childState.toLowerCase() : ""}`}>
+                                                <select
+                                                  value={childState || "NOT_REVIEWED"}
+                                                  onChange={(e) => handleSubtaskChecklistChange(code, child.taskId, childCode, e.target.value)}
+                                                  aria-label={`${tl("status_guide")} ${formatCode(childCode)}`}
+                                                >
+                                                  <option value="NOT_REVIEWED">{tl("status_not_reviewed")}</option>
+                                                  <option value="AVAILABLE">{tl("status_available")}</option>
+                                                  <option value="IN_PROGRESS">{tl("status_in_progress")}</option>
+                                                  <option value="COMPLETED">{tl("status_completed")}</option>
+                                                  <option value="MISSING">{tl("status_missing")}</option>
+                                                  <option value="UPDATE_REQUIRED">{tl("status_update_required")}</option>
+                                                  <option value="NOT_APPLICABLE">{tl("status_not_applicable")}</option>
+                                                </select>
+                                                <div className="subtask-item-info">
+                                                  <span className="subtask-label">{formatCode(childCode)}</span>
+                                                  {childReq && <span className={`checklist-badge checklist-badge--${(childReq.kind || "").toLowerCase()}`}>{childReq.kind === "MANDATORY" ? tl("required") : tl("optional")}</span>}
+                                                </div>
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                        {child.progressPercentage === 100 && (
+                                          <div className="subtask-complete-msg">
+                                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                            {tl("subtask_complete")}
+                                          </div>
+                                        )}
+                                      </div>
+                                    );
+                                  })()}
+                                  {(state !== "MISSING" && state !== "UPDATE_REQUIRED" && state !== "IN_PROGRESS") && (!state || state === "NOT_REVIEWED") && (
                                     <Link to={`/?search=${encodeURIComponent(formatCode(code))}`} className="checklist-find-link">
                                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                                       {tl("find_related")}
