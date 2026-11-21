@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.regex.Pattern;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,12 @@ public class ChecklistTaskService {
         JsonNode requirement = findRequirement(parentService, request.checklistItemId());
         List<DependencyRef> candidates = applicableDependencies(parentService, requirement, parent.context);
         if (candidates.isEmpty()) {
-            throw new NoSuchElementException("No verified applicable prerequisite dependency for checklist item: " + request.checklistItemId());
+            DependencyRef inferred = inferServiceFromRequirement(request.checklistItemId(), parent.serviceCode);
+            if (inferred != null) {
+                candidates = List.of(inferred);
+            } else {
+                throw new NoSuchElementException("No verified applicable prerequisite dependency for checklist item: " + request.checklistItemId());
+            }
         }
         DependencyRef dependency = chooseDependency(candidates, request.dependencyCode());
         if (parent.depth + 1 > MAX_TASK_DEPTH) throw new IllegalArgumentException("Nested task depth exceeds maximum of " + MAX_TASK_DEPTH);
@@ -279,6 +285,111 @@ public class ChecklistTaskService {
         if (value.isBoolean()) return value.booleanValue();
         if (value.isNumber()) return value.decimalValue();
         return value.asText();
+    }
+
+    private static final Pattern REQ_PREFIX = Pattern.compile("^[A-Z0-9_]+?_REQ_");
+
+    private static final LinkedHashMap<String, String> INFERRED_SERVICE_MAP = new LinkedHashMap<>();
+    static {
+        INFERRED_SERVICE_MAP.put("AADHAAR_CARD", "AADHAAR_NEW_ENROLLMENT");
+        INFERRED_SERVICE_MAP.put("AADHAAR", "AADHAAR_NEW_ENROLLMENT");
+        INFERRED_SERVICE_MAP.put("PAN_CARD", "PAN_INSTANT_EPAN");
+        INFERRED_SERVICE_MAP.put("EPAN", "PAN_INSTANT_EPAN");
+        INFERRED_SERVICE_MAP.put("PAN", "PAN_INSTANT_EPAN");
+        INFERRED_SERVICE_MAP.put("BIRTH_CERTIFICATE", "BIRTH_CERTIFICATE_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("PROOF_OF_DOB", "BIRTH_CERTIFICATE_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("DATE_OF_BIRTH", "BIRTH_CERTIFICATE_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("DEATH_CERTIFICATE", "DEATH_CERTIFICATE_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("VOTER_ID", "VOTER_ID_NEW_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("RATION_CARD", "RATION_CARD_NEW_APPLICATION");
+        INFERRED_SERVICE_MAP.put("DRIVING_LICENSE", "DRIVING_LICENSE_FRESH");
+        INFERRED_SERVICE_MAP.put("INCOME_CERTIFICATE", "INCOME_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("INCOME_TAX", "INCOME_TAX_RETURN_FILING");
+        INFERRED_SERVICE_MAP.put("ITR", "INCOME_TAX_RETURN_FILING");
+        INFERRED_SERVICE_MAP.put("CASTE_CERTIFICATE", "CASTE_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("SC_ST_CERTIFICATE", "SC_ST_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("OBC_CERTIFICATE", "OBC_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("EWS_CERTIFICATE", "EWS_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("NON_CREAMY_LAYER", "NON_CREAMY_LAYER");
+        INFERRED_SERVICE_MAP.put("DOMICILE_CERTIFICATE", "DOMICILE_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("MARRIAGE_CERTIFICATE", "MARRIAGE_CERTIFICATE_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("PASSPORT", "PASSPORT_FRESH_ORDINARY");
+        INFERRED_SERVICE_MAP.put("GST_REGISTRATION", "GST_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("GST", "GST_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("FSSAI", "FSSAI_FOOD_LICENSE");
+        INFERRED_SERVICE_MAP.put("MSME", "MSME_UDYAM_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("UDYAM", "MSME_UDYAM_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("POLICE_VERIFICATION", "POLICE_CLEARANCE_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("POLICE_CLEARANCE", "POLICE_CLEARANCE_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("DISABILITY_CERTIFICATE", "DISABILITY_CERTIFICATE_UDID");
+        INFERRED_SERVICE_MAP.put("UDID", "DISABILITY_CERTIFICATE_UDID");
+        INFERRED_SERVICE_MAP.put("DIGILOCKER", "DIGILOCKER_ACCOUNT");
+        INFERRED_SERVICE_MAP.put("ABHA", "ABHA_HEALTH_ID");
+        INFERRED_SERVICE_MAP.put("HEALTH_ID", "ABHA_HEALTH_ID");
+        INFERRED_SERVICE_MAP.put("VEHICLE_REGISTRATION", "VEHICLE_REGISTRATION_NEW");
+        INFERRED_SERVICE_MAP.put("RC_TRANSFER", "RC_TRANSFER");
+        INFERRED_SERVICE_MAP.put("PUC_CERTIFICATE", "PUC_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("PUC", "PUC_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("PROPERTY_REGISTRATION", "LAND_REGISTRATION_PROPERTY_SALE");
+        INFERRED_SERVICE_MAP.put("ENCUMBRANCE", "ENCUMBRANCE_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("SHOP_ESTABLISHMENT", "SHOP_ESTABLISHMENT_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("TRADE_LICENSE", "TRADE_LICENSE");
+        INFERRED_SERVICE_MAP.put("FIRE_NOC", "FIRE_SAFETY_NOC");
+        INFERRED_SERVICE_MAP.put("FIRE_SAFETY", "FIRE_SAFETY_NOC");
+        INFERRED_SERVICE_MAP.put("EPF", "EPF_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("ESI", "ESI_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("TAN", "TAN_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("TRADEMARK", "TRADEMARK_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("DIGITAL_SIGNATURE", "DIGITAL_SIGNATURE");
+        INFERRED_SERVICE_MAP.put("DSC", "DIGITAL_SIGNATURE");
+        INFERRED_SERVICE_MAP.put("POWER_OF_ATTORNEY", "POWER_OF_ATTORNEY");
+        INFERRED_SERVICE_MAP.put("CHARACTER_CERTIFICATE", "CHARACTER_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("LEGAL_HEIR", "LEGAL_HEIR_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("SENIOR_CITIZEN", "SENIOR_CITIZEN_CARD");
+        INFERRED_SERVICE_MAP.put("NREGA", "NREGA_JOB_CARD");
+        INFERRED_SERVICE_MAP.put("E_SHRAM", "E_SHRAM_CARD");
+        INFERRED_SERVICE_MAP.put("PPF", "PPF_ACCOUNT");
+        INFERRED_SERVICE_MAP.put("NPS", "NPS_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("SOIL_HEALTH", "SOIL_HEALTH_CARD");
+        INFERRED_SERVICE_MAP.put("OCI", "OCI_CARD");
+        INFERRED_SERVICE_MAP.put("BUILDING_PLAN", "BUILDING_PLAN_APPROVAL");
+        INFERRED_SERVICE_MAP.put("OCCUPANCY_CERTIFICATE", "OCCUPANCY_CERTIFICATE");
+        INFERRED_SERVICE_MAP.put("ENVIRONMENT_CLEARANCE", "ENVIRONMENT_CLEARANCE");
+        INFERRED_SERVICE_MAP.put("RERA", "RERA_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("STAMP_DUTY", "STAMP_DUTY_PAYMENT");
+        INFERRED_SERVICE_MAP.put("IEC", "IEC_IMPORT_EXPORT_CODE");
+        INFERRED_SERVICE_MAP.put("IMPORT_EXPORT", "IEC_IMPORT_EXPORT_CODE");
+        INFERRED_SERVICE_MAP.put("LLP", "LLP_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("COMPANY_REGISTRATION", "COMPANY_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("STARTUP", "STARTUP_INDIA_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("FCRA", "FCRA_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("COPYRIGHT", "COPYRIGHT_REGISTRATION");
+        INFERRED_SERVICE_MAP.put("PATENT", "PATENT_FILING");
+        INFERRED_SERVICE_MAP.put("ARMS_LICENSE", "ARMS_LICENSE");
+        INFERRED_SERVICE_MAP.put("DRUG_LICENSE", "DRUG_LICENSE");
+        INFERRED_SERVICE_MAP.put("LABOUR_LICENSE", "LABOUR_LICENSE");
+        INFERRED_SERVICE_MAP.put("FACTORY_LICENSE", "FACTORY_LICENSE");
+        INFERRED_SERVICE_MAP.put("KISAN_CREDIT", "KISAN_CREDIT_CARD");
+        INFERRED_SERVICE_MAP.put("RTI", "RTI_APPLICATION");
+        INFERRED_SERVICE_MAP.put("PROFESSIONAL_TAX", "PROFESSIONAL_TAX");
+        INFERRED_SERVICE_MAP.put("JAN_DHAN", "JAN_DHAN_ACCOUNT");
+    }
+
+    private DependencyRef inferServiceFromRequirement(String requirementCode, String parentServiceCode) {
+        String core = REQ_PREFIX.matcher(requirementCode).replaceFirst("");
+        for (Map.Entry<String, String> entry : INFERRED_SERVICE_MAP.entrySet()) {
+            if (core.contains(entry.getKey())) {
+                String target = entry.getValue();
+                if (target.equals(parentServiceCode)) continue;
+                try {
+                    catalogueService.getService(target);
+                    return new DependencyRef("INFERRED_" + requirementCode, target, "INFERRED");
+                } catch (Exception e) {
+                    continue;
+                }
+            }
+        }
+        return null;
     }
 
     private record DependencyRef(String dependencyCode, String targetServiceCode, String kind) { }
